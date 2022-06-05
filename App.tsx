@@ -1,65 +1,67 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer, NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import RestaurantsScreen from './screens/Restaurants';
-import ExploreScreen from './screens/Explore';
-import ProfileScreen from './screens/Profile';
-import RestaurantScreen from './screens/Restaurant';
+import CoursesScreen from './screens/Courses';
+import AccueilScreen from './screens/Accueil';
+import TacheScreen from './screens/Tache';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ExploreIcon from './Icons/ExploreIcon';
 import React from 'react';
 import RestaurantsIcon from './Icons/RestaurantsIcon';
 import ProfileIcon from './Icons/ProfileIcon';
+import DepenseScreen from './screens/Depense';
+import CourseScreen from './screens/Course';
 
 export type RootStackParams = {
-  ExploreStack: undefined;
-  RestaurantsStack: NavigatorScreenParams<RestaurantsStackParams>;
+  AccueilStack: undefined;
+  CoursesStack: NavigatorScreenParams<CoursesStackParams>;
   Profile: undefined;
-  Restaurant: {
+  Course: {
     //id dans la vraie vie
     name: string;
   }
+  Depense: undefined;
 }
 
 
 const RootStack = createBottomTabNavigator<RootStackParams>();
 
-export type RestaurantsStackParams = {
-  Restaurants: undefined;
-  Restaurant: {
+export type CoursesStackParams = {
+  Courses: undefined;
+  Course: {
     //id dans la vraie vie
     name: string;
   };
 };
 
-const RestaurantsStack = createNativeStackNavigator<RestaurantsStackParams>();
+const CoursesStack = createNativeStackNavigator<CoursesStackParams>();
 
-const RestaurantScreenStack = () => {
+const CourseScreenStack = () => {
   return (
-  <RestaurantsStack.Navigator initialRouteName="Restaurants" screenOptions={{headerShown: false}}>
-    <RestaurantsStack.Screen name="Restaurants" component={RestaurantsScreen}/>
-    <RestaurantsStack.Screen name="Restaurant" component={RestaurantScreen}/>
-  </RestaurantsStack.Navigator>
+  <CoursesStack.Navigator initialRouteName="Courses" screenOptions={{headerShown: false}}>
+    <CoursesStack.Screen name="Courses" component={CoursesScreen}/>
+    <CoursesStack.Screen name="Course" component={CourseScreen}/>
+  </CoursesStack.Navigator>
   );
 };
 
 
-export type ExploreStackParams = {
-  Explore: undefined;
-  Restaurant: {
+export type AccueilStackParams = {
+  Accueil: undefined;
+  Course: {
     //id dans la vraie vie
     name: string;
   };
 };
 
 
-const ExploreStack = createNativeStackNavigator<ExploreStackParams>();
+const ExploreStack = createNativeStackNavigator<AccueilStackParams>();
 
-const ExploreScreenStack = () => {
+const AccueilScreenStack = () => {
   return (
-  <ExploreStack.Navigator initialRouteName="Explore" screenOptions={{headerShown: false}}>
-    <ExploreStack.Screen name="Explore" component={ExploreScreen}/>
-    <ExploreStack.Screen name="Restaurant" component={RestaurantScreen}/>
+  <ExploreStack.Navigator initialRouteName="Accueil" screenOptions={{headerShown: false}}>
+    <ExploreStack.Screen name="Accueil" component={AccueilScreen}/>
+    <ExploreStack.Screen name="Course" component={CoursesScreen}/>
   </ExploreStack.Navigator>
   );
 };
@@ -68,13 +70,14 @@ const ExploreScreenStack = () => {
 export default function App() {
   return (
     <NavigationContainer>
-    <RootStack.Navigator initialRouteName="ExploreStack" screenOptions={{
+    <RootStack.Navigator initialRouteName="AccueilStack" screenOptions={{
     headerShown: false,
     tabBarActiveTintColor: "#E67A15",
     tabBarInactiveTintColor: "gray",}}>
-      <RootStack.Screen name="ExploreStack" component={ExploreScreenStack} options={{tabBarIcon: (({color, size}) => <ExploreIcon color={color} size= {size}/>), tabBarLabel: "Explore"}} />
-      <RootStack.Screen name="RestaurantsStack" component={RestaurantScreenStack} options={{tabBarIcon: (({color, size}) => <RestaurantsIcon color={color} size= {size}/>), tabBarLabel: "Restaurant"}} />
-      <RootStack.Screen name="Profile" component={ProfileScreen} options={{tabBarIcon: (({color, size}) => <ProfileIcon color={color} size= {size}/>), tabBarLabel: "Profile"}} />
+      <RootStack.Screen name="AccueilStack" component={AccueilScreenStack} options={{tabBarIcon: (({color, size}) => <ExploreIcon color={color} size= {size}/>), tabBarLabel: "Accueil"}} />
+      <RootStack.Screen name="CoursesStack" component={CourseScreenStack} options={{tabBarIcon: (({color, size}) => <RestaurantsIcon color={color} size= {size}/>), tabBarLabel: "Course"}} />
+      <RootStack.Screen name="Profile" component={TacheScreen} options={{tabBarIcon: (({color, size}) => <ProfileIcon color={color} size= {size}/>), tabBarLabel: "Tache"}} />
+      <RootStack.Screen name="Depense" component={DepenseScreen} options={{tabBarIcon: (({color, size}) => <ProfileIcon color={color} size= {size}/>), tabBarLabel: "Depense"}} />
     </RootStack.Navigator>
     </NavigationContainer>
   );

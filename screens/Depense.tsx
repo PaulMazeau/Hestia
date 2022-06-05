@@ -5,15 +5,15 @@ import Menu from '../components/Menu';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 
-//type Props = NativeStackScreenProps<RootStackParams, 'ExploreStack'>;
 
-const ProfileScreen = () => {
+
+const DepenseScreen = () => {
   return (
   <View style={styles.container}>
-      <Text style={styles.screenTitle}>Profile</Text>
+      <Text style={styles.screenTitle}>Gestion des dépenses</Text>
 
-      <Text>Name; Jhon Doe</Text>
-      <TouchableOpacity><Text>Edit Profile</Text></TouchableOpacity>
+      <Text>Paul doit 16 euros</Text>
+      <TouchableOpacity><Text>Ajouter une dépense</Text></TouchableOpacity>
   </View>
   );
 };
@@ -30,4 +30,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default ProfileScreen;
+export default DepenseScreen;
