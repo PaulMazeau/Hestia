@@ -10,7 +10,7 @@ type Props = NativeStackScreenProps<RootStackParams, 'Course'>;
 const CourseScreen = ({ route, navigation }: Props) => {
   return (
     <View style={styles.container}>
-        <TopBackNavigation />
+        <TopBackNavigation/>
         <Text style={styles.screenTitle}>{route.params.name}</Text>
         <Text> Related restaurants</Text>
         <CourseCard name = "Liste de Course 1" onPress={() => {navigation.push("Course", { name: "Liste de Course 1"})} }/>

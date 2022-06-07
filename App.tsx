@@ -11,6 +11,7 @@ import RestaurantsIcon from './Icons/RestaurantsIcon';
 import ProfileIcon from './Icons/ProfileIcon';
 import DepenseScreen from './screens/Depense';
 import CourseScreen from './screens/Course';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export type RootStackParams = {
   AccueilStack: undefined;
@@ -69,6 +70,7 @@ const AccueilScreenStack = () => {
   
 export default function App() {
   return (
+    //<GestureHandlerRootView>
     <NavigationContainer>
     <RootStack.Navigator initialRouteName="AccueilStack" screenOptions={{
     headerShown: false,
@@ -76,10 +78,11 @@ export default function App() {
     tabBarInactiveTintColor: "gray",}}>
       <RootStack.Screen name="AccueilStack" component={AccueilScreenStack} options={{tabBarIcon: (({color, size}) => <ExploreIcon color={color} size= {size}/>), tabBarLabel: "Accueil"}} />
       <RootStack.Screen name="CoursesStack" component={CourseScreenStack} options={{tabBarIcon: (({color, size}) => <RestaurantsIcon color={color} size= {size}/>), tabBarLabel: "Course"}} />
-      <RootStack.Screen name="Profile" component={TacheScreen} options={{tabBarIcon: (({color, size}) => <ProfileIcon color={color} size= {size}/>), tabBarLabel: "Tache"}} />
-      <RootStack.Screen name="Depense" component={DepenseScreen} options={{tabBarIcon: (({color, size}) => <ProfileIcon color={color} size= {size}/>), tabBarLabel: "Depense"}} />
+      <RootStack.Screen name="Profile" component={TacheScreen} options={{tabBarIcon: (({color, size}) => <ProfileIcon color={color} size= {size}/>), tabBarLabel: "Tâche"}} />
+      <RootStack.Screen name="Depense" component={DepenseScreen} options={{tabBarIcon: (({color, size}) => <ProfileIcon color={color} size= {size}/>), tabBarLabel: "Dépense"}} />
     </RootStack.Navigator>
     </NavigationContainer>
+   //</GestureHandlerRootView>
   );
 };
 

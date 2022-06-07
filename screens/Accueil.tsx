@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import Menu from '../components/Menu';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import CourseCard from '../components/CourseCard';
 import { RootStackParams } from '../App';
@@ -12,7 +11,7 @@ const AccueilScreen = ({ navigation }: Props) => {
   return (
     <View style={styles.container}>
         <Text style={styles.screenTitle}>Accueil</Text>
-        <View>
+        
             <Text style={styles.sectionTitle}>Qui est présent à la coloc?</Text>
             <CourseCard name="Tom" onPress= {() =>{navigation.push("Course", { name: "Sushi"})}}/>
             <CourseCard name="Paul" onPress= {() =>{navigation.push("Course", { name: "Burger"})}}/>
@@ -22,7 +21,7 @@ const AccueilScreen = ({ navigation }: Props) => {
             <CourseCard name="Menage" onPress= {() =>{navigation.push("Course", { name: "Menage"})}}/>
             <CourseCard name="Prout" onPress= {() =>{navigation.push("Course", { name: "Prout "})}}/>
             <CourseCard name="Caca" onPress= {() =>{navigation.push("Course", { name: "Caca "})}}/>
-        </View>
+        
     </View>
   );
 };
