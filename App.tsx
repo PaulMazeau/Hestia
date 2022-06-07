@@ -12,6 +12,8 @@ import ProfileIcon from './Icons/ProfileIcon';
 import DepenseScreen from './screens/Depense';
 import CourseScreen from './screens/Course';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+
 
 export type RootStackParams = {
   AccueilStack: undefined;
@@ -60,35 +62,46 @@ const ExploreStack = createNativeStackNavigator<AccueilStackParams>();
 
 const AccueilScreenStack = () => {
   return (
-  <ExploreStack.Navigator initialRouteName="Accueil" screenOptions={{headerShown: false}}>
-    <ExploreStack.Screen name="Accueil" component={AccueilScreen}/>
-    <ExploreStack.Screen name="Course" component={CoursesScreen}/>
-  </ExploreStack.Navigator>
+      <View style={styles.body}>
+        <ExploreStack.Navigator initialRouteName="Accueil" screenOptions={{headerShown: false}}>
+          <ExploreStack.Screen name="Accueil" component={AccueilScreen}/>
+          <ExploreStack.Screen name="Course" component={CoursesScreen}/>
+        </ExploreStack.Navigator>
+      </View>
   );
 };
 
   
 export default function App() {
   return (
-    //<GestureHandlerRootView>
-    <NavigationContainer>
+    <GestureHandlerRootView style={styles.body}>
+      <BottomSheetModalProvider>
+      <View style={styles.body}>
+       <NavigationContainer>
     <RootStack.Navigator initialRouteName="AccueilStack" screenOptions={{
     headerShown: false,
     tabBarActiveTintColor: "#E67A15",
-    tabBarInactiveTintColor: "gray",}}>
+    tabBarInactiveTintColor: "gray",
+    }}>
       <RootStack.Screen name="AccueilStack" component={AccueilScreenStack} options={{tabBarIcon: (({color, size}) => <ExploreIcon color={color} size= {size}/>), tabBarLabel: "Accueil"}} />
       <RootStack.Screen name="CoursesStack" component={CourseScreenStack} options={{tabBarIcon: (({color, size}) => <RestaurantsIcon color={color} size= {size}/>), tabBarLabel: "Course"}} />
       <RootStack.Screen name="Profile" component={TacheScreen} options={{tabBarIcon: (({color, size}) => <ProfileIcon color={color} size= {size}/>), tabBarLabel: "Tâche"}} />
       <RootStack.Screen name="Depense" component={DepenseScreen} options={{tabBarIcon: (({color, size}) => <ProfileIcon color={color} size= {size}/>), tabBarLabel: "Dépense"}} />
     </RootStack.Navigator>
     </NavigationContainer>
-   //</GestureHandlerRootView>
+    </View>
+    </BottomSheetModalProvider>
+    </GestureHandlerRootView>
+  
+
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  body: {
     flex: 1,
+  },
+  container: {
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
