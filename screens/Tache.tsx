@@ -1,27 +1,30 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useCallback, useMemo, useRef } from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Button} from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import {View, Text, StyleSheet, TouchableOpacity, Button, TextInput} from 'react-native';
 import { RootStackParams } from '../App';
 import CourseCard from '../components/CourseCard';
 import BottomSheetModal, { BottomSheetBackdrop } from '@gorhom/bottom-sheet';
-import { RoundedCheckbox, PureRoundedCheckbox } from "react-native-rounded-checkbox";
+import TacheCard from '../components/TacheCard';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 
 type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
 
 
-
- const TacheScreen = ({navigation}: Props) => {
+ const TacheScreen = () => {
 
   const bottomSheetRef = useRef<BottomSheetModal>(null);
 
-  const snapPoints = useMemo(() => ['5%', '50%'], []);
+  const snapPoints = useMemo(() => ['25%', '90%'], []);
 
   const buttonPressed = () => {
     bottomSheetRef.current?.expand();
   }
+
+  const [text, onChangeText] = React.useState("Useless Text");
+  const [number, onChangeNumber] = React.useState(null);
+
 
   const renderBackDrop = useCallback((props) => {
     return (    <BottomSheetBackdrop
@@ -33,15 +36,15 @@ type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
   }, []);
 
   return (
+    <ScrollView>
   <View style={styles.container}>
       <Text style={styles.screenTitle}>Tâche à faire</Text>
       <Button title="Ajouter une tâche" onPress={buttonPressed} />
-      <RoundedCheckbox onPress={(checked) => console.log("Checked: ", checked)} />
-      <CourseCard name="Tache 1" onPress={name => navigation.navigate('Course', {name})}/>
-      <CourseCard name="Tache 2" onPress={name => navigation.navigate('Course', {name})}/>
-      <CourseCard name="Tache 3" onPress={name => navigation.navigate('Course', {name})}/>
-      <CourseCard name="Tache 4" onPress={name => navigation.navigate('Course', {name})}/>
-      <CourseCard name="Tache 5" onPress={name => navigation.navigate('Course', {name})}/>
+      <TacheCard />
+      <TacheCard />
+      <TacheCard />
+      <TacheCard />
+      <TacheCard />
 
      
   
@@ -55,16 +58,73 @@ type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
         backdropComponent={renderBackDrop}
       >
         <View style={styles.BottomSheet}>
-          <Text>Awesome 🎉</Text>
+          <Text style={styles.Titre}>Nouvelle Tâche Ménagère</Text>
+          <Text style={styles.SousTitre}>Titre</Text>
+          <TextInput
+        style={styles.input}
+        onChangeText={onChangeText}
+        value={text}
+      />
+      <Text style={styles.SousTitre}>Date</Text>
+      <TextInput
+        style={styles.input}
+        onChangeText={onChangeNumber}
+        value={number}
+        placeholder="useless placeholder"
+        keyboardType="numeric"
+      />
+      <Text style={styles.SousTitre}>Tags</Text>
+      <TextInput
+        style={styles.input}
+        onChangeText={onChangeNumber}
+        value={number}
+        placeholder="useless placeholder"
+        keyboardType="numeric"
+      />
+      <Text style={styles.SousTitre}>Notifications</Text>
+      <TextInput
+        style={styles.input}
+        onChangeText={onChangeNumber}
+        value={number}
+        placeholder="useless placeholder"
+        keyboardType="numeric"
+      />
+
+      
+      <Button
+      title="Ajouter la tâche" 
+      onPress={buttonPressed} 
+      />
+
         </View>
       </BottomSheetModal>
 
     </View>
-
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+
+    SousTitre: {
+      marginLeft: 15,
+      marginTop: 5,
+    },
+
+    Titre: {
+    textAlign: "center",
+    fontSize: 16,
+    marginBottom: 15,
+    },
+
+    input: {
+      height: 44,
+      margin: 12,
+      borderWidth: 1,
+      padding: 10,
+      borderRadius: 14,
+    },
+
     BottomSheet: {
         padding: 10,
     },
