@@ -6,11 +6,8 @@ import AppButton from './ConfirmButtonTache'
 
 const RestaurantCard  = () => {
   return (
-    <Drawer
-    rightItems={[{text: 'Read', background: Colors.blue30, onPress: () => console.log('read pressed')}]}
-    leftItem={{text: 'Delete', background: Colors.red30, onPress: () => console.log('delete pressed')}}
-    >
-    <TouchableOpacity>
+    
+    
       <View style={styles.container}>
         <View style={styles.top}>
           <Text style={styles.titre}>Ménage Salle de Bain</Text>
@@ -22,8 +19,8 @@ const RestaurantCard  = () => {
         <AppButton title="V"/>
         </View>
       </View>
-    </TouchableOpacity>
-    </Drawer>
+    
+
     
   );
 };

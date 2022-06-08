@@ -5,15 +5,15 @@ import CoursesScreen from './screens/Courses';
 import AccueilScreen from './screens/Accueil';
 import TacheScreen from './screens/Tache';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import ExploreIcon from './Icons/ExploreIcon';
 import React from 'react';
-import RestaurantsIcon from './Icons/RestaurantsIcon';
-import ProfileIcon from './Icons/ProfileIcon';
 import DepenseScreen from './screens/Depense';
 import CourseScreen from './screens/Course';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-
+import Accueil from './Icons/Accueil.svg';
+import Course from './Icons/Course.svg';
+import Depense from './Icons/Depense.svg';
+import Tache from './Icons/Tache.svg';
 
 export type RootStackParams = {
   AccueilStack: undefined;
@@ -80,13 +80,13 @@ export default function App() {
        <NavigationContainer>
     <RootStack.Navigator initialRouteName="AccueilStack" screenOptions={{
     headerShown: false,
-    tabBarActiveTintColor: "#E67A15",
+    tabBarActiveTintColor: "#172ACE",
     tabBarInactiveTintColor: "gray",
     }}>
-      <RootStack.Screen name="AccueilStack" component={AccueilScreenStack} options={{tabBarIcon: (({color, size}) => <ExploreIcon color={color} size= {size}/>), tabBarLabel: "Accueil"}} />
-      <RootStack.Screen name="CoursesStack" component={CourseScreenStack} options={{tabBarIcon: (({color, size}) => <RestaurantsIcon color={color} size= {size}/>), tabBarLabel: "Course"}} />
-      <RootStack.Screen name="Profile" component={TacheScreen} options={{tabBarIcon: (({color, size}) => <ProfileIcon color={color} size= {size}/>), tabBarLabel: "Tâche"}} />
-      <RootStack.Screen name="Depense" component={DepenseScreen} options={{tabBarIcon: (({color, size}) => <ProfileIcon color={color} size= {size}/>), tabBarLabel: "Dépense"}} />
+      <RootStack.Screen name="AccueilStack" component={AccueilScreenStack} options={{tabBarIcon: (({color, size}) => <Accueil color={color} />), tabBarLabel: "Accueil"}} />
+      <RootStack.Screen name="CoursesStack" component={CourseScreenStack} options={{tabBarIcon: (({color, size}) => <Course color={color} />), tabBarLabel: "Course"}} />
+      <RootStack.Screen name="Profile" component={TacheScreen} options={{tabBarIcon: (({color, size}) => <Tache color={color} />), tabBarLabel: "Tâche"}} />
+      <RootStack.Screen name="Depense" component={DepenseScreen} options={{tabBarIcon: (({color, size}) => <Depense color={color} />), tabBarLabel: "Dépense"}} />
     </RootStack.Navigator>
     </NavigationContainer>
     </View>
@@ -106,9 +106,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  content: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 150,
-  }
 });

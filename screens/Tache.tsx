@@ -6,6 +6,8 @@ import CourseCard from '../components/CourseCard';
 import BottomSheetModal, { BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 import TacheCard from '../components/TacheCard';
 import { ScrollView } from 'react-native-gesture-handler';
+import Top from '../components/Header';
+import AddButton from '../Icons/AddButton.svg'
 
 
 
@@ -36,24 +38,26 @@ type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
   }, []);
 
   return (
+    
     <ScrollView>
-  <View style={styles.container}>
-      <Text style={styles.screenTitle}>Tâche à faire</Text>
-      <Button title="Ajouter une tâche" onPress={buttonPressed} />
+      
+      <View style={styles.container}>
+        
+          <Top/>
+          <View style={styles.Header}>
+            <Text style={styles.screenTitle}>Tâche à faire</Text>
+            <AddButton width={60} height={60} onPress={buttonPressed}/>
+          </View>
+       
       <TacheCard />
       <TacheCard />
       <TacheCard />
       <TacheCard />
       <TacheCard />
-
-     
-  
-
-     
 
       <BottomSheetModal
         ref={bottomSheetRef}
-        index={1}
+        index={-1}
         snapPoints={snapPoints}
         backdropComponent={renderBackDrop}
       >
@@ -132,13 +136,20 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 16,
-        marginTop: 24,
     },
     screenTitle: {
         fontSize: 24,
-        marginTop: 8,
         fontWeight: 'bold',
-    }
+    }, 
+    Header: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginLeft: 10,
+      marginRight: 10,
+      marginBottom: 15
+    },
 })
 
 export default TacheScreen;
