@@ -5,7 +5,10 @@ import { ScrollView } from 'react-native-gesture-handler';
 import CourseCard from '../components/CourseCard';
 import { RootStackParams } from '../App';
 import Top from '../components/Header';
+<<<<<<< HEAD
 import { SafeAreaView } from 'react-native-safe-area-context';
+=======
+>>>>>>> 741894c1e40583411bbf1fb65b55dfa41221b969
 
 
 type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;

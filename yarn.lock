@@ -4213,11 +4213,6 @@
   "resolved" "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   "version" "1.0.0"
 
-"fsevents@^2.3.2":
-  "integrity" "sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA=="
-  "resolved" "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz"
-  "version" "2.3.2"
-
 "function-bind@^1.1.1":
   "integrity" "sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A=="
   "resolved" "https://registry.npmjs.org/function-bind/-/function-bind-1.1.1.tgz"
@@ -7126,10 +7121,10 @@
   "resolved" "https://registry.npmjs.org/react-native-text-size/-/react-native-text-size-4.0.0-rc.1.tgz"
   "version" "4.0.0-rc.1"
 
-"react-native-ui-lib@^6.16.1":
-  "integrity" "sha512-CitBu9JbYT/j+acdRRY+t8uoojhGBRH/VWtMgtGBOtIy9LZGLL9NP5Ehh8juyj9MDMx8J+kTKs3PPx9tGiNpaA=="
-  "resolved" "https://registry.npmjs.org/react-native-ui-lib/-/react-native-ui-lib-6.16.1.tgz"
-  "version" "6.16.1"
+"react-native-ui-lib@^6.17.1":
+  "integrity" "sha512-yzVdgSo0gGZNH3qdRz0p1WxPSHilWhtlm2/BQg4jD5mE/u/aNY6xDhj3js3Mr3z0Jwra9fmZcxINzJhopBGGUw=="
+  "resolved" "https://registry.npmjs.org/react-native-ui-lib/-/react-native-ui-lib-6.17.1.tgz"
+  "version" "6.17.1"
   dependencies:
     "babel-plugin-transform-inline-environment-variables" "^0.0.2"
     "color" "^3.1.0"

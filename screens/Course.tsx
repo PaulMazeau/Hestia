@@ -2,21 +2,26 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import { RootStackParams } from '../App';
-import CourseCard from '../components/CourseCard';
+import FoodCategory from '../components/FoodCategory';
 import TopBackNavigation from '../components/TopBackNavigation';
+import Top from '../components/Header';
 
 type Props = NativeStackScreenProps<RootStackParams, 'Course'>;
 
 const CourseScreen = ({ route, navigation }: Props) => {
   return (
+    
     <View style={styles.container}>
+      <Top/>
+      <View style = {{flexDirection : 'row', paddingTop : 10,}}>
         <TopBackNavigation/>
         <Text style={styles.screenTitle}>{route.params.name}</Text>
-        <Text> Related restaurants</Text>
-        <CourseCard name = "Liste de Course 1" onPress={() => {navigation.push("Course", { name: "Liste de Course 1"})} }/>
-        <CourseCard name = "Liste de Course 2"onPress={() => {navigation.push("Course", { name: "Liste de Course 2"})} }/>
-        <CourseCard name = "Liste de Course 3"onPress={() => {navigation.push("Course", { name: "Liste de Course 3"})} }/>
-        <CourseCard name = "Liste de Course 4"onPress={() => {navigation.push("Course", { name: "Liste de Course 4"})} }/>
+      </View>
+      <View style={styles.Foodcontainer}>
+        <FoodCategory name = "Fruits"></FoodCategory>
+        <FoodCategory name = "Boissons"></FoodCategory>
+      </View>
+        
     </View>
   );
 };
@@ -28,8 +33,16 @@ const styles = StyleSheet.create({
   },
   screenTitle: {
     fontSize: 24,
-    marginTop: 8,
     fontWeight: 'bold',
+  },
+  Foodcontainer: {
+    paddingTop : 10,
+    paddingBottom : 20,
+    backgroundColor: 'white',
+    height : "auto",
+    width : "100%",
+    marginTop: 8,
+    borderRadius : 10,
   },
 });
 
