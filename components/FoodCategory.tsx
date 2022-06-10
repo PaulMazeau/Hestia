@@ -16,11 +16,11 @@ const FoodCategory: React.FC<FoodCategoryProps> = ({name}) => {
           <Text style={styles.titre}>{name}</Text>
           <View style = {styles.separator}></View>
           <View style = {styles.Ligne}>
-            <RadioButton size={20}/>
+            <RadioButton size={20} selected={true}/>
             <Text style = {{paddingLeft : 5}}>6 Tomates</Text>
           </View>
           <View style = {styles.Ligne}>
-            <RadioButton size={20}/>
+            <RadioButton size={20} />
             <Text style = {{paddingLeft : 5}}>4 Patates</Text>
           </View>
           <View style = {styles.Ligne}>
