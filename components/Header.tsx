@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Settings from '../Icons/Settings.svg';
 
@@ -10,6 +11,7 @@ const ProfilImage=require('../Img/avatarHeader.png');
 
 const Top = () => {
     return (
+    
     <SafeAreaView>
     <View style={styles.Header}>
     <ImageContainer image={ProfilImage} />
@@ -41,7 +43,10 @@ const HeaderTitle = () => (
 const styles = StyleSheet.create ({
     Header: {
         flexDirection: 'row',
-        alignItems: 'flex-end'
+        alignItems: 'flex-end',
+        paddingTop: 16,
+        paddingLeft: 16,
+        paddingRight: 16,
     },
     Title: {
         paddingHorizontal: 10,

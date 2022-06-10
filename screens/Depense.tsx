@@ -2,6 +2,7 @@ import React, { useCallback, useMemo, useRef } from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Button, TextInput} from 'react-native';
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import TacheCard from '../components/TacheCard';
+import Top from '../components/Header';
 
 
 
@@ -30,65 +31,68 @@ const DepenseScreen = () => {
   }, []);
 
   return (
-  <View style={styles.container}>
-      <Text style={styles.screenTitle}>Gestion des dépenses</Text>
-      <Button title="Ajouter une tâche" onPress={buttonPressed} />
+  <View>
+        <Top/>
+      <View style={styles.container}>
+        
+          <Text style={styles.screenTitle}>Gestion des dépenses</Text>
+          <Button title="Ajouter une tâche" onPress={buttonPressed} />
 
-      <TacheCard/>
+          <TacheCard/>
 
 
-      <BottomSheetModal
-        ref={bottomSheetRef}
-        index={1}
-        snapPoints={snapPoints}
-        backdropComponent={renderBackDrop}
-      >
-        <View style={styles.BottomSheet}>
-          <Text style={styles.Titre}>Nouvelle Tâche Ménagère</Text>
-          <Text style={styles.SousTitre}>Titre</Text>
-          <TextInput
-        style={styles.input}
-        onChangeText={onChangeText}
-        value={text}
-      />
-      <Text style={styles.SousTitre}>Date</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={onChangeNumber}
-        value={number}
-        placeholder="useless placeholder"
-        keyboardType="numeric"
-      />
-      <Text style={styles.SousTitre}>Tags</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={onChangeNumber}
-        value={number}
-        placeholder="useless placeholder"
-        keyboardType="numeric"
-      />
-      <Text style={styles.SousTitre}>Notifications</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={onChangeNumber}
-        value={number}
-        placeholder="useless placeholder"
-        keyboardType="numeric"
-      />
+          <BottomSheetModal
+            ref={bottomSheetRef}
+            index={1}
+            snapPoints={snapPoints}
+            backdropComponent={renderBackDrop}
+          >
+            <View style={styles.BottomSheet}>
+                  <Text style={styles.Titre}>Nouvelle Tâche Ménagère</Text>
+                  <Text style={styles.SousTitre}>Titre</Text>
+                  <TextInput
+                style={styles.input}
+                onChangeText={onChangeText}
+                value={text}
+              />
+              <Text style={styles.SousTitre}>Date</Text>
+              <TextInput
+                style={styles.input}
+                onChangeText={onChangeNumber}
+                value={number}
+                placeholder="useless placeholder"
+                keyboardType="numeric"
+              />
+              <Text style={styles.SousTitre}>Tags</Text>
+              <TextInput
+                style={styles.input}
+                onChangeText={onChangeNumber}
+                value={number}
+                placeholder="useless placeholder"
+                keyboardType="numeric"
+              />
+              <Text style={styles.SousTitre}>Notifications</Text>
+              <TextInput
+                style={styles.input}
+                onChangeText={onChangeNumber}
+                value={number}
+                placeholder="useless placeholder"
+                keyboardType="numeric"
+              />
 
-      
-      <Button
-      title="Ajouter la tâche" 
-      onPress={buttonPressed} 
-      />
+              
+              <Button
+              title="Ajouter la tâche" 
+              onPress={buttonPressed} 
+              />
+
+            </View>
+          </BottomSheetModal>
 
         </View>
-      </BottomSheetModal>
+
 
     </View>
-
-
-
 
 
 

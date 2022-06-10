@@ -1,51 +1,91 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Dimensions, Image} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import CourseCard from '../components/CourseCard';
 import { RootStackParams } from '../App';
+import Top from '../components/Header';
+import { ScrollView } from 'react-native-gesture-handler';
+import AddButton from '../Icons/AddButton.svg'
+import TacheCard from '../components/TacheCard';
+
+
+//importer l'image de maison
+const ProfilImage=require('../Img/Home.png');
 
 
 type Props = NativeStackScreenProps<RootStackParams, 'AccueilStack'>;
 
 const AccueilScreen = ({ navigation }: Props) => {
   return (
-    <View style={styles.container}>
-        <Text style={styles.screenTitle}>Accueil</Text>
+    <View style={styles.body}>
         
-            <Text style={styles.sectionTitle}>Qui est présent à la coloc?</Text>
-            <CourseCard name="Tom" onPress= {() =>{navigation.push("Course", { name: "Sushi"})}}/>
-            <CourseCard name="Paul" onPress= {() =>{navigation.push("Course", { name: "Burger"})}}/>
-            <CourseCard name="Toto" onPress= {() =>{navigation.push("Course", { name: "Tacos "})}}/>
+        <View style={styles.first50}>
+           
+            < Top/>
+            <ImageContainer image={ProfilImage} />
+        </View>
+            
+        <View style={styles.container}>
 
-            <Text style={styles.sectionTitle}>Derniere Tâche à faire</Text>
-            <CourseCard name="Menage" onPress= {() =>{navigation.push("Course", { name: "Menage"})}}/>
-            <CourseCard name="Prout" onPress= {() =>{navigation.push("Course", { name: "Prout "})}}/>
-            <CourseCard name="Caca" onPress= {() =>{navigation.push("Course", { name: "Caca "})}}/>
-        
+                <View style= {styles.Header}>
+                    <Text style={styles.screenTitle}>Tâche à faire</Text>
+                    <AddButton width={60} height={60}/>
+                </View>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <TacheCard/>
+                <TacheCard/>
+            </ScrollView>
+        </View>
     </View>
   );
 };
 
+//importer l'image de maison
+const ImageContainer = ({image}) => (
+    <View style={styles.ImageContainer}>
+        <Image source={image} style={styles.Image}/>
+    </View>
+);
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 16,
-        marginTop: 24,
     },
     CourseCard: {
         backgroundColor: '#efefef',
     }, 
-    sectionTitle: {
-        fontSize: 16,
-        marginTop: 16,
-    },
     screenTitle: {
         fontSize: 24,
-        marginTop: 8,
         fontWeight: 'bold',
-    }
+    },
+    first50:{
+        backgroundColor: '#172ACE',
+        flex: 1.5,
+        borderBottomLeftRadius: 70,
+    },
+    body:{
+        flex: 1,
+    },
+    Header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginLeft: 10,
+        marginRight: 10,
+      },
+      
+    ImageContainer: {
+        height: 271,
+        width: 368,
+        overflow: 'hidden',
+        borderRadius: 90,
+    },
+    Image: {
+        height: '100%',
+        width: '100%',
+    },
 })
+
 
 
 

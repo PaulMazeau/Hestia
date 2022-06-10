@@ -2,17 +2,16 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useCallback, useMemo, useRef } from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Button, TextInput} from 'react-native';
 import { RootStackParams } from '../App';
-import CourseCard from '../components/CourseCard';
 import BottomSheetModal, { BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 import TacheCard from '../components/TacheCard';
 import { ScrollView } from 'react-native-gesture-handler';
 import Top from '../components/Header';
 import AddButton from '../Icons/AddButton.svg'
+import { SegmentedControl, Colors, Assets, Spacings, BorderRadiuses } from 'react-native-ui-lib';
 
 
 
 type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
-
 
  const TacheScreen = () => {
 
@@ -38,23 +37,40 @@ type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
   }, []);
 
   return (
-    
-    <ScrollView>
-      
-      <View style={styles.container}>
+    <View>
         
-          <Top/>
+
+      <Top/>
+      <View style={styles.container}>
           <View style={styles.Header}>
             <Text style={styles.screenTitle}>Tâche à faire</Text>
             <AddButton width={60} height={60} onPress={buttonPressed}/>
           </View>
-       
-      <TacheCard />
-      <TacheCard />
-      <TacheCard />
-      <TacheCard />
-      <TacheCard />
 
+          
+        <SegmentedControl 
+        containerStyle={styles.control}
+        segments={[{label: 'Tâches générales'}, {label: 'Mes tâches'}]}
+        activeColor='black'
+        borderRadius={BorderRadiuses.br20}
+        backgroundColor='white'
+        activeBackgroundColor='rgba(23,42,206,0.27)'
+        inactiveColor='black'
+        outlineColor= 'rgba(23,42,206,0)'
+        />
+        
+        <ScrollView showsVerticalScrollIndicator={false}>
+    
+          <TacheCard />
+          <TacheCard />
+          <TacheCard />
+          <TacheCard />
+          <TacheCard />
+        
+          
+
+        </ScrollView>
+      
       <BottomSheetModal
         ref={bottomSheetRef}
         index={-1}
@@ -102,9 +118,9 @@ type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
 
         </View>
       </BottomSheetModal>
-
-    </View>
-    </ScrollView>
+      </View>
+      
+      </View>
   );
 };
 
@@ -134,7 +150,6 @@ const styles = StyleSheet.create({
     },
 
     container: {
-        flex: 1,
         padding: 16,
     },
     screenTitle: {
@@ -142,13 +157,16 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     }, 
     Header: {
-      flex: 1,
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
       marginLeft: 10,
       marginRight: 10,
       marginBottom: 15
+    },
+
+    control: {
+      marginBottom: 15,
     },
 })
 
