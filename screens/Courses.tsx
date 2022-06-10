@@ -4,6 +4,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { ScrollView } from 'react-native-gesture-handler';
 import CourseCard from '../components/CourseCard';
 import { RootStackParams } from '../App';
+import Top from '../components/Header';
 
 
 type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
