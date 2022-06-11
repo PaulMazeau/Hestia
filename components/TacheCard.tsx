@@ -5,7 +5,7 @@ import Horloge from '../Icons/Horloge.svg';
 
 
 
-const RestaurantCard  = () => {
+const TacheCard  = () => {
   return (
     <View style={styles.global}>
       <Drawer 
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
 
   dateContainer: {
     flexDirection: 'row',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
   },
 
   date: {
@@ -75,4 +75,4 @@ const styles = StyleSheet.create({
   
 });
 
-export default RestaurantCard;
+export default TacheCard;

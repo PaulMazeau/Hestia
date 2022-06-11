@@ -1,40 +1,21 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useCallback, useMemo, useRef } from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Button, TextInput} from 'react-native';
-import { RootStackParams } from '../App';
-import BottomSheetModal, { BottomSheetBackdrop } from '@gorhom/bottom-sheet';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import TacheCard from '../components/TacheCard';
 import { ScrollView } from 'react-native-gesture-handler';
-import Top from '../components/Header';
+import Top from '../components/HeaderDark';
 import AddButton from '../Icons/AddButton.svg'
 import { SegmentedControl, Colors, Assets, Spacings, BorderRadiuses } from 'react-native-ui-lib';
+import BottomsheetTask from '../components/BottomSheetTask';
 
 
-
-type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
 
  const TacheScreen = () => {
 
-  const bottomSheetRef = useRef<BottomSheetModal>(null);
-
-  const snapPoints = useMemo(() => ['25%', '90%'], []);
-
-  const buttonPressed = () => {
-    bottomSheetRef.current?.expand();
-  }
-
-  const [text, onChangeText] = React.useState("Useless Text");
-  const [number, onChangeNumber] = React.useState(null);
-
-
-  const renderBackDrop = useCallback((props) => {
-    return (    <BottomSheetBackdrop
-      {...props}
-      disappearsOnIndex={-1}
-      appearsOnIndex={0}
-     />
-     );
-  }, []);
+  const addTask = () => {
+    //bottomSheetRef.current?.extend();
+    console.log('prout')
+  };
 
   return (
     <View>
@@ -44,7 +25,6 @@ type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
       <View style={styles.container}>
           <View style={styles.Header}>
             <Text style={styles.screenTitle}>Tâche à faire</Text>
-            <AddButton width={60} height={60} onPress={buttonPressed}/>
           </View>
 
           
@@ -61,9 +41,14 @@ type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
         
         <ScrollView showsVerticalScrollIndicator={false}>
     
+      <Text style={styles.CategorieRecurrente}>Récurrente</Text>
+
           <TacheCard />
           <TacheCard />
           <TacheCard />
+
+      <Text style={styles.CategoriePeriode}>Cette semaine</Text>
+
           <TacheCard />
           <TacheCard />
         
@@ -71,53 +56,9 @@ type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
 
         </ScrollView>
       
-      <BottomSheetModal
-        ref={bottomSheetRef}
-        index={-1}
-        snapPoints={snapPoints}
-        backdropComponent={renderBackDrop}
-      >
-        <View style={styles.BottomSheet}>
-          <Text style={styles.Titre}>Nouvelle Tâche Ménagère</Text>
-          <Text style={styles.SousTitre}>Titre</Text>
-          <TextInput
-        style={styles.input}
-        onChangeText={onChangeText}
-        value={text}
-      />
-      <Text style={styles.SousTitre}>Date</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={onChangeNumber}
-        value={number}
-        placeholder="useless placeholder"
-        keyboardType="numeric"
-      />
-      <Text style={styles.SousTitre}>Tags</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={onChangeNumber}
-        value={number}
-        placeholder="useless placeholder"
-        keyboardType="numeric"
-      />
-      <Text style={styles.SousTitre}>Notifications</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={onChangeNumber}
-        value={number}
-        placeholder="useless placeholder"
-        keyboardType="numeric"
-      />
-
-      
-      <Button
-      title="Ajouter la tâche" 
-      onPress={buttonPressed} 
-      />
-
-        </View>
-      </BottomSheetModal>
+    <TouchableOpacity style={styles.AddButton} onPress= {addTask}>
+        <AddButton width={70} height={70} style={styles.AddButton}/>
+    </TouchableOpacity>
       </View>
       
       </View>
@@ -150,7 +91,9 @@ const styles = StyleSheet.create({
     },
 
     container: {
-        padding: 16,
+      paddingBottom: 16,
+      paddingLeft: 16,
+      paddingRight: 16,
     },
     screenTitle: {
         fontSize: 24,
@@ -160,14 +103,29 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginLeft: 10,
-      marginRight: 10,
-      marginBottom: 15
+      marginBottom: 15,
     },
 
     control: {
       marginBottom: 15,
     },
+
+    CategoriePeriode:{
+      fontSize: 19,
+      fontWeight: 'bold',
+      marginTop: 24,
+    },
+
+    CategorieRecurrente:{
+      fontSize: 19,
+      fontWeight: 'bold',
+    },
+    AddButton: {
+      position: 'absolute',
+      top: '95%',
+      left: '86%',
+    }
+
 })
 
 export default TacheScreen;
