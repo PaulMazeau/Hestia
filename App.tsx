@@ -46,7 +46,7 @@ const CoursesStack = createNativeStackNavigator<CoursesStackParams>();
 //initialisation des root pour la sous navigation dans la page Course
 const CourseScreenStack = () => {
   return (
-  <CoursesStack.Navigator initialRouteName="Courses" screenOptions={{headerShown: false, gestureEnabled: true}}>
+  <CoursesStack.Navigator initialRouteName="Courses" screenOptions={{headerShown: false}}>
     <CoursesStack.Screen name="Courses" component={CoursesScreen}/>
     <CoursesStack.Screen name="Course" component={CourseScreen}/>
   </CoursesStack.Navigator>
