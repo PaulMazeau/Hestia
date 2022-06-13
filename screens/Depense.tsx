@@ -37,6 +37,7 @@ const DepenseScreen = () => {
         inactiveColor='black'
         outlineColor= 'white'
         outlineWidth= {2}
+        throttleTime= {100}
         />
     
           {show ? <DepenseGlobal/> : <DepensePerso/>}

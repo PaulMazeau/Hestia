@@ -6,60 +6,29 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Top from '../components/HeaderDark';
 
 import { SegmentedControl, Colors, Assets, Spacings, BorderRadiuses } from 'react-native-ui-lib';
-import GlobalTask from '../components/GlobalTask';
-import MesTask from '../components/MesTask';
 
 
 
- const TacheScreen = () => {
-
-  const [show, setShow] = React.useState(true);
-
-  const onChangeIndex = useCallback((index: number) => {
-    setShow((r) => !r)
-  }, []);
+ const GlobalTask = () => {
 
 
   return (
-    <View>
-        
-
-      <Top/>
-      <View style={styles.container}>
-   
-       
-          <View style={styles.Header}>
-            <Text style={styles.screenTitle}>Tâche à faire</Text>
-          </View>
-
-          
-        <SegmentedControl 
-        containerStyle={styles.control}
-        segments={[{label: 'Tâches générales'}, {label: 'Mes tâches'}]}
-        onChangeIndex={onChangeIndex}
-        initialIndex={0}
-        activeColor='black'
-        borderRadius={BorderRadiuses.br20}
-        backgroundColor='white'
-        activeBackgroundColor='rgba(23,42,206,0.27)'
-        inactiveColor='black'
-        outlineColor= 'white'
-        outlineWidth= {2}
-        throttleTime= {100}
-        />
-        
+    
         <ScrollView showsVerticalScrollIndicator={false}>
     
-        {show ? <GlobalTask/> : <MesTask/>}
+      <Text style={styles.CategorieRecurrente}>Récurrente</Text>
+
+          <TacheCard Tache="Ménage Salle de bain" id={1}/>
+          <TacheCard Tache="Ménage Cuisine"id={2}/>
+          <TacheCard Tache="Ménage Salon"id={3}/>
+
+      <Text style={styles.CategoriePeriode}>Cette semaine</Text>
+
+          <TacheCard Tache="Nettoyer Terasse" id={4}/>
+          <TacheCard Tache="Course" id={5}/>
       
           
         </ScrollView>
-      
-    
-      </View>
-
-
-      </View>
   );
 };
 
@@ -122,4 +91,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default TacheScreen;
+export default GlobalTask;
