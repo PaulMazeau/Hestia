@@ -1,6 +1,7 @@
 import { setStatusBarBackgroundColor } from 'expo-status-bar';
 import React, { useState } from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 import { Colors, Drawer, RadioButton } from 'react-native-ui-lib';
 import Food from './Food';
 
@@ -14,16 +15,18 @@ interface FoodCategoryProps {
 
 
 
+
 const FoodCategory: React.FC<FoodCategoryProps> = ({name}) => {
   const [radiobutton, setstate] = useState(false);
     return (      
       <View style = {styles.container}>
           <Text style={styles.titre}>{name}</Text>
           <View style = {styles.separator}></View>
-          <Food name = "6 tomates"></Food>
-          <Food name = "3 salades"></Food>
-          
-          
+          <FlatList data={[
+            {key : "6 tomates"},
+            {key : "3 salades"}
+          ]}
+          renderItem={({item}) => <Food name = {item.key}></Food>}></FlatList>
       </View>
     );
   
