@@ -15,7 +15,7 @@ const Top = () => {
     <View style={styles.Header}>
     <ImageContainer image={ProfilImage} />
     <HeaderTitle/>
-    <Settings width={20} height={30} fill="#172ACE"/>
+    <Settings width={25} height={25} fill="white"/>
     </View>
     </SafeAreaView>
     );
@@ -42,7 +42,7 @@ const HeaderTitle = () => (
 const styles = StyleSheet.create ({
     Header: {
         flexDirection: 'row',
-        alignItems: 'flex-end',
+        alignItems: 'center',
         paddingTop: 16,
         paddingLeft: 16,
         paddingRight: 16,
