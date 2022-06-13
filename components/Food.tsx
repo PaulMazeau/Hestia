@@ -2,29 +2,24 @@ import { setStatusBarBackgroundColor } from 'expo-status-bar';
 import React, { useState } from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import { Colors, Drawer, RadioButton } from 'react-native-ui-lib';
-import Food from './Food';
 
 
 
 
 
-interface FoodCategoryProps {
+interface FoodProps {
     name: string;
 }
 
 
 
-const FoodCategory: React.FC<FoodCategoryProps> = ({name}) => {
+const Food: React.FC<FoodProps> = ({name}) => {
   const [radiobutton, setstate] = useState(false);
     return (      
-      <View style = {styles.container}>
-          <Text style={styles.titre}>{name}</Text>
-          <View style = {styles.separator}></View>
-          <Food name = "6 tomates"></Food>
-          <Food name = "3 salades"></Food>
-          
-          
-      </View>
+        <View style = {styles.Ligne}>
+          <RadioButton size={22} selected={radiobutton} onPress={() => setstate(!radiobutton)}/>
+          <Text style = {[!radiobutton? styles.food_text_valid: styles.food_text_invalid]}>{name}</Text>
+        </View>
     );
   
 };
@@ -67,4 +62,4 @@ const styles = StyleSheet.create({
 
 
 
-export default FoodCategory;
+export default Food;
