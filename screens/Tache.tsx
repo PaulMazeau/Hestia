@@ -1,110 +1,63 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useCallback, useMemo, useRef } from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Button, TextInput} from 'react-native';
-import { RootStackParams } from '../App';
-import CourseCard from '../components/CourseCard';
-import BottomSheetModal, { BottomSheetBackdrop } from '@gorhom/bottom-sheet';
+import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import TacheCard from '../components/TacheCard';
 import { ScrollView } from 'react-native-gesture-handler';
-import Top from '../components/Header';
-import AddButton from '../Icons/AddButton.svg'
+import Top from '../components/HeaderDark';
+
+import { SegmentedControl, Colors, Assets, Spacings, BorderRadiuses } from 'react-native-ui-lib';
 
 
-
-type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
 
 
  const TacheScreen = () => {
 
-  const bottomSheetRef = useRef<BottomSheetModal>(null);
-
-  const snapPoints = useMemo(() => ['25%', '90%'], []);
-
-  const buttonPressed = () => {
-    bottomSheetRef.current?.expand();
-  }
-
-  const [text, onChangeText] = React.useState("Useless Text");
-  const [number, onChangeNumber] = React.useState(null);
-
-
-  const renderBackDrop = useCallback((props) => {
-    return (    <BottomSheetBackdrop
-      {...props}
-      disappearsOnIndex={-1}
-      appearsOnIndex={0}
-     />
-     );
-  }, []);
+ 
 
   return (
-    
-    <ScrollView>
-      
-      <View style={styles.container}>
+    <View>
         
-          <Top/>
+
+      <Top/>
+      <View style={styles.container}>
           <View style={styles.Header}>
             <Text style={styles.screenTitle}>Tâche à faire</Text>
-            <AddButton width={60} height={60} onPress={buttonPressed}/>
           </View>
-       
-      <TacheCard />
-      <TacheCard />
-      <TacheCard />
-      <TacheCard />
-      <TacheCard />
 
-      <BottomSheetModal
-        ref={bottomSheetRef}
-        index={-1}
-        snapPoints={snapPoints}
-        backdropComponent={renderBackDrop}
-      >
-        <View style={styles.BottomSheet}>
-          <Text style={styles.Titre}>Nouvelle Tâche Ménagère</Text>
-          <Text style={styles.SousTitre}>Titre</Text>
-          <TextInput
-        style={styles.input}
-        onChangeText={onChangeText}
-        value={text}
-      />
-      <Text style={styles.SousTitre}>Date</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={onChangeNumber}
-        value={number}
-        placeholder="useless placeholder"
-        keyboardType="numeric"
-      />
-      <Text style={styles.SousTitre}>Tags</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={onChangeNumber}
-        value={number}
-        placeholder="useless placeholder"
-        keyboardType="numeric"
-      />
-      <Text style={styles.SousTitre}>Notifications</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={onChangeNumber}
-        value={number}
-        placeholder="useless placeholder"
-        keyboardType="numeric"
-      />
+          
+        <SegmentedControl 
+        containerStyle={styles.control}
+        segments={[{label: 'Tâches générales'}, {label: 'Mes tâches'}]}
+        activeColor='black'
+        borderRadius={BorderRadiuses.br20}
+        backgroundColor='white'
+        activeBackgroundColor='rgba(23,42,206,0.27)'
+        inactiveColor='black'
+        outlineColor= 'white'
+        outlineWidth= {2}
+        />
+        
+        <ScrollView showsVerticalScrollIndicator={false}>
+    
+      <Text style={styles.CategorieRecurrente}>Récurrente</Text>
 
+          <TacheCard Tache="Ménage Salle de bain" id={1}/>
+          <TacheCard Tache="Ménage Cuisine"id={2}/>
+          <TacheCard Tache="Ménage Salon"id={3}/>
+
+      <Text style={styles.CategoriePeriode}>Cette semaine</Text>
+
+          <TacheCard Tache="Nettoyer Terasse" id={4}/>
+          <TacheCard Tache="Course" id={5}/>
       
-      <Button
-      title="Ajouter la tâche" 
-      onPress={buttonPressed} 
-      />
+          
+        </ScrollView>
+      
+    
+      </View>
 
-        </View>
-      </BottomSheetModal>
 
-    </View>
-    </ScrollView>
+      </View>
   );
 };
 
@@ -134,22 +87,37 @@ const styles = StyleSheet.create({
     },
 
     container: {
-        flex: 1,
-        padding: 16,
+      paddingBottom: 16,
+      paddingLeft: 16,
+      paddingRight: 16,
     },
     screenTitle: {
         fontSize: 24,
         fontWeight: 'bold',
     }, 
     Header: {
-      flex: 1,
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginLeft: 10,
-      marginRight: 10,
-      marginBottom: 15
+      marginBottom: 15,
     },
+
+    control: {
+      marginBottom: 15,
+    },
+
+    CategoriePeriode:{
+      fontSize: 19,
+      fontWeight: 'bold',
+      marginTop: 24,
+    },
+
+    CategorieRecurrente:{
+      fontSize: 19,
+      fontWeight: 'bold',
+    },
+    
+
 })
 
 export default TacheScreen;

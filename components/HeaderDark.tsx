@@ -10,11 +10,12 @@ const ProfilImage=require('../Img/avatarHeader.png');
 
 const Top = () => {
     return (
+    
     <SafeAreaView>
     <View style={styles.Header}>
-    <ImageContainer image={ProfilImage} />
-    <HeaderTitle/>
-    <Settings width={20} height={30}/>
+        <ImageContainer image={ProfilImage} />
+        <HeaderTitle/>
+        <Settings width={25} height={25}  fill='#282828'/>
     </View>
     </SafeAreaView>
     );
@@ -41,7 +42,10 @@ const HeaderTitle = () => (
 const styles = StyleSheet.create ({
     Header: {
         flexDirection: 'row',
-        alignItems: 'flex-end'
+        alignItems: 'center',
+        paddingTop: 16,
+        paddingLeft: 16,
+        paddingRight: 16,
     },
     Title: {
         paddingHorizontal: 10,

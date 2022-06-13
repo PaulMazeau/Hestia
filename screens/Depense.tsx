@@ -1,94 +1,51 @@
 import React, { useCallback, useMemo, useRef } from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Button, TextInput} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Button, TextInput, DeviceEventEmitter} from 'react-native';
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
-import TacheCard from '../components/TacheCard';
+import Top from '../components/HeaderDark';
+import { BorderRadiuses, SegmentedControl, Spacings } from 'react-native-ui-lib';
+import Depense from '../components/DepenseDiagram';
+import { ScrollView } from 'react-native-gesture-handler';
+import Transaction from '../components/Transaction';
 
 
 
 
 const DepenseScreen = () => {
 
-  const bottomSheetRef = useRef<BottomSheetModal>(null);
-
-  const snapPoints = useMemo(() => ['25%', '90%'], []);
-
-  const buttonPressed = () => {
-   bottomSheetRef.current?.expand();
-  }
-
-  const [text, onChangeText] = React.useState("Useless Text");
-  const [number, onChangeNumber] = React.useState(null);
-
-
-  const renderBackDrop = useCallback((props) => {
-    return (    <BottomSheetBackdrop
-      {...props}
-      disappearsOnIndex={-1}
-      appearsOnIndex={0}
-     />
-     );
-  }, []);
-
   return (
-  <View style={styles.container}>
-      <Text style={styles.screenTitle}>Gestion des dépenses</Text>
-      <Button title="Ajouter une tâche" onPress={buttonPressed} />
+  <View>
+        <Top/>
+      <View style={styles.container}>
+        
+          <Text style={styles.screenTitle}>Gestion des dépenses</Text>
 
-      <TacheCard/>
-
-
-      <BottomSheetModal
-        ref={bottomSheetRef}
-        index={1}
-        snapPoints={snapPoints}
-        backdropComponent={renderBackDrop}
-      >
-        <View style={styles.BottomSheet}>
-          <Text style={styles.Titre}>Nouvelle Tâche Ménagère</Text>
-          <Text style={styles.SousTitre}>Titre</Text>
-          <TextInput
-        style={styles.input}
-        onChangeText={onChangeText}
-        value={text}
-      />
-      <Text style={styles.SousTitre}>Date</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={onChangeNumber}
-        value={number}
-        placeholder="useless placeholder"
-        keyboardType="numeric"
-      />
-      <Text style={styles.SousTitre}>Tags</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={onChangeNumber}
-        value={number}
-        placeholder="useless placeholder"
-        keyboardType="numeric"
-      />
-      <Text style={styles.SousTitre}>Notifications</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={onChangeNumber}
-        value={number}
-        placeholder="useless placeholder"
-        keyboardType="numeric"
-      />
-
-      
-      <Button
-      title="Ajouter la tâche" 
-      onPress={buttonPressed} 
-      />
+          <SegmentedControl 
+        containerStyle={styles.control}
+        segments={[{label: 'Tâches générales'}, {label: 'Mes tâches'}]}
+        activeColor='black'
+        borderRadius={BorderRadiuses.br20}
+        backgroundColor='white'
+        activeBackgroundColor='rgba(23,42,206,0.27)'
+        inactiveColor='black'
+        outlineColor= 'white'
+        outlineWidth= {2}
+        />
+         
+       <Depense/>
+        <ScrollView>
+          <View style={styles.Title}>
+            <Text style={styles.DerniereDepense}>Dernière Dépense</Text>
+            <TouchableOpacity>
+              <Text style={styles.VoirToutes}>Voir toutes {'>'}</Text>
+             </TouchableOpacity>
+          </View>
+            <Transaction/>
+        </ScrollView>
 
         </View>
-      </BottomSheetModal>
+
 
     </View>
-
-
-
 
 
 
@@ -96,39 +53,36 @@ const DepenseScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  SousTitre: {
-    marginLeft: 15,
-    marginTop: 5,
-  },
-
-  Titre: {
-  textAlign: "center",
-  fontSize: 16,
-  marginBottom: 15,
-  },
-
-  input: {
-    height: 44,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 14,
-  },
-
-  BottomSheet: {
-      padding: 10,
-  },
 
   container: {
-      flex: 1,
-      padding: 16,
-      marginTop: 24,
+      paddingBottom: 16,
+      paddingLeft: 16,
+      paddingRight: 16,
   },
   screenTitle: {
       fontSize: 24,
-      marginTop: 8,
       fontWeight: 'bold',
-  }
+      marginBottom: 15,
+  },
+  control: {
+    marginBottom: 15,
+  },
+
+  Title:  {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+  },
+
+  DerniereDepense:{
+    fontSize: 19,
+    fontWeight: 'bold',
+  },
+  
+  VoirToutes: {
+  fontSize: 14,
+  color: '#8F8F8F',
+  },
 })
 
 export default DepenseScreen;

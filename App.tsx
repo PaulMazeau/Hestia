@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { NavigationContainer, NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CoursesScreen from './screens/Courses';
@@ -15,6 +15,8 @@ import Course from './Icons/Course.svg';
 import Depense from './Icons/Depense.svg';
 import Tache from './Icons/Tache.svg';
 
+
+//initialisation des root pour la NavBar Bottom
 export type RootStackParams = {
   AccueilStack: undefined;
   CoursesStack: NavigatorScreenParams<CoursesStackParams>;
@@ -29,6 +31,8 @@ export type RootStackParams = {
 
 const RootStack = createBottomTabNavigator<RootStackParams>();
 
+
+//initialisation des root pour la sous navigation dans la page Course
 export type CoursesStackParams = {
   Courses: undefined;
   Course: {
@@ -39,6 +43,7 @@ export type CoursesStackParams = {
 
 const CoursesStack = createNativeStackNavigator<CoursesStackParams>();
 
+//initialisation des root pour la sous navigation dans la page Course
 const CourseScreenStack = () => {
   return (
   <CoursesStack.Navigator initialRouteName="Courses" screenOptions={{headerShown: false}}>
@@ -48,7 +53,7 @@ const CourseScreenStack = () => {
   );
 };
 
-
+//initialisation des root pour la sous navigation dans la page Accueil
 export type AccueilStackParams = {
   Accueil: undefined;
   Course: {
@@ -60,6 +65,7 @@ export type AccueilStackParams = {
 
 const ExploreStack = createNativeStackNavigator<AccueilStackParams>();
 
+//initialisation des root pour la sous navigation dans la page Accueil
 const AccueilScreenStack = () => {
   return (
       <View style={styles.body}>
@@ -77,16 +83,22 @@ export default function App() {
     <GestureHandlerRootView style={styles.body}>
       <BottomSheetModalProvider>
       <View style={styles.body}>
-       <NavigationContainer>
-    <RootStack.Navigator initialRouteName="AccueilStack" screenOptions={{
+       <NavigationContainer //Création de la navBar
+       >
+       
+    <RootStack.Navigator
+    initialRouteName="AccueilStack" 
+    screenOptions={{
     headerShown: false,
     tabBarActiveTintColor: "#172ACE",
     tabBarInactiveTintColor: "gray",
     }}>
+
       <RootStack.Screen name="AccueilStack" component={AccueilScreenStack} options={{tabBarIcon: (({color, size}) => <Accueil color={color} />), tabBarLabel: "Accueil"}} />
       <RootStack.Screen name="CoursesStack" component={CourseScreenStack} options={{tabBarIcon: (({color, size}) => <Course color={color} />), tabBarLabel: "Course"}} />
       <RootStack.Screen name="Profile" component={TacheScreen} options={{tabBarIcon: (({color, size}) => <Tache color={color} />), tabBarLabel: "Tâche"}} />
       <RootStack.Screen name="Depense" component={DepenseScreen} options={{tabBarIcon: (({color, size}) => <Depense color={color} />), tabBarLabel: "Dépense"}} />
+
     </RootStack.Navigator>
     </NavigationContainer>
     </View>
