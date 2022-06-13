@@ -2,7 +2,6 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React from 'react';
 import {StyleSheet, View, Text, FlatList} from 'react-native';
 import { RootStackParams } from '../App';
-import FoodCategory from '../components/FoodCategory';
 import TopBackNavigation from '../components/TopBackNavigation';
 import Top from '../components/HeaderDark';
 import Food from '../components/Food';
