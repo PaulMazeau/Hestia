@@ -4,11 +4,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { ScrollView } from 'react-native-gesture-handler';
 import CourseCard from '../components/CourseCard';
 import { RootStackParams } from '../App';
-import Top from '../components/Header';
-<<<<<<< HEAD
-import { SafeAreaView } from 'react-native-safe-area-context';
-=======
->>>>>>> 741894c1e40583411bbf1fb65b55dfa41221b969
+import Top from '../components/HeaderDark';
 
 
 type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
@@ -35,12 +31,15 @@ const CoursesScreen = ({navigation}: Props) => {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 16,
+    paddingBottom: 16,
+      paddingLeft: 16,
+      paddingRight: 16,
     },
     screenTitle: {
-        fontSize: 24,
-        marginTop: 8,
-        fontWeight: 'bold',
+    fontSize: 24,
+      fontWeight: 'bold',
+      marginBottom: 15,
+      
     }
 })
 

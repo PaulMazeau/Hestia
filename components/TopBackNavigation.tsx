@@ -8,10 +8,10 @@ const TopBackNavigation = () => {
   const navigation = useNavigation()
 
   return <View style={styles.container}>
-    <TouchableHighlight style={styles.backButton} underlayColor="#f0ddcc" onPress={() => {
+    <TouchableHighlight style={styles.backButton} underlayColor= "transparent" onPress={() => {
       navigation.goBack()
     }}>
-      <BackIcon color="#333" size={20} />
+      <BackIcon color="#333" size={30} />
     </TouchableHighlight>
   </View>
 }
@@ -21,11 +21,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   backButton: {
-    borderRadius: 8,
-    width: 40,
-    height: 40,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    paddingRight: 7,
   }
 })
 

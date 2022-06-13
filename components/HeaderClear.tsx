@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Settings from '../Icons/Settings.svg';
 
@@ -16,7 +15,7 @@ const Top = () => {
     <View style={styles.Header}>
     <ImageContainer image={ProfilImage} />
     <HeaderTitle/>
-    <Settings width={20} height={30}/>
+    <Settings width={20} height={30} fill="#172ACE"/>
     </View>
     </SafeAreaView>
     );
@@ -54,11 +53,13 @@ const styles = StyleSheet.create ({
         flex: 1,
     },
     BigTitle: {
-        fontSize: 16
+        fontSize: 16,
+        color: 'white',
     },
     SmallTitle: {
         fontSize: 12,
         opacity: 0.6,
+        color: 'white'
     },
     ImageContainer: {
         height: 40,

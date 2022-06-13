@@ -4,8 +4,12 @@ import { Colors, Drawer } from 'react-native-ui-lib';
 import Horloge from '../Icons/Horloge.svg';
 
 
+interface Props {
+  Tache: string;
+  id: number;
+}
 
-const RestaurantCard  = () => {
+const TacheCard:  React.FC<Props> = ({Tache, id}) => {
   return (
     <View style={styles.global}>
       <Drawer 
@@ -13,7 +17,7 @@ const RestaurantCard  = () => {
         leftItem={{text: 'Modifier', background: Colors.green30, onPress: () => console.log('change pressed')}}>
         <View style={styles.container}>
             <View style={styles.top}>
-              <Text style={styles.titre}>Nettoyer la cuisine</Text>
+              <Text style={styles.titre}>{Tache}</Text>
 
               <View style={styles.dateContainer}>
                 <Horloge width={17} height={17}/>
@@ -60,7 +64,7 @@ const styles = StyleSheet.create({
 
   dateContainer: {
     flexDirection: 'row',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
   },
 
   date: {
@@ -75,4 +79,4 @@ const styles = StyleSheet.create({
   
 });
 
-export default RestaurantCard;
+export default TacheCard;
