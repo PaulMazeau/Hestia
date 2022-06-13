@@ -27,6 +27,7 @@ const CourseScreen = ({ route, navigation }: Props) => {
               {key : "6 tomates"},
               {key : "3 salades"}
             ]}
+            scrollEnabled = {false}
             renderItem={({item}) => <Food name = {item.key}></Food>}></FlatList>
         </View>
         <View style = {styles.container}>
@@ -35,6 +36,7 @@ const CourseScreen = ({ route, navigation }: Props) => {
             <FlatList data={[
               {key : "4 steaks"}
             ]}
+            scrollEnabled = {false}
             renderItem={({item}) => <Food name = {item.key}></Food>}></FlatList>
         </View>
         <View style = {styles.container}>
@@ -44,6 +46,7 @@ const CourseScreen = ({ route, navigation }: Props) => {
               {key : "1 Coca"},
               {key : "1 pack de bière"}
             ]}
+            scrollEnabled = {false}
             renderItem={({item}) => <Food name = {item.key}></Food>}></FlatList>
         </View>
         <View style = {styles.container}>
@@ -53,6 +56,7 @@ const CourseScreen = ({ route, navigation }: Props) => {
               {key : "papier toilette"},
               {key : "sac poubelle"}
             ]}
+            scrollEnabled = {false}
             renderItem={({item}) => <Food name = {item.key}></Food>}></FlatList>
         </View>
       </View>
