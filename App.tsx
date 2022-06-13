@@ -29,7 +29,9 @@ export type RootStackParams = {
 }
 
 
+
 const RootStack = createBottomTabNavigator<RootStackParams>();
+
 
 
 //initialisation des root pour la sous navigation dans la page Course
@@ -77,6 +79,11 @@ const AccueilScreenStack = () => {
   );
 };
 
+
+
+
+
+
   
 export default function App() {
   return (
@@ -91,13 +98,16 @@ export default function App() {
     screenOptions={{
     headerShown: false,
     tabBarActiveTintColor: "#172ACE",
-    tabBarInactiveTintColor: "gray",
-    }}>
+    tabBarInactiveTintColor: "grey",
+  
+   }}>
 
       <RootStack.Screen name="AccueilStack" component={AccueilScreenStack} options={{tabBarIcon: (({color, size}) => <Accueil color={color} />), tabBarLabel: "Accueil"}} />
       <RootStack.Screen name="CoursesStack" component={CourseScreenStack} options={{tabBarIcon: (({color, size}) => <Course color={color} />), tabBarLabel: "Course"}} />
       <RootStack.Screen name="Profile" component={TacheScreen} options={{tabBarIcon: (({color, size}) => <Tache color={color} />), tabBarLabel: "Tâche"}} />
       <RootStack.Screen name="Depense" component={DepenseScreen} options={{tabBarIcon: (({color, size}) => <Depense color={color} />), tabBarLabel: "Dépense"}} />
+      
+      
 
     </RootStack.Navigator>
     </NavigationContainer>
