@@ -3,8 +3,6 @@ import {View, Text, StyleSheet, Dimensions, Image} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
 import Top from '../components/HeaderClear';
-import { ScrollView } from 'react-native-gesture-handler';
-import AddButton from '../Icons/AddButton.svg'
 import TacheCard from '../components/TacheCard';
 import MonSolde from '../components/MonSolde';
 
@@ -29,7 +27,7 @@ const AccueilScreen = ({ navigation }: Props) => {
         <View style={styles.container}>
                 <View style={styles.Categorie}>
                     <Text style={styles.TitreCategorie}>Ma prochaine Tâche</Text>
-                    <TacheCard/>
+                    <TacheCard Tache="Ménage Salle de bain" id={1}/>
                 </View>
                 <View style={styles.Categorie}>
                     <Text style={styles.TitreCategorie}>Mes dépenses</Text>
@@ -76,12 +74,13 @@ const styles = StyleSheet.create({
 
     first50:{
         backgroundColor: '#172ACE',
-        flex: 1.3,
+        flex: 1.5,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
     },
       
     ImageContainer: {
+        marginTop: 20,
         height: 230,
         width: 313,
         overflow: 'hidden',

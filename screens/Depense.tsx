@@ -27,7 +27,8 @@ const DepenseScreen = () => {
         backgroundColor='white'
         activeBackgroundColor='rgba(23,42,206,0.27)'
         inactiveColor='black'
-        outlineColor= 'rgba(23,42,206,0)'
+        outlineColor= 'white'
+        outlineWidth= {2}
         />
          
        <Depense/>

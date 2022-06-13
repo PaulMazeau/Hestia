@@ -1,21 +1,18 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useCallback, useMemo, useRef } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import TacheCard from '../components/TacheCard';
 import { ScrollView } from 'react-native-gesture-handler';
 import Top from '../components/HeaderDark';
-import AddButton from '../Icons/AddButton.svg'
+
 import { SegmentedControl, Colors, Assets, Spacings, BorderRadiuses } from 'react-native-ui-lib';
-import BottomsheetTask from '../components/BottomSheetTask';
+
 
 
 
  const TacheScreen = () => {
 
-  const addTask = () => {
-    //bottomSheetRef.current?.extend();
-    console.log('prout')
-  };
+ 
 
   return (
     <View>
@@ -36,31 +33,30 @@ import BottomsheetTask from '../components/BottomSheetTask';
         backgroundColor='white'
         activeBackgroundColor='rgba(23,42,206,0.27)'
         inactiveColor='black'
-        outlineColor= 'rgba(23,42,206,0)'
+        outlineColor= 'white'
+        outlineWidth= {2}
         />
         
         <ScrollView showsVerticalScrollIndicator={false}>
     
       <Text style={styles.CategorieRecurrente}>Récurrente</Text>
 
-          <TacheCard />
-          <TacheCard />
-          <TacheCard />
+          <TacheCard Tache="Ménage Salle de bain" id={1}/>
+          <TacheCard Tache="Ménage Cuisine"id={2}/>
+          <TacheCard Tache="Ménage Salon"id={3}/>
 
       <Text style={styles.CategoriePeriode}>Cette semaine</Text>
 
-          <TacheCard />
-          <TacheCard />
-        
+          <TacheCard Tache="Nettoyer Terasse" id={4}/>
+          <TacheCard Tache="Course" id={5}/>
+      
           
-
         </ScrollView>
       
-    <TouchableOpacity style={styles.AddButton} onPress= {addTask}>
-        <AddButton width={70} height={70} style={styles.AddButton}/>
-    </TouchableOpacity>
+    
       </View>
-      
+
+
       </View>
   );
 };
@@ -120,11 +116,7 @@ const styles = StyleSheet.create({
       fontSize: 19,
       fontWeight: 'bold',
     },
-    AddButton: {
-      position: 'absolute',
-      top: '95%',
-      left: '86%',
-    }
+    
 
 })
 
