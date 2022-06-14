@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Settings from '../Icons/Settings.svg';
 import {useNavigation} from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
-
+import { RootStackParams } from '../AppTabNavigator';
 
 
 

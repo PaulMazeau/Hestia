@@ -5,11 +5,14 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { RootStackParams } from '../App';
 import Top from '../components/HeaderDark';
 import Setting from '../components/Setting';
+import { NavigationEvents } from 'react-navigation';
 
 
 const ProfilImage=require('../Img/avatar1.png');
 
 type Props = NativeStackScreenProps<RootStackParams, 'Settings'>;
+
+
 
 const Settings = ({route, navigation}: Props) => {
   return (
