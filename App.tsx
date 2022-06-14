@@ -22,12 +22,12 @@ import Tache from './Icons/Tache.svg';
 export type RootStackParams = {
   AccueilStack: undefined;
   CoursesStack: NavigatorScreenParams<CoursesStackParams>;
-  Profile: undefined;
+  TacheStack: undefined;
   Course: {
     //id dans la vraie vie
     name: string;
   }
-  Depense: undefined;
+  DepenseStack: undefined;
   Settings: undefined;
 }
 
@@ -44,6 +44,7 @@ export type CoursesStackParams = {
     //id dans la vraie vie
     name: string;
   };
+  Settings : undefined;
 };
 
 const CoursesStack = createNativeStackNavigator<CoursesStackParams>();
@@ -54,6 +55,7 @@ const CourseScreenStack = () => {
   <CoursesStack.Navigator initialRouteName="Courses" screenOptions={{headerShown: false}}>
     <CoursesStack.Screen name="Courses" component={CoursesScreen}/>
     <CoursesStack.Screen name="Course" component={CourseScreen}/>
+    <ExploreStack.Screen name="Settings" component={SettingsScreen}/>
   </CoursesStack.Navigator>
   );
 };
@@ -81,6 +83,48 @@ const AccueilScreenStack = () => {
 
 
 
+export type TacheStackParams = {
+  Tache: undefined;
+  Settings: undefined;
+};
+
+
+const TacheStack = createNativeStackNavigator<TacheStackParams>();
+
+//initialisation des root pour la sous navigation dans la page Tache
+const TacheScreenStack = () => {
+  return (
+      <View style={styles.body}>
+        <TacheStack.Navigator initialRouteName="Tache" screenOptions={{headerShown: false}}>
+          <TacheStack.Screen name="Tache" component={TacheScreen}/>
+          <TacheStack.Screen name="Settings" component={SettingsScreen}/>
+        </TacheStack.Navigator>
+      </View>
+  );
+};
+
+
+export type DepenseStackParams = {
+  Depense: undefined;
+  Settings: undefined;
+};
+
+
+const DepenseStack = createNativeStackNavigator<DepenseStackParams>();
+
+//initialisation des root pour la sous navigation dans la page Depense
+const DepenseScreenStack = () => {
+  return (
+      <View style={styles.body}>
+        <DepenseStack.Navigator initialRouteName="Depense" screenOptions={{headerShown: false}}>
+          <DepenseStack.Screen name="Depense" component={DepenseScreen}/>
+          <DepenseStack.Screen name="Settings" component={SettingsScreen}/>
+        </DepenseStack.Navigator>
+      </View>
+  );
+};
+
+
 
 
 
@@ -104,8 +148,8 @@ export default function App() {
 
       <RootStack.Screen name="AccueilStack" component={AccueilScreenStack} options={{tabBarIcon: (({color, size}) => <Accueil color={color} />), tabBarLabel: "Accueil"}} />
       <RootStack.Screen name="CoursesStack" component={CourseScreenStack} options={{tabBarIcon: (({color, size}) => <Course color={color} />), tabBarLabel: "Course"}} />
-      <RootStack.Screen name="Profile" component={TacheScreen} options={{tabBarIcon: (({color, size}) => <Tache color={color} />), tabBarLabel: "Tâche"}} />
-      <RootStack.Screen name="Depense" component={DepenseScreen} options={{tabBarIcon: (({color, size}) => <Depense color={color} />), tabBarLabel: "Dépense"}} />
+      <RootStack.Screen name="TacheStack" component={TacheScreenStack} options={{tabBarIcon: (({color, size}) => <Tache color={color} />), tabBarLabel: "Tâche"}} />
+      <RootStack.Screen name="DepenseStack" component={DepenseScreenStack} options={{tabBarIcon: (({color, size}) => <Depense color={color} />), tabBarLabel: "Dépense"}} />
       
       
 
