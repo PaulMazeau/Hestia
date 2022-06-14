@@ -1,16 +1,22 @@
-import React, { useCallback, useMemo, useRef } from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Button, TextInput, DeviceEventEmitter} from 'react-native';
-import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
+import React, { useCallback} from 'react';
+import {View, Text, StyleSheet, Button,} from 'react-native';
 import Top from '../components/HeaderDark';
-import { BorderRadiuses, SegmentedControl, Spacings } from 'react-native-ui-lib';
-import Depense from '../components/DepenseDiagram';
-import { ScrollView } from 'react-native-gesture-handler';
-import Transaction from '../components/Transaction';
+import { BorderRadiuses, SegmentedControl } from 'react-native-ui-lib';
+import DepensePerso from '../components/DepensePersonnel';
+import DepenseGlobal from '../components/DepenseGlobal';
 
 
 
 
 const DepenseScreen = () => {
+
+  const [show, setShow] = React.useState(true);
+  
+  const segments = {second: [{label: 'Dépenses Générales'}, {label: 'Mes Dépenses'}]}
+
+  const onChangeIndex = useCallback((index: number) => {
+    setShow((r) => !r)
+  }, []);
 
   return (
   <View>
@@ -20,8 +26,10 @@ const DepenseScreen = () => {
           <Text style={styles.screenTitle}>Gestion des dépenses</Text>
 
           <SegmentedControl 
+        onChangeIndex={onChangeIndex}
+        initialIndex={0}
         containerStyle={styles.control}
-        segments={[{label: 'Tâches générales'}, {label: 'Mes tâches'}]}
+        segments={segments.second}
         activeColor='black'
         borderRadius={BorderRadiuses.br20}
         backgroundColor='white'
@@ -30,21 +38,12 @@ const DepenseScreen = () => {
         outlineColor= 'white'
         outlineWidth= {2}
         />
-         
-       <Depense/>
-        <ScrollView>
-          <View style={styles.Title}>
-            <Text style={styles.DerniereDepense}>Dernière Dépense</Text>
-            <TouchableOpacity>
-              <Text style={styles.VoirToutes}>Voir toutes {'>'}</Text>
-             </TouchableOpacity>
-          </View>
-            <Transaction/>
-        </ScrollView>
-
+    
+          {show ? <DepenseGlobal/> : <DepensePerso/>}
+        
+       
         </View>
-
-
+      
     </View>
 
 
@@ -86,3 +85,5 @@ const styles = StyleSheet.create({
 })
 
 export default DepenseScreen;
+
+

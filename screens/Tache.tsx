@@ -9,10 +9,8 @@ import { SegmentedControl, Colors, Assets, Spacings, BorderRadiuses } from 'reac
 
 
 
-
  const TacheScreen = () => {
 
- 
 
   return (
     <View>
@@ -20,6 +18,8 @@ import { SegmentedControl, Colors, Assets, Spacings, BorderRadiuses } from 'reac
 
       <Top/>
       <View style={styles.container}>
+   
+       
           <View style={styles.Header}>
             <Text style={styles.screenTitle}>Tâche à faire</Text>
           </View>
