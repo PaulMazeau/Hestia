@@ -5,6 +5,9 @@ import { RootStackParams } from '../App';
 import Top from '../components/HeaderClear';
 import TacheCard from '../components/TacheCard';
 import MonSolde from '../components/MonSolde';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import {auth} from '../firebase-config'
+import {signOut} from 'firebase/auth'
 
 
 //importer l'image de maison
@@ -14,6 +17,9 @@ const ProfilImage=require('../Img/Home.png');
 type Props = NativeStackScreenProps<RootStackParams, 'AccueilStack'>;
 
 const AccueilScreen = ({ navigation }: Props) => {
+    const handleSignOut = () => {
+        signOut(auth);
+    }
   return (
     <View style={styles.body}>
         
@@ -32,6 +38,9 @@ const AccueilScreen = ({ navigation }: Props) => {
                 <View style={styles.Categorie}>
                     <Text style={styles.TitreCategorie}>Mes dépenses</Text>
                     <MonSolde/>
+                </View>
+                <View>
+                    <TouchableOpacity onPress={handleSignOut}><Text> Deconnecter </Text></TouchableOpacity>
                 </View>
                 
         </View>

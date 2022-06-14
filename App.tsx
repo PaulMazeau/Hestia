@@ -5,7 +5,7 @@ import CoursesScreen from './screens/Courses';
 import AccueilScreen from './screens/Accueil';
 import TacheScreen from './screens/Tache';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import DepenseScreen from './screens/Depense';
 import CourseScreen from './screens/Course';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -14,10 +14,15 @@ import Accueil from './Icons/Accueil.svg';
 import Course from './Icons/Course.svg';
 import Depense from './Icons/Depense.svg';
 import Tache from './Icons/Tache.svg';
+import LoginScreen from './screens/Login';
+import {auth} from './firebase-config';
+import {onAuthStateChanged } from 'firebase/auth';
+
 
 
 //initialisation des root pour la NavBar Bottom
 export type RootStackParams = {
+  AuthStack : undefined;
   AccueilStack: undefined;
   CoursesStack: NavigatorScreenParams<CoursesStackParams>;
   Profile: undefined;
@@ -80,20 +85,53 @@ const AccueilScreenStack = () => {
 };
 
 
+export type AuthStackParams = {
+  Login: undefined;
+  Signup: undefined;
+}
+
+const AuthStack = createNativeStackNavigator()
+
+const AuthScreenStack = () => {
+  return (
+    <AuthStack.Navigator screenOptions={{
+      headerShown: false,
+     }}>
+      <AuthStack.Screen name = "Login" component={LoginScreen}/>
+    </AuthStack.Navigator>
+  )
+}
+
+
 
 
 
 
   
 export default function App() {
-  return (
-    <GestureHandlerRootView style={styles.body}>
-      <BottomSheetModalProvider>
-      <View style={styles.body}>
-       <NavigationContainer //Création de la navBar
-       >
-       
-    <RootStack.Navigator
+  const user = auth.currentUser; //On test si on est deja log in
+  var initialLogState= false;
+  if(user){
+    initialLogState = true;
+  }
+  const [loggedIn, setLoggedIn] = useState(initialLogState);
+
+
+  useEffect(() => {  //on écoute une connexion/deconnexion de l'utilisateur
+    const unsubscribe = onAuthStateChanged(auth, user => {
+        if(user){
+            setLoggedIn(true)
+        }
+        else{
+          setLoggedIn(false)
+        }
+    })
+    return unsubscribe;
+}, [])
+  const renderContent = () =>{
+    if(loggedIn){
+      return (
+       <RootStack.Navigator
     initialRouteName="AccueilStack" 
     screenOptions={{
     headerShown: false,
@@ -101,15 +139,29 @@ export default function App() {
     tabBarInactiveTintColor: "grey",
   
    }}>
-
       <RootStack.Screen name="AccueilStack" component={AccueilScreenStack} options={{tabBarIcon: (({color, size}) => <Accueil color={color} />), tabBarLabel: "Accueil"}} />
       <RootStack.Screen name="CoursesStack" component={CourseScreenStack} options={{tabBarIcon: (({color, size}) => <Course color={color} />), tabBarLabel: "Course"}} />
       <RootStack.Screen name="Profile" component={TacheScreen} options={{tabBarIcon: (({color, size}) => <Tache color={color} />), tabBarLabel: "Tâche"}} />
       <RootStack.Screen name="Depense" component={DepenseScreen} options={{tabBarIcon: (({color, size}) => <Depense color={color} />), tabBarLabel: "Dépense"}} />
+      </RootStack.Navigator>
       
+      )
+    }
+    return <AuthScreenStack />
+  }
+  return (
+    <GestureHandlerRootView style={styles.body}>
+      <BottomSheetModalProvider>
+      <View style={styles.body}>
+       <NavigationContainer //Création de la navBar
+       >
+       
+   
+
+      {renderContent()}
       
 
-    </RootStack.Navigator>
+ 
     </NavigationContainer>
     </View>
     </BottomSheetModalProvider>
