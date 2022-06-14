@@ -1,12 +1,20 @@
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import { RootStackParams } from '../App';
 
 
 const ProfilImage=require('../Img/avatarHeader.png');
 
-const MonSolde  = () => {
+const MonSolde  = (onPress) => {
+
+  const navigation =
+  useNavigation<StackNavigationProp<RootStackParams>>();
+
   return (
     <View style={styles.global}>
+      <TouchableOpacity onPress={() => navigation.navigate('DepenseStack')}>
         <View style={styles.container}>
                 
             <ImageContainer image={ProfilImage} />  
@@ -19,6 +27,7 @@ const MonSolde  = () => {
                 </View>
             </View>
         </View>
+        </TouchableOpacity>
     </View>
     
   );
