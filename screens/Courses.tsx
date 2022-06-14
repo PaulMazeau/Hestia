@@ -11,7 +11,7 @@ type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
 
 const CoursesScreen = ({navigation}: Props) => {
   return (
- <View>
+ <View style={styles.Body}>
     <Top/>
     <View style={styles.container}>
         
@@ -34,12 +34,17 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
       paddingLeft: 16,
       paddingRight: 16,
+      
     },
     screenTitle: {
     fontSize: 24,
       fontWeight: 'bold',
       marginBottom: 15,
-      
+    },
+    
+    Body: {
+      backgroundColor: '#EDF0FA',
+      flex: 1
     }
 })
 

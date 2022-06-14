@@ -8,6 +8,7 @@ import Top from '../components/HeaderDark';
 import { SegmentedControl, Colors, Assets, Spacings, BorderRadiuses } from 'react-native-ui-lib';
 import GlobalTask from '../components/GlobalTask';
 import MesTask from '../components/MesTask';
+import TaskCalendar from '../components/TaskCalendar';
 
 
 
@@ -26,12 +27,12 @@ import MesTask from '../components/MesTask';
 
       <Top/>
       <View style={styles.container}>
-   
+      
        
           <View style={styles.Header}>
             <Text style={styles.screenTitle}>Tâche à faire</Text>
           </View>
-
+          <TaskCalendar/>
           
         <SegmentedControl 
         containerStyle={styles.control}
@@ -92,7 +93,8 @@ const styles = StyleSheet.create({
       paddingBottom: 16,
       paddingLeft: 16,
       paddingRight: 16,
-    },
+      backgroundColor: '#EDF0FA',
+      },
     screenTitle: {
         fontSize: 24,
         fontWeight: 'bold',
@@ -101,7 +103,7 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginBottom: 15,
+
     },
 
     control: {

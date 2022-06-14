@@ -49,6 +49,7 @@ const ImageContainer = ({image}) => (
 const styles = StyleSheet.create({
     body:{
         flex: 1,
+        backgroundColor: '#EDF0FA',
     },
 
     container: {

@@ -15,7 +15,7 @@ const DepensePerso = () => {
        <Depense/>
         <ScrollView>
           <View style={styles.Title}>
-            <Text style={styles.DerniereDepense}>Dernière Dépense</Text>
+            <Text style={styles.DerniereDepense}>Mes dernières transactions</Text>
           </View>
             <Transaction/>
             <Transaction/>

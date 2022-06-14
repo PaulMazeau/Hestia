@@ -6,8 +6,6 @@ import DepensePerso from '../components/DepensePersonnel';
 import DepenseGlobal from '../components/DepenseGlobal';
 
 
-
-
 const DepenseScreen = () => {
 
   const [show, setShow] = React.useState(true);
@@ -19,7 +17,7 @@ const DepenseScreen = () => {
   }, []);
 
   return (
-  <View>
+  <View style={styles.Body}>
         <Top/>
       <View style={styles.container}>
         
@@ -37,7 +35,7 @@ const DepenseScreen = () => {
         inactiveColor='black'
         outlineColor= 'white'
         outlineWidth= {2}
-        throttleTime= {100}
+        throttleTime= {200}
         />
     
           {show ? <DepenseGlobal/> : <DepensePerso/>}
@@ -83,6 +81,11 @@ const styles = StyleSheet.create({
   fontSize: 14,
   color: '#8F8F8F',
   },
+
+  Body:{
+    flex: 1,
+    backgroundColor: '#EDF0FA',
+},
 })
 
 export default DepenseScreen;

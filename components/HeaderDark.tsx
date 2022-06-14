@@ -11,7 +11,7 @@ const ProfilImage=require('../Img/avatarHeader.png');
 const Top = () => {
     return (
     
-    <SafeAreaView>
+    <SafeAreaView style= {{backgroundColor: '#EDF0FA',}}>
     <View style={styles.Header}>
         <ImageContainer image={ProfilImage} />
         <HeaderTitle/>

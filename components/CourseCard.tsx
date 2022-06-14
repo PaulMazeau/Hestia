@@ -9,6 +9,7 @@ interface Props {
 
 const RestaurantCard: React.FC<Props> = ({name, onPress}) => {
   return (
+    <View style={styles.body}>
     <Drawer
     rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => console.log('remo')}]}
     leftItem={{text: 'Modifier', background: Colors.green30, onPress: () => console.log('change pressed')}}>    
@@ -19,6 +20,7 @@ const RestaurantCard: React.FC<Props> = ({name, onPress}) => {
       </View>
     </TouchableOpacity>
     </Drawer>
+    </View>
   );
 };
 
@@ -31,7 +33,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     height: 50,
-    marginBottom: 10,
+   
   },
 
   avatar: {
@@ -41,6 +43,10 @@ const styles = StyleSheet.create({
 
   name:{
     fontWeight: '700'
+  },
+
+  body: {
+    marginBottom: 15,
   }
 });
 
