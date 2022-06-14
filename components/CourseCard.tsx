@@ -16,7 +16,10 @@ const RestaurantCard: React.FC<Props> = ({name, onPress}) => {
     <TouchableOpacity onPress={() => onPress(name)}>
       <View style={styles.container}>
         <Text style={styles.name}>{name}</Text>
-        <Image style={styles.avatar} source={require('../Img/avatar1.png')}/>
+        <View style={styles.participants}>
+        <Image style={styles.avatar1} source={require('../Img/test1.png')}/>
+        <Image style={styles.avatar2} source={require('../Img/test2.png')}/>
+        </View>
       </View>
     </TouchableOpacity>
     </Drawer>
@@ -36,17 +39,37 @@ const styles = StyleSheet.create({
    
   },
 
-  avatar: {
-    width: 36,
-    height: 36,
-  },
-
   name:{
     fontWeight: '700'
   },
 
   body: {
     marginBottom: 15,
+  },
+
+  avatar1: {
+    width: 40,
+    height: 40,
+    borderRadius: 50,
+    overflow: 'hidden',
+    borderWidth: 3,
+    borderColor: 'white',
+    marginLeft: -17,
+    zIndex: 1
+  },
+  
+  avatar2: {
+    width: 40,
+    height: 40,
+    borderRadius: 50,
+    overflow: 'hidden',
+    borderWidth: 3,
+    borderColor: 'white',
+    marginLeft: -20,
+  },
+
+  participants: {
+    flexDirection: 'row',
   }
 });
 

@@ -16,7 +16,7 @@ type Props = NativeStackScreenProps<RootStackParams, 'Settings'>;
 
 const Settings = ({route, navigation}: Props) => {
   return (
-    <View>
+    <View style={styles.Body}>
     <Top/>
     <View style={styles.container}>
         
@@ -46,6 +46,10 @@ const ImageContainer = ({image}) => (
   );
 
 const styles = StyleSheet.create({
+    Body:{
+      flex: 1,
+      backgroundColor: '#EDF0FA',
+    },
     container: {
         paddingBottom: 16,
           paddingLeft: 16,

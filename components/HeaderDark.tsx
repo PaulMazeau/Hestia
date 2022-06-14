@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Settings from '../Icons/Settings.svg';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParams } from '../AppTabNavigator';
+import { RootStackParams } from '../App';
 import { useNavigation } from '@react-navigation/native';
 
 
@@ -20,7 +20,9 @@ const Top = () => {
     <View style={styles.Header}>
         <ImageContainer image={ProfilImage} />
         <HeaderTitle/>
-        <Settings width={25} height={25}  fill='#282828' onPress={() => navigation.navigate('Settings')}/>
+        <TouchableOpacity  onPress={() => navigation.push('Settings')}>
+    <Settings width={25} height={25} fill="#282828"/>
+    </TouchableOpacity>
     </View>
     </SafeAreaView>
     );

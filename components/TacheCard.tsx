@@ -25,8 +25,9 @@ const TacheCard:  React.FC<Props> = ({Tache, id}) => {
               </View>
             </View>
 
-            <View>
-              <Image style={styles.avatar} source={require('../Img/avatar1.png')}/>
+            <View style={styles.participants}>
+              <Image style={styles.avatar1} source={require('../Img/test1.png')}/>
+              <Image style={styles.avatar2} source={require('../Img/test2.png')}/>
             </View>
         </View>
       </Drawer>
@@ -72,11 +73,30 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
 
-  avatar: {
-    width: 40,
-    height: 40,
+  avatar1: {
+    width: 45,
+    height: 45,
+    borderRadius: 50,
+    overflow: 'hidden',
+    borderWidth: 3,
+    borderColor: 'white',
+    marginLeft: -17,
+    zIndex: 1
   },
   
+  avatar2: {
+    width: 45,
+    height: 45,
+    borderRadius: 50,
+    overflow: 'hidden',
+    borderWidth: 3,
+    borderColor: 'white',
+    marginLeft: -20,
+  },
+
+  participants: {
+    flexDirection: 'row',
+  }
 });
 
 export default TacheCard;
