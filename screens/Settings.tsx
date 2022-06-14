@@ -50,6 +50,8 @@ const styles = StyleSheet.create({
         paddingBottom: 16,
           paddingLeft: 16,
           paddingRight: 16,
+          backgroundColor: '#EDF0FA',
+          height: '100%'
         },
         screenTitle: {
         fontSize: 24,
