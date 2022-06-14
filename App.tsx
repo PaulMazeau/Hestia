@@ -8,12 +8,14 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import DepenseScreen from './screens/Depense';
 import CourseScreen from './screens/Course';
+import SettingsScreen from './screens/Settings';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import Accueil from './Icons/Accueil.svg';
 import Course from './Icons/Course.svg';
 import Depense from './Icons/Depense.svg';
 import Tache from './Icons/Tache.svg';
+
 
 
 //initialisation des root pour la NavBar Bottom
@@ -26,6 +28,7 @@ export type RootStackParams = {
     name: string;
   }
   Depense: undefined;
+  Settings: undefined;
 }
 
 
@@ -58,10 +61,7 @@ const CourseScreenStack = () => {
 //initialisation des root pour la sous navigation dans la page Accueil
 export type AccueilStackParams = {
   Accueil: undefined;
-  Course: {
-    //id dans la vraie vie
-    name: string;
-  };
+  Settings: undefined;
 };
 
 
@@ -73,7 +73,7 @@ const AccueilScreenStack = () => {
       <View style={styles.body}>
         <ExploreStack.Navigator initialRouteName="Accueil" screenOptions={{headerShown: false}}>
           <ExploreStack.Screen name="Accueil" component={AccueilScreen}/>
-          <ExploreStack.Screen name="Course" component={CoursesScreen}/>
+          <ExploreStack.Screen name="Settings" component={SettingsScreen}/>
         </ExploreStack.Navigator>
       </View>
   );
