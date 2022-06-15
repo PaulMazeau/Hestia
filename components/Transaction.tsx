@@ -16,7 +16,7 @@ const MonSolde  = () => {
                   <Text style={styles.titre}>Courses</Text>
 
                   <View style={styles.dateContainer}>
-                      <Text style={styles.date}>payé par Thomas</Text>
+                      <Text style={styles.date}>Payé par Thomas</Text>
                   </View>
               </View>
 
@@ -81,7 +81,6 @@ const styles = StyleSheet.create({
 
   date: {
     fontSize: 14,
-    marginLeft: 5,
   },
 
   avatar: {

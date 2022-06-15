@@ -9,16 +9,21 @@ interface Props {
 
 const RestaurantCard: React.FC<Props> = ({name, onPress}) => {
   return (
+    <View style={styles.body}>
     <Drawer
     rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => console.log('remo')}]}
     leftItem={{text: 'Modifier', background: Colors.green30, onPress: () => console.log('change pressed')}}>    
     <TouchableOpacity onPress={() => onPress(name)}>
       <View style={styles.container}>
         <Text style={styles.name}>{name}</Text>
-        <Image style={styles.avatar} source={require('../Img/avatar1.png')}/>
+        <View style={styles.participants}>
+        <Image style={styles.avatar1} source={require('../Img/test1.png')}/>
+        <Image style={styles.avatar2} source={require('../Img/test2.png')}/>
+        </View>
       </View>
     </TouchableOpacity>
     </Drawer>
+    </View>
   );
 };
 
@@ -31,16 +36,40 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     height: 50,
-    marginBottom: 10,
-  },
-
-  avatar: {
-    width: 36,
-    height: 36,
+   
   },
 
   name:{
     fontWeight: '700'
+  },
+
+  body: {
+    marginBottom: 15,
+  },
+
+  avatar1: {
+    width: 40,
+    height: 40,
+    borderRadius: 50,
+    overflow: 'hidden',
+    borderWidth: 3,
+    borderColor: 'white',
+    marginLeft: -17,
+    zIndex: 1
+  },
+  
+  avatar2: {
+    width: 40,
+    height: 40,
+    borderRadius: 50,
+    overflow: 'hidden',
+    borderWidth: 3,
+    borderColor: 'white',
+    marginLeft: -20,
+  },
+
+  participants: {
+    flexDirection: 'row',
   }
 });
 

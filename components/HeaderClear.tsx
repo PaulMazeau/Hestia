@@ -1,7 +1,10 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Button } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Settings from '../Icons/Settings.svg';
+import {useNavigation} from '@react-navigation/core';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParams } from '../App';
 
 
 
@@ -9,13 +12,17 @@ const ProfilImage=require('../Img/avatarHeader.png');
 
 
 const Top = () => {
+    const navigation =
+      useNavigation<StackNavigationProp<RootStackParams>>();
     return (
     
     <SafeAreaView>
     <View style={styles.Header}>
     <ImageContainer image={ProfilImage} />
     <HeaderTitle/>
+    <TouchableOpacity  onPress={() => navigation.push('Settings')}>
     <Settings width={25} height={25} fill="white"/>
+    </TouchableOpacity>
     </View>
     </SafeAreaView>
     );
