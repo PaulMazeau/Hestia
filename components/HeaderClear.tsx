@@ -18,10 +18,12 @@ const Top = () => {
     
     <SafeAreaView>
     <View style={styles.Header}>
-    <ImageContainer image={ProfilImage} />
+    <TouchableOpacity onPress={() => navigation.push('Settings')}>
+        <ImageContainer image={ProfilImage} />
+    </TouchableOpacity>
     <HeaderTitle/>
-    <TouchableOpacity  onPress={() => navigation.push('Settings')}>
-    <Settings width={25} height={25} fill="white"/>
+    <TouchableOpacity  onPress={() => navigation.push('ColocSettings')}>
+        <Settings width={25} height={25} fill="white"/>
     </TouchableOpacity>
     </View>
     </SafeAreaView>

@@ -9,6 +9,7 @@ import React from 'react';
 import DepenseScreen from './screens/Depense';
 import CourseScreen from './screens/Course';
 import SettingsScreen from './screens/Settings';
+import ColocSettingsScreen from './screens/ColocSettings';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import Accueil from './Icons/Accueil.svg';
@@ -29,6 +30,7 @@ export type RootStackParams = {
   }
   DepenseStack: undefined;
   Settings: undefined;
+  ColocSettings: undefined;
 }
 
 
@@ -45,6 +47,7 @@ export type CoursesStackParams = {
     name: string;
   };
   Settings : undefined;
+  ColocSettings : undefined;
 };
 
 const CoursesStack = createNativeStackNavigator<CoursesStackParams>();
@@ -56,6 +59,7 @@ const CourseScreenStack = () => {
     <CoursesStack.Screen name="Courses" component={CoursesScreen}/>
     <CoursesStack.Screen name="Course" component={CourseScreen}/>
     <ExploreStack.Screen name="Settings" component={SettingsScreen}/>
+    <ExploreStack.Screen name="ColocSettings" component={ColocSettingsScreen}/>
   </CoursesStack.Navigator>
   );
 };
@@ -64,6 +68,7 @@ const CourseScreenStack = () => {
 export type AccueilStackParams = {
   Accueil: undefined;
   Settings: undefined;
+  ColocSettings : undefined;
 };
 
 
@@ -76,6 +81,7 @@ const AccueilScreenStack = () => {
         <ExploreStack.Navigator initialRouteName="Accueil" screenOptions={{headerShown: false}}>
           <ExploreStack.Screen name="Accueil" component={AccueilScreen}/>
           <ExploreStack.Screen name="Settings" component={SettingsScreen}/>
+          <ExploreStack.Screen name="ColocSettings" component={ColocSettingsScreen}/>
         </ExploreStack.Navigator>
       </View>
   );
@@ -86,6 +92,7 @@ const AccueilScreenStack = () => {
 export type TacheStackParams = {
   Tache: undefined;
   Settings: undefined;
+  ColocSettings : undefined;
 };
 
 
@@ -98,6 +105,7 @@ const TacheScreenStack = () => {
         <TacheStack.Navigator initialRouteName="Tache" screenOptions={{headerShown: false}}>
           <TacheStack.Screen name="Tache" component={TacheScreen}/>
           <TacheStack.Screen name="Settings" component={SettingsScreen}/>
+          <ExploreStack.Screen name="ColocSettings" component={ColocSettingsScreen}/>
         </TacheStack.Navigator>
       </View>
   );
@@ -107,6 +115,7 @@ const TacheScreenStack = () => {
 export type DepenseStackParams = {
   Depense: undefined;
   Settings: undefined;
+  ColocSettings : undefined;
 };
 
 
@@ -119,6 +128,7 @@ const DepenseScreenStack = () => {
         <DepenseStack.Navigator initialRouteName="Depense" screenOptions={{headerShown: false}}>
           <DepenseStack.Screen name="Depense" component={DepenseScreen}/>
           <DepenseStack.Screen name="Settings" component={SettingsScreen}/>
+          <ExploreStack.Screen name="ColocSettings" component={ColocSettingsScreen}/>
         </DepenseStack.Navigator>
       </View>
   );
