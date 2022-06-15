@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { NavigationContainer, NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CoursesScreen from './screens/Courses';
@@ -16,8 +16,7 @@ import Depense from './Icons/Depense.svg';
 import Tache from './Icons/Tache.svg';
 import LoginScreen from './screens/Login';
 import {auth} from './firebase-config';
-import {onAuthStateChanged } from 'firebase/auth';
-
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 
 //initialisation des root pour la NavBar Bottom
@@ -109,27 +108,9 @@ const AuthScreenStack = () => {
 
   
 export default function App() {
-  const user = auth.currentUser; //On test si on est deja log in
-  var initialLogState= false;
-  if(user){
-    initialLogState = true;
-  }
-  const [loggedIn, setLoggedIn] = useState(initialLogState);
-
-
-  useEffect(() => {  //on écoute une connexion/deconnexion de l'utilisateur
-    const unsubscribe = onAuthStateChanged(auth, user => {
-        if(user){
-            setLoggedIn(true)
-        }
-        else{
-          setLoggedIn(false)
-        }
-    })
-    return unsubscribe;
-}, [])
   const renderContent = () =>{
-    if(loggedIn){
+    const[usr, loading, error] = useAuthState(auth);
+    if(usr){
       return (
        <RootStack.Navigator
     initialRouteName="AccueilStack" 
@@ -145,6 +126,20 @@ export default function App() {
       <RootStack.Screen name="Depense" component={DepenseScreen} options={{tabBarIcon: (({color, size}) => <Depense color={color} />), tabBarLabel: "Dépense"}} />
       </RootStack.Navigator>
       
+      )
+    }
+    if(loading){
+     return(
+      <View>
+        <Text>Loading....</Text>
+      </View>
+     )
+    }
+    if(error){
+      return(
+        <View>
+          <Text>Erreur de connexion</Text>
+        </View>
       )
     }
     return <AuthScreenStack />
