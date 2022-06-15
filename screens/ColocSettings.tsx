@@ -1,45 +1,72 @@
-import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, ImageComponent, Image} from 'react-native';
+import React, { useState } from 'react';
+import {View, Text, StyleSheet, TouchableOpacity, ImageComponent, Image, ListRenderItem} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import { ScrollView } from 'react-native-gesture-handler';
+import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import { RootStackParams } from '../App';
 import Top from '../components/HeaderSettings';
-import Setting from '../components/Setting';
-import { NavigationEvents } from 'react-navigation';
+import Fleche from '../Icons/fleche.svg';
+import Addbutton from '../Icons/AddButton.svg';
+import Exit from '../Icons/Exit.svg';
+
 import TopBackNavigation from '../components/TopBackNavigation';
+import { BorderRadiuses } from 'react-native-ui-lib';
 
-
-const ProfilImage=require('../Img/avatar1.png');
 
 type Props = NativeStackScreenProps<RootStackParams, 'ColocSettings'>;
+const ProfilImage=require('../Img/avatarHeader.png');
+
+
+const data : Image[] = [
+    require('../Img/avatar1.png'),
+    require('../Img/avatar2.png'),
+    require('../Img/avatar3.png'),
+    require('../Img/test1.png'),
+    require('../Img/test2.png')
+];
 
 
 
 const ColocSettings = ({route, navigation}: Props) => {
   return (
     <View style={styles.Body}>
-    <Top/>
-    <View style={styles.container}>
+        <Top/>
+        <View style={styles.container}>
         <View style={styles.Title}>
           <TopBackNavigation/>
-          <Text style={styles.screenTitle}>Settings</Text>
+          <Text style={styles.screenTitle}>Paramètre de la colocation</Text>
         </View>
-        <ScrollView>
+        <View style={styles.containerColoc}>
+            <FlatList 
+                data={data} 
+                renderItem={renderItem} 
+                numColumns={3}   
+                columnWrapperStyle={{justifyContent:'space-evenly', paddingTop: 20, paddingBottom: 20,}}
+            ></FlatList>
+        </View>
+        <View style={styles.addButton}>
+            <Addbutton></Addbutton>
+        </View>
         <TouchableOpacity onPress={() => console.log("blabla")}>
-          <View style={styles.avatar}>
-            <Text style={styles.name}>Avatar</Text>
-            <ImageContainer image={ProfilImage} />
-          </View>
+            <View style={styles.Setting}>
+                <Text style={styles.name}>Identié</Text>
+                <Fleche></Fleche>
+            </View>
         </TouchableOpacity>
-        <Text>yeahhhh</Text>
-        <Setting name = "Romain Chawla" tag = "Prénom et nom" onPress={name => console.log("blabla")}></Setting>
-        <Setting name = "romain.chawla@gmail.com" tag = "Email" onPress={name => console.log("blabla")}></Setting>
-        <Setting name = "06 56 84 54 32" tag = "Téléphone" onPress={name => console.log("blabla")}></Setting>
-        <Setting name = "02/03/2000" tag = "Date de naissance" onPress={name => console.log("blabla")}></Setting>
-        </ScrollView>
-    </View>
+        <TouchableOpacity onPress={() => console.log("blabla")}>
+            <View style={styles.Quitter}>
+                <Exit></Exit>
+                <Text style={{fontWeight: '700', color:'white'}}>Quitter la colocation</Text>
+            </View>
+        </TouchableOpacity>
+        </View>
     </View>
   );
+};
+
+const renderItem : ListRenderItem<any> = ({item}) => {
+    return (
+        <ImageContainer image={item}></ImageContainer>
+        );
 };
 
 //importer l'image de maison
@@ -54,48 +81,77 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: '#EDF0FA',
     },
+    addButton:{
+        borderRadius:100,
+        flexDirection:'row', 
+        justifyContent:"center",
+        top:-30,
+        
+    },
     container: {
         paddingBottom: 16,
-          paddingLeft: 16,
-          paddingRight: 16,
-          backgroundColor: '#EDF0FA',
-          height: '100%'
-        },
-        screenTitle: {
+        paddingTop: 16,
+        paddingLeft: 16,
+        paddingRight: 16,
+        backgroundColor: '#EDF0FA',
+        height: '100%',
+        flexDirection : 'column',
+        
+    },
+    containerColoc: {
+        height: 'auto',
+        backgroundColor: 'blue',
+        borderRadius: 20,
+        paddingBottom: 20
+    },
+    screenTitle: {
         fontSize: 24,
-          fontWeight: 'bold',
-          marginBottom: 15,
-        },
-        name:{
-          fontWeight: '700'
-        },
-        avatar: {
-          backgroundColor: "white",
-          padding: 15,
-          borderRadius: 10,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          height: 50,
-          marginBottom: 10,
-        },
-        ImageContainer: {
-          height: 30,
-          width: 30,
-          overflow: 'hidden',
-          borderRadius: 90,
-          justifyContent:'center',
-          alignItems:'flex-end',
-        },
-        Image: {
-          height: '100%',
-          width: '100%',
-        },
-        Title: {
-          flexDirection : 'row', 
-          marginTop : 10,
-          marginBottom : 10,
-        },
+        fontWeight: 'bold',
+        marginBottom: 15,
+    },
+    name:{
+        fontWeight: '700'
+    },
+    Setting: {
+        backgroundColor: "white",
+        padding: 15,
+        borderRadius: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        height: 50,
+        marginBottom: 20,
+    },
+    Quitter:{
+        backgroundColor: "#CE1717",
+        padding: 15,
+        borderRadius: 10,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 50,
+        marginBottom: 20,   
+    },
+    ImageContainer: {
+        height: 60,
+        width: 60,
+        borderRadius:100,
+        overflow: 'hidden',
+        justifyContent:'center',
+        alignItems:'flex-end',
+    },
+    Image: {
+        height: '100%',
+        width: '100%',
+        
+        
+        
+    },
+    Title: {
+        flexDirection : 'row', 
+        marginTop : 10,
+        marginBottom : 10,
+    },
 })
 
 export default ColocSettings;
