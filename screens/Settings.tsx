@@ -3,9 +3,10 @@ import {View, Text, StyleSheet, TouchableOpacity, ImageComponent, Image} from 'r
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { ScrollView } from 'react-native-gesture-handler';
 import { RootStackParams } from '../App';
-import Top from '../components/HeaderDark';
+import Top from '../components/HeaderSettings';
 import Setting from '../components/Setting';
 import { NavigationEvents } from 'react-navigation';
+import TopBackNavigation from '../components/TopBackNavigation';
 
 
 const ProfilImage=require('../Img/avatar1.png');
@@ -19,8 +20,10 @@ const Settings = ({route, navigation}: Props) => {
     <View style={styles.Body}>
     <Top/>
     <View style={styles.container}>
-        
-        <Text style={styles.screenTitle}>Settings</Text>
+        <View style={styles.Title}>
+          <TopBackNavigation/>
+          <Text style={styles.screenTitle}>Settings</Text>
+        </View>
         <ScrollView>
         <TouchableOpacity onPress={() => console.log("blabla")}>
           <View style={styles.avatar}>
@@ -86,6 +89,11 @@ const styles = StyleSheet.create({
         Image: {
           height: '100%',
           width: '100%',
+        },
+        Title: {
+          flexDirection : 'row', 
+          marginTop : 10,
+          marginBottom : 10,
         },
 })
 

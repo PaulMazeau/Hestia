@@ -5,29 +5,23 @@ import Settings from '../Icons/Settings.svg';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParams } from '../App';
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 
 
 const ProfilImage=require('../Img/avatarHeader.png');
 
 
-const Top = ({}) => {
-    
+const Top = () => {
     const navigation =
-    useNavigation<StackNavigationProp<RootStackParams>>();
-
+      useNavigation<StackNavigationProp<RootStackParams>>();
     return (
     
     <SafeAreaView style= {{backgroundColor: '#EDF0FA',}}>
     <View style={styles.Header}>
-    <TouchableOpacity onPress={() => navigation.push('Settings')}>
-        <ImageContainer image={ProfilImage} />
-    </TouchableOpacity>
-    <HeaderTitle/>
-    <TouchableOpacity  onPress={() => navigation.push('ColocSettings')}>
-        <Settings width={25} height={25} fill="#282828"/>
-    </TouchableOpacity>
+        <TouchableOpacity onPress={() => console.log("yeah")}>
+            <ImageContainer image={ProfilImage} />
+        </TouchableOpacity>
+        <HeaderTitle/>
     </View>
     </SafeAreaView>
     );
@@ -56,6 +50,8 @@ const styles = StyleSheet.create ({
         flexDirection: 'row',
         alignItems: 'center',
         paddingTop: 16,
+        paddingLeft: 16,
+        paddingRight: 16,
     },
     Title: {
         paddingHorizontal: 10,
