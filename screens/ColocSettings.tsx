@@ -7,9 +7,13 @@ import Top from '../components/HeaderSettings';
 import Fleche from '../Icons/fleche.svg';
 import Addbutton from '../Icons/AddButton.svg';
 import Exit from '../Icons/Exit.svg';
+import { useFocusEffect } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+
 
 import TopBackNavigation from '../components/TopBackNavigation';
 import { BorderRadiuses } from 'react-native-ui-lib';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 
 type Props = NativeStackScreenProps<RootStackParams, 'ColocSettings'>;
@@ -26,7 +30,26 @@ const data : Image[] = [
 
 
 
+
 const ColocSettings = ({route, navigation}: Props) => {
+    const nav =
+      useNavigation<StackNavigationProp<RootStackParams>>();
+  useFocusEffect(
+    React.useCallback(() => {
+
+      //Screen o premier plan
+
+      return () => {
+        if(nav.canGoBack()){
+            nav.goBack();
+        }
+        
+        
+        // Screen quitté
+
+      };
+    }, [])
+  );
   return (
     <View style={styles.Body}>
         <Top/>
