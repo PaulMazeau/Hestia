@@ -3,6 +3,8 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Depense from '../components/DepenseDiagram';
 import { ScrollView } from 'react-native-gesture-handler';
 import Transaction from '../components/Transaction';
+import Avance from './Avance';
+import Dette from './Dette';
 
 
 
@@ -22,13 +24,9 @@ const DepensePerso = () => {
                 </View>
                 
                 <ScrollView showsVerticalScrollIndicator={false}>
-                <Transaction/>
-                <Transaction/>
-                <Transaction/>
-                <Transaction/>
-                <Transaction/>
-                <Transaction/>
-                <Transaction/>
+                <Dette/>
+                <Dette/>
+                <Avance/>
               </ScrollView>
 
       </View>       

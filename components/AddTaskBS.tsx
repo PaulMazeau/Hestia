@@ -3,7 +3,7 @@ import {StyleSheet, View, Text, Button, Image, Alert, TextInput, ScrollView, Tou
 import { Dropdown } from 'react-native-element-dropdown';
 import ParticipantCard from './ParticipantCard';
 import Plus from '../Icons/Plus.svg'
-import BottomSheet from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetModal } from '@gorhom/bottom-sheet';
 
 
 const Recurrence = [
@@ -47,14 +47,17 @@ const sheetRef = useRef<BottomSheet>(null);
 
 const [isOpen, setIsOpen] = useState(false);
 
-const handleSnapPress = useCallback ((index: number) => {
-  sheetRef.current?.snapToIndex(index);
-  setIsOpen(true);
-}, []);
+const bottomSheetRef = useRef<BottomSheetModal>(null);
+
+const AddTask = () => {
+  bottomSheetRef.current?.close();
+};
+
 
 return (
 
-<View >
+<View style={{flex: 1}}>
+  <ScrollView>
 <Text style={styles.Title}>Nouvelle tâche ménagère</Text>
     <View style={styles.depenseTitle}>
         <Text style={styles.subTitle}>Titre</Text>
@@ -173,12 +176,12 @@ return (
             </View>
       </View>
 
-      <TouchableOpacity style={styles.AddButton} onPress={() => console.log('ferme')}> 
+      <TouchableOpacity style={styles.AddButton} onPress={AddTask}> 
       <Plus/>
       <Text style={styles.buttonText}>Ajouter la tâche ménagère</Text>
       </TouchableOpacity>
 
-
+      </ScrollView>
 </View>
 
 )
@@ -290,6 +293,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
+        marginBottom: 15,
       },
 
       buttonText: {

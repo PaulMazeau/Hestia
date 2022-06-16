@@ -7,29 +7,35 @@ import { SegmentedControl, Colors, Assets, Spacings, BorderRadiuses } from 'reac
 import GlobalTask from '../components/GlobalTask';
 import MesTask from '../components/MesTask';
 import TaskCalendar from '../components/TaskCalendar';
-import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 import AddTaskBS from '../components/AddTaskBS';
-import AddButton from '../Icons/AddButton.svg'
-import TacheCard from '../components/TacheCard';
+import AddButton from '../Icons/AddButton.svg';
 
  const TacheScreen = () => {
 
-  const sheetRef = useRef<BottomSheet>(null);
-
-  const [isOpen, setIsOpen] = useState(false);
-  const snapPoints = ['85%'];
-
-  const handleSnapPress = useCallback ((index: number) => {
-    sheetRef.current?.snapToIndex(index);
-    setIsOpen(true);
-  }, []);
-
+   // ref
+   const bottomSheetRef = useRef<BottomSheetModal>(null);
 
   const [show, setShow] = React.useState(true);
 
   const onChangeIndex = useCallback((index: number) => {
     setShow((r) => !r)
   }, []);
+
+  const buttonPressed = () => {
+    bottomSheetRef.current?.present();
+  }
+
+  const renderBackdrop = useCallback((props) => {
+    return (
+      <BottomSheetBackdrop
+        {...props}
+        disappearsOnIndex={-1}
+        appearsOnIndex={0}
+      />
+    );
+  }, []);
+  
 
 
   return (
@@ -61,35 +67,35 @@ import TacheCard from '../components/TacheCard';
               
              
          
-{/*<TouchableOpacity onPress={() => handleSnapPress(0)} style= {styles.AddButton}>
-          <AddButton /> 
+       <TouchableOpacity onPress={buttonPressed} style= {styles.AddButton}>
+                <AddButton /> 
   </TouchableOpacity> 
 
+        
 
-      <BottomSheet
-      ref={sheetRef}
-      snapPoints={snapPoints}
-      enablePanDownToClose={true}
-      onClose = { () => setIsOpen(false)}
-      style={styles.BottomSheet}
+          <BottomSheetModal
+        ref={bottomSheetRef}
+        snapPoints={['90%']}
+        index= {0}
+        backdropComponent={renderBackdrop}
       >
-        <BottomSheetView>
+        <View style={styles.contentContainer}>
           <AddTaskBS/>
-        </BottomSheetView>
-      </BottomSheet>
+        </View>
+      </BottomSheetModal>
 
-*/} 
+
+
       </View>
 
-    
+
+      
+
+  
   );
 };
 
 const styles = StyleSheet.create({
-
-    Body: {
-      backgroundColor: '#EDF0FA',
-    },
 
     SousTitre: {
       marginLeft: 15,
@@ -100,20 +106,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 16,
     marginBottom: 15,
-    },
-
-    input: {
-      height: 44,
-      margin: 12,
-      borderWidth: 1,
-      padding: 10,
-      borderRadius: 14,
-    },
-
-    BottomSheet: {
-      paddingBottom: 10,
-      paddingLeft: 10,
-      paddingRight: 10, 
     },
 
     container: {
@@ -145,11 +137,16 @@ const styles = StyleSheet.create({
     },
     
     AddButton: {
-      
       justifyContent: 'flex-end',
       alignItems: 'flex-end',
-      margin: 15,
-    }
+      height: 0,
+    },
+    
+    contentContainer: {
+      flex: 1,
+      alignItems: 'center',
+      zIndex: 2,
+    },
 })
 
 export default TacheScreen;

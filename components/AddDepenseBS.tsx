@@ -3,7 +3,6 @@ import {StyleSheet, View, Text, Button, Image, Alert, TextInput, ScrollView, Tou
 import { Dropdown } from 'react-native-element-dropdown';
 import ParticipantCard from './ParticipantCard';
 import Plus from '../Icons/Plus.svg'
-import BottomSheet from '@gorhom/bottom-sheet';
 
 
 const Recurrence = [
@@ -16,8 +15,6 @@ const Recurrence = [
   ];
 
 
-
-
 const AddDepenseBS = () => {
 
 
@@ -27,14 +24,7 @@ const [day, Day] = React.useState(null);
 const [month, Month] = React.useState(null);
 const [year, Year] = React.useState(null);
 
-const sheetRef = useRef<BottomSheet>(null);
 
-const [isOpen, setIsOpen] = useState(false);
-
-const handleSnapPress = useCallback ((index: number) => {
-  sheetRef.current?.snapToIndex(index);
-  setIsOpen(true);
-}, []);
 
 return (
 
@@ -57,7 +47,7 @@ return (
                 style={styles.input}
                 onChangeText={onChangeTitre}
                 value={title}
-                placeholder="Entrer le titre"
+                placeholder="Entrer le montant"
                 
             />
       </View>
@@ -97,7 +87,7 @@ return (
                 maxHeight={300}
                 labelField="label"
                 valueField="value"
-                placeholder="Choisir une récurrence"
+                placeholder="Choisir le payeur"
                 value={value}
                 onChange={item => {
                     setValue(item.value);
