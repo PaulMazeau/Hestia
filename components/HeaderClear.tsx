@@ -21,10 +21,12 @@ const Top = ({}) => {
     
     <SafeAreaView style= {{backgroundColor: '#172ACE',}}>
     <View style={styles.Header}>
+    <TouchableOpacity onPress={() => navigation.push('Settings')}>
         <ImageContainer image={ProfilImage} />
-        <HeaderTitle/>
-        <TouchableOpacity  onPress={() => navigation.push('Settings')}>
-    <Settings width={25} height={25} fill="white"/>
+    </TouchableOpacity>
+    <HeaderTitle/>
+    <TouchableOpacity  onPress={() => navigation.push('ColocSettings')}>
+        <Settings width={25} height={25} fill="white"/>
     </TouchableOpacity>
     </View>
     </SafeAreaView>
