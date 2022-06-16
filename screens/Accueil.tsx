@@ -27,7 +27,7 @@ const AccueilScreen = ({ navigation }: Props) => {
         <View style={styles.container}>
                 <View style={styles.Categorie}>
                     <Text style={styles.TitreCategorie}>Ma prochaine Tâche</Text>
-                    <TacheCard Tache="Ménage Salle de bain" id={1}/>
+                    <TacheCard Tache="Ménage Salle de bain"/>
                 </View>
                 <View style={styles.Categorie}>
                     <Text style={styles.TitreCategorie}>Mes dépenses</Text>

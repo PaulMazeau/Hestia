@@ -1,37 +1,47 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useCallback, useMemo, useRef } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Button, SafeAreaView, FlatList } from 'react-native';
 import TacheCard from '../components/TacheCard';
 import { ScrollView } from 'react-native-gesture-handler';
 import Top from '../components/HeaderDark';
 
-import { SegmentedControl, Colors, Assets, Spacings, BorderRadiuses } from 'react-native-ui-lib';
-
-
 
  const MesTask = () => {
 
+  
 
   return (
-        
-        <ScrollView showsVerticalScrollIndicator={false}>
-    
-      <Text style={styles.CategorieRecurrente}>Récurrente</Text>
-
-          <TacheCard Tache="Ménage Salle de bain" id={1}/>
-          <TacheCard Tache="Ménage Cuisine"id={2}/>
-        
-
-      <Text style={styles.CategoriePeriode}>Cette semaine</Text>
-
-          <TacheCard Tache="Nettoyer Terasse" id={4}/>
+   
+    <View style={{flex: 1}}>
           
-        </ScrollView>
-    
+    <ScrollView showsVerticalScrollIndicator={false}>
+
+  <Text style={styles.CategorieRecurrente}>Récurrente</Text>
+
+    <TacheCard Tache='jten supplie'/>
+    <TacheCard Tache='jten supplie'/>
+    <TacheCard Tache='jten supplie'/>
+    <TacheCard Tache='jten supplie'/>
+
+  <Text style={styles.CategoriePeriode}>Cette semaine</Text>
+
+    <TacheCard Tache='jten supplie'/>
+    <TacheCard Tache='jten supplie'/>
+    <TacheCard Tache='jten supplie'/>
+    <TacheCard Tache='jten supplie'/>
+
+  </ScrollView>
+      
+      </View>
   );
 };
 
 const styles = StyleSheet.create({
+
+   Body: {
+    backgroundColor: '#EDF0FA',
+    flex: 1,
+   },
 
     SousTitre: {
       marginLeft: 15,

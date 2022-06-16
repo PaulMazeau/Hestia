@@ -1,43 +1,47 @@
-import React, { useCallback, useMemo, useRef } from 'react';
+import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import Top from '../components/HeaderDark';
-import { BorderRadiuses, SegmentedControl, Spacings } from 'react-native-ui-lib';
 import Depense from '../components/DepenseDiagram';
 import { ScrollView } from 'react-native-gesture-handler';
 import Transaction from '../components/Transaction';
 
+
+
+
+
 const DepensePerso = () => {
 
   return (
-  <View>
+  
+<View style={{flex: 1}}>
+    <Depense/>
+      
+      <View style={{flex: 1}}>
 
-         
-       <Depense/>
-        <ScrollView>
-          <View style={styles.Title}>
-            <Text style={styles.DerniereDepense}>Mes dernières transactions</Text>
-          </View>
-            <Transaction/>
-            <Transaction/>
-            <Transaction/>
-            <Transaction/>
-        </ScrollView>
+              <View>
+                <Text style={styles.DerniereDepense}>Tes transactions</Text>
+                </View>
+                
+                <ScrollView showsVerticalScrollIndicator={false}>
+                <Transaction/>
+                <Transaction/>
+                <Transaction/>
+                <Transaction/>
+                <Transaction/>
+                <Transaction/>
+                <Transaction/>
+              </ScrollView>
 
-        </View>
+      </View>       
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
 
-  Title:  {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    justifyContent: 'space-between',
-  },
-
   DerniereDepense:{
     fontSize: 19,
     fontWeight: 'bold',
+    marginBottom: 10
   },
   
 

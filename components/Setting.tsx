@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
-import { Colors, Drawer } from 'react-native-ui-lib';
 
 interface Props {
     name: string;
@@ -10,16 +9,14 @@ interface Props {
 
   const Setting: React.FC<Props> = ({name, tag, onPress}) => {
     return (
-      <Drawer
-      rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => console.log('remo')}]}
-      leftItem={{text: 'Modifier', background: Colors.green30, onPress: () => console.log('change pressed')}}>  
+      <View>
       <Text>{tag}</Text>  
       <TouchableOpacity onPress={() => onPress(name)}>
         <View style={styles.container}>
           <Text style={styles.name}>{name}</Text>
         </View>
       </TouchableOpacity>
-      </Drawer>
+      </View>
     );
   };
   

@@ -7,7 +7,7 @@ import { RootStackParams } from '../App';
 
 const ProfilImage=require('../Img/avatarHeader.png');
 
-const MonSolde  = (onPress) => {
+const MonSolde  = () => {
 
   const navigation =
   useNavigation<StackNavigationProp<RootStackParams>>();

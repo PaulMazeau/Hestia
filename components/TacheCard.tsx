@@ -6,10 +6,9 @@ import Horloge from '../Icons/Horloge.svg';
 
 interface Props {
   Tache: string;
-  id: number;
 }
 
-const TacheCard:  React.FC<Props> = ({Tache, id}) => {
+const TacheCard:  React.FC<Props> = ({Tache}) => {
   return (
     <View style={styles.global}>
       <Drawer 

@@ -132,7 +132,7 @@ const DepenseScreenStack = () => {
 export default function App() {
   return (
     <GestureHandlerRootView style={styles.body}>
-      <BottomSheetModalProvider>
+     
       <View style={styles.body}>
        <NavigationContainer //Création de la navBar
        >
@@ -156,7 +156,7 @@ export default function App() {
     </RootStack.Navigator>
     </NavigationContainer>
     </View>
-    </BottomSheetModalProvider>
+
     </GestureHandlerRootView>
   
 

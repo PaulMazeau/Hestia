@@ -6,22 +6,20 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Transaction from '../components/Transaction';
 
 
-const DepenseGobal = () => {
+const AllDepense = () => {
 
   
   return (
   <View>
       
        <Depense/>
-        <ScrollView>
           <View style={styles.Title}>
             <Text style={styles.DerniereDepense}>Dernière Dépense</Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => console.log('test')} >
               <Text style={styles.VoirToutes}>Voir toutes {'>'}</Text>
              </TouchableOpacity>
           </View>
             <Transaction/>
-        </ScrollView>
 
 </View>
   );
@@ -60,6 +58,6 @@ const styles = StyleSheet.create({
   },
 })
 
-export default DepenseGobal;
+export default AllDepense;
 
 

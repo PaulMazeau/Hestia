@@ -49,11 +49,11 @@ const styles = StyleSheet.create({
     Body:{
       flex: 1,
       backgroundColor: '#EDF0FA',
+      paddingLeft: 16,
+      paddingRight: 16,
     },
     container: {
         paddingBottom: 16,
-          paddingLeft: 16,
-          paddingRight: 16,
           backgroundColor: '#EDF0FA',
           height: '100%'
         },

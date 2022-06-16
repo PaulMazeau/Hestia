@@ -1,12 +1,25 @@
-import React, { useCallback} from 'react';
-import {View, Text, StyleSheet, Button,} from 'react-native';
+import React, { useCallback, useRef, useState} from 'react';
+import {View, Text, StyleSheet, Button, TouchableOpacity,} from 'react-native';
 import Top from '../components/HeaderDark';
 import { BorderRadiuses, SegmentedControl } from 'react-native-ui-lib';
 import DepensePerso from '../components/DepensePersonnel';
 import DepenseGlobal from '../components/DepenseGlobal';
+import AddButton from '../Icons/AddButton.svg'
+import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
+import AddDepenseBS from '../components/AddDepenseBS';
 
 
 const DepenseScreen = () => {
+
+  const sheetRef = useRef<BottomSheet>(null);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const snapPoints = ['85%'];
+
+  const handleSnapPress = useCallback ((index: number) => {
+    sheetRef.current?.snapToIndex(index);
+    setIsOpen(true);
+  }, []);
 
   const [show, setShow] = React.useState(true);
   
@@ -16,11 +29,9 @@ const DepenseScreen = () => {
     setShow((r) => !r)
   }, []);
 
-  return (
-  <View style={styles.Body}>
-        <Top/>
+  return (      
       <View style={styles.container}>
-        
+      <Top/>
           <Text style={styles.screenTitle}>Gestion des dépenses</Text>
 
           <SegmentedControl 
@@ -40,13 +51,27 @@ const DepenseScreen = () => {
     
           {show ? <DepenseGlobal/> : <DepensePerso/>}
         
-       
-        </View>
+       {/*  <TouchableOpacity onPress={() => handleSnapPress(0)} style= {styles.AddButton}>
+          <AddButton /> 
+        </TouchableOpacity>
       
-    </View>
+
+        <BottomSheet
+      ref={sheetRef}
+      snapPoints={snapPoints}
+      enablePanDownToClose={true}
+      onClose = { () => setIsOpen(false)}
+      style={styles.BottomSheet}
+      >
+        <BottomSheetView>
+          <AddDepenseBS/>
+        </BottomSheetView>
+      </BottomSheet>
+
+*/} 
 
 
-
+        </View>
   );
 };
 
@@ -56,6 +81,7 @@ const styles = StyleSheet.create({
       paddingBottom: 16,
       paddingLeft: 16,
       paddingRight: 16,
+      flex: 1
   },
   screenTitle: {
       fontSize: 24,
@@ -83,8 +109,21 @@ const styles = StyleSheet.create({
   },
 
   Body:{
-    flex: 1,
+   
     backgroundColor: '#EDF0FA',
+},
+
+AddButton: {
+  justifyContent: 'flex-end',
+  alignItems: 'flex-end',
+  margin: 15,
+},
+
+BottomSheet: {
+  paddingBottom: 10,
+  paddingLeft: 10,
+  paddingRight: 10, 
+  borderRadius: 70,
 },
 })
 
