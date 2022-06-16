@@ -24,24 +24,6 @@ const CoursesScreen = ({navigation}: Props) => {
             <CourseCard name="Liste de Course 4" onPress={name => navigation.navigate('Course', {name})}/>
             <CourseCard name="Liste de Course 5" onPress={name => navigation.navigate('Course', {name})}/>
             <CourseCard name="Liste de Course 6" onPress={name => navigation.navigate('Course', {name})}/>
-            <CourseCard name="Liste de Course 1" onPress={name => navigation.navigate('Course', {name})}/>
-            <CourseCard name="Liste de Course 2" onPress={name => navigation.navigate('Course', {name})}/>
-            <CourseCard name="Liste de Course 3" onPress={name => navigation.navigate('Course', {name})}/>
-            <CourseCard name="Liste de Course 4" onPress={name => navigation.navigate('Course', {name})}/>
-            <CourseCard name="Liste de Course 5" onPress={name => navigation.navigate('Course', {name})}/>
-            <CourseCard name="Liste de Course 6" onPress={name => navigation.navigate('Course', {name})}/>
-            <CourseCard name="Liste de Course 1" onPress={name => navigation.navigate('Course', {name})}/>
-            <CourseCard name="Liste de Course 2" onPress={name => navigation.navigate('Course', {name})}/>
-            <CourseCard name="Liste de Course 3" onPress={name => navigation.navigate('Course', {name})}/>
-            <CourseCard name="Liste de Course 4" onPress={name => navigation.navigate('Course', {name})}/>
-            <CourseCard name="Liste de Course 5" onPress={name => navigation.navigate('Course', {name})}/>
-            <CourseCard name="Liste de Course 6" onPress={name => navigation.navigate('Course', {name})}/>
-            <CourseCard name="Liste de Course 1" onPress={name => navigation.navigate('Course', {name})}/>
-            <CourseCard name="Liste de Course 2" onPress={name => navigation.navigate('Course', {name})}/>
-            <CourseCard name="Liste de Course 3" onPress={name => navigation.navigate('Course', {name})}/>
-            <CourseCard name="Liste de Course 4" onPress={name => navigation.navigate('Course', {name})}/>
-            <CourseCard name="Liste de Course 5" onPress={name => navigation.navigate('Course', {name})}/>
-            <CourseCard name="Liste de Course 6" onPress={name => navigation.navigate('Course', {name})}/>
             
         </ScrollView>
     </View>

@@ -6,7 +6,7 @@ const ProfilImage=require('../Img/test2.png');
 
 const Dette  = () => {
   return (
-    <View style={styles.global}>
+    
         <View style={styles.container}>
                 
             <ImageContainer image={ProfilImage} />  
@@ -30,7 +30,6 @@ const Dette  = () => {
 
             </View>
         </View>
-    </View>
     
   );
 };
@@ -42,10 +41,6 @@ const ImageContainer = ({image}) => (
 );
 
 const styles = StyleSheet.create({
-  global: {
-    marginTop: 12,
-  },
-  
   container: {
     backgroundColor: "white",
     padding: 15,
@@ -53,6 +48,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     height: 70,
+    marginBottom: 15,
   },
   
   Left: {

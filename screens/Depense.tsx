@@ -118,7 +118,8 @@ const styles = StyleSheet.create({
 AddButton: {
   justifyContent: 'flex-end',
   alignItems: 'flex-end',
-  height: 0
+  height: 0,
+  marginBottom: 10
 },
 
 contentContainer: {

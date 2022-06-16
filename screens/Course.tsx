@@ -52,6 +52,7 @@ const CourseScreen = ({ route, navigation }: Props) => {
               <Food key={item.key} name={item.key}></Food>
             )
           })}
+          
           <Text style={styles.Food_title}>viandes</Text>
           <View style = {styles.separator}></View>
           {viandes.map((item) => {
@@ -92,7 +93,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#EDF0FA',
     paddingLeft:15,
     paddingRight:15,
-
   },
 
   screenTitle: {
@@ -103,7 +103,6 @@ const styles = StyleSheet.create({
 
   Title: {
     flexDirection : 'row', 
-    marginTop : 10,
     marginBottom : 15,
   },
   

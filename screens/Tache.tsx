@@ -140,6 +140,7 @@ const styles = StyleSheet.create({
       justifyContent: 'flex-end',
       alignItems: 'flex-end',
       height: 0,
+      marginBottom: 10
     },
     
     contentContainer: {

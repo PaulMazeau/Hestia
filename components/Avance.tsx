@@ -6,7 +6,7 @@ const ProfilImage=require('../Img/avatarHeader.png');
 
 const Avance  = () => {
   return (
-    <View style={styles.global}>
+
         <View style={styles.container}>
                 
             <ImageContainer image={ProfilImage} />  
@@ -30,7 +30,7 @@ const Avance  = () => {
 
             </View>
         </View>
-    </View>
+ 
     
   );
 };
@@ -42,9 +42,7 @@ const ImageContainer = ({image}) => (
 );
 
 const styles = StyleSheet.create({
-  global: {
-    marginTop: 12,
-  },
+ 
   
   container: {
     backgroundColor: "white",
@@ -53,6 +51,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     height: 70,
+    marginBottom: 15,
   },
   
   Left: {
