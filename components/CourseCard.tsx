@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     height: 50,
-   
   },
 
   name:{
@@ -45,6 +44,11 @@ const styles = StyleSheet.create({
 
   body: {
     marginBottom: 15,
+    elevation: 20,
+    shadowColor: 'black',
+    shadowOffset: {width: -2, height: 1},
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
   },
 
   avatar1: {

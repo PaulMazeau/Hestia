@@ -5,7 +5,7 @@ import { VictoryAxis, VictoryBar, VictoryChart, VictoryLabel, VictoryStack, Vict
 
 const dataA = [
     { x: "Thomas", y: 57 },
-    { x: "Elsa", y: 40 },
+    { x: "Paul", y: 40 },
     { x: "Wilk", y: 38 },
     { x: "Ariel", y: 37 },
   ];
@@ -15,8 +15,8 @@ const dataA = [
     return { ...point, y };
   });
   
-  const width = 400;
-
+  const width = 350;
+  
 
   class Equilibrage extends React.Component {
   
@@ -30,13 +30,13 @@ const dataA = [
             style={{ data: { width: 25 }, labels: { fontSize: 15 } }}
           >
             <VictoryBar
-              style={{ data: { fill: "tomato" } }}
+              style={{ data: { fill: "red" } }}
               data={dataA}
               y={(data) => (-Math.abs(data.y))}
               labels={({ datum }) => (`${Math.abs(datum.y)}%`)}
             />
             <VictoryBar
-              style={{ data: { fill: "orange" } }}
+              style={{ data: { fill: "blue" } }}
               data={dataB}
               labels={({ datum }) => (`${Math.abs(datum.y)}%`)}
             />
@@ -46,7 +46,7 @@ const dataA = [
             style={{
               axis: { stroke: "transparent" },
               ticks: { stroke: "transparent" },
-              tickLabels: { fontSize: 15, fill: "black" }
+              tickLabels: { fontSize: 15, fill: "white" }
             }}
             /*
               Use a custom tickLabelComponent with

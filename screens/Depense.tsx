@@ -120,7 +120,7 @@ AddButton: {
   justifyContent: 'flex-end',
   alignItems: 'flex-end',
   height: 0,
-  marginBottom: 10
+  marginBottom: 10,
 },
 
 contentContainer: {

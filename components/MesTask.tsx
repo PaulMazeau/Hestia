@@ -18,14 +18,9 @@ import Top from '../components/HeaderDark';
 
     <TacheCard Tache='jten supplie'/>
     <TacheCard Tache='jten supplie'/>
-    <TacheCard Tache='jten supplie'/>
-    <TacheCard Tache='jten supplie'/>
 
   <Text style={styles.CategoriePeriode}>Cette semaine</Text>
 
-    <TacheCard Tache='jten supplie'/>
-    <TacheCard Tache='jten supplie'/>
-    <TacheCard Tache='jten supplie'/>
     <TacheCard Tache='jten supplie'/>
 
   </ScrollView>
@@ -35,11 +30,6 @@ import Top from '../components/HeaderDark';
 };
 
 const styles = StyleSheet.create({
-
-   Body: {
-    backgroundColor: '#EDF0FA',
-    flex: 1,
-   },
 
     SousTitre: {
       marginLeft: 15,
