@@ -8,8 +8,6 @@ import Top from '../components/HeaderDark';
 
  const MesTask = () => {
 
-  
-
   return (
    
     <View style={{flex: 1}}>

@@ -5,21 +5,28 @@ import { BorderRadiuses, SegmentedControl } from 'react-native-ui-lib';
 import DepensePerso from '../components/DepensePersonnel';
 import DepenseGlobal from '../components/DepenseGlobal';
 import AddButton from '../Icons/AddButton.svg'
-import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 import AddDepenseBS from '../components/AddDepenseBS';
 
 
 const DepenseScreen = () => {
 
-  const sheetRef = useRef<BottomSheet>(null);
+  // ref
+  const bottomSheetRef = useRef<BottomSheetModal>(null);
 
-  const [isOpen, setIsOpen] = useState(false);
-  const snapPoints = ['85%'];
-
-  const handleSnapPress = useCallback ((index: number) => {
-    sheetRef.current?.snapToIndex(index);
-    setIsOpen(true);
+  const renderBackdrop = useCallback((props) => {
+    return (
+      <BottomSheetBackdrop
+        {...props}
+        disappearsOnIndex={-1}
+        appearsOnIndex={0}
+      />
+    );
   }, []);
+
+  const buttonPressed = () => {
+    bottomSheetRef.current?.present();
+  }
 
   const [show, setShow] = React.useState(true);
   
@@ -51,24 +58,21 @@ const DepenseScreen = () => {
     
           {show ? <DepenseGlobal/> : <DepensePerso/>}
         
-       {/*  <TouchableOpacity onPress={() => handleSnapPress(0)} style= {styles.AddButton}>
+        <TouchableOpacity onPress={buttonPressed} style= {styles.AddButton}>
           <AddButton /> 
         </TouchableOpacity>
       
 
-        <BottomSheet
-      ref={sheetRef}
-      snapPoints={snapPoints}
-      enablePanDownToClose={true}
-      onClose = { () => setIsOpen(false)}
-      style={styles.BottomSheet}
+        <BottomSheetModal
+        ref={bottomSheetRef}
+        snapPoints={['90%']}
+        index= {0}
+        backdropComponent={renderBackdrop}
       >
-        <BottomSheetView>
+        <View style={styles.contentContainer}>
           <AddDepenseBS/>
-        </BottomSheetView>
-      </BottomSheet>
-
-*/} 
+        </View>
+      </BottomSheetModal>
 
 
         </View>
@@ -78,16 +82,18 @@ const DepenseScreen = () => {
 const styles = StyleSheet.create({
 
   container: {
-      paddingBottom: 16,
       paddingLeft: 16,
       paddingRight: 16,
-      flex: 1
+      flex: 1,
   },
+
   screenTitle: {
       fontSize: 24,
       fontWeight: 'bold',
       marginBottom: 15,
   },
+
+
   control: {
     marginBottom: 15,
   },
@@ -108,22 +114,17 @@ const styles = StyleSheet.create({
   color: '#8F8F8F',
   },
 
-  Body:{
-   
-    backgroundColor: '#EDF0FA',
-},
 
 AddButton: {
   justifyContent: 'flex-end',
   alignItems: 'flex-end',
-  margin: 15,
+  height: 0
 },
 
-BottomSheet: {
-  paddingBottom: 10,
-  paddingLeft: 10,
-  paddingRight: 10, 
-  borderRadius: 70,
+contentContainer: {
+  flex: 1,
+  alignItems: 'center',
+  zIndex: 2,
 },
 })
 

@@ -10,7 +10,7 @@ const AllDepense = () => {
 
   
   return (
-  <View>
+  <View style={{flex:1}}>
       
        <Depense/>
           <View style={styles.Title}>
