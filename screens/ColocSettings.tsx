@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     },
     name:{
         fontWeight: '700',
-        fontSyze: 15,
+        fontSize: 15,
     },
     Setting: {
         backgroundColor: "white",

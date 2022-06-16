@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useRef } from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -6,13 +6,28 @@ import CourseCard from '../components/CourseCard';
 import { RootStackParams } from '../App';
 import Top from '../components/HeaderDark';
 import AddButton from '../Icons/AddButton.svg';
+import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
+import AddListCourseBS from '../components/AddListCourseBS';
 
 type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
 
 const CoursesScreen = ({navigation}: Props) => {
 
+  // ref
+  const bottomSheetRef = useRef<BottomSheetModal>(null);
+
+  const renderBackdrop = useCallback((props) => {
+    return (
+      <BottomSheetBackdrop
+        {...props}
+        disappearsOnIndex={-1}
+        appearsOnIndex={0}
+      />
+    );
+  }, []);
+
   const buttonPressed = () => {
-    console.log('open');
+    bottomSheetRef.current?.present();
   }
 
   return (
@@ -36,6 +51,17 @@ const CoursesScreen = ({navigation}: Props) => {
     <TouchableOpacity onPress={buttonPressed} style= {styles.AddButton}>
           <AddButton /> 
         </TouchableOpacity>
+
+        <BottomSheetModal
+        ref={bottomSheetRef}
+        snapPoints={['55%']}
+        index= {0}
+        backdropComponent={renderBackdrop}
+      >
+        <View style={styles.contentContainer}>
+          <AddListCourseBS/>
+        </View>
+      </BottomSheetModal>
         
     </View>
   );
@@ -63,6 +89,12 @@ const styles = StyleSheet.create({
       alignItems: 'flex-end',
       height: 0,
       marginBottom: 10,
+    },
+
+    contentContainer: {
+      flex: 1,
+      alignItems: 'center',
+      zIndex: 2,
     },
 })
 
