@@ -38,7 +38,7 @@ const AccueilScreen = ({ navigation }: Props) => {
         
         <View style={styles.first50}>
            
-            < Top nom={username}/>
+            < Top nom={username} clear={true}/>
             <Text style={styles.Titre}>Welcome Back</Text>
             <ImageContainer image={ProfilImage} />
         </View>

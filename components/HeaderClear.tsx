@@ -11,7 +11,7 @@ import { useDocumentData } from 'react-firebase-hooks/firestore';
 
 const ProfilImage=require('../Img/avatarHeader.png');
 
- 
+//clear = true ou false 
 
 const Top = (props) => {
     // const [username, setUsername] = useState("")
@@ -22,18 +22,34 @@ const Top = (props) => {
     //     }
     //     getUsername();
     // }, [])
+   const renderContent = () => {
+    if(props.clear){
+        return (
+            <View style={styles.Header}>
+            <ImageContainer image={ProfilImage} />
+            <View style={styles.Title}>
+                <Text style={styles.BigTitle}>Hi, {props.nom}</Text>
+                <Text style={styles.SmallTitle}>8 juin, 2022</Text>
+            </View>
+            <Settings width={25} height={25} fill="white"/>
+            </View>
+        )}
+    return (
+        <View style={stylesd.Header}>
+        <ImageContainer image={ProfilImage} />
+        <View style={stylesd.Title}>
+        <Text style={stylesd.BigTitle}>Hi, {props.nom}</Text>
+        <Text style={stylesd.SmallTitle}>8 juin, 2022</Text>
+        </View>
+        <Settings width={25} height={25}  fill='#282828'/>
+    </View>
+    )
+    }
    
     return (
     
     <SafeAreaView>
-    <View style={styles.Header}>
-    <ImageContainer image={ProfilImage} />
-    <View style={styles.Title}>
-        <Text style={styles.BigTitle}>Hi, {props.nom}</Text>
-        <Text style={styles.SmallTitle}>8 juin, 2022</Text>
-    </View>
-    <Settings width={25} height={25} fill="white"/>
-    </View>
+   {renderContent()}
     </SafeAreaView>
     );
 };
@@ -48,6 +64,39 @@ const ImageContainer = ({image}) => (
     </View>
 );
 
+
+
+const stylesd = StyleSheet.create ({
+    Header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingTop: 16,
+        paddingLeft: 16,
+        paddingRight: 16,
+    },
+    Title: {
+        paddingHorizontal: 10,
+        justifyContent: 'center',
+        flex: 1,
+    },
+    BigTitle: {
+        fontSize: 16
+    },
+    SmallTitle: {
+        fontSize: 12,
+        opacity: 0.6,
+    },
+    ImageContainer: {
+        height: 40,
+        width: 40,
+        overflow: 'hidden',
+        borderRadius: 7,
+    },
+    Image: {
+        height: '100%',
+        width: '100%',
+    },
+})
 
 const styles = StyleSheet.create ({
     Header: {

@@ -4,7 +4,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { ScrollView } from 'react-native-gesture-handler';
 import CourseCard from '../components/CourseCard';
 import { RootStackParams } from '../App';
-import Top from '../components/HeaderDark';
+import Top from '../components/HeaderClear';
 
 
 type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
@@ -12,7 +12,7 @@ type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
 const CoursesScreen = ({navigation}: Props) => {
   return (
  <View>
-    <Top/>
+    <Top clear={false}/>
     <View style={styles.container}>
         
         <Text style={styles.screenTitle}>Listes de Course</Text>

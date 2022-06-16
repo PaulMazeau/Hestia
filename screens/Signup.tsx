@@ -13,9 +13,14 @@ const SignupScreen = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [username, setUsername] = useState("");
+    const[pwdConf, setPwdConf] = useState("");
     const handleSignup = () => {
         if(username==""){
             alert("Rentre un nom d'utilisateur !");
+            return
+        }
+        if(!(pwdConf === password)){
+            alert("Les mots de passes doivent être identique !");
             return
         }
         createUserWithEmailAndPassword(auth, email, password).then(function(userCred) {
@@ -54,6 +59,11 @@ const SignupScreen = () => {
                 style = {styles.input}
                 secureTextEntry/>
 
+                <TextInput placeholder="password confirmation"
+                value={pwdConf}
+                onChangeText = {text => setPwdConf(text)} 
+                style = {styles.input}
+                secureTextEntry/>
                 
             </View>
             <View style = {styles.buttonContainer}>

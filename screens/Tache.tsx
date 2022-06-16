@@ -3,7 +3,7 @@ import React, { useCallback, useMemo, useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import TacheCard from '../components/TacheCard';
 import { ScrollView } from 'react-native-gesture-handler';
-import Top from '../components/HeaderDark';
+import Top from '../components/HeaderClear';
 
 import { SegmentedControl, Colors, Assets, Spacings, BorderRadiuses } from 'react-native-ui-lib';
 
@@ -16,7 +16,7 @@ import { SegmentedControl, Colors, Assets, Spacings, BorderRadiuses } from 'reac
     <View>
         
 
-      <Top/>
+      <Top clear={false}/>
       <View style={styles.container}>
    
        
