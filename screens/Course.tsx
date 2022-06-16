@@ -9,10 +9,25 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 type Props = NativeStackScreenProps<RootStackParams, 'Course'>;
 
-const data=[
-  {key : "6 tomates"},
+const fruitftlegume=[
   {key : "6 tomates"},
   {key : "3 salades"}
+]
+
+const viandes=[
+  {key : "2 steak"},
+  {key : "Jambon"},
+  {key : "escalopes"}
+]
+
+const maison=[
+  {key : "papier toilette"},
+  {key : "sac poubelles"},
+]
+
+const boisson=[
+  {key : "pack de bières"},
+  {key : "coca"},
 ]
 
 
@@ -32,32 +47,32 @@ const CourseScreen = ({ route, navigation }: Props) => {
         <View style={styles.whiteBackGround}>
           <Text style={styles.Food_title}>Fruits & Légumes</Text>
           <View style = {styles.separator}></View>
-          {data.map((item) => {
+          {fruitftlegume.map((item) => {
             return (
-              <Food name = {item.key}></Food>
+              <Food key={item.key} name={item.key}></Food>
             )
           })}
-          <Text style={styles.Food_title}>Viandes</Text>
+          <Text style={styles.Food_title}>viandes</Text>
           <View style = {styles.separator}></View>
-          {data.map((item) => {
+          {viandes.map((item) => {
             return (
-              <Food name = {item.key}></Food>
+              <Food key={item.key} name={item.key}></Food>
             )
           })}   
         
           <Text style={styles.Food_title}>Boissons</Text>
           <View style = {styles.separator}></View>
-          {data.map((item) => {
+          {boisson.map((item) => {
             return (
-              <Food name = {item.key}></Food>
+              <Food key={item.key} name={item.key}></Food>
             )
           })} 
 
           <Text style={styles.Food_title}>Maison</Text>
           <View style = {styles.separator}></View>
-          {data.map((item) => {
+          {maison.map((item) => {
             return (
-              <Food name = {item.key}></Food>
+              <Food key={item.key} name={item.key}></Food>
             )
           })} 
         </View>
