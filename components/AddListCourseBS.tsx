@@ -5,47 +5,9 @@ import ParticipantCard from './ParticipantCard';
 import Plus from '../Icons/Plus.svg'
 import BottomSheet, { BottomSheetModal } from '@gorhom/bottom-sheet';
 
-
-const Recurrence = [
-    { label: 'Aucune', value: '1' },
-    { label: '1 jour', value: '2' },
-    { label: '2 jours', value: '3' },
-    { label: '3 jours', value: '4' },
-    { label: '1 semaine', value: '5' },
-    { label: '2 semaines', value: '6' },
-    { label: '1 mois', value: '7' },
-    { label: '2 mois', value: '8' },
-  ];
-
-  const Notification = [
-    { off: 'Oui', input: '2' },
-    { off: 'Non', input: '1' },
-  ];
-
-
-  const Rappel = [
-    { rappel: 'Aucun', id: '1' },
-    { rappel: '1 heures', id: '2' },
-    { rappel: '2 heures', id: '3' },
-    { rappel: '1 jour', id: '4' },
-    { rappel: '1 semaine', id: '5' },
-  ];
-
-
-
-
 const AddListeCourseBS = () => {
 
-
 const [title, onChangeTitre] = React.useState(null);
-const [value, setValue] = useState(null);
-const [day, Day] = React.useState(null);
-const [month, Month] = React.useState(null);
-const [year, Year] = React.useState(null);
-
-const sheetRef = useRef<BottomSheet>(null);
-
-const [isOpen, setIsOpen] = useState(false);
 
 const bottomSheetRef = useRef<BottomSheetModal>(null);
 
