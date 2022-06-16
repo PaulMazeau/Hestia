@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, ImageComponent, Image, ListRenderItem} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import { FlatList, ScrollView } from 'react-native-gesture-handler';
+import { FlatList, ScrollView, Switch } from 'react-native-gesture-handler';
 import { RootStackParams } from '../App';
 import Top from '../components/HeaderSettings';
 import Fleche from '../Icons/fleche.svg';
@@ -46,12 +46,14 @@ const ColocSettings = ({route, navigation}: Props) => {
         <View style={styles.addButton}>
             <Addbutton></Addbutton>
         </View>
+
         <TouchableOpacity onPress={() => console.log("blabla")}>
             <View style={styles.Setting}>
-                <Text style={styles.name}>Identié</Text>
-                <Fleche></Fleche>
+                <Text style={styles.name}>Thème sombre</Text>
+                <Switch onValueChange={() => console.log('value changed')}></Switch>
             </View>
         </TouchableOpacity>
+
         <TouchableOpacity onPress={() => console.log("blabla")}>
             <View style={styles.Quitter}>
                 <Exit></Exit>
