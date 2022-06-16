@@ -15,7 +15,6 @@ interface FoodProps {
 const Food: React.FC<FoodProps> = ({name}) => {
   const [radiobutton, setstate] = useState(false);
     return (      
-    
         <View style = {styles.Ligne}>
           <RadioButton size={22} selected={radiobutton} onPress={() => setstate(!radiobutton)} />
           <Text style = {[!radiobutton? styles.food_text_valid: styles.food_text_invalid]} onPress={() => setstate(!radiobutton)} >{name}</Text>
