@@ -15,16 +15,19 @@ import Course from './Icons/Course.svg';
 import Depense from './Icons/Depense.svg';
 import Tache from './Icons/Tache.svg';
 import LoginScreen from './screens/Login';
-import {auth} from './firebase-config';
+import {auth,db} from './firebase-config';
 import { useAuthState } from 'react-firebase-hooks/auth';
-
-
+import SignupScreen from './screens/Signup';
+import { createContext } from 'react';
+import{doc, getDoc} from 'firebase/firestore'
 //initialisation des root pour la NavBar Bottom
 export type RootStackParams = {
   AuthStack : undefined;
   AccueilStack: undefined;
   CoursesStack: NavigatorScreenParams<CoursesStackParams>;
   Profile: undefined;
+  Signup : undefined;
+  Login: undefined
   Course: {
     //id dans la vraie vie
     name: string;
@@ -97,6 +100,7 @@ const AuthScreenStack = () => {
       headerShown: false,
      }}>
       <AuthStack.Screen name = "Login" component={LoginScreen}/>
+      <AuthStack.Screen name= "Signup" component={SignupScreen} />
     </AuthStack.Navigator>
   )
 }
@@ -108,9 +112,15 @@ const AuthScreenStack = () => {
 
   
 export default function App() {
+  const[username, setUsername] = useState();
   const renderContent = () =>{
     const[usr, loading, error] = useAuthState(auth);
     if(usr){
+      const getUsername = async () => {
+      const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
+      setUsername(data.data().nom)
+    }
+    getUsername();
       return (
        <RootStack.Navigator
     initialRouteName="AccueilStack" 

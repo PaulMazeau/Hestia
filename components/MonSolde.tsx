@@ -1,10 +1,12 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
+import{useCollectionData} from 'react-firebase-hooks/firestore';
+
 
 
 const ProfilImage=require('../Img/avatarHeader.png');
 
-const MonSolde  = () => {
+const MonSolde  = (props) => {
   return (
     <View style={styles.global}>
         <View style={styles.container}>
@@ -12,7 +14,7 @@ const MonSolde  = () => {
             <ImageContainer image={ProfilImage} />  
 
             <View style={styles.top}>
-                <Text style={styles.titre}>-30,00 EUR</Text>
+                <Text style={styles.titre}>{props.montant}</Text>
 
                 <View style={styles.dateContainer}>
                     <Text style={styles.date}>Mon solde</Text>

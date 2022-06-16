@@ -1,20 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Settings from '../Icons/Settings.svg';
-
+import {auth, db} from '../firebase-config'
+import{useAuthState} from 'react-firebase-hooks/auth'
+import { UserProps } from 'victory-core';
+import{doc, getDoc} from 'firebase/firestore';
+import { useDocumentData } from 'react-firebase-hooks/firestore';
 
 
 const ProfilImage=require('../Img/avatarHeader.png');
 
+ 
 
-const Top = () => {
+const Top = (props) => {
+    // const [username, setUsername] = useState("")
+    // useEffect( ()=> {
+    //     const getUsername = async () => {
+    //       const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
+    //       setUsername(data.data().nom)
+    //     }
+    //     getUsername();
+    // }, [])
+   
     return (
     
     <SafeAreaView>
     <View style={styles.Header}>
     <ImageContainer image={ProfilImage} />
-    <HeaderTitle/>
+    <View style={styles.Title}>
+        <Text style={styles.BigTitle}>Hi, {props.nom}</Text>
+        <Text style={styles.SmallTitle}>8 juin, 2022</Text>
+    </View>
     <Settings width={25} height={25} fill="white"/>
     </View>
     </SafeAreaView>
@@ -31,13 +48,6 @@ const ImageContainer = ({image}) => (
     </View>
 );
 
-
-const HeaderTitle = () => (
-    <View style={styles.Title}>
-        <Text style={styles.BigTitle}>Hi, Paul</Text>
-        <Text style={styles.SmallTitle}>8 juin, 2022</Text>
-    </View>
-);
 
 const styles = StyleSheet.create ({
     Header: {
