@@ -109,8 +109,8 @@ const styles = StyleSheet.create({
     },
 
     container: {
-      marginLeft: 16,
-      marginRight: 16,
+      paddingLeft: 16,
+      paddingRight: 16,
       backgroundColor: '#EDF0FA',
       flex: 1,
       },
