@@ -76,8 +76,8 @@ const styles = StyleSheet.create({
     first50:{
         backgroundColor: '#172ACE',
         flex: 1.5,
-        borderBottomLeftRadius: 20,
-        borderBottomRightRadius: 20,
+        borderBottomLeftRadius: 30,
+        borderBottomRightRadius: 30,
     },
       
     ImageContainer: {

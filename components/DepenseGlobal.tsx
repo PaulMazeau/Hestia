@@ -4,18 +4,26 @@ import Top from '../components/HeaderDark';
 import Depense from '../components/DepenseDiagram';
 import { ScrollView } from 'react-native-gesture-handler';
 import Transaction from '../components/Transaction';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParams } from '../App';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
+import Equilibrage from './Equilibrage';
 
+//type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
 
 const AllDepense = () => {
 
+  const navigation =
+  useNavigation<StackNavigationProp<RootStackParams>>();
   
   return (
   <View style={{flex:1}}>
-      
-       <Depense/>
+      <Text style={styles.DerniereDepense}>Equilibrage</Text>
+       <Equilibrage/>
           <View style={styles.Title}>
             <Text style={styles.DerniereDepense}>Dernière Dépense</Text>
-            <TouchableOpacity onPress={() => console.log('test')} >
+            <TouchableOpacity onPress={() => navigation.navigate('ListDepense')} >
               <Text style={styles.VoirToutes}>Voir toutes {'>'}</Text>
              </TouchableOpacity>
           </View>

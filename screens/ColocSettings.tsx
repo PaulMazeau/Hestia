@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, ImageComponent, Image, ListRenderItem} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import { FlatList, ScrollView, Switch } from 'react-native-gesture-handler';
+import { FlatList, Switch } from 'react-native-gesture-handler';
 import { RootStackParams } from '../App';
 import Top from '../components/HeaderSettings';
 import AddColoc from '../Icons/AddColoc.svg';
 import Exit from '../Icons/Exit.svg';
-import { Colors } from 'react-native-ui-lib';
 
 
 import TopBackNavigation from '../components/TopBackNavigation';

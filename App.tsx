@@ -16,6 +16,7 @@ import Accueil from './Icons/Accueil.svg';
 import Course from './Icons/Course.svg';
 import Depense from './Icons/Depense.svg';
 import Tache from './Icons/Tache.svg';
+import AllDepense from './screens/ListDepense';
 
 
 
@@ -31,6 +32,7 @@ export type RootStackParams = {
   DepenseStack: undefined;
   Settings: undefined;
   ColocSettings: undefined;
+  ListDepense: undefined;
 }
 
 
@@ -116,6 +118,7 @@ export type DepenseStackParams = {
   Depense: undefined;
   Settings: undefined;
   ColocSettings : undefined;
+  ListDepense: undefined;
 };
 
 
@@ -129,6 +132,7 @@ const DepenseScreenStack = () => {
           <DepenseStack.Screen name="Depense" component={DepenseScreen}/>
           <DepenseStack.Screen name="Settings" component={SettingsScreen}/>
           <ExploreStack.Screen name="ColocSettings" component={ColocSettingsScreen}/>
+          <DepenseStack.Screen name="ListDepense" component={AllDepense}/>
         </DepenseStack.Navigator>
       </View>
   );
