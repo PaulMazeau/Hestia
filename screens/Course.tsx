@@ -5,77 +5,79 @@ import { RootStackParams } from '../App';
 import TopBackNavigation from '../components/TopBackNavigation';
 import Top from '../components/HeaderDark';
 import Food from '../components/Food';
+import { ScrollView } from 'react-native-gesture-handler';
 
 type Props = NativeStackScreenProps<RootStackParams, 'Course'>;
 
+const data=[
+  {key : "6 tomates"},
+  {key : "6 tomates"},
+  {key : "3 salades"}
+]
+
+
 const CourseScreen = ({ route, navigation }: Props) => {
   return (
-    <View style={styles.body}>
-      <Top/>
     <View style={styles.container}>
+      <Top/>
+    
       
       <View style = {styles.Title}>
         <TopBackNavigation/>
         <Text style={styles.screenTitle}>{route.params.name}</Text>
       </View>
-      <View style={styles.Foodcontainer}>
-        <View style = {styles.container}>
-            <Text style={styles.Food_title}>Fruits & Légumes</Text>
-            <View style = {styles.separator}></View>
-            <FlatList data={[
-              {key : "6 tomates"},
-              {key : "3 salades"}
-            ]}
-            scrollEnabled = {false}
-            renderItem={({item}) => <Food name = {item.key}></Food>}></FlatList>
-        </View>
-        <View style = {styles.container}>
-            <Text style={styles.Food_title}>Viandes</Text>
-            <View style = {styles.separator}></View>
-            <FlatList data={[
-              {key : "4 steaks"}
-            ]}
-            scrollEnabled = {false}
-            renderItem={({item}) => <Food name = {item.key}></Food>}></FlatList>
-        </View>
-        <View style = {styles.container}>
-            <Text style={styles.Food_title}>Boissons</Text>
-            <View style = {styles.separator}></View>
-            <FlatList data={[
-              {key : "1 Coca"},
-              {key : "1 pack de bière"}
-            ]}
-            scrollEnabled = {false}
-            renderItem={({item}) => <Food name = {item.key}></Food>}></FlatList>
-        </View>
-        <View style = {styles.container}>
-            <Text style={styles.Food_title}>Maison</Text>
-            <View style = {styles.separator}></View>
-            <FlatList data={[
-              {key : "papier toilette"},
-              {key : "sac poubelle"}
-            ]}
-            scrollEnabled = {false}
-            renderItem={({item}) => <Food name = {item.key}></Food>}></FlatList>
-        </View>
-      </View>
+
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={{paddingBottom:10}}>
+        <View style={styles.whiteBackGround}>
+          <Text style={styles.Food_title}>Fruits & Légumes</Text>
+          <View style = {styles.separator}></View>
+          {data.map((item) => {
+            return (
+              <Food name = {item.key}></Food>
+            )
+          })}
+          <Text style={styles.Food_title}>Viandes</Text>
+          <View style = {styles.separator}></View>
+          {data.map((item) => {
+            return (
+              <Food name = {item.key}></Food>
+            )
+          })}   
         
-    </View>
+          <Text style={styles.Food_title}>Boissons</Text>
+          <View style = {styles.separator}></View>
+          {data.map((item) => {
+            return (
+              <Food name = {item.key}></Food>
+            )
+          })} 
+
+          <Text style={styles.Food_title}>Maison</Text>
+          <View style = {styles.separator}></View>
+          {data.map((item) => {
+            return (
+              <Food name = {item.key}></Food>
+            )
+          })} 
+        </View>
+        </View>
+      </ScrollView>
+
+        
+    
     </View>
   );
 };
 
 const styles = StyleSheet.create({
 
-  body: {
-    flex: 1,
-    backgroundColor: '#EDF0FA',
-  },
-
   container: {
-    paddingBottom: 16,
-    paddingLeft: 16,
-    paddingRight: 16,
+    flex:1,
+    backgroundColor: '#EDF0FA',
+    paddingLeft:15,
+    paddingRight:15,
+
   },
 
   screenTitle: {
@@ -91,13 +93,17 @@ const styles = StyleSheet.create({
   },
   
   Foodcontainer: {
-    paddingTop : 10,
-    paddingBottom : 20,
-    backgroundColor: 'white',
-    height : "auto",
+    padding: 15,
     width : "100%",
     marginTop: 8,
-    borderRadius : 10,
+    
+  },
+
+  whiteBackGround:{ 
+    backgroundColor:'white',
+    borderRadius:10,
+    height:'auto',
+    padding:10
   },
 
   Food_title: {
@@ -111,7 +117,7 @@ const styles = StyleSheet.create({
     width : "100%",
     backgroundColor : "#4F8DD1",
     marginTop : 10,
-    marginBottom : 10
+    marginBottom : 10,
   },
 });
 
