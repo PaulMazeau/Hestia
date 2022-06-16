@@ -1,15 +1,20 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { ScrollView } from 'react-native-gesture-handler';
 import CourseCard from '../components/CourseCard';
 import { RootStackParams } from '../App';
 import Top from '../components/HeaderDark';
-
+import AddButton from '../Icons/AddButton.svg';
 
 type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
 
 const CoursesScreen = ({navigation}: Props) => {
+
+  const buttonPressed = () => {
+    console.log('open');
+  }
+
   return (
  <View style={styles.Body}>
     <Top/>
@@ -27,6 +32,11 @@ const CoursesScreen = ({navigation}: Props) => {
             
         </ScrollView>
     </View>
+
+    <TouchableOpacity onPress={buttonPressed} style= {styles.AddButton}>
+          <AddButton /> 
+        </TouchableOpacity>
+        
     </View>
   );
 };
@@ -46,7 +56,14 @@ const styles = StyleSheet.create({
       flex: 1,
       paddingLeft: 16,
       paddingRight: 16,
-    }
+    },
+
+    AddButton: {
+      justifyContent: 'flex-end',
+      alignItems: 'flex-end',
+      height: 0,
+      marginBottom: 10,
+    },
 })
 
 export default CoursesScreen;

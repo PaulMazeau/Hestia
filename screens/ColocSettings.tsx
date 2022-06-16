@@ -4,12 +4,13 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { FlatList, ScrollView, Switch } from 'react-native-gesture-handler';
 import { RootStackParams } from '../App';
 import Top from '../components/HeaderSettings';
-import Fleche from '../Icons/fleche.svg';
 import AddColoc from '../Icons/AddColoc.svg';
 import Exit from '../Icons/Exit.svg';
+import { Colors } from 'react-native-ui-lib';
+
 
 import TopBackNavigation from '../components/TopBackNavigation';
-import { BorderRadiuses } from 'react-native-ui-lib';
+
 
 
 type Props = NativeStackScreenProps<RootStackParams, 'ColocSettings'>;
@@ -52,7 +53,7 @@ const ColocSettings = ({route, navigation}: Props) => {
         <TouchableOpacity onPress={() => console.log("blabla")}>
             <View style={styles.Setting}>
                 <Text style={styles.name}>Thème sombre</Text>
-                <Switch onValueChange={() => console.log('value changed')}></Switch>
+                <Switch onValueChange={() => console.log('value changed')}/>
             </View>
         </TouchableOpacity>
 
@@ -111,7 +112,8 @@ const styles = StyleSheet.create({
         marginBottom: 15,
     },
     name:{
-        fontWeight: '700'
+        fontWeight: '700',
+        fontSyze: 15,
     },
     Setting: {
         backgroundColor: "white",

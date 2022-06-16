@@ -115,7 +115,6 @@ const styles = StyleSheet.create({
       flex: 1,
       },
 
-      
     screenTitle: {
         fontSize: 24,
         fontWeight: 'bold',
