@@ -1,20 +1,22 @@
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { TouchableHighlight } from 'react-native-gesture-handler'
 import BackIcon from '../Icons/BackIcon'
-import { useNavigation } from '@react-navigation/core'
 
 const TopBackNavigation = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
-  return <View style={styles.container}>
+  return (
+  
+  <View style={styles.container}>
     <TouchableHighlight style={styles.backButton} underlayColor= "transparent" onPress={() => {
-      navigation.goBack()
-    }}>
+      navigation.goBack() }}>
       <BackIcon color="#333" size={30} />
     </TouchableHighlight>
   </View>
-}
+  
+  )}
 
 const styles = StyleSheet.create({
   container: {
@@ -27,4 +29,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default TopBackNavigation
+export default TopBackNavigation;

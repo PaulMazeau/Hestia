@@ -19,7 +19,6 @@ import Tache from './Icons/Tache.svg';
 import AllDepense from './screens/ListDepense';
 
 
-
 //initialisation des root pour la NavBar Bottom
 export type RootStackParams = {
   AccueilStack: undefined;

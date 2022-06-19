@@ -73,7 +73,11 @@ const Settings = () => {
         </TouchableOpacity>
       </View>
         
-        <View style={{alignItems:'flex-end'}}>
+        <View style={{justifyContent: 'space-between', flexDirection:'row'}}>
+        <TouchableOpacity onPress={() => console.log('Modifier!')} style={styles.DeconnecterButton}>
+            <Text style={styles.Modifier}>Se deconnecter</Text>
+          </TouchableOpacity>
+
           <TouchableOpacity onPress={() => console.log('Modifier!')} style={styles.ModifierButton}>
             <Text style={styles.Modifier}>Sauvegarder</Text>
           </TouchableOpacity>
@@ -172,8 +176,15 @@ const styles = StyleSheet.create({
           fontWeight: '600',
           color: 'white',
           textAlign: 'center',
-        }
+        },
 
+        DeconnecterButton: {
+          height: 40,
+          borderRadius: 5,
+          backgroundColor: 'red',
+          width: 154,
+          justifyContent: 'center'
+        },
         
 })
 
