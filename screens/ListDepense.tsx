@@ -93,8 +93,6 @@ container: {
     backgroundColor: '#EDF0FA'
 },
 
-
-
 })
 
 export default AllDepense;

@@ -58,22 +58,8 @@ const DepenseScreen = () => {
     
           {show ? <DepenseGlobal/> : <DepensePerso/>}
         
-        <TouchableOpacity onPress={buttonPressed} style= {styles.AddButton}>
-          <AddButton /> 
-        </TouchableOpacity>
-      
-
-        <BottomSheetModal
-        ref={bottomSheetRef}
-        snapPoints={['90%']}
-        index= {0}
-        backdropComponent={renderBackdrop}
-      >
-        <View style={styles.contentContainer}>
-          <AddDepenseBS/>
-        </View>
-      </BottomSheetModal>
-
+       
+     
 
         </View>
   );

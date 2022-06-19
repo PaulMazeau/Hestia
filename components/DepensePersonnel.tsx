@@ -1,8 +1,7 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import Depense from '../components/DepenseDiagram';
 import { ScrollView } from 'react-native-gesture-handler';
-import Transaction from '../components/Transaction';
 import Avance from './Avance';
 import Dette from './Dette';
 

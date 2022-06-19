@@ -3,6 +3,7 @@ import React, { useCallback, useMemo, useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import TacheCard from '../components/TacheCard';
+import AddTaskBS from './AddTaskBS';
 
 
 
@@ -30,54 +31,12 @@ import TacheCard from '../components/TacheCard';
 
         </ScrollView>
             
+        <AddTaskBS/>
             </View>
   );
 };
 
 const styles = StyleSheet.create({
-
-    SousTitre: {
-      marginLeft: 15,
-      marginTop: 5,
-    },
-
-    Titre: {
-    textAlign: "center",
-    fontSize: 16,
-    marginBottom: 15,
-    },
-
-    input: {
-      height: 44,
-      margin: 12,
-      borderWidth: 1,
-      padding: 10,
-      borderRadius: 14,
-    },
-
-    BottomSheet: {
-        padding: 10,
-    },
-
-    container: {
-      paddingBottom: 16,
-      paddingLeft: 16,
-      paddingRight: 16,
-    },
-    screenTitle: {
-        fontSize: 24,
-        fontWeight: 'bold',
-    }, 
-    Header: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      marginBottom: 15,
-    },
-
-    control: {
-      marginBottom: 15,
-    },
 
     CategoriePeriode:{
       fontSize: 19,

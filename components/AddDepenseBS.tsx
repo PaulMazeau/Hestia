@@ -3,6 +3,9 @@ import {StyleSheet, View, Text, Button, Image, Alert, TextInput, ScrollView, Tou
 import { Dropdown } from 'react-native-element-dropdown';
 import ParticipantCard from './ParticipantCard';
 import Plus from '../Icons/Plus.svg'
+import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
+import AddButton from '../Icons/AddButton.svg'
+import * as Haptics from 'expo-haptics';
 
 
 const Recurrence = [
@@ -17,6 +20,26 @@ const Recurrence = [
 
 const AddDepenseBS = () => {
 
+const bottomSheetRef = useRef<BottomSheetModal>(null);
+
+const renderBackdrop = useCallback((props) => {
+  return (
+    <BottomSheetBackdrop
+      {...props}
+      disappearsOnIndex={-1}
+      appearsOnIndex={0}
+    />
+  );
+}, []);
+
+  const buttonPressed = () => {
+    bottomSheetRef.current?.present();
+  }
+
+  const AddDepense = () => {
+    bottomSheetRef.current?.close();
+  };
+
 
 const [title, onChangeTitre] = React.useState(null);
 const [value, setValue] = useState(null);
@@ -28,7 +51,25 @@ const [year, Year] = React.useState(null);
 
 return (
 
-<View >
+  
+
+<View style={{flex: 1}}>
+
+
+<TouchableOpacity onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy); buttonPressed() }} style= {styles.OpenBS}>
+  <AddButton /> 
+</TouchableOpacity>
+
+
+<BottomSheetModal
+ref={bottomSheetRef}
+snapPoints={['90%']}
+index= {0}
+backdropComponent={renderBackdrop}
+>
+
+<View style={styles.contentContainer}>
+ 
 <Text style={styles.Title}>Nouvelle dépense</Text>
     <View style={styles.depenseTitle}>
         <Text style={styles.subTitle}>Titre</Text>
@@ -45,8 +86,8 @@ return (
         <Text style={styles.subTitle}>Montant</Text>
         <TextInput
                 style={styles.input}
-                onChangeText={onChangeTitre}
-                value={title}
+                onChangeText={setValue}
+                value={value}
                 placeholder="Entrer le montant"
                 
             />
@@ -117,10 +158,16 @@ return (
             </View>
       </View>
 
-      <TouchableOpacity style={styles.AddButton} onPress={() => console.log('ferme')}> 
+      <TouchableOpacity style={styles.AddButton} onPress={() => { Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success); AddDepense() }} > 
       <Plus/>
       <Text style={styles.buttonText}>Ajouter la dépense</Text>
       </TouchableOpacity>
+
+
+</View>
+</BottomSheetModal>
+
+
 
 
 </View>
@@ -239,7 +286,18 @@ const styles = StyleSheet.create({
       buttonText: {
         color: 'white',
         marginLeft: 15,
-      }
+      },
+
+      contentContainer: {
+        flex: 1,
+        zIndex: 2,
+      },
+
+      OpenBS: {
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end',
+        flex: 1,
+      },
 })
 
 

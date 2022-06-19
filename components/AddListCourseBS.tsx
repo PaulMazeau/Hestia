@@ -1,9 +1,10 @@
-import React, { useCallback, useRef, useState } from 'react';
-import {StyleSheet, View, Text, Button, Image, Alert, TextInput, ScrollView, TouchableOpacity} from 'react-native'
-import { Dropdown } from 'react-native-element-dropdown';
+import React, { useCallback, useRef } from 'react';
+import {StyleSheet, View, Text, TextInput, ScrollView, TouchableOpacity} from 'react-native'
 import ParticipantCard from './ParticipantCard';
 import Plus from '../Icons/Plus.svg'
-import BottomSheet, { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
+import AddButton from '../Icons/AddButton.svg';
+import * as Haptics from 'expo-haptics';
 
 const AddListeCourseBS = () => {
 
@@ -11,14 +12,44 @@ const [title, onChangeTitre] = React.useState(null);
 
 const bottomSheetRef = useRef<BottomSheetModal>(null);
 
-const AddTask = () => {
+const AddList = () => {
   bottomSheetRef.current?.close();
 };
+
+const renderBackdrop = useCallback((props) => {
+  return (
+    <BottomSheetBackdrop
+      {...props}
+      disappearsOnIndex={-1}
+      appearsOnIndex={0}
+    />
+  );
+}, []);
+
+  const buttonPressed = () => {
+    bottomSheetRef.current?.present();
+  }
 
 
 return (
 
 <View style={{flex: 1}}>
+
+
+  <TouchableOpacity onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy); buttonPressed() }} style={styles.OpenBS}>
+          <AddButton /> 
+  </TouchableOpacity>
+
+
+
+ <BottomSheetModal
+        ref={bottomSheetRef}
+        snapPoints={['55%']}
+        index= {0}
+        backdropComponent={renderBackdrop}
+      >
+        <View style={styles.contentContainer}>
+      
   <ScrollView>
 <Text style={styles.Title}>Nouvelle Liste de Course</Text>
     <View style={styles.depenseTitle}>
@@ -50,12 +81,17 @@ return (
             </View>
       </View>
 
-      <TouchableOpacity style={styles.AddButton} onPress={AddTask}> 
+      <TouchableOpacity style={styles.AddButton} onPress={() => { Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success); AddList() }}> 
       <Plus/>
       <Text style={styles.buttonText}>Ajouter la tâche ménagère</Text>
       </TouchableOpacity>
 
       </ScrollView>
+
+
+        </View>
+</BottomSheetModal>  
+
 </View>
 
 )
@@ -167,13 +203,25 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
-        marginBottom: 15,
+        marginBottom: 16,
       },
 
       buttonText: {
         color: 'white',
         marginLeft: 15,
-      }
+      },
+
+      contentContainer: {
+        flex: 1,
+        alignItems: 'center',
+        zIndex: 2,
+      },
+
+      OpenBS: {
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end',
+        flex: 1,
+      },
 })
 
 

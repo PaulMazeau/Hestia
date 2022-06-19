@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Button, SafeAreaView, FlatLis
 import TacheCard from '../components/TacheCard';
 import { ScrollView } from 'react-native-gesture-handler';
 import Top from '../components/HeaderDark';
+import AddTaskBS from './AddTaskBS';
 
 
  const MesTask = () => {
@@ -22,57 +23,17 @@ import Top from '../components/HeaderDark';
   <Text style={styles.CategoriePeriode}>Cette semaine</Text>
 
     <TacheCard Tache='jten supplie'/>
+    
 
   </ScrollView>
-      
+
+  <AddTaskBS/>
+
       </View>
   );
 };
 
 const styles = StyleSheet.create({
-
-    SousTitre: {
-      marginLeft: 15,
-      marginTop: 5,
-    },
-
-    Titre: {
-    textAlign: "center",
-    fontSize: 16,
-    marginBottom: 15,
-    },
-
-    input: {
-      height: 44,
-      margin: 12,
-      borderWidth: 1,
-      padding: 10,
-      borderRadius: 14,
-    },
-
-    BottomSheet: {
-        padding: 10,
-    },
-
-    container: {
-      paddingBottom: 16,
-      paddingLeft: 16,
-      paddingRight: 16,
-    },
-    screenTitle: {
-        fontSize: 24,
-        fontWeight: 'bold',
-    }, 
-    Header: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      marginBottom: 15,
-    },
-
-    control: {
-      marginBottom: 15,
-    },
 
     CategoriePeriode:{
       fontSize: 19,

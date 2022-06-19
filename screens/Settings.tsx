@@ -75,7 +75,7 @@ const Settings = () => {
         
         <View style={{alignItems:'flex-end'}}>
           <TouchableOpacity onPress={() => console.log('Modifier!')} style={styles.ModifierButton}>
-            <Text style={styles.Modifier}>Modifier</Text>
+            <Text style={styles.Modifier}>Sauvegarder</Text>
           </TouchableOpacity>
         </View>
     
@@ -137,8 +137,8 @@ const styles = StyleSheet.create({
         },
 
         ImageContainer: {
-          height: 30,
-          width: 30,
+          height: 35,
+          width: 35,
           overflow: 'hidden',
           borderRadius: 90,
           justifyContent:'center',

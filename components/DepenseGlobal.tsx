@@ -9,6 +9,7 @@ import { RootStackParams } from '../App';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import Equilibrage from './Equilibrage';
+import AddDepenseBS from './AddDepenseBS';
 
 //type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
 
@@ -28,6 +29,8 @@ const AllDepense = () => {
              </TouchableOpacity>
           </View>
             <Transaction/>
+
+            <AddDepenseBS/>
 
 </View>
   );
