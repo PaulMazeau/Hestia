@@ -4,6 +4,8 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
 import Top from '../components/HeaderSettings';
 import TopBackNavigation from '../components/TopBackNavigation';
+import { useNavigation } from '@react-navigation/native';
+import * as Haptics from 'expo-haptics';
 
 
 const ProfilImage=require('../Img/avatar1.png');
@@ -13,6 +15,8 @@ type Props = NativeStackScreenProps<RootStackParams, 'Settings'>;
 
 
 const Settings = () => {
+
+  const navigation = useNavigation();
 
   const [title, onChangeTitre] = React.useState(null);
   const [email, changeemail] = React.useState(null);
@@ -74,11 +78,11 @@ const Settings = () => {
       </View>
         
         <View style={{justifyContent: 'space-between', flexDirection:'row'}}>
-        <TouchableOpacity onPress={() => console.log('Modifier!')} style={styles.DeconnecterButton}>
+        <TouchableOpacity onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); navigation.goBack() }} style={styles.DeconnecterButton}>
             <Text style={styles.Modifier}>Se deconnecter</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => console.log('Modifier!')} style={styles.ModifierButton}>
+          <TouchableOpacity onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); navigation.goBack() }} style={styles.ModifierButton}>
             <Text style={styles.Modifier}>Sauvegarder</Text>
           </TouchableOpacity>
         </View>
