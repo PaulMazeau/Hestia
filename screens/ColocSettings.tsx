@@ -10,8 +10,6 @@ import Exit from '../Icons/Exit.svg';
 
 import TopBackNavigation from '../components/TopBackNavigation';
 
-
-
 type Props = NativeStackScreenProps<RootStackParams, 'ColocSettings'>;
 
 
@@ -58,8 +56,8 @@ const ColocSettings = ({route, navigation}: Props) => {
 
         <TouchableOpacity onPress={() => console.log("blabla")}>
             <View style={styles.Quitter}>
-                <Exit></Exit>
-                <Text style={{fontWeight: '700', color:'white'}}>Quitter la colocation</Text>
+                <Exit/>
+                <Text style={{fontWeight: '700', color:'white', marginLeft: 5}}>Quitter la colocation</Text>
             </View>
         </TouchableOpacity>
         </View>
@@ -134,6 +132,7 @@ const styles = StyleSheet.create({
         height: 50,
         marginBottom: 20,   
     },
+
     ImageContainer: {
         height: 60,
         width: 60,
