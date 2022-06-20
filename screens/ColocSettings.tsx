@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, ImageComponent, Image, ListRenderItem} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, ImageComponent, Image, ListRenderItem, Alert} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { FlatList, ScrollView, Switch } from 'react-native-gesture-handler';
 import { RootStackParams } from '../App';
@@ -28,6 +28,10 @@ const data : Image[] = [
 
 const ColocSettings = ({route, navigation}: Props) => {
     
+    const [isEnabled, setIsEnabled] = useState(false);
+    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+
+    
   return (
     <View style={styles.Body}>
         <Top/>
@@ -51,7 +55,7 @@ const ColocSettings = ({route, navigation}: Props) => {
         <TouchableOpacity onPress={() => console.log("blabla")}>
             <View style={styles.Setting}>
                 <Text style={styles.name}>Thème sombre</Text>
-                <Switch onValueChange={() => console.log('value changed')}></Switch>
+                <Switch onValueChange={toggleSwitch} value={isEnabled}></Switch>
             </View>
         </TouchableOpacity>
 
