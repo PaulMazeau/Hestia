@@ -1,35 +1,25 @@
 import React from "react";
-import {ProgressChart} from "react-native-chart-kit";
-import { Button, Dimensions, View } from "react-native";
-import { VictoryAxis, VictoryBar, VictoryChart, VictoryStack } from "victory-native";
-
-const dataA = [
-  { x: "Paul", y: 57 },
-  { x: "Thomas", y: 40 },
-  { x: "Pierre", y: 0 },
-  { x: "Jacques", y: 37 },
-];
-
-const dataB = [
-  { x: "Paul", y: 57 },
-  { x: "Thomas", y: 40 },
-  { x: "Pierre", y: 38 },
-  { x: "Jacques", y: 37 },
-];
+import { Button, StyleSheet, View } from "react-native";
 
 
-const width = 400;
-
-  class Equilibrage extends React.Component {
+  const Equilibrage = () => {
   
-    render() {
+   
       return (
+        
         <View>
-        <Button title='prout'/>
-        </View> 
+            <Button title='la'></Button>
+      </View>
+            
       );
-    }
+    
   }
+
+  const styles = StyleSheet.create({
+
+    
+
+  })
   
   export default Equilibrage;
 

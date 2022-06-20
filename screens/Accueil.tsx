@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, Dimensions, Image} from 'react-native';
+import {View, Text, StyleSheet, Dimensions, Image, StatusBar} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
 import Top from '../components/HeaderClear';
@@ -16,7 +16,7 @@ type Props = NativeStackScreenProps<RootStackParams, 'AccueilStack'>;
 const AccueilScreen = ({ navigation }: Props) => {
   return (
     <View style={styles.body}>
-        
+        <StatusBar barStyle="light-content"/>
         <View style={styles.first50}>
            
             < Top/>
