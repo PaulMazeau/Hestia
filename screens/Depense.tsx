@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState} from 'react';
 import {View, Text, StyleSheet, Button, TouchableOpacity,} from 'react-native';
-import Top from '../components/Header';
+import Top from '../components/HeaderClear';
 import { BorderRadiuses, SegmentedControl } from 'react-native-ui-lib';
 import DepensePerso from '../components/DepensePersonnel';
 import DepenseGlobal from '../components/DepenseGlobal';

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Top from '../components/Header';
+import Top from '../components/HeaderClear';
 import { SegmentedControl, BorderRadiuses } from 'react-native-ui-lib';
 import GlobalTask from '../components/GlobalTask';
 import MesTask from '../components/MesTask';

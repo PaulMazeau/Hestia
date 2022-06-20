@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useRef } from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import Top from '../components/Header';
+import Top from '../components/HeaderClear';
 import { BorderRadiuses, SegmentedControl, Spacings } from 'react-native-ui-lib';
 import Depense from '../components/DepenseDiagram';
 import { ScrollView } from 'react-native-gesture-handler';

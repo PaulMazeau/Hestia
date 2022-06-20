@@ -4,7 +4,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { ScrollView } from 'react-native-gesture-handler';
 import CourseCard from '../components/CourseCard';
 import { RootStackParams } from '../App';
-import Top from '../components/Header';
+import Top from '../components/HeaderClear';
 import AddButton from '../Icons/AddButton.svg';
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import AddListCourseBS from '../components/AddListCourseBS';

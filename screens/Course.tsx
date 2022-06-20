@@ -3,7 +3,7 @@ import React from 'react';
 import {StyleSheet, View, Text, FlatList} from 'react-native';
 import { RootStackParams } from '../App';
 import TopBackNavigation from '../components/TopBackNavigation';
-import Top from '../components/Header';
+import Top from '../components/HeaderClear';
 import Food from '../components/Food';
 import { ScrollView } from 'react-native-gesture-handler';
 

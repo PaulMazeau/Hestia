@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet, Dimensions, Image} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
-import Top from '../components/Header';
+import Top from '../components/HeaderClear';
 import TacheCard from '../components/TacheCard';
 import MonSolde from '../components/MonSolde';
 
