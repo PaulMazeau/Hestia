@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, ImageComponent, Image, ListRenderItem} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import { FlatList, Switch } from 'react-native-gesture-handler';
+import { FlatList, ScrollView, Switch } from 'react-native-gesture-handler';
 import { RootStackParams } from '../App';
 import Top from '../components/HeaderSettings';
-import AddColoc from '../Icons/AddColoc.svg';
+import Fleche from '../Icons/fleche.svg';
+import Addbutton from '../Icons/AddButton.svg';
 import Exit from '../Icons/Exit.svg';
 
-
 import TopBackNavigation from '../components/TopBackNavigation';
+import { BorderRadiuses } from 'react-native-ui-lib';
+
 
 type Props = NativeStackScreenProps<RootStackParams, 'ColocSettings'>;
-
-
 const ProfilImage=require('../Img/avatarHeader.png');
 
 
@@ -27,6 +27,7 @@ const data : Image[] = [
 
 
 const ColocSettings = ({route, navigation}: Props) => {
+    
   return (
     <View style={styles.Body}>
         <Top/>
@@ -44,20 +45,20 @@ const ColocSettings = ({route, navigation}: Props) => {
             ></FlatList>
         </View>
         <View style={styles.addButton}>
-            <AddColoc/>
+            <Addbutton></Addbutton>
         </View>
 
         <TouchableOpacity onPress={() => console.log("blabla")}>
             <View style={styles.Setting}>
                 <Text style={styles.name}>Thème sombre</Text>
-                <Switch onValueChange={() => console.log('value changed')}/>
+                <Switch onValueChange={() => console.log('value changed')}></Switch>
             </View>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => console.log("blabla")}>
             <View style={styles.Quitter}>
-                <Exit/>
-                <Text style={{fontWeight: '700', color:'white', marginLeft: 5}}>Quitter la colocation</Text>
+                <Exit></Exit>
+                <Text style={{fontWeight: '700', color:'white'}}>Quitter la colocation</Text>
             </View>
         </TouchableOpacity>
         </View>
@@ -87,21 +88,24 @@ const styles = StyleSheet.create({
         borderRadius:100,
         flexDirection:'row', 
         justifyContent:"center",
-        top:-30, 
+        top:-30,
+        
     },
     container: {
         paddingBottom: 16,
+        paddingTop: 16,
         paddingLeft: 16,
         paddingRight: 16,
         backgroundColor: '#EDF0FA',
         height: '100%',
-        flexDirection : 'column',      
+        flexDirection : 'column',
+        
     },
     containerColoc: {
         height: 'auto',
         backgroundColor: 'blue',
         borderRadius: 20,
-        paddingBottom: 20,
+        paddingBottom: 20
     },
     screenTitle: {
         fontSize: 24,
@@ -109,8 +113,7 @@ const styles = StyleSheet.create({
         marginBottom: 15,
     },
     name:{
-        fontWeight: '700',
-        fontSize: 15,
+        fontWeight: '700'
     },
     Setting: {
         backgroundColor: "white",
@@ -132,7 +135,6 @@ const styles = StyleSheet.create({
         height: 50,
         marginBottom: 20,   
     },
-
     ImageContainer: {
         height: 60,
         width: 60,
@@ -145,9 +147,12 @@ const styles = StyleSheet.create({
         height: '100%',
         width: '100%',
         
+        
+        
     },
     Title: {
         flexDirection : 'row', 
+        marginTop : 10,
         marginBottom : 10,
     },
 })

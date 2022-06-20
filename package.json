@@ -21,6 +21,7 @@
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.6.2",
     "@react-navigation/stack": "^6.2.1",
+    "all": "^0.0.0",
     "date-fns": "^2.28.0",
     "e": "^0.2.1",
     "expo": "~45.0.0",

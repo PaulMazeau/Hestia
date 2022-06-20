@@ -60,7 +60,7 @@ const Settings = () => {
     
         <View style={styles.Title}>
           <TopBackNavigation/>
-          <Text style={styles.screenTitle}>Settings</Text>
+          <Text style={styles.screenTitle}>Paramètres</Text>
         </View>
 
     <View style={styles.ChampSettings}>

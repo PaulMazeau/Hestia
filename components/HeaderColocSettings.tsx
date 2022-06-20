@@ -16,7 +16,7 @@ const Top = () => {
       useNavigation<StackNavigationProp<RootStackParams>>();
     return (
     
-    <SafeAreaView style= {{backgroundColor: '#EDF0FA',}}>
+    <SafeAreaView style= {{backgroundColor: '#EDF0FA', paddingBottom:Platform.OS === 'android' ? 25:0}}>
     <View style={styles.Header}>
         <TouchableOpacity onPress={() => console.log("yeah")}>
             <ImageContainer image={ProfilImage} />
