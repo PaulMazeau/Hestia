@@ -5,7 +5,7 @@ import CoursesScreen from './screens/Courses';
 import AccueilScreen from './screens/Accueil';
 import TacheScreen from './screens/Tache';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import React from 'react';
+import React, { useState } from 'react';
 import DepenseScreen from './screens/Depense';
 import CourseScreen from './screens/Course';
 import SettingsScreen from './screens/Settings';
@@ -17,12 +17,18 @@ import Course from './Icons/Course.svg';
 import Depense from './Icons/Depense.svg';
 import Tache from './Icons/Tache.svg';
 import AllDepense from './screens/ListDepense';
+import LoginScreen from './screens/Login';
+import SignupScreen from './screens/Signup';
+import { auth,db } from './firebase-config';
+import { getDoc, doc } from 'firebase/firestore';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 
 //initialisation des root pour la NavBar Bottom
 export type RootStackParams = {
   AccueilStack: undefined;
   CoursesStack: NavigatorScreenParams<CoursesStackParams>;
+  AuthStack : NavigatorScreenParams<AuthStackParams>;
   TacheStack: undefined;
   Course: {
     //id dans la vraie vie
@@ -34,7 +40,23 @@ export type RootStackParams = {
   ListDepense: undefined;
 }
 
+export type AuthStackParams = {
+  Login: undefined;
+  Signup: undefined;
+}
 
+const AuthStack = createNativeStackNavigator<AuthStackParams>()
+
+const AuthScreenStack = () => {
+  return (
+    <AuthStack.Navigator screenOptions={{
+      headerShown: false,
+     }}>
+      <AuthStack.Screen name = "Login" component={LoginScreen}/>
+      <AuthStack.Screen name= "Signup" component={SignupScreen} />
+    </AuthStack.Navigator>
+  )
+}
 
 const RootStack = createBottomTabNavigator<RootStackParams>();
 
@@ -139,30 +161,45 @@ const DepenseScreenStack = () => {
 
   
 export default function App() {
+  const[username, setUsername] = useState();
+  const renderContent = () =>{
+    const[usr, loading, error] = useAuthState(auth);
+    if(usr){
+      const getUsername = async () => {
+      const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
+      setUsername(data.data().nom)
+    }
+    getUsername();
+      return ( <RootStack.Navigator
+        initialRouteName="AccueilStack" 
+        screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: "#172ACE",
+        tabBarInactiveTintColor: "grey",
+      
+       }}>
+    
+          <RootStack.Screen name="AccueilStack" component={AccueilScreenStack} options={{tabBarIcon: (({color, size}) => <Accueil color={color} />), tabBarLabel: "Accueil"}} />
+          <RootStack.Screen name="CoursesStack" component={CourseScreenStack} options={{tabBarIcon: (({color, size}) => <Course color={color} />), tabBarLabel: "Course"}} />
+          <RootStack.Screen name="TacheStack" component={TacheScreenStack} options={{tabBarIcon: (({color, size}) => <Tache color={color} />), tabBarLabel: "Tâche"}} />
+          <RootStack.Screen name="DepenseStack" component={DepenseScreenStack} options={{tabBarIcon: (({color, size}) => <Depense color={color} />), tabBarLabel: "Dépense"}} />
+          
+          
+    
+        </RootStack.Navigator>)
+        }
+      return <AuthScreenStack />
+      
+      }
+  
   return (
     <GestureHandlerRootView style={styles.body}>
      <BottomSheetModalProvider>
       <View style={styles.body}>
        <NavigationContainer //Création de la navBar
        >
-       
-    <RootStack.Navigator
-    initialRouteName="AccueilStack" 
-    screenOptions={{
-    headerShown: false,
-    tabBarActiveTintColor: "#172ACE",
-    tabBarInactiveTintColor: "grey",
-  
-   }}>
-
-      <RootStack.Screen name="AccueilStack" component={AccueilScreenStack} options={{tabBarIcon: (({color, size}) => <Accueil color={color} />), tabBarLabel: "Accueil"}} />
-      <RootStack.Screen name="CoursesStack" component={CourseScreenStack} options={{tabBarIcon: (({color, size}) => <Course color={color} />), tabBarLabel: "Course"}} />
-      <RootStack.Screen name="TacheStack" component={TacheScreenStack} options={{tabBarIcon: (({color, size}) => <Tache color={color} />), tabBarLabel: "Tâche"}} />
-      <RootStack.Screen name="DepenseStack" component={DepenseScreenStack} options={{tabBarIcon: (({color, size}) => <Depense color={color} />), tabBarLabel: "Dépense"}} />
-      
-      
-
-    </RootStack.Navigator>
+       {renderContent()}
+    
     </NavigationContainer>
     </View>
     </BottomSheetModalProvider>
@@ -181,4 +218,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-});
+})

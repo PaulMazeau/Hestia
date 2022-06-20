@@ -6,7 +6,10 @@ import Top from '../components/HeaderSettings';
 import TopBackNavigation from '../components/TopBackNavigation';
 import { useNavigation } from '@react-navigation/native';
 import * as Haptics from 'expo-haptics';
-
+import {auth, db} from '../firebase-config'
+import {signOut} from 'firebase/auth'
+import{doc, getDoc} from 'firebase/firestore'
+import { useFocusEffect } from '@react-navigation/native';
 
 const ProfilImage=require('../Img/avatar1.png');
 
@@ -15,6 +18,32 @@ type Props = NativeStackScreenProps<RootStackParams, 'Settings'>;
 
 
 const Settings = () => {
+ 
+  const nav = useNavigation();
+
+  useFocusEffect(
+    React.useCallback(() => {
+
+      
+
+      return () => {
+
+       if(nav.canGoBack()){
+        nav.goBack();
+       }
+        // Useful for cleanup functions
+
+      };
+    }, [])
+  );
+
+
+
+
+
+  const handleSignOut = () => {
+    signOut(auth);
+}
 
   const navigation = useNavigation();
 
@@ -78,7 +107,7 @@ const Settings = () => {
       </View>
         
         <View style={{justifyContent: 'space-between', flexDirection:'row'}}>
-        <TouchableOpacity onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); navigation.goBack() }} style={styles.DeconnecterButton}>
+        <TouchableOpacity onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); handleSignOut() }} style={styles.DeconnecterButton}>
             <Text style={styles.Modifier}>Se deconnecter</Text>
           </TouchableOpacity>
 
