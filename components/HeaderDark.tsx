@@ -25,9 +25,7 @@ const Top = ({}) => {
         <ImageContainer image={ProfilImage} />
     </TouchableOpacity>
     <HeaderTitle/>
-    <TouchableOpacity  onPress={() => navigation.push('ColocSettings')}>
-        <Settings width={25} height={25} fill="#282828"/>
-    </TouchableOpacity>
+    
     </View>
     </SafeAreaView>
     );

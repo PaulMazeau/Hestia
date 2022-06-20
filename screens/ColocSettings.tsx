@@ -49,7 +49,9 @@ const ColocSettings = ({route, navigation}: Props) => {
             ></FlatList>
         </View>
         <View style={styles.addButton}>
-            <Addbutton></Addbutton>
+        <TouchableOpacity onPress={() => console.log("blabla")}>
+            <Addbutton/>
+        </TouchableOpacity>
         </View>
 
         <TouchableOpacity onPress={() => console.log("blabla")}>
