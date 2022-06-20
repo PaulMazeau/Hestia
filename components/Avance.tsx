@@ -52,11 +52,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 70,
     marginBottom: 15,
-    elevation: 20,
+    elevation: 4,
     shadowColor: 'black',
     shadowOffset: {width: -2, height: 1},
     shadowOpacity: 0.1,
     shadowRadius: 3,
+    margin:5,
+    
   },
   
   Left: {

@@ -9,6 +9,7 @@ interface Props {
 
 const RestaurantCard: React.FC<Props> = ({name, onPress}) => {
   return (
+    
     <View style={styles.body}>
     <Drawer
     rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => console.log('remo')}]}
@@ -36,6 +37,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     height: 50,
+    
   },
 
   name:{
@@ -43,12 +45,22 @@ const styles = StyleSheet.create({
   },
 
   body: {
-    marginBottom: 15,
-    elevation: 20,
+    marginBottom: 10,
+    marginTop: 10,
+    elevation: 4,
     shadowColor: 'black',
     shadowOffset: {width: -2, height: 1},
     shadowOpacity: 0.1,
     shadowRadius: 3,
+    borderBottomEndRadius : 8,
+    borderTopStartRadius: 8,
+    borderTopEndRadius: 8,
+    borderBottomStartRadius: 8,
+    borderBottomLeftRadius:8,
+    borderBottomRightRadius:8,
+    margin:5,
+    overflow:'visible'
+    
   },
 
   avatar1: {
