@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     },
     container: {
         paddingBottom: 16,
-        paddingTop: 16,
+        
         paddingLeft: 16,
         paddingRight: 16,
         backgroundColor: '#EDF0FA',
