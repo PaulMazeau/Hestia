@@ -43,7 +43,7 @@ const CourseScreen = ({ route, navigation }: Props) => {
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{paddingBottom:10}}>
+        <View style={styles.list}>
         <View style={styles.whiteBackGround}>
           <Text style={styles.Food_title}>Fruits & Légumes</Text>
           <View style = {styles.separator}></View>
@@ -93,12 +93,26 @@ const styles = StyleSheet.create({
     backgroundColor: '#EDF0FA',
     paddingLeft:15,
     paddingRight:15,
+    
   },
 
   screenTitle: {
     fontSize: 24,
     fontWeight: 'bold',
     
+  },
+
+  list:{
+    paddingBottom:10,
+    elevation:4,
+    margin:5,
+    marginBottom:10,
+    backgroundColor:"white",
+    borderRadius:10,
+    shadowColor: 'black',
+    shadowOffset: {width: -2, height: 1},
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
   },
 
   Title: {

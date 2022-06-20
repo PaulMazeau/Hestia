@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Image, Platform} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Settings from '../Icons/Settings.svg';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -16,7 +16,7 @@ const Top = () => {
       useNavigation<StackNavigationProp<RootStackParams>>();
     return (
     
-    <SafeAreaView style= {{backgroundColor: '#EDF0FA',}}>
+    <SafeAreaView style= {{backgroundColor: '#EDF0FA', paddingBottom:Platform.OS === 'android' ? 25:0}}>
     <View style={styles.Header}>
         <ImageContainer image={ProfilImage} />
         <HeaderTitle/>

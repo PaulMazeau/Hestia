@@ -12,23 +12,22 @@ import AddListeCourseBS from '../components/AddListCourseBS';
 
 type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
 
+
 const CoursesScreen = ({navigation}: Props) => {
 
   return (
    
- <View style={styles.Body}>
+ <View style={styles.Body} >
     <Top/>
   
         <Text style={styles.screenTitle}>Listes de Course</Text>
-        <ScrollView showsVerticalScrollIndicator={false}>
-        
+        <ScrollView showsVerticalScrollIndicator={false} >
             <CourseCard name="Liste de Course 1" onPress={name => navigation.navigate('Course', {name})}/>
             <CourseCard name="Liste de Course 2" onPress={name => navigation.navigate('Course', {name})}/>
             <CourseCard name="Liste de Course 3" onPress={name => navigation.navigate('Course', {name})}/>
             <CourseCard name="Liste de Course 4" onPress={name => navigation.navigate('Course', {name})}/>
             <CourseCard name="Liste de Course 5" onPress={name => navigation.navigate('Course', {name})}/>
             <CourseCard name="Liste de Course 6" onPress={name => navigation.navigate('Course', {name})}/>
-
         </ScrollView>
 
         <AddListeCourseBS/>
@@ -49,6 +48,9 @@ const styles = StyleSheet.create({
       paddingLeft: 16,
       paddingRight: 16,
       flex: 1,
+      overflow:'visible',
+      clipToPadding:'false',
+      
     },
 })
 

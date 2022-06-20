@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Image, Platform} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Settings from '../Icons/Settings.svg';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -19,15 +19,13 @@ const Top = ({}) => {
 
     return (
     
-    <SafeAreaView style= {{backgroundColor: '#EDF0FA',}}>
+    <SafeAreaView style= {{backgroundColor: '#EDF0FA', paddingBottom:Platform.OS === 'android' ? 25:0}}>
     <View style={styles.Header}>
     <TouchableOpacity onPress={() => navigation.push('Settings')}>
         <ImageContainer image={ProfilImage} />
     </TouchableOpacity>
     <HeaderTitle/>
-    <TouchableOpacity  onPress={() => navigation.push('ColocSettings')}>
-        <Settings width={25} height={25} fill="#282828"/>
-    </TouchableOpacity>
+    
     </View>
     </SafeAreaView>
     );
