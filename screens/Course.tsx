@@ -3,7 +3,7 @@ import React from 'react';
 import {StyleSheet, View, Text, FlatList} from 'react-native';
 import { RootStackParams } from '../App';
 import TopBackNavigation from '../components/TopBackNavigation';
-import Top from '../components/HeaderDark';
+import Top from '../components/Header';
 import Food from '../components/Food';
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -34,7 +34,7 @@ const boisson=[
 const CourseScreen = ({ route, navigation }: Props) => {
   return (
     <View style={styles.container}>
-      <Top/>
+      <Top clear = {true} name ={"nom"}/>
     
       
       <View style = {styles.Title}>

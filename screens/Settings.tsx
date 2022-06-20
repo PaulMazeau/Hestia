@@ -24,14 +24,14 @@ const Settings = () => {
   useFocusEffect(
     React.useCallback(() => {
 
-      
+      //screen est focus
 
       return () => {
 
        if(nav.canGoBack()){
         nav.goBack();
        }
-        // Useful for cleanup functions
+        // screen est unfocused
 
       };
     }, [])

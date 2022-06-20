@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Top from '../components/HeaderDark';
+import Top from '../components/Header';
 import { SegmentedControl, BorderRadiuses } from 'react-native-ui-lib';
 import GlobalTask from '../components/GlobalTask';
 import MesTask from '../components/MesTask';
@@ -24,7 +24,7 @@ import TaskCalendar from '../components/TaskCalendar';
 
       <View style={styles.container}>
 
-          <Top/>
+          <Top clear={false} name={"caca"}/>
               <Text style={styles.screenTitle}>Tâche à faire</Text>
 
                 <TaskCalendar/>

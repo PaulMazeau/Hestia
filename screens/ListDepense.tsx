@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useRef } from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import Top from '../components/HeaderDark';
+import Top from '../components/Header';
 import { BorderRadiuses, SegmentedControl, Spacings } from 'react-native-ui-lib';
 import Depense from '../components/DepenseDiagram';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -22,7 +22,7 @@ const AllDepense = () => {
  
 
 <View style={styles.container}>
-<Top/>
+<Top clear={false} name={"nom"}/>
   
   <View style={styles.Title}>
   <TopBackNavigation/>

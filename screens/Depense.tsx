@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState} from 'react';
 import {View, Text, StyleSheet, Button, TouchableOpacity,} from 'react-native';
-import Top from '../components/HeaderDark';
+import Top from '../components/Header';
 import { BorderRadiuses, SegmentedControl } from 'react-native-ui-lib';
 import DepensePerso from '../components/DepensePersonnel';
 import DepenseGlobal from '../components/DepenseGlobal';
@@ -38,7 +38,7 @@ const DepenseScreen = () => {
 
   return (      
       <View style={styles.container}>
-      <Top/>
+      <Top clear={false} name={"prenom"}/>
           <Text style={styles.screenTitle}>Gestion des dépenses</Text>
 
           <SegmentedControl 

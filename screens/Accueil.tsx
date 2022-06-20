@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet, Dimensions, Image} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
-import Top from '../components/HeaderClear';
+import Top from '../components/Header';
 import TacheCard from '../components/TacheCard';
 import MonSolde from '../components/MonSolde';
 
@@ -19,7 +19,7 @@ const AccueilScreen = ({ navigation }: Props) => {
         
         <View style={styles.first50}>
            
-            < Top/>
+            < Top clear={true} name={"paulo"}/>
             <Text style={styles.Titre}>Welcome Back</Text>
             <ImageContainer image={ProfilImage} />
         </View>
