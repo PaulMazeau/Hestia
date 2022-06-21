@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {KeyboardAvoidingView, SafeAreaView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native'
+import {KeyboardAvoidingView, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native'
 import {createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import {auth, db} from '../firebase-config'
 import { isSearchBarAvailableForCurrentPlatform } from 'react-native-screens';
@@ -139,6 +139,7 @@ const styles = StyleSheet.create({
         textAlign: 'right',
         fontSize: 15,
         fontWeight: '500',
+        marginTop: 10
     },
     
     Seconnecter:{
@@ -161,6 +162,6 @@ const styles = StyleSheet.create({
       Title: {
         flexDirection : 'row', 
         alignItems: 'center',
-        marginTop: '10%',
+        marginTop: '10%'
       },
 })

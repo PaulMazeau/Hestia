@@ -6,12 +6,13 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParams } from '../App';
 
+
 const HomePageScreen = () => {
     const navigation = useNavigation<NativeStackNavigationProp<AuthStackParams>>();
     
     return(
         <View style={styles.container}> 
-            <StatusBar barStyle="light-content" />    
+            <StatusBar barStyle="light-content" />  
             <View style={styles.bluebg}>
                 <Text style={styles.title}>Bienvenue sur Hestia</Text>
                 <Text style={styles.subTitle}>Mieux vivre ensemble</Text>

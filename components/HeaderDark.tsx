@@ -1,6 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image, Platform} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {View, Text, StyleSheet, TouchableOpacity, Image, Platform, SafeAreaView} from 'react-native';
 import Settings from '../Icons/Settings.svg';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParams } from '../App';
@@ -19,7 +18,7 @@ const Top = ({}) => {
 
     return (
     
-    <SafeAreaView style= {{backgroundColor: '#EDF0FA', paddingBottom:Platform.OS === 'android' ? 25:0}}>
+    <SafeAreaView style= {{backgroundColor: '#EDF0FA', marginBottom: 25}}>
     <View style={styles.Header}>
     <TouchableOpacity onPress={() => navigation.push('Settings')}>
         <ImageContainer image={ProfilImage} />

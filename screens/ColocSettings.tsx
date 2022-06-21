@@ -5,7 +5,7 @@ import { FlatList, ScrollView, Switch } from 'react-native-gesture-handler';
 import { RootStackParams } from '../App';
 import Top from '../components/HeaderSettings';
 import Fleche from '../Icons/fleche.svg';
-import Addbutton from '../Icons/AddButton.svg';
+import AddColoc from '../Icons/AddColoc.svg';
 import Exit from '../Icons/Exit.svg';
 
 import TopBackNavigation from '../components/TopBackNavigation';
@@ -50,7 +50,7 @@ const ColocSettings = ({route, navigation}: Props) => {
         </View>
         <View style={styles.addButton}>
         <TouchableOpacity onPress={() => console.log("blabla")}>
-            <Addbutton/>
+            <AddColoc/>
         </TouchableOpacity>
         </View>
 
@@ -63,8 +63,8 @@ const ColocSettings = ({route, navigation}: Props) => {
 
         <TouchableOpacity onPress={() => console.log("blabla")}>
             <View style={styles.Quitter}>
-                <Exit></Exit>
-                <Text style={{fontWeight: '700', color:'white'}}>Quitter la colocation</Text>
+                <Exit/>
+                <Text style={{fontWeight: '700', color:'white', marginLeft: 5}}>Quitter la colocation</Text>
             </View>
         </TouchableOpacity>
         </View>
@@ -95,7 +95,6 @@ const styles = StyleSheet.create({
         flexDirection:'row', 
         justifyContent:"center",
         top:-30,
-        
     },
     container: {
         paddingBottom: 16,
@@ -152,9 +151,6 @@ const styles = StyleSheet.create({
     Image: {
         height: '100%',
         width: '100%',
-        
-        
-        
     },
     Title: {
         flexDirection : 'row', 

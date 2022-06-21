@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import {KeyboardAvoidingView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native'
+import {KeyboardAvoidingView, Platform, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View, SafeAreaView} from 'react-native'
 import {createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import {auth, db} from '../firebase-config'
 import { useNavigation } from '@react-navigation/native';
 import {setDoc, doc} from 'firebase/firestore';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParams } from '../App';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import TopBackNavigationClear from '../components/TopBackNavigationClear';
 
 const SignupScreen = () => {
@@ -35,6 +34,7 @@ const SignupScreen = () => {
     }
     
     return(
+       
         <View style={styles.container}>
             <StatusBar barStyle="light-content" />
             <View style={styles.bluebg}>
@@ -87,7 +87,6 @@ const SignupScreen = () => {
                         <Text style = {styles.buttonText}>Suivant</Text>
                 </TouchableOpacity>
                
-    
     </View>
     )
 }
@@ -157,11 +156,13 @@ const styles = StyleSheet.create({
         textAlign: 'right',
         fontSize: 15,
         fontWeight: '500',
+        marginTop: 10
     },
 
     Title: {
         flexDirection : 'row', 
         alignItems: 'center',
+        marginTop: '10%'
       },
 
 })
