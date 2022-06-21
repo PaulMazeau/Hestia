@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   },
 
   name:{
-    fontWeight: '700'
+    fontWeight: '700',
   },
 
   body: {
@@ -59,7 +59,9 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius:8,
     borderBottomRightRadius:8,
     margin:5,
-    overflow:'visible'
+    overflow:'visible',
+    backgroundColor:'white'
+    
     
   },
 
