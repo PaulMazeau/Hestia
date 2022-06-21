@@ -8,6 +8,7 @@ import {setDoc, doc} from 'firebase/firestore';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParams } from '../App';
 import TopBackNavigationClear from '../components/TopBackNavigationClear';
+import { useHeaderHeight } from '@react-navigation/elements';
 
 const LoginScreen = () => {
     const navigation = useNavigation<NativeStackNavigationProp<AuthStackParams>>();
@@ -32,7 +33,13 @@ const LoginScreen = () => {
         signInWithEmailAndPassword(auth, email, password).catch(error => alert(error.message))
     }
     
+    const headerHeight = useHeaderHeight();
     return(
+        <KeyboardAvoidingView
+        keyboardVerticalOffset={headerHeight -220}
+        style={{flex:1}}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
         <View style={styles.container}>
             <StatusBar barStyle="light-content" />
             <View style={styles.bluebg}>
@@ -77,7 +84,7 @@ const LoginScreen = () => {
                 </TouchableOpacity>
           
         </View>  
-     
+        </KeyboardAvoidingView>
     )
 }
 
