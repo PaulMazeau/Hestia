@@ -8,6 +8,8 @@ import {useCollectionData} from 'react-firebase-hooks/firestore';
 import { collection, getDoc, doc, query, where, getDocs } from 'firebase/firestore'
 import { db, auth } from '../firebase-config';
 import { render } from 'react-dom';
+import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+
 
 //props est la colocID, on le récupère ici car 1 appel en moins(appel ds tache obligé)
 // Besoin de colocID car Taches est subcollection de Colocs 
@@ -30,7 +32,12 @@ const renderContent = () => {
     )
   }}
   return (
+    <SkeletonPlaceholder
+    backgroundColor='rgb(255,255,255,.62)'
+    speed= {900}
+    >
     <TacheCard Tache='loading....' key='load'/>
+    </SkeletonPlaceholder>
   )
 
 }
