@@ -1,11 +1,13 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {StyleSheet, View, Text, FlatList} from 'react-native';
 import { RootStackParams } from '../App';
 import TopBackNavigation from '../components/TopBackNavigation';
 import Top from '../components/HeaderDark';
 import Food from '../components/Food';
 import { ScrollView } from 'react-native-gesture-handler';
+import { getDoc, doc } from 'firebase/firestore';
+import { auth, db } from '../firebase-config';
 
 type Props = NativeStackScreenProps<RootStackParams, 'Course'>;
 
@@ -32,9 +34,17 @@ const boisson=[
 
 
 const CourseScreen = ({ route, navigation }: Props) => {
+  const [username, setUsername] = useState("");
+  useEffect( () => {
+    const getData = async () => {
+      const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
+      setUsername(data.data().nom)
+    }
+    getData();
+  }, [])
   return (
     <View style={styles.container}>
-      <Top/>
+      <Top name={username}/>
     
       
       <View style = {styles.Title}>

@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {View, Text, StyleSheet, Dimensions, Image} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
 import Top from '../components/HeaderClear';
 import TacheCard from '../components/TacheCard';
 import MonSolde from '../components/MonSolde';
+import { getDoc, doc } from 'firebase/firestore';
+import { auth, db } from '../firebase-config';
 
 
 //importer l'image de maison
@@ -14,12 +16,24 @@ const ProfilImage=require('../Img/Home.png');
 type Props = NativeStackScreenProps<RootStackParams, 'AccueilStack'>;
 
 const AccueilScreen = ({ navigation }: Props) => {
+    const [username, setUsername] = useState("");
+    const[tache, setTache] = useState("")
+    const[solde, setSolde] = useState("...")
+    useEffect( ()=> {
+        const getData = async () => {
+          const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
+          setUsername(data.data().nom)
+          setTache(data.data().tache)
+          setSolde(data.data().solde)
+        }
+        getData();
+    }, [])
   return (
     <View style={styles.body}>
         
         <View style={styles.first50}>
            
-            < Top/>
+            < Top  name={username}/>
             <Text style={styles.Titre}>Welcome Back</Text>
             <ImageContainer image={ProfilImage} />
         </View>
@@ -27,11 +41,11 @@ const AccueilScreen = ({ navigation }: Props) => {
         <View style={styles.container}>
                 <View style={styles.Categorie}>
                     <Text style={styles.TitreCategorie}>Ma prochaine Tâche</Text>
-                    <TacheCard Tache="Ménage Salle de bain"/>
+                    <TacheCard Tache={tache}/>
                 </View>
                 <View style={styles.Categorie}>
                     <Text style={styles.TitreCategorie}>Mes dépenses</Text>
-                    <MonSolde/>
+                    <MonSolde solde={solde}/>
                 </View>
                 
         </View>

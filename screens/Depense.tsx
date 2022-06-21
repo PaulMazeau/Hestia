@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState} from 'react';
+import React, { useCallback, useEffect, useRef, useState} from 'react';
 import {View, Text, StyleSheet, Button, TouchableOpacity,} from 'react-native';
 import Top from '../components/HeaderDark';
 import { BorderRadiuses, SegmentedControl } from 'react-native-ui-lib';
@@ -7,10 +7,18 @@ import DepenseGlobal from '../components/DepenseGlobal';
 import AddButton from '../Icons/AddButton.svg'
 import BottomSheet, { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 import AddDepenseBS from '../components/AddDepenseBS';
-
+import { getDoc, doc  } from 'firebase/firestore';
+import { auth, db } from '../firebase-config';
 
 const DepenseScreen = () => {
-
+  const [username, setUsername] = useState("");
+  useEffect( () => {
+    const getData = async () => {
+      const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
+      setUsername(data.data().nom)
+    }
+    getData();
+  }, [])
   // ref
   const bottomSheetRef = useRef<BottomSheetModal>(null);
 
@@ -38,7 +46,7 @@ const DepenseScreen = () => {
 
   return (      
       <View style={styles.container}>
-      <Top/>
+      <Top name={username}/>
           <Text style={styles.screenTitle}>Gestion des dépenses</Text>
 
           <SegmentedControl 

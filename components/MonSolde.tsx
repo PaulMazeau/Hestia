@@ -7,7 +7,7 @@ import { RootStackParams } from '../App';
 
 const ProfilImage=require('../Img/avatarHeader.png');
 
-const MonSolde  = () => {
+const MonSolde  = (props) => {
 
   const navigation =
   useNavigation<StackNavigationProp<RootStackParams>>();
@@ -20,7 +20,7 @@ const MonSolde  = () => {
             <ImageContainer image={ProfilImage} />  
 
             <View style={styles.top}>
-                <Text style={styles.titre}>-30,00 EUR</Text>
+                <Text style={styles.titre}>{props.solde} EUR</Text>
 
                 <View style={styles.dateContainer}>
                     <Text style={styles.date}>Mon solde</Text>

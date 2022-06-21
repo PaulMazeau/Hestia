@@ -1,13 +1,25 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Top from '../components/HeaderDark';
 import { SegmentedControl, BorderRadiuses } from 'react-native-ui-lib';
 import GlobalTask from '../components/GlobalTask';
 import MesTask from '../components/MesTask';
 import TaskCalendar from '../components/TaskCalendar';
+import { getDoc, doc  } from 'firebase/firestore';
+import { auth, db } from '../firebase-config';
+
 
  const TacheScreen = () => {
-
+  const [username, setUsername] = useState("");
+  const [clcID, setclcID] = useState("");
+  useEffect( () => {
+    const getData = async () => {
+      const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
+      setUsername(data.data().nom);
+      setclcID(data.data().colocID);
+    }
+    getData();
+  }, [])
    
 
   const [show, setShow] = React.useState(true);
@@ -24,7 +36,7 @@ import TaskCalendar from '../components/TaskCalendar';
 
       <View style={styles.container}>
 
-          <Top/>
+          <Top name={username}/>
               <Text style={styles.screenTitle}>Tâche à faire</Text>
 
                 <TaskCalendar/>
@@ -43,7 +55,7 @@ import TaskCalendar from '../components/TaskCalendar';
               outlineWidth= {2}
               throttleTime= {100}
               />
-              {show ? <GlobalTask/> : <MesTask/> }
+              {show ? <GlobalTask clcID={clcID}/> : <MesTask/> }
 
       </View>
 

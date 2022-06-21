@@ -26,7 +26,7 @@ const SignupScreen = () => {
         createUserWithEmailAndPassword(auth, email, password).then(function(userCred) {
             // get user data from the auth trigger
             const userUid = userCred.user.uid; // The UID of the user.
-            // set account  doc  
+            // pr set champ du fichjier 
             const entry = {
                 nom: username,
                 uuid: userUid,

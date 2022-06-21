@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -9,15 +9,23 @@ import AddButton from '../Icons/AddButton.svg';
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import AddListCourseBS from '../components/AddListCourseBS';
 import AddListeCourseBS from '../components/AddListCourseBS';
-
+import { getDoc, doc  } from 'firebase/firestore';
+import { auth, db } from '../firebase-config';
 type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
 
 const CoursesScreen = ({navigation}: Props) => {
-
+  const [username, setUsername] = useState("");
+  useEffect( () => {
+    const getData = async () => {
+      const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
+      setUsername(data.data().nom)
+    }
+    getData();
+  }, [])
   return (
    
  <View style={styles.Body}>
-    <Top/>
+    <Top name={username}/>
   
         <Text style={styles.screenTitle}>Listes de Course</Text>
         <ScrollView showsVerticalScrollIndicator={false}>

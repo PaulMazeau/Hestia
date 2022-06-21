@@ -10,9 +10,9 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 
 const ProfilImage=require('../Img/avatarHeader.png');
+//props est nom du frero
 
-
-const Top = ({}) => {
+const Top = (props) => {
     
     const navigation =
     useNavigation<StackNavigationProp<RootStackParams>>();
@@ -24,7 +24,10 @@ const Top = ({}) => {
     <TouchableOpacity onPress={() => navigation.push('Settings')}>
         <ImageContainer image={ProfilImage} />
     </TouchableOpacity>
-    <HeaderTitle/>
+    <View style={styles.Title}>
+        <Text style={styles.BigTitle}>Hi, {props.name}</Text>
+        <Text style={styles.SmallTitle}>8 juin, 2022</Text>
+    </View>
     <TouchableOpacity  onPress={() => navigation.push('ColocSettings')}>
         <Settings width={25} height={25} fill="#282828"/>
     </TouchableOpacity>
@@ -44,12 +47,7 @@ const ImageContainer = ({image}) => (
 );
 
 
-const HeaderTitle = () => (
-    <View style={styles.Title}>
-        <Text style={styles.BigTitle}>Hi, Paul</Text>
-        <Text style={styles.SmallTitle}>8 juin, 2022</Text>
-    </View>
-);
+
 
 const styles = StyleSheet.create ({
     Header: {
