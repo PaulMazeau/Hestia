@@ -1,18 +1,14 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import React, {  } from 'react';
+import {View, Text, StyleSheet} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { ScrollView } from 'react-native-gesture-handler';
 import CourseCard from '../components/CourseCard';
 import { RootStackParams } from '../App';
 import Top from '../components/HeaderDark';
-import AddButton from '../Icons/AddButton.svg';
-import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
-import AddListCourseBS from '../components/AddListCourseBS';
 import AddListeCourseBS from '../components/AddListCourseBS';
-import { getDoc, doc, collection  } from 'firebase/firestore';
-import { auth, db } from '../firebase-config';
+import { collection  } from 'firebase/firestore';
+import { db } from '../firebase-config';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { RotateInUpLeft } from 'react-native-reanimated';
 type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
 
 const CoursesScreen = ({route, navigation}: Props) => {
@@ -20,14 +16,14 @@ const CoursesScreen = ({route, navigation}: Props) => {
 
   const renderContent = () =>{
 
-  const [allCourses] = useCollectionData(collection(db, "Colocs/"+route.params.clcID+ "/Taches"))
+  const [allCourses] = useCollectionData(collection(db, "Colocs/"+route.params.clcID+ "/Courses"))
   if(allCourses){
     return(
       allCourses.map(c => {
         console.log(c.id)
         return(
           
-          <CourseCard key= {c.id} name={c.desc} onPress = {name => navigation.navigate('Course', {name})}/>
+          <CourseCard key= {c.id} name={c.Nom} onPress = {name => navigation.navigate('Course', {name})}/>
         )
   
       })
