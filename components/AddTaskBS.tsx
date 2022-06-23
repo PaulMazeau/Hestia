@@ -48,8 +48,6 @@ const [day, Day] = React.useState(null);
 const [month, Month] = React.useState(null);
 const [year, Year] = React.useState(null);
 
-const sheetRef = useRef<BottomSheet>(null);
-
 const [isOpen, setIsOpen] = useState(false);
 
 const AddTask = () => {

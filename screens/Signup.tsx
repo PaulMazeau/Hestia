@@ -63,6 +63,7 @@ const SignupScreen = () => {
                     style = {styles.input}
                     placeholderTextColor="rgba(255, 255, 255, 0.8)"
                     autoCapitalize='none'
+                    autoCorrect={false}
                     />
 
                     <TextInput placeholder="Adresse Email"

@@ -44,7 +44,7 @@ return (
 
  <BottomSheetModal
         ref={bottomSheetRef}
-        snapPoints={['55%']}
+        snapPoints={['65%']}
         index= {0}
         backdropComponent={renderBackdrop}
       >
