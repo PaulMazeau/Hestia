@@ -20,7 +20,7 @@ const AccueilScreen = ({ navigation }: Props) => {
         <View style={styles.first50}>
            
             < Top/>
-            <Text style={styles.Titre}>Welcome Back</Text>
+            <Text style={styles.Titre}>Quoi de neuf?</Text>
             <ImageContainer image={ProfilImage} />
         </View>
             

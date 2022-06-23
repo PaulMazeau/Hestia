@@ -1,13 +1,10 @@
-import React, { useCallback, useRef } from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import React, {  } from 'react';
+import {View, Text, StyleSheet} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { ScrollView } from 'react-native-gesture-handler';
 import CourseCard from '../components/CourseCard';
 import { RootStackParams } from '../App';
 import Top from '../components/HeaderDark';
-import AddButton from '../Icons/AddButton.svg';
-import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
-import AddListCourseBS from '../components/AddListCourseBS';
 import AddListeCourseBS from '../components/AddListCourseBS';
 
 type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;

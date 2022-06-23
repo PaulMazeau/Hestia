@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import {Button, KeyboardAvoidingView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native'
+import {Button, KeyboardAvoidingView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View, Image} from 'react-native'
 import {createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import {auth, db} from '../firebase-config'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParams } from '../App';
+
+const Logo=require('../Img/LogoHestia.png');
 
 
 const HomePageScreen = () => {
@@ -14,6 +16,7 @@ const HomePageScreen = () => {
         <View style={styles.container}> 
             <StatusBar barStyle="light-content" />  
             <View style={styles.bluebg}>
+                <ImageContainer image={Logo} /> 
                 <Text style={styles.title}>Bienvenue sur Hestia</Text>
                 <Text style={styles.subTitle}>Mieux vivre ensemble</Text>
             </View>
@@ -38,7 +41,14 @@ const HomePageScreen = () => {
     )
 }
 
-export default HomePageScreen
+const ImageContainer = ({image}) => (
+    <View style={styles.ImageContainer}>
+        <Image source={image} style={styles.Image}/>
+    </View>
+);
+
+
+
 
 const styles = StyleSheet.create({
     container:{
@@ -54,13 +64,14 @@ const styles = StyleSheet.create({
         paddingRight: 16,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     
     title: {
         color: 'white',
         textAlign: 'center',
-        justifyContent: 'center',
-        marginTop: 300,
+        
         fontSize: 29,
     },
 
@@ -110,6 +121,20 @@ const styles = StyleSheet.create({
     subTitle: {
         color: 'white',
         textAlign: 'center'
-    }
+    },
+
+    ImageContainer: {
+        height: 100,
+        width: 100,
+        overflow: 'hidden',
+        borderRadius: 7,
+    },
+    
+    Image: {
+            height: '100%',
+            width: '100%',
+        },
 
 })
+
+export default HomePageScreen
