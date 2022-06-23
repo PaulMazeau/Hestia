@@ -9,33 +9,44 @@ import AddButton from '../Icons/AddButton.svg';
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import AddListCourseBS from '../components/AddListCourseBS';
 import AddListeCourseBS from '../components/AddListCourseBS';
-import { getDoc, doc  } from 'firebase/firestore';
+import { getDoc, doc, collection  } from 'firebase/firestore';
 import { auth, db } from '../firebase-config';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { RotateInUpLeft } from 'react-native-reanimated';
 type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
 
-const CoursesScreen = ({navigation}: Props) => {
-  const [username, setUsername] = useState("");
-  useEffect( () => {
-    const getData = async () => {
-      const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
-      setUsername(data.data().nom)
-    }
-    getData();
-  }, [])
+const CoursesScreen = ({route, navigation}: Props) => {
+
+
+  const renderContent = () =>{
+
+  const [allCourses] = useCollectionData(collection(db, "Colocs/"+route.params.clcID+ "/Taches"))
+  if(allCourses){
+    return(
+      allCourses.map(c => {
+        console.log(c.id)
+        return(
+          
+          <CourseCard key= {c.id} name={c.desc} onPress = {name => navigation.navigate('Course', {name})}/>
+        )
+  
+      })
+    )
+    return (
+      <Text>Loading........</Text>
+    )
+  } 
+
+  }
   return (
    
  <View style={styles.Body}>
-    <Top name={username}/>
+    <Top name={route.params.username}/>
   
         <Text style={styles.screenTitle}>Listes de Course</Text>
         <ScrollView showsVerticalScrollIndicator={false}>
         
-            <CourseCard name="Liste de Course 1" onPress={name => navigation.navigate('Course', {name})}/>
-            <CourseCard name="Liste de Course 2" onPress={name => navigation.navigate('Course', {name})}/>
-            <CourseCard name="Liste de Course 3" onPress={name => navigation.navigate('Course', {name})}/>
-            <CourseCard name="Liste de Course 4" onPress={name => navigation.navigate('Course', {name})}/>
-            <CourseCard name="Liste de Course 5" onPress={name => navigation.navigate('Course', {name})}/>
-            <CourseCard name="Liste de Course 6" onPress={name => navigation.navigate('Course', {name})}/>
+          {renderContent()}
 
         </ScrollView>
 

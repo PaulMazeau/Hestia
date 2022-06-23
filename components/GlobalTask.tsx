@@ -53,12 +53,10 @@ const renderContent = () => {
 
 
         <Text style={styles.CategoriePeriode}>Cette semaine</Text>
-
           <TacheCard Tache='jten supplie' key='jts'/>
           <TacheCard Tache='jten supplie'key='jts2'/>
           <TacheCard Tache='jten supplie'key = 'jts3'/>
           <TacheCard Tache='jten supplie' key='jts4'/>
-
         </ScrollView>
             
         <AddTaskBS/>

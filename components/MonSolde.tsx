@@ -7,6 +7,8 @@ import { RootStackParams } from '../App';
 
 const ProfilImage=require('../Img/avatarHeader.png');
 
+
+//props est le solde de l'utilisateur obtenu après connexion a la db
 const MonSolde  = (props) => {
 
   const navigation =

@@ -15,26 +15,26 @@ const ProfilImage=require('../Img/Home.png');
 
 type Props = NativeStackScreenProps<RootStackParams, 'AccueilStack'>;
 
-const AccueilScreen = ({ navigation }: Props) => {
-    const [username, setUsername] = useState("");
+const AccueilScreen = ({ route, navigation }: Props) => {
     const[tache, setTache] = useState("")
     const[solde, setSolde] = useState("...")
     useEffect( ()=> {
         const getData = async () => {
           const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
-          setUsername(data.data().nom)
+          
           setTache(data.data().tache)
           setSolde(data.data().solde)
         }
         getData();
     }, [])
+    console.log(route.params.clcID)
   return (
     <View style={styles.body}>
         
         <View style={styles.first50}>
            
-            < Top  name={username}/>
-            <Text style={styles.Titre}>Welcome Back</Text>
+            < Top  name={route.params.username}/>
+            <Text style={styles.Titre}>Welcome Back {route.params.clcID}</Text>
             <ImageContainer image={ProfilImage} />
         </View>
             

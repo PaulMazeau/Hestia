@@ -26,14 +26,15 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 
 //initialisation des root pour la NavBar Bottom
 export type RootStackParams = {
-  AccueilStack: undefined;
-  CoursesStack: NavigatorScreenParams<CoursesStackParams>;
+  AccueilStack: {username: string; clcID: string;};
+  CoursesStack: {username: string; clcID: string;};
   AuthStack : NavigatorScreenParams<AuthStackParams>;
   TacheStack: undefined;
   Course: {
     //id dans la vraie vie
     name: string;
   }
+ 
   DepenseStack: undefined;
   Settings: undefined;
   ColocSettings: undefined;
@@ -64,7 +65,7 @@ const RootStack = createBottomTabNavigator<RootStackParams>();
 
 //initialisation des root pour la sous navigation dans la page Course
 export type CoursesStackParams = {
-  Courses: undefined;
+  Courses: {username: string, clcID: string;};
   Course: {
     //id dans la vraie vie
     name: string;
@@ -76,11 +77,11 @@ export type CoursesStackParams = {
 const CoursesStack = createNativeStackNavigator<CoursesStackParams>();
 
 //initialisation des root pour la sous navigation dans la page Course
-const CourseScreenStack = () => {
+const CourseScreenStack = (t) => {
   return (
   <CoursesStack.Navigator initialRouteName="Courses" screenOptions={{headerShown: false}}>
-    <CoursesStack.Screen name="Courses" component={CoursesScreen}/>
-    <CoursesStack.Screen name="Course" component={CourseScreen}/>
+    <CoursesStack.Screen name="Courses" component={CoursesScreen} initialParams={t.route.params}/>
+    <CoursesStack.Screen name="Course" component={CourseScreen} />
     <ExploreStack.Screen name="Settings" component={SettingsScreen}/>
     <ExploreStack.Screen name="ColocSettings" component={ColocSettingsScreen}/>
   </CoursesStack.Navigator>
@@ -92,17 +93,22 @@ export type AccueilStackParams = {
   Accueil: undefined;
   Settings: undefined;
   ColocSettings : undefined;
+  user:{
+    username: string;
+    clcID: string;
+  }
 };
 
 
 const ExploreStack = createNativeStackNavigator<AccueilStackParams>();
 
 //initialisation des root pour la sous navigation dans la page Accueil
-const AccueilScreenStack = () => {
+const AccueilScreenStack = (t) => {
+  
   return (
       <View style={styles.body}>
         <ExploreStack.Navigator initialRouteName="Accueil" screenOptions={{headerShown: false}}>
-          <ExploreStack.Screen name="Accueil" component={AccueilScreen}/>
+          <ExploreStack.Screen name="Accueil" component={AccueilScreen} initialParams={t.route.params} />
           <ExploreStack.Screen name="Settings" component={SettingsScreen}/>
           <ExploreStack.Screen name="ColocSettings" component={ColocSettingsScreen}/>
         </ExploreStack.Navigator>
@@ -161,15 +167,19 @@ const DepenseScreenStack = () => {
 
   
 export default function App() {
-  const[username, setUsername] = useState();
+  const[username, setUsername] = useState("");
+  const [clcID, setClcID] = useState("");
   const renderContent = () =>{
     const[usr, loading, error] = useAuthState(auth);
     if(usr){
       const getUsername = async () => {
       const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
-      setUsername(data.data().nom)
+      setClcID(data.data().colocID);
+      setUsername(data.data().nom);
+      
     }
     getUsername();
+    if(!(username == "")){
       return ( <RootStack.Navigator
         initialRouteName="AccueilStack" 
         screenOptions={{
@@ -179,15 +189,15 @@ export default function App() {
       
        }}>
     
-          <RootStack.Screen name="AccueilStack" component={AccueilScreenStack} options={{tabBarIcon: (({color, size}) => <Accueil color={color} />), tabBarLabel: "Accueil"}} />
-          <RootStack.Screen name="CoursesStack" component={CourseScreenStack} options={{tabBarIcon: (({color, size}) => <Course color={color} />), tabBarLabel: "Course"}} />
+          <RootStack.Screen name="AccueilStack" component={AccueilScreenStack} options={{tabBarIcon: (({color, size}) => <Accueil color={color} />), tabBarLabel: "Accueil"}} initialParams={{ username: username, clcID: clcID } } />
+          <RootStack.Screen name="CoursesStack" component={CourseScreenStack} options={{tabBarIcon: (({color, size}) => <Course color={color} />), tabBarLabel: "Course"}} initialParams={{username: username, clcID: clcID}} />
           <RootStack.Screen name="TacheStack" component={TacheScreenStack} options={{tabBarIcon: (({color, size}) => <Tache color={color} />), tabBarLabel: "Tâche"}} />
           <RootStack.Screen name="DepenseStack" component={DepenseScreenStack} options={{tabBarIcon: (({color, size}) => <Depense color={color} />), tabBarLabel: "Dépense"}} />
           
           
     
         </RootStack.Navigator>)
-        }
+        }}
       return <AuthScreenStack />
       
       }
