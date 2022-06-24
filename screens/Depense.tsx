@@ -16,24 +16,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
 
 const DepenseScreen = ({ route, navigation }: Props) => {
-  const[giverID, setGiverID] = useState("");
-  const[receiverID, setReceiverID] = useState("");
-  const [amount, setAmout] = useState(0);
-  const [date, setDate] = useState();
-  useEffect( ()=> {
-    const getLatestTransac = async () => {
-      const q = query(collection(db, "Colocs/"+route.params.clcID+ "/Transactions"), orderBy('date', 'desc'), limit(1))
-      const data = await getDocs(q)
-      //marche sans warning est c'est un mystère...
-      data.docs.map((doc) => {
-        setGiverID(doc.data().giverID);
-        setReceiverID(doc.data().receiverID);
-        setAmout(doc.data().amount);
-        setDate(doc.data().date);
-      })
-    }
-    getLatestTransac();
-}, [])
+  
  
   // ref
   const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -79,7 +62,7 @@ const DepenseScreen = ({ route, navigation }: Props) => {
         throttleTime= {200}
         />
     
-          {show ? <DepenseGlobal giverID={giverID} receiverID={receiverID} amount={amount}/> : <DepensePerso/>}
+          {show ? <DepenseGlobal clcID ={route.params.clcID}/> : <DepensePerso/>}
         
        
      

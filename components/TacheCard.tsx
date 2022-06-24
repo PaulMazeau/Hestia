@@ -1,26 +1,30 @@
+import { deleteDoc, doc } from 'firebase/firestore';
 import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import { Colors, Drawer } from 'react-native-ui-lib';
 import Horloge from '../Icons/Horloge.svg';
-
+import {db} from '../firebase-config';
 
 interface Props {
   Tache: string;
 }
-
-const TacheCard:  React.FC<Props> = ({Tache}) => {
+//props est tache id et colocID et le titre de la tache et la date UNIFORMISER LES NOMS !!!!!!!!
+const TacheCard = (props) => {
+  const handleDelete = async (id) => {
+    await deleteDoc(doc(db, "Colocs/"+props.clcID +"/Taches/", id));
+  }
   return (
     <View style={styles.global}>
       <Drawer 
-        rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => console.log('remo')}]}
+        rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete(props.tacheID)}]}
         leftItem={{text: 'Modifier', background: Colors.green30, onPress: () => console.log('change pressed')}}>
         <View style={styles.container}>
             <View style={styles.top}>
-              <Text style={styles.titre}>{Tache}</Text>
+              <Text style={styles.titre}>{props.Tache}</Text>
 
               <View style={styles.dateContainer}>
                 <Horloge width={17} height={17}/>
-                <Text style={styles.date}>18 mai</Text>
+                <Text style={styles.date}>{props.day}/{props.month}/{props.year}</Text>
               </View>
             </View>
 

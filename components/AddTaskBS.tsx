@@ -6,6 +6,8 @@ import Plus from '../Icons/Plus.svg'
 import BottomSheet, { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import AddButton from '../Icons/AddButton.svg';
 import * as Haptics from 'expo-haptics';
+import { addDoc, collection, updateDoc, doc } from 'firebase/firestore';
+import {db} from '../firebase-config'
 
 
 const Recurrence = [
@@ -35,25 +37,28 @@ const Recurrence = [
 
 
 
+//props est clcID necessaire pr add un doc à la subcollction tache
 
-const AddTaskBS = () => {
+const AddTaskBS = (props) => {
 
 
 // ref
 const bottomSheetRef = useRef<BottomSheetModal>(null);
 
-const [title, onChangeTitre] = React.useState(null);
-const [value, setValue] = useState(null);
-const [day, Day] = React.useState(null);
-const [month, Month] = React.useState(null);
-const [year, Year] = React.useState(null);
+const [title, setTitle] = React.useState("");
+const [value, setValue] = useState("");
+const [day, setDay] = useState("");
+const[month, setMonth] = useState("");
+const[year, setYear] = useState("");
 
 const sheetRef = useRef<BottomSheet>(null);
 
 const [isOpen, setIsOpen] = useState(false);
 
-const AddTask = () => {
+const handleAddTask = async () => {
   bottomSheetRef.current?.close();
+
+  await addDoc(collection(db, 'Colocs/'+props.clcID+'/Taches'), {desc: title, colocID: props.clcID, day: day, month: month, year: year}).then((docRef) => {updateDoc(doc(db,'Colocs/'+props.clcID+'/Taches/'+docRef.id), {id: docRef.id})}); 
 };
 
 const buttonPressed = () => {
@@ -96,9 +101,10 @@ return (
         <Text style={styles.subTitle}>Titre</Text>
         <TextInput
                 style={styles.input}
-                onChangeText={onChangeTitre}
+                onChangeText={(event) => {setTitle(event);}}
                 value={title}
                 placeholder="Entrer le titre"
+                maxLength={30}
                 
             />
       </View>
@@ -108,20 +114,20 @@ return (
             <View style={styles.date}>
                 <TextInput
                         style={styles.inputDate}
-                        onChangeText={Day}
-                        value={day}
+                        onChangeText={(event) => {setDay(event)}}
+                        
                         placeholder="Jour"
                     />
                     <TextInput
                         style={styles.inputDate}
-                        onChangeText={Month}
-                        value={month}
+                        onChangeText={(event) => {setMonth(event)}}
+                        
                         placeholder="Mois"
                     />
                     <TextInput
                         style={styles.inputDate}
-                        onChangeText={Year}
-                        value={year}
+                        onChangeText={(event) => {setYear(event)}}
+                        
                         placeholder="Année"
                     />
             </View>
@@ -209,7 +215,7 @@ return (
             </View>
       </View>
 
-      <TouchableOpacity style={styles.AddButton} onPress={() => { Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success); AddTask() }}> 
+      <TouchableOpacity style={styles.AddButton} onPress={() => { Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success); handleAddTask() }}> 
       <Plus/>
       <Text style={styles.buttonText}>Ajouter la tâche ménagère</Text>
       </TouchableOpacity>

@@ -16,8 +16,27 @@ import {db} from '../firebase-config';
 //type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
 
 
-//props est l'info sur la dernière dépense à passer dans Transactions
+//props est colocID à passer dans la botomsheet
 const AllDepense = (props) => {
+  //rechercher last transac 
+  const[giverID, setGiverID] = useState("");
+  const[receiverID, setReceiverID] = useState("");
+  const [amount, setAmout] = useState(0);
+  const [date, setDate] = useState();
+  useEffect( ()=> {
+    const getLatestTransac = async () => {
+      const q = query(collection(db, "Colocs/"+props.clcID+ "/Transactions"), orderBy('date', 'desc'), limit(1))
+      const data = await getDocs(q)
+      //marche sans warning est c'est un mystère...
+      data.docs.map((doc) => {
+        setGiverID(doc.data().giverID);
+        setReceiverID(doc.data().receiverID);
+        setAmout(doc.data().amount);
+        setDate(doc.data().date);
+      })
+    }
+    getLatestTransac();
+}, [])
 
   const navigation =
   useNavigation<StackNavigationProp<RootStackParams>>();
@@ -32,9 +51,9 @@ const AllDepense = (props) => {
               <Text style={styles.VoirToutes}>Voir toutes {'>'}</Text>
              </TouchableOpacity>
           </View>
-            <Transaction giverID={props.giverID} receiverID={props.receiverID} amount={props.amount}/>
+            <Transaction giverID={giverID} receiverID={receiverID} amount={amount}/>
 
-            <AddDepenseBS/>
+            <AddDepenseBS clcID={props.clcID}/>
 
 </View>
   );

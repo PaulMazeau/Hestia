@@ -6,6 +6,9 @@ import Plus from '../Icons/Plus.svg'
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import AddButton from '../Icons/AddButton.svg'
 import * as Haptics from 'expo-haptics';
+import {v4 as uuid} from 'uuid';
+import { updateDoc, serverTimestamp, addDoc, collection } from "firebase/firestore";
+import {db} from '../firebase-config'
 
 
 const Recurrence = [
@@ -17,8 +20,9 @@ const Recurrence = [
     { label: 'Colocataire 5', value: '6' },
   ];
 
-
-const AddDepenseBS = () => {
+//ATTRIBUTS dans bdd : amount, giverID, receiverID, id, amount, desc
+//props est colocID pr trouver le chemin pr addDoc
+const AddDepenseBS = (props) => {
 
 const bottomSheetRef = useRef<BottomSheetModal>(null);
 
@@ -36,16 +40,15 @@ const renderBackdrop = useCallback((props) => {
     bottomSheetRef.current?.present();
   }
 
-  const AddDepense = () => {
+  const handleAddDepense = async () => {
     bottomSheetRef.current?.close();
+    await addDoc(collection(db, "Colocs/" +props.clcID+ "/Transactions"), {id: uuid(), date: serverTimestamp(), amount: amount, giverID: "Paulo", receiverID: "Arielo"})
   };
 
 
-const [title, onChangeTitre] = React.useState(null);
+const [title, setTitre] = React.useState("");
+const [amount, setAmount] = useState(0);
 const [value, setValue] = useState(null);
-const [day, Day] = React.useState(null);
-const [month, Month] = React.useState(null);
-const [year, Year] = React.useState(null);
 
 
 
@@ -75,7 +78,7 @@ backdropComponent={renderBackdrop}
         <Text style={styles.subTitle}>Titre</Text>
         <TextInput
                 style={styles.input}
-                onChangeText={onChangeTitre}
+                onChangeText={(event) => {setTitre(event)}}
                 value={title}
                 placeholder="Entrer le titre"
                 
@@ -86,36 +89,13 @@ backdropComponent={renderBackdrop}
         <Text style={styles.subTitle}>Montant</Text>
         <TextInput
                 style={styles.input}
-                onChangeText={setValue}
+                onChangeText={(event) => setAmount(Number(event))}
                 value={value}
                 placeholder="Entrer le montant"
                 
             />
       </View>
 
-      <View style={styles.depenseTitle}>
-        <Text style={styles.subTitle}>Date</Text>
-            <View style={styles.date}>
-                <TextInput
-                        style={styles.inputDate}
-                        onChangeText={Day}
-                        value={day}
-                        placeholder="Jour"
-                    />
-                    <TextInput
-                        style={styles.inputDate}
-                        onChangeText={Month}
-                        value={month}
-                        placeholder="Mois"
-                    />
-                    <TextInput
-                        style={styles.inputDate}
-                        onChangeText={Year}
-                        value={year}
-                        placeholder="Année"
-                    />
-            </View>
-      </View>
 
       <View style={styles.depenseTitle}>
         <Text style={styles.subTitle}>Payé par :</Text>
@@ -158,7 +138,7 @@ backdropComponent={renderBackdrop}
             </View>
       </View>
 
-      <TouchableOpacity style={styles.AddButton} onPress={() => { Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success); AddDepense() }} > 
+      <TouchableOpacity style={styles.AddButton} onPress={() => { Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success); handleAddDepense() }} > 
       <Plus/>
       <Text style={styles.buttonText}>Ajouter la dépense</Text>
       </TouchableOpacity>

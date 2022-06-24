@@ -24,7 +24,7 @@ const renderContent = () => {
       allTasks.map(t => {
         return(
           
-          <TacheCard Tache={t.desc} key={t.id}/>
+          <TacheCard Tache={t.desc} key={t.id} clcID = {props.clcID} tacheID={t.id} day={t.day} month ={t.month} year={t.year}/>
         )
   
       })
@@ -58,7 +58,7 @@ const renderContent = () => {
           <TacheCard Tache='jten supplie' key='jts4'/>
         </ScrollView>
             
-        <AddTaskBS/>
+        <AddTaskBS clcID={props.clcID}/>
             </View>
   );
 };
