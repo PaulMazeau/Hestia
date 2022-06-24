@@ -31,7 +31,8 @@ const SignupScreen = () => {
                 nom: username,
                 uuid: userUid,
               solde: 0,
-              tache: "Rien de prévu!"
+              tache: "Rien de prévu!",
+              colocID: "1"
             }
            setDoc(doc(db, 'Users', userUid),entry); 
           }).catch(error => alert(error.message));
