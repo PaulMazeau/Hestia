@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Top from '../components/HeaderDark';
 import Depense from '../components/DepenseDiagram';
@@ -10,10 +10,14 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import Equilibrage from './Equilibrage';
 import AddDepenseBS from './AddDepenseBS';
+import { collection, getDocs, limit, orderBy, query } from 'firebase/firestore';
+import {db} from '../firebase-config';
 
 //type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
 
-const AllDepense = () => {
+
+//props est l'info sur la dernière dépense à passer dans Transactions
+const AllDepense = (props) => {
 
   const navigation =
   useNavigation<StackNavigationProp<RootStackParams>>();
@@ -28,7 +32,7 @@ const AllDepense = () => {
               <Text style={styles.VoirToutes}>Voir toutes {'>'}</Text>
              </TouchableOpacity>
           </View>
-            <Transaction/>
+            <Transaction giverID={props.giverID} receiverID={props.receiverID} amount={props.amount}/>
 
             <AddDepenseBS/>
 

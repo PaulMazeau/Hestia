@@ -20,14 +20,13 @@ const CoursesScreen = ({route, navigation}: Props) => {
 
   const renderContent = () =>{
 
-  const [allCourses] = useCollectionData(collection(db, "Colocs/"+route.params.clcID+ "/Taches"))
+  const [allCourses] = useCollectionData(collection(db, "Colocs/"+route.params.clcID+ "/Courses"))
   if(allCourses){
     return(
       allCourses.map(c => {
-        console.log(c.id)
         return(
           
-          <CourseCard key= {c.id} name={c.desc} onPress = {name => navigation.navigate('Course', {name})}/>
+          <CourseCard key= {c.id} name={c.Nom} onPress = {name => navigation.navigate('Course', {name})}/>
         )
   
       })

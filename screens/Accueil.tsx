@@ -27,7 +27,7 @@ const AccueilScreen = ({ route, navigation }: Props) => {
         }
         getData();
     }, [])
-    console.log(route.params.clcID)
+
   return (
     <View style={styles.body}>
         

@@ -4,7 +4,11 @@ import {View, Text, StyleSheet, Image} from 'react-native';
 
 const ProfilImage=require('../Img/avatarHeader.png');
 
-const MonSolde  = () => {
+
+
+//Props est giverID, receiverID, amount et date
+
+const MonSolde  = (props) => {
   return (
     <View style={styles.global}>
         <View style={styles.container}>
@@ -16,15 +20,15 @@ const MonSolde  = () => {
                   <Text style={styles.titre}>Courses</Text>
 
                   <View style={styles.dateContainer}>
-                      <Text style={styles.date}>Payé par Thomas</Text>
+                      <Text style={styles.date}>Payé par {props.giverID}</Text>
                   </View>
               </View>
 
               <View style={styles.Right}>
-                  <Text style={styles.titre}>55€</Text>
+                  <Text style={styles.titre}>{props.amount}</Text>
 
                   <View style={styles.dateContainer}>
-                      <Text style={styles.date}>05/04/2022</Text>
+                      <Text style={styles.date}>{props.date}</Text>
                   </View>
               </View>
 

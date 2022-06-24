@@ -7,18 +7,34 @@ import DepenseGlobal from '../components/DepenseGlobal';
 import AddButton from '../Icons/AddButton.svg'
 import BottomSheet, { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 import AddDepenseBS from '../components/AddDepenseBS';
-import { getDoc, doc  } from 'firebase/firestore';
+import { getDoc, doc, collection, query, getDocs, orderBy, limit  } from 'firebase/firestore';
 import { auth, db } from '../firebase-config';
+import { RootStackParams } from '../App';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-const DepenseScreen = () => {
-  const [username, setUsername] = useState("");
-  useEffect( () => {
-    const getData = async () => {
-      const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
-      setUsername(data.data().nom)
+
+type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
+
+const DepenseScreen = ({ route, navigation }: Props) => {
+  const[giverID, setGiverID] = useState("");
+  const[receiverID, setReceiverID] = useState("");
+  const [amount, setAmout] = useState(0);
+  const [date, setDate] = useState();
+  useEffect( ()=> {
+    const getLatestTransac = async () => {
+      const q = query(collection(db, "Colocs/"+route.params.clcID+ "/Transactions"), orderBy('date', 'desc'), limit(1))
+      const data = await getDocs(q)
+      //marche sans warning est c'est un mystère...
+      data.docs.map((doc) => {
+        setGiverID(doc.data().giverID);
+        setReceiverID(doc.data().receiverID);
+        setAmout(doc.data().amount);
+        setDate(doc.data().date);
+      })
     }
-    getData();
-  }, [])
+    getLatestTransac();
+}, [])
+ 
   // ref
   const bottomSheetRef = useRef<BottomSheetModal>(null);
 
@@ -39,14 +55,13 @@ const DepenseScreen = () => {
   const [show, setShow] = React.useState(true);
   
   const segments = {second: [{label: 'Dépenses Générales'}, {label: 'Mes Dépenses'}]}
-
   const onChangeIndex = useCallback((index: number) => {
     setShow((r) => !r)
   }, []);
 
   return (      
       <View style={styles.container}>
-      <Top name={username}/>
+      <Top name={route.params.username}/>
           <Text style={styles.screenTitle}>Gestion des dépenses</Text>
 
           <SegmentedControl 
@@ -64,7 +79,7 @@ const DepenseScreen = () => {
         throttleTime= {200}
         />
     
-          {show ? <DepenseGlobal/> : <DepensePerso/>}
+          {show ? <DepenseGlobal giverID={giverID} receiverID={receiverID} amount={amount}/> : <DepensePerso/>}
         
        
      

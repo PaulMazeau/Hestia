@@ -24,7 +24,7 @@ import { getDoc, doc } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 
-//initialisation des root pour la NavBar Bottom
+//initialisation des root pour la NavBar Bottom// DEFINIT LES PARAMETRES QUE LON PASSE DANS LES SCREENS
 export type RootStackParams = {
   AccueilStack: {username: string; clcID: string;};
   CoursesStack: {username: string; clcID: string;};
@@ -35,7 +35,7 @@ export type RootStackParams = {
     name: string;
   }
  
-  DepenseStack: undefined;
+  DepenseStack: {username: string; clcID: string;};
   Settings: undefined;
   ColocSettings: undefined;
   ListDepense: undefined;
@@ -152,14 +152,15 @@ export type DepenseStackParams = {
 const DepenseStack = createNativeStackNavigator<DepenseStackParams>();
 
 //initialisation des root pour la sous navigation dans la page Depense
-const DepenseScreenStack = () => {
+// tout les usersinfo utilisées dans les pages sont récupérés ici
+const DepenseScreenStack = (t) => {
   return (
       <View style={styles.body}>
         <DepenseStack.Navigator initialRouteName="Depense" screenOptions={{headerShown: false}}>
-          <DepenseStack.Screen name="Depense" component={DepenseScreen}/>
+          <DepenseStack.Screen name="Depense" component={DepenseScreen} initialParams={t.route.params}/>
           <DepenseStack.Screen name="Settings" component={SettingsScreen}/>
           <ExploreStack.Screen name="ColocSettings" component={ColocSettingsScreen}/>
-          <DepenseStack.Screen name="ListDepense" component={AllDepense}/>
+          <DepenseStack.Screen name="ListDepense" component={AllDepense} initialParams={t.route.params}/>
         </DepenseStack.Navigator>
       </View>
   );
@@ -192,7 +193,7 @@ export default function App() {
           <RootStack.Screen name="AccueilStack" component={AccueilScreenStack} options={{tabBarIcon: (({color, size}) => <Accueil color={color} />), tabBarLabel: "Accueil"}} initialParams={{ username: username, clcID: clcID } } />
           <RootStack.Screen name="CoursesStack" component={CourseScreenStack} options={{tabBarIcon: (({color, size}) => <Course color={color} />), tabBarLabel: "Course"}} initialParams={{username: username, clcID: clcID}} />
           <RootStack.Screen name="TacheStack" component={TacheScreenStack} options={{tabBarIcon: (({color, size}) => <Tache color={color} />), tabBarLabel: "Tâche"}} />
-          <RootStack.Screen name="DepenseStack" component={DepenseScreenStack} options={{tabBarIcon: (({color, size}) => <Depense color={color} />), tabBarLabel: "Dépense"}} />
+          <RootStack.Screen name="DepenseStack" component={DepenseScreenStack} options={{tabBarIcon: (({color, size}) => <Depense color={color} />), tabBarLabel: "Dépense"}} initialParams={{username: username, clcID: clcID}}/>
           
           
     

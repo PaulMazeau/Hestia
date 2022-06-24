@@ -10,13 +10,33 @@ import { RootStackParams } from '../App';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import TopBackNavigation from '../components/TopBackNavigation';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { getDoc, doc, collection, orderBy, query } from 'firebase/firestore';
+import{db} from '../firebase-config'
 
+type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
 
+const AllDepense = ({route, navigation}: Props) => {
+  const renderContent = () =>{
 
-const AllDepense = () => {
+    const [allTransacs] = useCollectionData(query(collection(db, "Colocs/"+route.params.clcID+ "/Transactions"), orderBy('date', 'desc')))
+    if(allTransacs){
+      return(
+        allTransacs.map(c => {
+          return(
+            
+            <Transaction key={c.id} giverID={c.giverID} receiverID={c.receiverID} amount={c.amount}/>
+          )
+    
+        })
+      )
+      return (
+        <Text>Loading........</Text>
+      )
+    } 
   
-  const navigation =
-  useNavigation<StackNavigationProp<RootStackParams>>();
+    }
+
 
   return (
  
@@ -37,22 +57,7 @@ const AllDepense = () => {
 
   <Text style={styles.DerniereDepense}>Toutes vos transactions</Text>
 
-    <Transaction/>
-    <Transaction/>
-    <Transaction/>
-    <Transaction/>
-    <Transaction/>
-    <Transaction/>
-    <Transaction/>
-    <Transaction/>
-    <Transaction/>
-    <Transaction/>
-    <Transaction/>
-    <Transaction/>
-    <Transaction/>
-    <Transaction/>
-    <Transaction/>
-    <Transaction/>
+    {renderContent()}
   </View>
 
 </ScrollView>

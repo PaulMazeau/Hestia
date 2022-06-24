@@ -22,7 +22,6 @@ const renderContent = () => {
   if(allTasks){
     return(
       allTasks.map(t => {
-        console.log(t.id)
         return(
           
           <TacheCard Tache={t.desc} key={t.id}/>
