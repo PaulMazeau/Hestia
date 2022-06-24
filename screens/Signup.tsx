@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import {KeyboardAvoidingView, Platform, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View, SafeAreaView} from 'react-native'
-import {createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import React, { useState } from 'react'
+import {KeyboardAvoidingView, Platform, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View, SafeAreaView, Image} from 'react-native'
+import {createUserWithEmailAndPassword } from "firebase/auth";
 import {auth, db} from '../firebase-config'
 import { useNavigation } from '@react-navigation/native';
 import {setDoc, doc} from 'firebase/firestore';
@@ -8,8 +8,10 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParams } from '../App';
 import TopBackNavigationClear from '../components/TopBackNavigationClear';
 import { useHeaderHeight } from '@react-navigation/elements';
+import SigninWithGoogle from '../components/SignInWithGoogle';
 
 const SignupScreen = () => {
+
     const navigation = useNavigation<NativeStackNavigationProp<AuthStackParams>>();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -93,11 +95,20 @@ const SignupScreen = () => {
                     style = {styles.buttonSuivant}>
                         <Text style = {styles.buttonText}>Suivant</Text>
                 </TouchableOpacity>
+
+                <SigninWithGoogle />
+                
                
     </View>
     </KeyboardAvoidingView>
     )
 }
+
+const ImageContainer = ({image}) => (
+    <View style={styles.ImageContainer}>
+        <Image source={image} style={styles.Image}/>
+    </View>
+);
 
 export default SignupScreen
 
@@ -173,4 +184,40 @@ const styles = StyleSheet.create({
         marginTop: '10%'
       },
 
+      ImageContainer: {
+        height: 25,
+        width: 25,
+        overflow: 'hidden',
+        borderRadius: 7,
+    },
+    
+    Image: {
+            height: '100%',
+            width: '100%',
+            
+        },
+
+        buttonGoogle:{
+            backgroundColor:'#0f3fdb',
+            width: '85%',
+            padding: 15,
+            borderRadius: 10,
+            marginTop: 25,
+            marginLeft: '7.5%',
+            marginRight: '7.5%',
+            justifyContent: 'center',
+            flexDirection: 'row',
+            alignItems: 'center',
+            
+           
+        },
+
+        TextGoogle: {
+        color:'white',
+        fontWeight:'700',
+        fontSize:16,
+        marginLeft: 10
+        }
+
 })
+

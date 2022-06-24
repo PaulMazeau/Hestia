@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import {Button, KeyboardAvoidingView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View, Image} from 'react-native'
-import {createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
-import {auth, db} from '../firebase-config'
+import React, {  } from 'react'
+import {StatusBar, StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParams } from '../App';

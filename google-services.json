@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "69579247938",
+    "project_id": "hestiadev-813bc",
+    "storage_bucket": "hestiadev-813bc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:69579247938:android:9613fb3bb8f994134438db",
+        "android_client_info": {
+          "package_name": "com.Hestia.HestiaApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "69579247938-2siuv7f4n4tg3pcj432btt4uo8ucs15l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCReG3OXS4-stN4aP6ovuII90DlRuauQmI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "69579247938-2siuv7f4n4tg3pcj432btt4uo8ucs15l.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "69579247938-e3ckas4j3sei1l9lvl3rr6c1qm5hvrct.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.Hestia.HestiaApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
