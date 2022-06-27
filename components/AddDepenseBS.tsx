@@ -63,7 +63,7 @@ return (
 
 <BottomSheetModal
 ref={bottomSheetRef}
-snapPoints={['90%']}
+snapPoints={['80%']}
 index= {0}
 backdropComponent={renderBackdrop}
 >
@@ -91,30 +91,6 @@ backdropComponent={renderBackdrop}
                 placeholder="Entrer le montant"
                 
             />
-      </View>
-
-      <View style={styles.depenseTitle}>
-        <Text style={styles.subTitle}>Date</Text>
-            <View style={styles.date}>
-                <TextInput
-                        style={styles.inputDate}
-                        onChangeText={Day}
-                        value={day}
-                        placeholder="Jour"
-                    />
-                    <TextInput
-                        style={styles.inputDate}
-                        onChangeText={Month}
-                        value={month}
-                        placeholder="Mois"
-                    />
-                    <TextInput
-                        style={styles.inputDate}
-                        onChangeText={Year}
-                        value={year}
-                        placeholder="Année"
-                    />
-            </View>
       </View>
 
       <View style={styles.depenseTitle}>

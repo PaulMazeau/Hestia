@@ -1,12 +1,12 @@
 import React, { useCallback, useRef, useState } from 'react';
-import {StyleSheet, View, Text, TextInput, ScrollView, TouchableOpacity} from 'react-native'
+import {StyleSheet, View, Text, TextInput, ScrollView, TouchableOpacity, Button} from 'react-native'
 import { Dropdown } from 'react-native-element-dropdown';
 import ParticipantCard from './ParticipantCard';
 import Plus from '../Icons/Plus.svg'
 import BottomSheet, { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import AddButton from '../Icons/AddButton.svg';
 import * as Haptics from 'expo-haptics';
-
+import { DateTimePicker, TextField } from 'react-native-ui-lib';
 
 const Recurrence = [
     { label: 'Aucune', value: '1' },
@@ -103,26 +103,12 @@ return (
 
       <View style={styles.depenseTitle}>
         <Text style={styles.subTitle}>Date</Text>
-            <View style={styles.date}>
-                <TextInput
-                        style={styles.inputDate}
-                        onChangeText={Day}
-                        value={day}
-                        placeholder="Jour"
-                    />
-                    <TextInput
-                        style={styles.inputDate}
-                        onChangeText={Month}
-                        value={month}
-                        placeholder="Mois"
-                    />
-                    <TextInput
-                        style={styles.inputDate}
-                        onChangeText={Year}
-                        value={year}
-                        placeholder="Année"
-                    />
-            </View>
+        <View style={styles.inputDate}>
+        <DateTimePicker 
+        placeholder='Choisir une date'
+        
+        />
+        </View>
       </View>
 
       <View style={styles.depenseTitle}>
@@ -168,21 +154,12 @@ return (
             </View>
             <View >
                 <Text style={styles.subTitle}>Rappel</Text>
-                    <View>
-                        <Dropdown
-                            style={styles.dropdownRappel}
-                            placeholderStyle={styles.placeholderStyle}
-                            selectedTextStyle={styles.selectedTextStyle}
-                            data={Rappel}
-                            maxHeight={300}
-                            labelField="rappel"
-                            valueField="id"
-                            placeholder="1 heure"
-                            value={value}
-                            onChange={item => {
-                                setValue(item.value);
-                            }}
-                        />
+                    <View style={styles.dropdownRappel}>
+                      <DateTimePicker 
+                        placeholder='Rappel'
+                        mode= 'time'
+                        timeFormat='h:m'
+                      />
                     </View>
             </View>
         </View>
@@ -243,15 +220,9 @@ const styles = StyleSheet.create({
         borderColor: '#DDDDDD',
         padding: 10,
         borderRadius: 14,
-        width: 100,
-      },
-
-      date: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      marginTop: 13,
-      marginLeft: 13,
-      marginRight: 13,
+        marginTop: 13,
+        marginLeft: 13,
+        marginRight: 13,
       },
 
       Title: {
@@ -303,7 +274,6 @@ const styles = StyleSheet.create({
         marginLeft: 13,
         marginRight: 13,
         height: 44,
-        backgroundColor: 'white',
         borderRadius: 14,
         padding: 12,
         elevation: 2,
