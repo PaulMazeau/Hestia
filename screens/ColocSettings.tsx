@@ -17,11 +17,23 @@ const ProfilImage=require('../Img/avatarHeader.png');
 
 
 const data : Image[] = [
-    require('../Img/avatar1.png'),
-    require('../Img/avatar2.png'),
-    require('../Img/avatar3.png'),
-    require('../Img/test1.png'),
-    require('../Img/test2.png')
+    require('../Img/Avatars/Avatar1.png'),
+    require('../Img/Avatars/Avatar2.png'),
+    require('../Img/Avatars/Avatar3.png'),
+    require('../Img/Avatars/Avatar4.png'),
+    require('../Img/Avatars/Avatar5.png'),
+    require('../Img/Avatars/Avatar6.png'),
+    require('../Img/Avatars/Avatar7.png'),
+    require('../Img/Avatars/Avatar8.png'),
+    require('../Img/Avatars/Avatar9.png'),
+    require('../Img/Avatars/Avatar10.png'),
+    require('../Img/Avatars/Avatar11.png'),
+    require('../Img/Avatars/Avatar12.png'),
+    require('../Img/Avatars/Avatar13.png'),
+    require('../Img/Avatars/Avatar14.png'),
+    require('../Img/Avatars/Avatar17.png'),
+    require('../Img/Avatars/Avatar15.png'),
+    require('../Img/Avatars/Avatar16.png'),
 ];
 
 
