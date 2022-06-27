@@ -17,9 +17,8 @@ import{db} from '../firebase-config'
 type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
 
 const AllDepense = ({route, navigation}: Props) => {
+  const [allTransacs] = useCollectionData(query(collection(db, "Colocs/"+route.params.clcID+ "/Transactions"), orderBy('date', 'desc')))
   const renderContent = () =>{
-
-    const [allTransacs] = useCollectionData(query(collection(db, "Colocs/"+route.params.clcID+ "/Transactions"), orderBy('date', 'desc')))
     if(allTransacs){
       return(
         allTransacs.map(c => {

@@ -17,10 +17,10 @@ type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
 
 const CoursesScreen = ({route, navigation}: Props) => {
 
-
+  const [allCourses] = useCollectionData(collection(db, "Colocs/"+route.params.clcID+ "/Courses"))
   const renderContent = () =>{
 
-  const [allCourses] = useCollectionData(collection(db, "Colocs/"+route.params.clcID+ "/Courses"))
+  
   if(allCourses){
     return(
       allCourses.map(c => {

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Top from '../components/HeaderDark';
 import Depense from '../components/DepenseDiagram';
@@ -7,36 +7,54 @@ import Transaction from '../components/Transaction';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import Equilibrage from './Equilibrage';
 import AddDepenseBS from './AddDepenseBS';
 import { collection, getDocs, limit, orderBy, query } from 'firebase/firestore';
 import {db} from '../firebase-config';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 //type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
 
 
-//props est colocID à passer dans la botomsheet
+//props est colocID à passer dans la botomsheet 
 const AllDepense = (props) => {
   //rechercher last transac 
-  const[giverID, setGiverID] = useState("");
-  const[receiverID, setReceiverID] = useState("");
-  const [amount, setAmout] = useState(0);
-  const [date, setDate] = useState();
-  useEffect( ()=> {
-    const getLatestTransac = async () => {
-      const q = query(collection(db, "Colocs/"+props.clcID+ "/Transactions"), orderBy('date', 'desc'), limit(1))
-      const data = await getDocs(q)
-      //marche sans warning est c'est un mystère...
-      data.docs.map((doc) => {
-        setGiverID(doc.data().giverID);
-        setReceiverID(doc.data().receiverID);
-        setAmout(doc.data().amount);
-        setDate(doc.data().date);
-      })
-    }
-    getLatestTransac();
-}, [])
+  // const[giverID, setGiverID] = useState("");
+  // const[receiverID, setReceiverID] = useState("");
+  // const [amount, setAmout] = useState(0);
+  // const [date, setDate] = useState();
+//   useEffect( ()=> {
+//     const getLatestTransac = async () => {
+//       const q = query(collection(db, "Colocs/"+props.clcID+ "/Transactions"), orderBy('date', 'desc'), limit(1))
+//       const data = await getDocs(q)
+//       //marche sans warning est c'est un mystère...
+//       data.docs.map((doc) => {
+//         setGiverID(doc.data().giverID);
+//         setReceiverID(doc.data().receiverID);
+//         setAmout(doc.data().amount);
+//         setDate(doc.data().date);
+//       })
+//     }
+//     getLatestTransac();
+// }, [])
+
+//on cherche la dernière transac en placant un ecouteur sur la db
+const [values, loading, error] = useCollectionData(query(collection(db, "Colocs/"+props.clcID+ "/Transactions"), orderBy('date', 'desc'), limit(1)))
+const getLastestTransac = () => {
+   
+  if(values){
+    return (
+      <Transaction giverID={values[0].giverID} receiverID={values[0].receiverID} amount={values[0].amount}/>
+    )
+  }
+  return (
+    <Text>Loading...</Text>
+  )
+}
+
+  
 
   const navigation =
   useNavigation<StackNavigationProp<RootStackParams>>();
@@ -51,10 +69,11 @@ const AllDepense = (props) => {
               <Text style={styles.VoirToutes}>Voir toutes {'>'}</Text>
              </TouchableOpacity>
           </View>
-            <Transaction giverID={giverID} receiverID={receiverID} amount={amount}/>
+            {getLastestTransac()}
+           
 
             <AddDepenseBS clcID={props.clcID}/>
-
+            
 </View>
   );
 };

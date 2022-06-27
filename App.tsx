@@ -170,8 +170,9 @@ const DepenseScreenStack = (t) => {
 export default function App() {
   const[username, setUsername] = useState("");
   const [clcID, setClcID] = useState("");
+  const[usr, loading, error] = useAuthState(auth);
   const renderContent = () =>{
-    const[usr, loading, error] = useAuthState(auth);
+    
     if(usr){
       const getUsername = async () => {
       const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
