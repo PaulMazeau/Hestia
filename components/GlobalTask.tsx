@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import TacheCard from '../components/TacheCard';
 import AddTaskBS from './AddTaskBS';
-import {useCollectionData} from 'react-firebase-hooks/firestore';
+import {useCollection, useCollectionData} from 'react-firebase-hooks/firestore';
 import { collection, getDoc, doc, query, where, getDocs } from 'firebase/firestore'
 import { db, auth } from '../firebase-config';
 import { render } from 'react-dom';
@@ -18,13 +18,13 @@ import SkeletonPlaceholder from "react-native-skeleton-placeholder";
  
 const renderContent = () => {
   if(props.clcID){
-  const [allTasks] = useCollectionData(collection(db, "Colocs/"+props.clcID+ "/Taches"));
+  const [allTasks] = useCollection(collection(db, "Colocs/"+props.clcID+ "/Taches"));
   if(allTasks){
     return(
-      allTasks.map(t => {
+      allTasks.docs.map(t => {
         return(
           
-          <TacheCard Tache={t.desc} key={t.id} clcID = {props.clcID} tacheID={t.id} day={t.day} month ={t.month} year={t.year}/>
+          <TacheCard Tache={t.data().desc} key={t.id} clcID = {props.clcID} tacheID={t.id} day={t.data().day} month ={t.data().month} year={t.data().year}/>
         )
   
       })

@@ -11,22 +11,20 @@ import AddListCourseBS from '../components/AddListCourseBS';
 import AddListeCourseBS from '../components/AddListCourseBS';
 import { getDoc, doc, collection  } from 'firebase/firestore';
 import { auth, db } from '../firebase-config';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { useCollection, useCollectionData } from 'react-firebase-hooks/firestore';
 import { RotateInUpLeft } from 'react-native-reanimated';
 type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
 
 const CoursesScreen = ({route, navigation}: Props) => {
 
-  const [allCourses] = useCollectionData(collection(db, "Colocs/"+route.params.clcID+ "/Courses"))
+  const [allCourses] = useCollection(collection(db, "Colocs/"+route.params.clcID+ "/Courses"))
   const renderContent = () =>{
-
-  
   if(allCourses){
     return(
-      allCourses.map(c => {
+      allCourses.docs.map(c => {
         return(
           
-          <CourseCard key= {c.id} name={c.Nom} onPress = {name => navigation.navigate('Course', {name})}/>
+          <CourseCard key= {c.id} name={c.data().Nom}  onPress = {(name) => navigation.navigate('Course', {name: name, courseID: c.id, clcID: route.params.clcID, username: route.params.username})}/>
         )
   
       })
@@ -49,7 +47,7 @@ const CoursesScreen = ({route, navigation}: Props) => {
 
         </ScrollView>
 
-        <AddListeCourseBS/>
+        <AddListeCourseBS clcID= {route.params.clcID}/>
         
     </View>
   );

@@ -5,14 +5,18 @@ import Plus from '../Icons/Plus.svg'
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import AddButton from '../Icons/AddButton.svg';
 import * as Haptics from 'expo-haptics';
+import { addDoc, collection, updateDoc, doc } from 'firebase/firestore';
+import {db} from '../firebase-config'
+//props est la clcID utilisé pr create un nv doc
 
-const AddListeCourseBS = () => {
+const AddListeCourseBS = (props) => {
 
-const [title, onChangeTitre] = React.useState(null);
+const [titre, setTitre] = React.useState("");
 
 const bottomSheetRef = useRef<BottomSheetModal>(null);
 
-const AddList = () => {
+const handleAddList = async () => {
+  await addDoc(collection(db, 'Colocs/'+props.clcID+'/Courses'), {Nom: titre, fruits: [""], boisson: [""], viandes: [""], maison: [""]}); 
   bottomSheetRef.current?.close();
 };
 
@@ -56,8 +60,8 @@ return (
         <Text style={styles.subTitle}>Titre</Text>
         <TextInput
                 style={styles.input}
-                onChangeText={onChangeTitre}
-                value={title}
+                onChangeText={(event) => {setTitre(event);}}
+                value={titre}
                 placeholder="Entrer le titre"
                 
             />
@@ -81,9 +85,9 @@ return (
             </View>
       </View>
 
-      <TouchableOpacity style={styles.AddButton} onPress={() => { Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success); AddList() }}> 
+      <TouchableOpacity style={styles.AddButton} onPress={() => { Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success); handleAddList() }}> 
       <Plus/>
-      <Text style={styles.buttonText}>Ajouter la tâche ménagère</Text>
+      <Text style={styles.buttonText}>Ajouter la nouvelle liste de courses</Text>
       </TouchableOpacity>
 
       </ScrollView>
