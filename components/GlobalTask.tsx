@@ -12,7 +12,7 @@ import BottomSheet, { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bott
 import { Dropdown } from 'react-native-element-dropdown';
 import ParticipantCard from './ParticipantCard';
 import * as Haptics from 'expo-haptics';
-import Plus from '../Icons/Plus.svg'
+import Edit from '../Icons/Edit.svg'
 
 
 //props est la colocID, on le récupère ici car 1 appel en moins(appel ds tache obligé)
@@ -223,7 +223,7 @@ const Rappel = [
                 </View>
           
             <TouchableOpacity style={styles.AddButton} onPress={() => { Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success); handleAddTask() }}> 
-            <Plus/>
+            <Edit/>
             <Text style={styles.buttonText}>Modifier la tâche ménagère</Text>
             </TouchableOpacity>
         
