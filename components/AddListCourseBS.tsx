@@ -16,7 +16,7 @@ const [titre, setTitre] = React.useState("");
 const bottomSheetRef = useRef<BottomSheetModal>(null);
 
 const handleAddList = async () => {
-  await addDoc(collection(db, 'Colocs/'+props.clcID+'/Courses'), {Nom: titre, fruits: [""], boisson: [""], viandes: [""], maison: [""]}); 
+  await addDoc(collection(db, 'Colocs/'+props.clcID+'/Courses'), {Nom: titre, fruits: [], boisson: [], viandes: [], maison: []}); 
   bottomSheetRef.current?.close();
 };
 

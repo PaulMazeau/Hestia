@@ -41,12 +41,13 @@ const AllDepense = (props) => {
 // }, [])
 
 //on cherche la dernière transac en placant un ecouteur sur la db
-const [values, loading, error] = useCollectionData(query(collection(db, "Colocs/"+props.clcID+ "/Transactions"), orderBy('date', 'desc'), limit(1)))
+const [values, loading, error] = useCollectionData(query(collection(db, "Colocs/"+props.clcID+ "/Transactions"), orderBy('timestamp'), limit(1)))
 const getLastestTransac = () => {
    
   if(values){
     return (
-      <Transaction giverID={values[0].giverID} receiverID={values[0].receiverID} amount={values[0].amount}/>
+      <Transaction giverID={values[0].giverID} receiversID={values[0].receiversID} amount={values[0].amount} desc={values[0].desc}/>
+      
     )
   }
   return (

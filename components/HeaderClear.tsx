@@ -11,7 +11,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 const ProfilImage=require('../Img/avatarHeader.png');
 
-//props est nom du frérot
+//props est name du frérot
 const Top = (props) => {
     
     const navigation =

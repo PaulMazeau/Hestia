@@ -17,7 +17,7 @@ const MonSolde  = (props) => {
 
           <View style={styles.Text}>
               <View style={styles.Left}>
-                  <Text style={styles.titre}>Courses</Text>
+                  <Text style={styles.titre}>{props.desc}</Text>
 
                   <View style={styles.dateContainer}>
                       <Text style={styles.date}>Payé par {props.giverID}</Text>

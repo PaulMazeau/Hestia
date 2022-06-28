@@ -10,21 +10,21 @@ import { RootStackParams } from '../App';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import TopBackNavigation from '../components/TopBackNavigation';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { useCollection, useCollectionData } from 'react-firebase-hooks/firestore';
 import { getDoc, doc, collection, orderBy, query } from 'firebase/firestore';
 import{db} from '../firebase-config'
 
 type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
 
 const AllDepense = ({route, navigation}: Props) => {
-  const [allTransacs] = useCollectionData(query(collection(db, "Colocs/"+route.params.clcID+ "/Transactions"), orderBy('date', 'desc')))
+  const [allTransacs] = useCollection(query(collection(db, "Colocs/"+route.params.clcID+ "/Transactions"), orderBy('timestamp')))
   const renderContent = () =>{
     if(allTransacs){
       return(
-        allTransacs.map(c => {
+        allTransacs.docs.map(c => {
           return(
             
-            <Transaction key={c.id} giverID={c.giverID} receiverID={c.receiverID} amount={c.amount}/>
+            <Transaction key={c.id} giverID={c.data().giverID} receiverID={c.data().receiverID} amount={c.data().amount} desc={c.data().desc}/>
           )
     
         })
@@ -41,11 +41,11 @@ const AllDepense = ({route, navigation}: Props) => {
  
 
 <View style={styles.container}>
-<Top/>
+<Top name={route.params.username}/>
   
   <View style={styles.Title}>
   <TopBackNavigation/>
-  <Text style={styles.screenTitle}>Dépense collective</Text>
+  <Text style={styles.screenTitle}>Dépenses collectives</Text>
   </View>
   <View style={{flex: 1}}>
 

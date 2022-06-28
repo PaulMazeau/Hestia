@@ -13,27 +13,6 @@ import AddFood from '../components/AddFood';
 
 type Props = NativeStackScreenProps<RootStackParams, 'Course'>;
 
-const fruitftlegume=[
-  {key : "6 tomates"},
-  {key : "3 salades"}
-]
-
-const viandes=[
-  {key : "2 steak"},
-  {key : "Jambon"},
-  {key : "escalopes"}
-]
-
-const maison=[
-  {key : "papier toilette"},
-  {key : "sac poubelles"},
-]
-
-const boisson=[
-  {key : "pack de bières"},
-  {key : "coca"},
-]
-
 //dans la db course: Nom, boisson, fruits, maison, viandes, 
 const CourseScreen = ({ route, navigation }: Props) => {
   //data est la liste de course
@@ -54,10 +33,10 @@ const CourseScreen = ({ route, navigation }: Props) => {
   }
 
   const renderViandes = () => {
-    if(data && data.viande){
+    if(data && data.viandes){
       return (
           
-          data.viande.map((item)=> {
+          data.viandes.map((item)=> {
             return(
               <Food key= {item} name = {item}></Food>
             )
@@ -121,14 +100,15 @@ const CourseScreen = ({ route, navigation }: Props) => {
           <Text style={styles.Food_title}>Viandes</Text>
           <View style = {styles.separator}></View>
           {renderViandes()}  
-        
+          <AddFood clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"viandes"}></AddFood>
           <Text style={styles.Food_title}>Boissons</Text>
           <View style = {styles.separator}></View>
           {renderBoissons()}
-
+          <AddFood clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"boisson"}></AddFood>
           <Text style={styles.Food_title}>Maison</Text>
           <View style = {styles.separator}></View>
           {renderMaison()}
+          <AddFood clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"maison"}></AddFood>
         </View>
         </View>
       </ScrollView>

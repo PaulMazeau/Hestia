@@ -15,12 +15,30 @@ interface AddFoodProps {
 
 
 const Food :React.FC<AddFoodProps> = ({courseID, clcID, itemType}) => {
-
   const [item, setItem] = React.useState("");
   const handleAddItem = async () => {
     const itemCopy = item;
+    if(itemType == "fruits"){
     await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {fruits: arrayUnion(itemCopy)});
     setItem("")
+return}
+    if(itemType=="viandes"){
+        await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {viandes: arrayUnion(itemCopy)});
+        setItem("")
+        return
+    }
+    if(itemType=="boisson"){
+        await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {boisson: arrayUnion(itemCopy)});
+        setItem("")
+        return
+    }
+    if(itemType=="maison"){
+        await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {maison: arrayUnion(itemCopy)});
+        setItem("")
+        return
+    }
+
+    
   }
   
     return (      

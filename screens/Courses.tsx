@@ -24,7 +24,7 @@ const CoursesScreen = ({route, navigation}: Props) => {
       allCourses.docs.map(c => {
         return(
           
-          <CourseCard key= {c.id} name={c.data().Nom}  onPress = {(name) => navigation.navigate('Course', {name: name, courseID: c.id, clcID: route.params.clcID, username: route.params.username})}/>
+          <CourseCard key= {c.id} name={c.data().Nom} courseID={c.id} clcID = {route.params.clcID} onPress = {(name) => navigation.navigate('Course', {name: name, courseID: c.id, clcID: route.params.clcID, username: route.params.username})}/>
         )
   
       })
