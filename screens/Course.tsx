@@ -6,45 +6,82 @@ import TopBackNavigation from '../components/TopBackNavigation';
 import Top from '../components/HeaderDark';
 import Food from '../components/Food';
 import { ScrollView } from 'react-native-gesture-handler';
-import { getDoc, doc } from 'firebase/firestore';
+import { getDoc, doc, collection, query, where } from 'firebase/firestore';
 import { auth, db } from '../firebase-config';
+import { useCollectionData, useDocumentData } from 'react-firebase-hooks/firestore';
+import AddFood from '../components/AddFood';
 
 type Props = NativeStackScreenProps<RootStackParams, 'Course'>;
 
-const fruitftlegume=[
-  {key : "6 tomates"},
-  {key : "3 salades"}
-]
-
-const viandes=[
-  {key : "2 steak"},
-  {key : "Jambon"},
-  {key : "escalopes"}
-]
-
-const maison=[
-  {key : "papier toilette"},
-  {key : "sac poubelles"},
-]
-
-const boisson=[
-  {key : "pack de bières"},
-  {key : "coca"},
-]
-
-
+//dans la db course: Nom, boisson, fruits, maison, viandes, 
 const CourseScreen = ({ route, navigation }: Props) => {
-  const [username, setUsername] = useState("");
-  useEffect( () => {
-    const getData = async () => {
-      const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
-      setUsername(data.data().nom)
+  //data est la liste de course
+  const [data, loading, error] = useDocumentData(doc(db, "Colocs/"+route.params.clcID+ "/Courses", route.params.courseID))
+  const renderFruits = () => {
+    if(data && data.fruits){
+      return (
+          data.fruits.map((item)=> {
+            return(
+              <Food key= {item} name = {item}></Food>
+            )
+          })
+      )
     }
-    getData();
-  }, [])
+    return (
+      <></>
+    )
+  }
+
+  const renderViandes = () => {
+    if(data && data.viandes){
+      return (
+          
+          data.viandes.map((item)=> {
+            return(
+              <Food key= {item} name = {item}></Food>
+            )
+          })
+      )
+    }
+    return (
+      <></>
+    )
+  }
+  const renderBoissons = () => {
+    if(data && data.boisson){
+      return (
+          
+          data.boisson.map((item)=> {
+            return(
+              <Food key= {item} name = {item}></Food>
+            )
+          })
+      )
+    }
+    return (
+      <></>
+    )
+  }
+  const renderMaison = () => {
+    if(data && data.maison){
+      return (
+          
+          data.maison.map((item)=> {
+            return(
+              <Food key= {item} name = {item}></Food>
+            )
+          })
+      )
+    }
+    return (
+      <></>
+    )
+  }
+
+  
   return (
     <View style={styles.container}>
-      <Top name={username}/>
+      <Top name={route.params.username}/>
     
       
       <View style = {styles.Title}>
@@ -57,35 +94,21 @@ const CourseScreen = ({ route, navigation }: Props) => {
         <View style={styles.whiteBackGround}>
           <Text style={styles.Food_title}>Fruits & Légumes</Text>
           <View style = {styles.separator}></View>
-          {fruitftlegume.map((item) => {
-            return (
-              <Food key={item.key} name={item.key}></Food>
-            )
-          })}
+          {renderFruits()}
+          <AddFood clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"fruits"}></AddFood>
           
-          <Text style={styles.Food_title}>viandes</Text>
+          <Text style={styles.Food_title}>Viandes</Text>
           <View style = {styles.separator}></View>
-          {viandes.map((item) => {
-            return (
-              <Food key={item.key} name={item.key}></Food>
-            )
-          })}   
-        
+          {renderViandes()}  
+          <AddFood clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"viandes"}></AddFood>
           <Text style={styles.Food_title}>Boissons</Text>
           <View style = {styles.separator}></View>
-          {boisson.map((item) => {
-            return (
-              <Food key={item.key} name={item.key}></Food>
-            )
-          })} 
-
+          {renderBoissons()}
+          <AddFood clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"boisson"}></AddFood>
           <Text style={styles.Food_title}>Maison</Text>
           <View style = {styles.separator}></View>
-          {maison.map((item) => {
-            return (
-              <Food key={item.key} name={item.key}></Food>
-            )
-          })} 
+          {renderMaison()}
+          <AddFood clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"maison"}></AddFood>
         </View>
         </View>
       </ScrollView>

@@ -31,8 +31,10 @@ export type RootStackParams = {
   AuthStack : NavigatorScreenParams<AuthStackParams>;
   TacheStack: undefined;
   Course: {
-    //id dans la vraie vie
     name: string;
+    courseID: string;
+    username: string;
+    clcID: string;
   }
  
   DepenseStack: {username: string; clcID: string;};
@@ -67,8 +69,10 @@ const RootStack = createBottomTabNavigator<RootStackParams>();
 export type CoursesStackParams = {
   Courses: {username: string, clcID: string;};
   Course: {
-    //id dans la vraie vie
     name: string;
+    courseID: string;
+    username: string;
+    clcID: string;
   };
   Settings : undefined;
   ColocSettings : undefined;
@@ -170,8 +174,9 @@ const DepenseScreenStack = (t) => {
 export default function App() {
   const[username, setUsername] = useState("");
   const [clcID, setClcID] = useState("");
+  const[usr, loading, error] = useAuthState(auth);
   const renderContent = () =>{
-    const[usr, loading, error] = useAuthState(auth);
+    
     if(usr){
       const getUsername = async () => {
       const data = await getDoc(doc(db, "Users", auth.currentUser.uid));

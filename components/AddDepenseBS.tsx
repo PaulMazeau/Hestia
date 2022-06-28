@@ -36,13 +36,21 @@ const renderBackdrop = useCallback((props) => {
   );
 }, []);
 
+
+
   const buttonPressed = () => {
     bottomSheetRef.current?.present();
   }
 
+
+
+    
+ 
+
   const handleAddDepense = async () => {
+    await addDoc(collection(db, "Colocs/" +props.clcID+ "/Transactions"), {id: uuid(), date: serverTimestamp(), amount: amount, giverID: "Paulo", receiverID: "Arielo"});
     bottomSheetRef.current?.close();
-    await addDoc(collection(db, "Colocs/" +props.clcID+ "/Transactions"), {id: uuid(), date: serverTimestamp(), amount: amount, giverID: "Paulo", receiverID: "Arielo"})
+    
   };
 
 

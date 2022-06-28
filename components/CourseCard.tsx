@@ -1,17 +1,24 @@
+import { deleteDoc, doc } from 'firebase/firestore';
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import { Colors, Drawer } from 'react-native-ui-lib';
+import {db} from '../firebase-config'
 
 interface Props {
   name: string;
   onPress: (name: string) => void;
+  courseID: string;
+  clcID: string;
 }
 
-const RestaurantCard: React.FC<Props> = ({name, onPress}) => {
+const RestaurantCard: React.FC<Props> = ({name, onPress, courseID, clcID}) => {
+  const handleDelete = async () => {
+    await deleteDoc(doc(db, "Colocs/"+clcID+"/Courses", courseID));
+  }
   return (
     <View style={styles.body}>
     <Drawer
-    rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => console.log('remo')}]}
+    rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete()}]}
     leftItem={{text: 'Modifier', background: Colors.green30, onPress: () => console.log('change pressed')}}>    
     <TouchableOpacity onPress={() => onPress(name)}>
       <View style={styles.container}>
