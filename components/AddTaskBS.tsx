@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react';
-import {StyleSheet, View, Text, TextInput, ScrollView, TouchableOpacity, Button} from 'react-native'
+import {StyleSheet, View, Text, TextInput, TouchableOpacity, Button, Dimensions} from 'react-native'
 import { Dropdown } from 'react-native-element-dropdown';
 import ParticipantCard from './ParticipantCard';
 import Plus from '../Icons/Plus.svg'
@@ -7,6 +7,7 @@ import BottomSheet, { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bott
 import AddButton from '../Icons/AddButton.svg';
 import * as Haptics from 'expo-haptics';
 import { DateTimePicker, TextField } from 'react-native-ui-lib';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const Recurrence = [
     { label: 'Aucune', value: '1' },
@@ -38,6 +39,7 @@ const Recurrence = [
 
 const AddTaskBS = () => {
 
+  
 
 // ref
 const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -71,25 +73,26 @@ const renderBackdrop = useCallback((props) => {
 
 return (
 
+
+
 <View style={{flex: 1}}>
 
-<TouchableOpacity onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy); buttonPressed() }} style= {styles.OpenBS}>
-                <AddButton /> 
+  <TouchableOpacity onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy); buttonPressed() }} style= {styles.OpenBS}>
+      <AddButton /> 
   </TouchableOpacity> 
 
-        
-
-          <BottomSheetModal
-        ref={bottomSheetRef}
-        snapPoints={['90%']}
-        index= {0}
-        backdropComponent={renderBackdrop}
-      >
-        <View style={styles.contentContainer}>
-         
-
+  <BottomSheetModal
+    ref={bottomSheetRef}
+    snapPoints={['90%']}
+    index= {0}
+    backdropComponent={renderBackdrop}
+    enableHandlePanningGesture={true}
+    enableContentPanningGesture={true}
+  >
+  
+    <View style={styles.contentContainer}>
         <ScrollView>
-<Text style={styles.Title}>Nouvelle tâche ménagère</Text>
+        <Text style={styles.Title}>Nouvelle tâche ménagère</Text>
     <View style={styles.depenseTitle}>
         <Text style={styles.subTitle}>Titre</Text>
         <TextInput
@@ -159,6 +162,7 @@ return (
                         placeholder='Rappel'
                         mode= 'time'
                         timeFormat='h:m'
+                        is24Hour={true}
                       />
                     </View>
             </View>
@@ -173,13 +177,16 @@ return (
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={{flexGrow: 1}}
-                    keyboardShouldPersistTaps='handled'>
+                    nestedScrollEnabled={true}
+                    >
+                      
                         <ParticipantCard/>
                         <ParticipantCard/>
                         <ParticipantCard/>
                         <ParticipantCard/>
                         <ParticipantCard/>
                         <ParticipantCard/>
+                     
                 </ScrollView>
             </View>
       </View>
@@ -188,12 +195,10 @@ return (
       <Plus/>
       <Text style={styles.buttonText}>Ajouter la tâche ménagère</Text>
       </TouchableOpacity>
+        </ScrollView>
+    </View>
 
-      </ScrollView>
-
-
-        </View>
-      </BottomSheetModal>
+  </BottomSheetModal>
   
 </View>
 
@@ -239,7 +244,7 @@ const styles = StyleSheet.create({
       },
 
       depenseTitle: {
-          marginTop: 15
+          marginTop: 15,
       },
 
       dropdownRecurrence: {
@@ -280,6 +285,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#DDDDDD',
         width: 145,
+        backgroundColor: 'white'
       },
 
       participant: {
@@ -287,6 +293,7 @@ const styles = StyleSheet.create({
           justifyContent: 'space-between',
           marginLeft: 13,
           marginRight: 13,
+          flex: 1,
       },
 
       AddButton: {
@@ -310,7 +317,6 @@ const styles = StyleSheet.create({
       contentContainer: {
         flex: 1,
         alignItems: 'center',
-        zIndex: 2,
       },
 
       OpenBS: {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image, Dimensions} from 'react-native';
 import { Colors, Drawer } from 'react-native-ui-lib';
 import { TouchableOpacity } from 'react-native-ui-lib/src/incubator';
 import Horloge from '../Icons/Horloge.svg';
@@ -8,6 +8,10 @@ import Horloge from '../Icons/Horloge.svg';
 
 
 const ParticipantCard = () => {
+
+  
+
+  
   const [participant, setstate] = useState(false);
   return (
     <View style={styles.global}>

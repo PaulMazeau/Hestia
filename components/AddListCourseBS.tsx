@@ -1,10 +1,11 @@
 import React, { useCallback, useRef } from 'react';
-import {StyleSheet, View, Text, TextInput, ScrollView, TouchableOpacity} from 'react-native'
+import {StyleSheet, View, Text, TextInput, TouchableOpacity} from 'react-native'
 import ParticipantCard from './ParticipantCard';
 import Plus from '../Icons/Plus.svg'
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import AddButton from '../Icons/AddButton.svg';
 import * as Haptics from 'expo-haptics';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const AddListeCourseBS = () => {
 
