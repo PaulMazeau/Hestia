@@ -13,10 +13,6 @@ interface Props {
 //props est tache id et colocID et le titre de la tache et la date UNIFORMISER LES NOMS !!!!!!!!
 const TacheCard = (props) => {
 
-  const handleDelete = async (id) => {
-    await deleteDoc(doc(db, "Colocs/"+props.clcID +"/Taches/", id));
-  }
-
   return (
     <View style={styles.global}>
       

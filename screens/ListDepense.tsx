@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useRef } from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Top from '../components/HeaderDark';
-import { BorderRadiuses, SegmentedControl, Spacings } from 'react-native-ui-lib';
+import { BorderRadiuses, SegmentedControl, Spacings, Drawer, Colors } from 'react-native-ui-lib';
 import Depense from '../components/DepenseDiagram';
 import { ScrollView } from 'react-native-gesture-handler';
 import Transaction from '../components/Transaction';
@@ -23,8 +23,13 @@ const AllDepense = ({route, navigation}: Props) => {
       return(
         allTransacs.docs.map(c => {
           return(
-            
+            <View style={styles.Transaction}>
+            <Drawer 
+            rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => console.log('prout')}]}
+            leftItem={{text: 'Modifier', background: Colors.green30, onPress: () => console.log('2 prout')}}>
             <Transaction key={c.id} giverID={c.data().giverID} receiverID={c.data().receiverID} amount={c.data().amount} desc={c.data().desc}/>
+            </Drawer>
+            </View>
           )
     
         })
@@ -96,6 +101,10 @@ container: {
     flex: 1,
     backgroundColor: '#EDF0FA'
 },
+
+Transaction: {
+  marginTop: 12,
+}
 
 })
 
