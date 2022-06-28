@@ -8,6 +8,8 @@ import AddButton from '../Icons/AddButton.svg';
 import * as Haptics from 'expo-haptics';
 import { addDoc, collection, updateDoc, doc } from 'firebase/firestore';
 import {db} from '../firebase-config'
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+
 
 
 const Recurrence = [
@@ -42,14 +44,15 @@ const Recurrence = [
 const AddTaskBS = (props) => {
 
 
+
+
 // ref
 const bottomSheetRef = useRef<BottomSheetModal>(null);
 
 const [title, setTitle] = React.useState("");
 const [value, setValue] = useState("");
-const [day, setDay] = useState("");
-const[month, setMonth] = useState("");
-const[year, setYear] = useState("");
+const [date, setDate] = useState("")
+const [rappel, setRappel] = useState("")
 
 const sheetRef = useRef<BottomSheet>(null);
 
@@ -58,7 +61,7 @@ const [isOpen, setIsOpen] = useState(false);
 const handleAddTask = async () => {
   bottomSheetRef.current?.close();
 //.then pr que le nvo doc aie comme id le nom généré par firestore
-  await addDoc(collection(db, 'Colocs/'+props.clcID+'/Taches'), {desc: title, colocID: props.clcID, day: day, month: month, year: year}); 
+  await addDoc(collection(db, 'Colocs/'+props.clcID+'/Taches'), {desc: title, colocID: props.clcID, date: date}); 
 };
 
 const buttonPressed = () => {
@@ -75,6 +78,39 @@ const renderBackdrop = useCallback((props) => {
   );
 }, []);
 
+const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+const optionsDate = { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' };
+
+const showDatePicker = () => {
+  setDatePickerVisibility(true);
+};
+
+const hideDatePicker = () => {
+  setDatePickerVisibility(false);
+};
+
+const handleConfirmDate = (date) => {
+  setDate(date.toLocaleDateString('fr-FR', optionsDate));
+  console.log("A date has been picked: ", date);
+  hideDatePicker();
+};
+
+const [isRappelPickerVisible, setRappelPickerVisibility] = useState(false);
+const optionsRappel = { weekday: 'short', month: 'short', day: 'numeric', hour:'numeric', minute:'numeric' };
+
+const showRappelPicker = () => {
+  setRappelPickerVisibility(true);
+};
+
+const hideRappelPicker = () => {
+  setRappelPickerVisibility(false);
+};
+
+const handleConfirmRappel = (date) => {
+  setRappel(date.toLocaleDateString('fr-FR', optionsRappel));
+  console.log("A date has been picked: ", date);
+  hideRappelPicker();
+};
 
 return (
 
@@ -111,26 +147,22 @@ return (
 
       <View style={styles.depenseTitle}>
         <Text style={styles.subTitle}>Date</Text>
-            <View style={styles.date}>
-                <TextInput
-                        style={styles.inputDate}
-                        onChangeText={(event) => {setDay(event)}}
-                        
-                        placeholder="Jour"
-                    />
-                    <TextInput
-                        style={styles.inputDate}
-                        onChangeText={(event) => {setMonth(event)}}
-                        
-                        placeholder="Mois"
-                    />
-                    <TextInput
-                        style={styles.inputDate}
-                        onChangeText={(event) => {setYear(event)}}
-                        
-                        placeholder="Année"
-                    />
-            </View>
+              <TextInput 
+                style={styles.datepicker}
+                onChangeText={(event) => {setDate(event);}}
+                value={date}
+                placeholder="Choisir la date"
+                onPressIn={showDatePicker} 
+              />
+                    
+              <DateTimePickerModal
+                isVisible={isDatePickerVisible}
+                mode="date"
+                onConfirm={handleConfirmDate}
+                onCancel={hideDatePicker}
+                cancelTextIOS='Annuler'
+                confirmTextIOS='Confirmer'
+              />
       </View>
 
       <View style={styles.depenseTitle}>
@@ -159,7 +191,7 @@ return (
                 <Text style={styles.subTitle}>Notification</Text>
                     <View>
                     <Dropdown
-                            style={styles.dropdownRappel}
+                            style={styles.dropdownNotif}
                             placeholderStyle={styles.placeholderStyle}
                             selectedTextStyle={styles.selectedTextStyle}
                             data={Notification}
@@ -176,22 +208,25 @@ return (
             </View>
             <View >
                 <Text style={styles.subTitle}>Rappel</Text>
-                    <View>
-                        <Dropdown
-                            style={styles.dropdownRappel}
-                            placeholderStyle={styles.placeholderStyle}
-                            selectedTextStyle={styles.selectedTextStyle}
-                            data={Rappel}
-                            maxHeight={300}
-                            labelField="rappel"
-                            valueField="id"
-                            placeholder="1 heure"
-                            value={value}
-                            onChange={item => {
-                                setValue(item.value);
-                            }}
-                        />
-                    </View>
+                  
+                      <TextInput 
+                      style={styles.datepickerRappel}
+                      onChangeText={(event) => {setRappel(event);}}
+                      value={rappel}
+                      placeholder="Entrer le rappel"
+                      onPressIn={showRappelPicker} 
+                      />
+                     
+                      <DateTimePickerModal
+                      isVisible={isRappelPickerVisible}
+                      onConfirm={handleConfirmRappel}
+                      onCancel={handleConfirmRappel}
+                      cancelTextIOS='Annuler'
+                      confirmTextIOS='Confirmer'
+                      locale="fr_FR"
+                      mode="datetime"
+                    />
+
             </View>
         </View>
       </View>
@@ -306,7 +341,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
       },
 
-      dropdownRappel: {
+      dropdownNotif: {
         marginTop: 13,
         marginLeft: 13,
         marginRight: 13,
@@ -317,7 +352,7 @@ const styles = StyleSheet.create({
         elevation: 2,
         borderWidth: 1,
         borderColor: '#DDDDDD',
-        width: 145,
+        width: 160
       },
 
       participant: {
@@ -356,6 +391,35 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
         flex: 1,
       },
+
+      datepicker: {
+        height: 44,
+        marginTop: 13,
+        marginLeft: 13,
+        marginRight: 13,
+        borderWidth: 1,
+        borderColor: '#DDDDDD',
+        padding: 10,
+        borderRadius: 14,
+      },
+  
+      datepickerRappel: {
+        height: 44,
+        marginTop: 13,
+        marginLeft: 13,
+        marginRight: 13,
+        borderWidth: 1,
+        borderColor: '#DDDDDD',
+        padding: 10,
+        borderRadius: 14,
+        width: 160,
+        fontSize: 16
+      },
+  
+      textdate: {
+        fontSize: 16,
+        opacity: .3
+      }
 })
 
 

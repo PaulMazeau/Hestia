@@ -13,6 +13,7 @@ import { Dropdown } from 'react-native-element-dropdown';
 import ParticipantCard from './ParticipantCard';
 import * as Haptics from 'expo-haptics';
 import Edit from '../Icons/Edit.svg'
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 
 //props est la colocID, on le récupère ici car 1 appel en moins(appel ds tache obligé)
@@ -51,7 +52,22 @@ const renderContent = () => {
   )
 }
 
-/* SETUP DE LA BOTTOMSHEET */
+/* SETUP DE LA BOTTOMSHEET MODIFIER */
+
+const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = (date) => {
+    console.log("A date has been picked: ", date);
+    hideDatePicker();
+  };
 
 // ref
 const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -105,13 +121,13 @@ const Rappel = [
   { rappel: '1 semaine', id: '5' },
 ];
 
-/* FIN SETUP DE LA BOTTOMSHEET */
+/* FIN SETUP DE LA BOTTOMSHEET MODIFIER*/
 
   return (   
           <View style={{flex: 1}}>
 
 
-{/* DEBUT DE LA BOTTOMSHEET */}
+{/* DEBUT DE LA BOTTOMSHEET MODIFIER*/}
 
           <BottomSheetModal
               ref={bottomSheetRef}
@@ -136,13 +152,20 @@ const Rappel = [
           
                 <View style={styles.depenseTitle}>
                   <Text style={styles.subTitle}>Date</Text>
-                    <TextInput
-                    style={styles.input}
-                    onChangeText={setTitle}
-                    value={title}
-                    placeholder="Entrer le titre"
-                    maxLength={30}
-                      />
+                  <TouchableOpacity 
+                  onPress={showDatePicker} 
+                  style={styles.datepicker}
+                  >
+                    <Text style={styles.textdate}>Choisir une date</Text>
+                    <DateTimePickerModal
+                    isVisible={isDatePickerVisible}
+                    mode="date"
+                    onConfirm={handleConfirm}
+                    onCancel={hideDatePicker}
+                    cancelTextIOS='Annuler'
+                    confirmTextIOS='Confirmer'
+                  />
+                  </TouchableOpacity>
                 </View>
           
                 <View style={styles.depenseTitle}>
@@ -183,22 +206,24 @@ const Rappel = [
 
                       <View >
                           <Text style={styles.subTitle}>Rappel</Text>
-                              <View>
-                                  <Dropdown
-                            style={styles.dropdownRappel}
-                            placeholderStyle={styles.placeholderStyle}
-                            selectedTextStyle={styles.selectedTextStyle}
-                            data={Rappel}
-                            maxHeight={300}
-                            labelField="rappel"
-                            valueField="id"
-                            placeholder="1 heure"
-                            value={value}
-                            onChange={item => {
-                                setValue(item.value);
-                            }}
-                        />
-                              </View>
+                            <View>
+                              <TouchableOpacity 
+                                onPress={showDatePicker} 
+                                style={styles.datepickerRappel}
+                                >
+                                  <Text style={styles.textdate}>Choisir un rappel</Text>
+                                  <DateTimePickerModal
+                                  isVisible={isDatePickerVisible}
+                                  onConfirm={handleConfirm}
+                                  onCancel={hideDatePicker}
+                                  mode="time"
+                                  locale="en_GB"
+                                  cancelTextIOS='Annuler'
+                                  confirmTextIOS='Confirmer'
+                                />
+                              </TouchableOpacity>
+                        
+                            </View>
                       </View>
                   </View>
                 </View>
@@ -233,7 +258,7 @@ const Rappel = [
       </View>
 
           </BottomSheetModal>
-{/* FIN DE LA BOTTOMSHEET */}
+{/* FIN DE LA BOTTOMSHEET MODIFIER*/}
        
           <ScrollView showsVerticalScrollIndicator={false}>
       
@@ -302,6 +327,7 @@ const styles = StyleSheet.create({
       borderColor: '#DDDDDD',
       padding: 10,
       borderRadius: 14,
+      fontSize: 16
     },
 
     groupe: {
@@ -341,7 +367,7 @@ const styles = StyleSheet.create({
       elevation: 2,
       borderWidth: 1,
       borderColor: '#DDDDDD',
-      width: 145,
+      width: 160
     },
 
     participant: {
@@ -369,6 +395,33 @@ const styles = StyleSheet.create({
       marginLeft: 15,
     },
 
+    datepicker: {
+      height: 44,
+      marginTop: 13,
+      marginLeft: 13,
+      marginRight: 13,
+      borderWidth: 1,
+      borderColor: '#DDDDDD',
+      padding: 10,
+      borderRadius: 14,
+    },
+
+    datepickerRappel: {
+      height: 44,
+      marginTop: 13,
+      marginLeft: 13,
+      marginRight: 13,
+      borderWidth: 1,
+      borderColor: '#DDDDDD',
+      padding: 10,
+      borderRadius: 14,
+      width: 160
+    },
+
+    textdate: {
+      fontSize: 16,
+      opacity: .3
+    }
 })
 
 export default GlobalTask;
