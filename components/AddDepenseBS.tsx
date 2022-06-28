@@ -9,6 +9,7 @@ import * as Haptics from 'expo-haptics';
 import {v4 as uuid} from 'uuid';
 import { updateDoc, serverTimestamp, addDoc, collection } from "firebase/firestore";
 import {db} from '../firebase-config'
+import { useCollectionOnce } from 'react-firebase-hooks/firestore';
 
 
 const Recurrence = [
@@ -20,7 +21,7 @@ const Recurrence = [
     { label: 'Colocataire 5', value: '6' },
   ];
 
-//ATTRIBUTS dans bdd : amount, giverID, receiverID, id, amount, desc
+//ATTRIBUTS dans bdd : amount, giverID, receiversID array, desc
 //props est colocID pr trouver le chemin pr addDoc
 const AddDepenseBS = (props) => {
 
@@ -48,7 +49,7 @@ const renderBackdrop = useCallback((props) => {
  
 
   const handleAddDepense = async () => {
-    await addDoc(collection(db, "Colocs/" +props.clcID+ "/Transactions"), {id: uuid(), date: serverTimestamp(), amount: amount, giverID: "Paulo", receiverID: "Arielo"});
+    await addDoc(collection(db, "Colocs/" +props.clcID+ "/Transactions"), {id: uuid(), timestamp: serverTimestamp(), amount: amount, giverID: "Paulo", receiverID: "Arielo"});
     bottomSheetRef.current?.close();
     
   };
