@@ -20,7 +20,7 @@ import AllDepense from './screens/ListDepense';
 import LoginScreen from './screens/Login';
 import SignupScreen from './screens/Signup';
 import { auth,db } from './firebase-config';
-import { getDoc, doc } from 'firebase/firestore';
+import { getDoc, doc, query, where, getDocs, collection } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 
@@ -37,7 +37,7 @@ export type RootStackParams = {
     clcID: string;
   }
  
-  DepenseStack: {username: string; clcID: string;};
+  DepenseStack: {username: string; clcID: string; usersList: Array<Object>;};
   Settings: undefined;
   ColocSettings: undefined;
   ListDepense: undefined;
@@ -175,16 +175,17 @@ export default function App() {
   const[username, setUsername] = useState("");
   const [clcID, setClcID] = useState("");
   const[usr, loading, error] = useAuthState(auth);
+  const [usersList, setUsersList] = useState([]);
   const renderContent = () =>{
     
     if(usr){
-      const getUsername = async () => {
+      const getData = async () => {
       const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
       setClcID(data.data().colocID);
       setUsername(data.data().nom);
-      
+      console.log("inside!")
     }
-    getUsername();
+    getData();
     if(!(username == "")){
       return ( <RootStack.Navigator
         initialRouteName="AccueilStack" 

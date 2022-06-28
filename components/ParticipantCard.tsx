@@ -5,9 +5,9 @@ import { TouchableOpacity } from 'react-native-ui-lib/src/incubator';
 import Horloge from '../Icons/Horloge.svg';
 
 
+//props est name du frelon
 
-
-const ParticipantCard = () => {
+const ParticipantCard = (props) => {
   const [participant, setstate] = useState(false);
   return (
     <View style={styles.global}>
@@ -15,7 +15,7 @@ const ParticipantCard = () => {
       <TouchableOpacity  onPress={() => setstate(!participant)}>
         <View style = {[!participant? styles.participant_invalid: styles.participant_valid]}>
             <Image style={styles.avatar1} source={require('../Img/test1.png')}/>
-              <Text style={styles.nom}>Paul</Text>
+              <Text style={styles.nom}>{props.name}</Text>
         </View>
       </TouchableOpacity>
 
