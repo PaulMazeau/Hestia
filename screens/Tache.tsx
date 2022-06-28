@@ -7,19 +7,21 @@ import MesTask from '../components/MesTask';
 import TaskCalendar from '../components/TaskCalendar';
 import { getDoc, doc  } from 'firebase/firestore';
 import { auth, db } from '../firebase-config';
+import { RootStackParams } from '../App';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+type Props = NativeStackScreenProps<RootStackParams, 'TacheStack'>;
 
-
- const TacheScreen = () => {
-  const [username, setUsername] = useState("");
-  const [clcID, setclcID] = useState("");
-  useEffect( () => {
-    const getData = async () => {
-      const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
-      setUsername(data.data().nom);
-      setclcID(data.data().colocID);
-    }
-    getData();
-  }, [])
+ const TacheScreen = ({route, navigation}: Props) => {
+  // const [username, setUsername] = useState("");
+  // const [clcID, setclcID] = useState("");
+  // useEffect( () => {
+  //   const getData = async () => {
+  //     const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
+  //     setUsername(data.data().nom);
+  //     setclcID(data.data().colocID);
+  //   }
+  //   getData();
+  // }, [])
    
 
   const [show, setShow] = React.useState(true);
@@ -36,7 +38,7 @@ import { auth, db } from '../firebase-config';
 
       <View style={styles.container}>
 
-          <Top name={username}/>
+          <Top name={route.params.username}/>
               <Text style={styles.screenTitle}>Tâche à faire</Text>
 
                 <TaskCalendar/>
@@ -55,7 +57,7 @@ import { auth, db } from '../firebase-config';
               outlineWidth= {2}
               throttleTime= {100}
               />
-              {show ? <GlobalTask clcID={clcID}/> : <MesTask/> }
+              {show ? <GlobalTask clcID={route.params.clcID}/> : <MesTask/> }
 
       </View>
 

@@ -19,10 +19,9 @@ import Plus from '../Icons/Plus.svg'
 // Besoin de colocID car Taches est subcollection de Colocs 
 
  const GlobalTask = (props) => {
-
-const renderContent = () => {
-  if(props.clcID){
   const [allTasks] = useCollection(collection(db, "Colocs/"+props.clcID+ "/Taches"));
+const renderContent = () => {
+  
   if(allTasks){
     return(
       allTasks.docs.map(t => {
@@ -41,7 +40,7 @@ const renderContent = () => {
   
       })
     )
-  }}
+  }
   return (
     <SkeletonPlaceholder
     backgroundColor='rgb(255,255,255,.62)'
