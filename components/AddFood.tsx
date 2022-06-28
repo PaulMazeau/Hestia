@@ -61,7 +61,7 @@ return}
 
 const styles = StyleSheet.create({
     LigneTransparent: {
-      padding : 5,
+      padding : 7,
       flexDirection : 'row',
       justifyContent: 'flex-start',
       opacity:0.4
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
       },
     food_text_valid : {
       paddingLeft : 5,
-      fontSize : 15,
+      fontSize : 16,
     },
 });
 

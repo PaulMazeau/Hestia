@@ -17,7 +17,7 @@ const Food: React.FC<FoodProps> = ({name}) => {
     return (      
         <View style = {styles.Ligne}>
           <RadioButton size={22} selected={radiobutton} onPress={() => setstate(!radiobutton)} />
-          <Text onPress={() => setstate(!radiobutton)} >{name}</Text>
+          <Text onPress={() => setstate(!radiobutton)} style={styles.Text}>{name}</Text>
         </View>
   
     );
@@ -39,25 +39,36 @@ const styles = StyleSheet.create({
       marginTop : 10,
       marginBottom : 10
     },
+    
     Ligne: {
-      padding : 5,
+      padding : 7,
       flexDirection : 'row',
       justifyContent: 'flex-start',
+      alignItems: 'center',
     },
+    
     titre: {
       paddingLeft : 10,
       fontWeight: 'bold',
       fontSize: 20,
     },
+
     food_text_invalid : {
       paddingLeft : 5,
       fontSize : 15,
       textDecorationLine : 'line-through',
     },
+
     food_text_valid : {
       paddingLeft : 5,
       fontSize : 15,
     },
+
+    Text: {
+      marginLeft: 5,
+      fontSize: 16,
+      fontWeight: '400'
+    }
 });
 
 

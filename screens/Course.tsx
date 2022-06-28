@@ -138,31 +138,27 @@ const styles = StyleSheet.create({
     flexDirection : 'row', 
     marginBottom : 15,
   },
-  
-  Foodcontainer: {
-    padding: 15,
-    width : "100%",
-    marginTop: 8,
-    
-  },
 
   whiteBackGround:{ 
     backgroundColor:'white',
     borderRadius:10,
     height:'auto',
-    padding:10
+    paddingLeft:10,
+    paddingRight:10,
+    paddingBottom: 10
   },
 
   Food_title: {
     paddingLeft : 10,
     fontWeight: 'bold',
     fontSize: 20,
+    marginTop: 15
   },
 
   separator: {
     height : 1,
     width : "100%",
-    backgroundColor : "#4F8DD1",
+    backgroundColor : "#172ACE",
     marginTop : 10,
     marginBottom : 10,
   },
