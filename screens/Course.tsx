@@ -22,7 +22,7 @@ const CourseScreen = ({ route, navigation }: Props) => {
       return (
           data.fruits.map((item)=> {
             return(
-              <Food key= {item} name = {item}></Food>
+              <Food key= {item} name = {item} clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"fruits"}></Food>
             )
           })
       )
@@ -38,7 +38,7 @@ const CourseScreen = ({ route, navigation }: Props) => {
           
           data.viandes.map((item)=> {
             return(
-              <Food key= {item} name = {item}></Food>
+              <Food key= {item} name = {item} clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"viandes"}></Food>
             )
           })
       )
@@ -53,7 +53,7 @@ const CourseScreen = ({ route, navigation }: Props) => {
           
           data.boisson.map((item)=> {
             return(
-              <Food key= {item} name = {item}></Food>
+              <Food key= {item} name = {item} clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"boisson"}></Food>
             )
           })
       )
@@ -68,7 +68,7 @@ const CourseScreen = ({ route, navigation }: Props) => {
           
           data.maison.map((item)=> {
             return(
-              <Food key= {item} name = {item}></Food>
+              <Food key= {item} name = {item} clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"maison"}></Food>
             )
           })
       )

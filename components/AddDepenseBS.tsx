@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {StyleSheet, View, Text, Button, Image, Alert, TextInput, ScrollView, TouchableOpacity} from 'react-native'
 import { Dropdown } from 'react-native-element-dropdown';
 import ParticipantCard from './ParticipantCard';
@@ -7,8 +7,9 @@ import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import AddButton from '../Icons/AddButton.svg'
 import * as Haptics from 'expo-haptics';
 import {v4 as uuid} from 'uuid';
-import { updateDoc, serverTimestamp, addDoc, collection } from "firebase/firestore";
+import { updateDoc, serverTimestamp, addDoc, collection, getDoc, doc, where, query, getDocs } from "firebase/firestore";
 import {db} from '../firebase-config'
+import { useCollectionOnce } from 'react-firebase-hooks/firestore';
 
 
 const Recurrence = [
@@ -20,7 +21,7 @@ const Recurrence = [
     { label: 'Colocataire 5', value: '6' },
   ];
 
-//ATTRIBUTS dans bdd : amount, giverID, receiverID, id, amount, desc
+//ATTRIBUTS dans bdd : amount, giverID, receiversID array, desc
 //props est colocID pr trouver le chemin pr addDoc
 const AddDepenseBS = (props) => {
 
@@ -36,19 +37,39 @@ const renderBackdrop = useCallback((props) => {
   );
 }, []);
 
-
+const [userList, setUserList] = useState([])
 
   const buttonPressed = () => {
     bottomSheetRef.current?.present();
   }
 
+//récupère les utilisateurs de la colocs (prbablement a entrer ds app.tsx)
+useEffect( () => {
+  const getUsers = async () => {
+    const data = await getDoc(doc(db, "Colocs", props.clcID));
+    const membersID = data.data().membersID;
+    const q = query(collection(db, "Users"), where('uuid', 'in', membersID))
+    const querySnapshot = await getDocs(q);
+    setUserList(querySnapshot.docs.map((doc) => ({...doc.data()})));
+  }
+  getUsers();
+}, [])
 
 
-    
+const renderUsers = () => {
+  return(
+    userList.map((user)=> {
+      
+      return(
+        <ParticipantCard key ={user.uuid} name={user.nom}/>
+      )
+    })
+  )
+}
  
 
   const handleAddDepense = async () => {
-    await addDoc(collection(db, "Colocs/" +props.clcID+ "/Transactions"), {id: uuid(), date: serverTimestamp(), amount: amount, giverID: "Paulo", receiverID: "Arielo"});
+    await addDoc(collection(db, "Colocs/" +props.clcID+ "/Transactions"), {timestamp: serverTimestamp(), amount: amount, giverID: "Paulo", receiverID: "Arielo"});
     bottomSheetRef.current?.close();
     
   };
@@ -129,19 +150,14 @@ backdropComponent={renderBackdrop}
 
      
       <View style={styles.depenseTitle}>
-        <Text style={styles.subTitle}>Participant</Text>
+        <Text style={styles.subTitle}>Pour:</Text>
             <View style={styles.participant}>
                 <ScrollView  
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={{flexGrow: 1}}
                     keyboardShouldPersistTaps='handled'>
-                        <ParticipantCard/>
-                        <ParticipantCard/>
-                        <ParticipantCard/>
-                        <ParticipantCard/>
-                        <ParticipantCard/>
-                        <ParticipantCard/>
+                        {renderUsers()}
                 </ScrollView>
             </View>
       </View>

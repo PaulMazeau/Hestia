@@ -18,7 +18,7 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 //type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
 
 
-//props est colocID à passer dans la botomsheet 
+//props est colocID à passer dans la botomsheet avec usersList
 const AllDepense = (props) => {
   //rechercher last transac 
   // const[giverID, setGiverID] = useState("");

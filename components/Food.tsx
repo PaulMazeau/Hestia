@@ -1,22 +1,48 @@
 import { setStatusBarBackgroundColor } from 'expo-status-bar';
+import { arrayRemove, updateDoc, doc } from 'firebase/firestore';
 import React, { useState } from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image, TouchableHighlight} from 'react-native';
 import { Colors, Drawer, RadioButton } from 'react-native-ui-lib';
-
+import {db} from '../firebase-config';
 
 
 
 
 interface FoodProps {
     name: string;
+    clcID: string;
+    courseID: string;
+    itemType : string;
 }
 
 
-const Food: React.FC<FoodProps> = ({name}) => {
+const Food: React.FC<FoodProps> = ({name, clcID, courseID, itemType}) => {
   const [radiobutton, setstate] = useState(false);
+  const handleDeleteItem = async () => {
+      if(itemType == "fruits"){
+      await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {fruits: arrayRemove(name)});
+      
+  return}
+      if(itemType=="viandes"){
+          await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {viandes: arrayRemove(name)});
+          
+          return
+      }
+      if(itemType=="boisson"){
+          await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {boisson: arrayRemove(name)});
+          
+          return
+      }
+      if(itemType=="maison"){
+          await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {maison: arrayRemove(name)});
+          
+          return
+      }
+  
+  }
     return (      
         <View style = {styles.Ligne}>
-          <RadioButton size={22} selected={radiobutton} onPress={() => setstate(!radiobutton)} />
+          <RadioButton size={22} selected={radiobutton} onPress={() => handleDeleteItem()} />
           <Text onPress={() => setstate(!radiobutton)} style={styles.Text}>{name}</Text>
         </View>
   
