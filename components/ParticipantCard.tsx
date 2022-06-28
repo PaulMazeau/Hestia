@@ -15,7 +15,7 @@ const ParticipantCard = (props) => {
       <TouchableOpacity  onPress={() => setstate(!participant)}>
         <View style = {[!participant? styles.participant_invalid: styles.participant_valid]}>
             <Image style={styles.avatar1} source={require('../Img/test1.png')}/>
-              <Text style={styles.nom}>{props.name}</Text>
+              <Text style={styles.nom} numberOfLines={1}>{props.name}</Text>
         </View>
       </TouchableOpacity>
 
@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
   nom: {
     fontWeight: '600',
     fontSize: 13,
+    marginTop: 7
   },
 
   avatar1: {
@@ -50,7 +51,8 @@ const styles = StyleSheet.create({
     borderColor: '#DDDDDD',
     width: 64,
     justifyContent: 'center',
-    marginRight: 8
+    marginRight: 8,
+    padding: 5
   },
   participant_valid : {
     backgroundColor: 'rgba(237,240,250, .5)',
@@ -61,7 +63,8 @@ const styles = StyleSheet.create({
     borderColor: '#172ACE',
     width: 64,
     justifyContent: 'center',
-    marginRight: 8
+    marginRight: 8,
+    padding: 5
   },
   
 });
