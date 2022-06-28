@@ -26,7 +26,7 @@ const Top = (props) => {
     </TouchableOpacity>
     <View style={styles.Title}>
         <Text style={styles.BigTitle}>Hi, {props.name}</Text>
-        <Text style={styles.SmallTitle}>8 juin, 2022</Text>
+        <Text style={styles.SmallTitle}>{props.clcName}</Text>
     </View>
     <TouchableOpacity  onPress={() => navigation.push('ColocSettings')}>
         <Settings width={25} height={25} fill="#282828"/>

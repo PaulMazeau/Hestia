@@ -12,15 +12,6 @@ import {db} from '../firebase-config'
 import { useCollectionOnce } from 'react-firebase-hooks/firestore';
 
 
-const Recurrence = [
-    { label: 'Tout le monde', value: '1' },
-    { label: 'Colocataire 1', value: '2' },
-    { label: 'Colocataire 2', value: '3' },
-    { label: 'Colocataire 3', value: '4' },
-    { label: 'Colocataire 4', value: '5' },
-    { label: 'Colocataire 5', value: '6' },
-  ];
-
 //ATTRIBUTS dans bdd : amount, giverID, receiversID array, desc
 //props est colocID pr trouver le chemin pr addDoc
 const AddDepenseBS = (props) => {
@@ -37,8 +28,9 @@ const renderBackdrop = useCallback((props) => {
   );
 }, []);
 
-const [userList, setUserList] = useState([])
 
+const [userList, setUserList] = useState([])
+const [areConcerned, setAreConcerned] = useState([]);
   const buttonPressed = () => {
     bottomSheetRef.current?.present();
   }
@@ -55,29 +47,71 @@ useEffect( () => {
   getUsers();
 }, [])
 
+//pour indiquer si la personne est concernée ou non par la dépense
+const putInOrPutOut = (id) => {
+  if(areConcerned.includes(id)){
+    setAreConcerned(areConcerned.filter(elt => !(elt==id)))
+  }else {
+  setAreConcerned([...areConcerned, id])
+}}
 
+//pr afficher les noms des membres ds le truc dropdown
+const dropdownData = () => {
+  const data = [];
+  userList.forEach((user)=> {
+    data.push({label: user.nom, value: user.uuid})
+  })
+  return data;
+}
+
+//pour afficher les cartes des membres
 const renderUsers = () => {
   return(
     userList.map((user)=> {
       
       return(
-        <ParticipantCard key ={user.uuid} name={user.nom}/>
+        <TouchableOpacity key ={user.uuid} onPress = {() => {putInOrPutOut(user.uuid)}}>
+        <ParticipantCard key ={user.uuid} name={user.nom} />
+        </TouchableOpacity>
       )
     })
   )
 }
- 
+//pour checker qu'on envoit pas de la merde dans la bdd 
+const isNumber = (str) => {
+  if (str.trim() === '') {
+    return false;
+  }
 
+  return !isNaN(str);
+}
+//pr ajouter dépense a db
   const handleAddDepense = async () => {
-    await addDoc(collection(db, "Colocs/" +props.clcID+ "/Transactions"), {timestamp: serverTimestamp(), amount: amount, giverID: "Paulo", receiverID: "Arielo"});
+    if(!(isNumber(amount))){
+      alert("Entre un nombre valide!")
+      return
+    }
+    if(areConcerned.length==0){
+      alert("Cette dépense concerne qui ?")
+      return
+    }
+    if(payeur.length==0){
+      alert("Qui a payé ?")
+      return
+    }
+    if(title.length==0){
+      alert("Envoie le nom")
+      return
+    }
+    await addDoc(collection(db, "Colocs/" +props.clcID+ "/Transactions"), {timestamp: serverTimestamp(), amount: Number(amount), giverID: payeur, receiversID: areConcerned, desc: title});
     bottomSheetRef.current?.close();
     
   };
 
 
-const [title, setTitre] = React.useState("");
-const [amount, setAmount] = useState(0);
-const [value, setValue] = useState(null);
+const [title, setTitle] = React.useState("");
+const [amount, setAmount] = useState("");
+const [payeur, setPayeur] = useState("");
 
 
 
@@ -107,7 +141,7 @@ backdropComponent={renderBackdrop}
         <Text style={styles.subTitle}>Titre</Text>
         <TextInput
                 style={styles.input}
-                onChangeText={(event) => {setTitre(event)}}
+                onChangeText={(event) => {setTitle(event)}}
                 value={title}
                 placeholder="Entrer le titre"
                 
@@ -118,9 +152,10 @@ backdropComponent={renderBackdrop}
         <Text style={styles.subTitle}>Montant</Text>
         <TextInput
                 style={styles.input}
-                onChangeText={(event) => setAmount(Number(event))}
-                value={value}
+                onChangeText={(event) => setAmount(event)}
+                value={amount}
                 placeholder="Entrer le montant"
+                keyboardType='numeric'
                 
             />
       </View>
@@ -133,14 +168,14 @@ backdropComponent={renderBackdrop}
                 style={styles.dropdownRecurrence}
                 placeholderStyle={styles.placeholderStyle}
                 selectedTextStyle={styles.selectedTextStyle}
-                data={Recurrence}
+                data={dropdownData()}
                 maxHeight={300}
                 labelField="label"
                 valueField="value"
-                placeholder="Choisir le payeur"
-                value={value}
+                placeholder="Qui a payé ?"
+                value={payeur}
                 onChange={item => {
-                    setValue(item.value);
+                    setPayeur(item.value);
                 }}
             />
             </View>

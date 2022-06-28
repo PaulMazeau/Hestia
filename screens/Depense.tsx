@@ -44,7 +44,7 @@ const DepenseScreen = ({ route, navigation }: Props) => {
 
   return (      
       <View style={styles.container}>
-      <Top name={route.params.username}/>
+     < Top  name={route.params.username} clcName={route.params.clcName}/>
           <Text style={styles.screenTitle}>Gestion des dépenses</Text>
 
           <SegmentedControl 

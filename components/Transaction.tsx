@@ -1,6 +1,7 @@
-import React from 'react';
+import { getDoc, doc } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
-
+import {db} from '../firebase-config'
 
 const ProfilImage=require('../Img/avatarHeader.png');
 
@@ -9,6 +10,14 @@ const ProfilImage=require('../Img/avatarHeader.png');
 //Props est giverID, receiverID, amount et date
 
 const MonSolde  = (props) => {
+  const [whoPaid, setWhoPaid] = useState("")
+  useEffect(() => {
+    const getWhoPaid = async () =>{
+      const data = await getDoc(doc(db, "Users", props.giverID));
+      setWhoPaid(data.data().nom);
+    }
+    getWhoPaid();
+  }, [])
   return (
     <View style={styles.global}>
         <View style={styles.container}>
@@ -20,7 +29,7 @@ const MonSolde  = (props) => {
                   <Text style={styles.titre}>{props.desc}</Text>
 
                   <View style={styles.dateContainer}>
-                      <Text style={styles.date}>Payé par {props.giverID}</Text>
+                      <Text style={styles.date}>Payé par {whoPaid}</Text>
                   </View>
               </View>
 

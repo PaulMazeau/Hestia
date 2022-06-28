@@ -57,7 +57,6 @@ const [isOpen, setIsOpen] = useState(false);
 
 const handleAddTask = async () => {
   bottomSheetRef.current?.close();
-//.then pr que le nvo doc aie comme id le nom généré par firestore
   await addDoc(collection(db, 'Colocs/'+props.clcID+'/Taches'), {desc: title, colocID: props.clcID, day: day, month: month, year: year}); 
 };
 

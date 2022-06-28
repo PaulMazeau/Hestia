@@ -33,7 +33,7 @@ const AccueilScreen = ({ route, navigation }: Props) => {
         
         <View style={styles.first50}>
            
-            < Top  name={route.params.username}/>
+            < Top  name={route.params.username} clcName={route.params.clcName}/>
             <Text style={styles.Titre}>Welcome Back {route.params.clcID}</Text>
             <ImageContainer image={ProfilImage} />
         </View>
