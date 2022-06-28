@@ -20,9 +20,7 @@ const TacheCard = (props) => {
 
   return (
     <View style={styles.global}>
-      <Drawer 
-        rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete(props.tacheID)}]}
-        leftItem={{text: 'Modifier', background: Colors.green30, onPress: () => console.log('prout')}}>
+      
         <View style={styles.container}>
             <View style={styles.top}>
               <Text style={styles.titre}>{props.Tache}</Text>
@@ -38,8 +36,7 @@ const TacheCard = (props) => {
               <Image style={styles.avatar2} source={require('../Img/test2.png')}/>
             </View>
         </View>
-      </Drawer>
-
+    
     </View>
     
   );
@@ -47,7 +44,6 @@ const TacheCard = (props) => {
 
 const styles = StyleSheet.create({
   global: {
-    marginTop: 12,
     elevation: 20,
     shadowColor: 'black',
     shadowOffset: {width: -2, height: 1},
