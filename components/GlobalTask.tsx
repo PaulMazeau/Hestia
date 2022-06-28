@@ -21,18 +21,21 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 
  const GlobalTask = (props) => {
   const [allTasks] = useCollection(collection(db, "Colocs/"+props.clcID+ "/Taches"));
+  const handleDelete = async (id) => {
+    await deleteDoc(doc(db, "Colocs/"+props.clcID +"/Taches/", id));
+  }
 const renderContent = () => {
   
   if(allTasks){
     return(
       allTasks.docs.map(t => {
-        
         return(
 
-          <View style={styles.Card}>
+          <View style={styles.Card} key = {t.id}>
           <Drawer 
-            rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => console.log('delete')}]}
-            leftItem={{text: 'Modifier', background: Colors.green30, onPress: () => buttonPressed()}}>
+            rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete(t.id)}]}
+            leftItem={{text: 'Modifier', background: Colors.green30, onPress: () => buttonPressed()}}
+            key = {t.id}>
               <TacheCard Tache={t.data().desc} key={t.id} clcID = {props.clcID} tacheID={t.id} day={t.data().day} month ={t.data().month} year={t.data().year}/>
           </Drawer>
           </View>

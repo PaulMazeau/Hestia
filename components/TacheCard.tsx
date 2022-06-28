@@ -4,7 +4,6 @@ import {View, Text, StyleSheet, Image} from 'react-native';
 import { Colors, Drawer } from 'react-native-ui-lib';
 import Horloge from '../Icons/Horloge.svg';
 import {db} from '../firebase-config';
-import EditTaskBS from './EditTaskBS';
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 
 

@@ -24,7 +24,7 @@ const CoursesScreen = ({route, navigation}: Props) => {
       allCourses.docs.map(c => {
         return(
           
-          <CourseCard key= {c.id} name={c.data().Nom} courseID={c.id} clcID = {route.params.clcID} onPress = {(name) => navigation.navigate('Course', {name: name, courseID: c.id, clcID: route.params.clcID, username: route.params.username})}/>
+          <CourseCard key= {c.id} name={c.data().Nom} courseID={c.id} clcID = {route.params.clcID} onPress = {(name) => navigation.navigate('Course', {name: name, courseID: c.id, clcID: route.params.clcID, username: route.params.username, clcName: route.params.clcName})}/>
         )
   
       })
@@ -38,7 +38,7 @@ const CoursesScreen = ({route, navigation}: Props) => {
   return (
    
  <View style={styles.Body}>
-    <Top name={route.params.username}/>
+   < Top  name={route.params.username} clcName={route.params.clcName}/>
   
         <Text style={styles.screenTitle}>Listes de Course</Text>
         <ScrollView showsVerticalScrollIndicator={false}>

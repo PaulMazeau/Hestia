@@ -81,7 +81,7 @@ const CourseScreen = ({ route, navigation }: Props) => {
   
   return (
     <View style={styles.container}>
-      <Top name={route.params.username}/>
+     < Top  name={route.params.username} clcName={route.params.clcName}/>
     
       
       <View style = {styles.Title}>

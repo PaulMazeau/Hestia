@@ -11,7 +11,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 const ProfilImage=require('../Img/avatarHeader.png');
 
-//props est name du frérot
+//props est name du frérot + de la coloc
 const Top = (props) => {
     
     const navigation =
@@ -27,7 +27,7 @@ const Top = (props) => {
     </TouchableOpacity>
     <View style={styles.Title}>
         <Text style={styles.BigTitle}>Hi, {props.name}</Text>
-        <Text style={styles.SmallTitle}>Lekip</Text>
+        <Text style={styles.SmallTitle}>{props.clcName}</Text>
     </View>
     <TouchableOpacity  onPress={() => navigation.push('ColocSettings')}>
         <Settings width={25} height={25} fill="white"/>

@@ -12,17 +12,6 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 type Props = NativeStackScreenProps<RootStackParams, 'TacheStack'>;
 
  const TacheScreen = ({route, navigation}: Props) => {
-  // const [username, setUsername] = useState("");
-  // const [clcID, setclcID] = useState("");
-  // useEffect( () => {
-  //   const getData = async () => {
-  //     const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
-  //     setUsername(data.data().nom);
-  //     setclcID(data.data().colocID);
-  //   }
-  //   getData();
-  // }, [])
-   
 
   const [show, setShow] = React.useState(true);
 
@@ -38,7 +27,7 @@ type Props = NativeStackScreenProps<RootStackParams, 'TacheStack'>;
 
       <View style={styles.container}>
 
-          <Top name={route.params.username}/>
+          <Top name={route.params.username} clcName={route.params.clcName}/>
               <Text style={styles.screenTitle}>Tâche à faire</Text>
 
                 <TaskCalendar/>
