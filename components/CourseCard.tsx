@@ -19,7 +19,9 @@ const RestaurantCard: React.FC<Props> = ({name, onPress, courseID, clcID}) => {
     <View style={styles.body}>
     <Drawer
     rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete()}]}
-    leftItem={{text: 'Modifier', background: Colors.green30, onPress: () => console.log('change pressed')}}>    
+    leftItem={{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete()}}
+    style={styles.drawer}
+    >    
     <TouchableOpacity onPress={() => onPress(name)}>
       <View style={styles.container}>
         <Text style={styles.name}>{name}</Text>
@@ -81,6 +83,10 @@ const styles = StyleSheet.create({
 
   participants: {
     flexDirection: 'row',
+  },
+
+  drawer: {
+    borderRadius: 10
   }
 });
 

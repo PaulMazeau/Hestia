@@ -49,7 +49,7 @@ const SignupScreen = () => {
                 <SafeAreaView>
                     <TouchableOpacity
                         onPress={() => {navigation.navigate("Login")}} >
-                            <Text style = {styles.DejaMembre}>Se connecter ?</Text>
+                            <Text style = {styles.DejaMembre}>Se connecter</Text>
                     </TouchableOpacity>
                 </SafeAreaView>
 
@@ -73,6 +73,7 @@ const SignupScreen = () => {
                     style = {styles.input}
                     placeholderTextColor="rgba(255, 255, 255, 0.8)"
                     autoCapitalize='none'
+                    keyboardType='email-address'
                     />
                     
                     <TextInput placeholder="Mot de passe"
