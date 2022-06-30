@@ -57,11 +57,7 @@ const AccueilScreen = ({ route, navigation }: Props) => {
         </View>
  
         <View style={styles.container}>
-            <View style={styles.Categorie}>
-                <Text style={styles.TitreCategorie}>Ma prochaine Tâche</Text>
-                <TacheCard Tache={tache}/>
-            </View>
-
+            
             <View>
             <Text style={styles.TitreCategorie}>La selection du mois</Text>
                 <Selection/>
@@ -70,6 +66,11 @@ const AccueilScreen = ({ route, navigation }: Props) => {
             <View style={styles.CategorieBottom}>
                 <MonSolde solde={solde}/>
                 <MiniJeu/>
+            </View>
+
+            <View style={styles.Categorie}>
+                {/* <Text style={styles.TitreCategorie}>Ma prochaine Tâche</Text> */}
+                <TacheCard Tache={tache}/>
             </View>
                 
         </View>

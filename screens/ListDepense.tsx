@@ -51,7 +51,7 @@ const AllDepense = ({route, navigation}: Props) => {
       return(
         allTransacs.docs.map(c => {
           return(
-            <View style={styles.Transaction} key = {c.id}>
+            <View key = {c.id}>
             <Drawer 
             rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete(c.id)}]}
             leftItem={{text: 'Modifier', background: Colors.green30, onPress: () => console.log('2 prout')}}
@@ -131,9 +131,6 @@ container: {
     backgroundColor: '#EDF0FA'
 },
 
-Transaction: {
-  marginTop: 12,
-}
 
 })
 
