@@ -35,6 +35,7 @@ const CoursesScreen = ({route, navigation}: Props) => {
   } 
 
   }
+
   return (
    
  <View style={styles.Body}>

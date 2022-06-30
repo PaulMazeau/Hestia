@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { View, Text, StyleSheet, Button, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Button, TextInput, TouchableOpacity, Image, Dimensions } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import TacheCard from '../components/TacheCard';
 import AddTaskBS from './AddTaskBS';
@@ -7,14 +7,17 @@ import {useCollection} from 'react-firebase-hooks/firestore';
 import { collection, deleteDoc, doc } from 'firebase/firestore'
 import { db } from '../firebase-config';
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
-import { Colors, Drawer } from 'react-native-ui-lib';
+import { Colors, Drawer, FeatureHighlight } from 'react-native-ui-lib';
 import BottomSheet, { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import { Dropdown } from 'react-native-element-dropdown';
 import ParticipantCard from './ParticipantCard';
 import * as Haptics from 'expo-haptics';
 import Edit from '../Icons/Edit.svg'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import Arrow from '../Icons/Arrow.svg'
 
+
+const windowHeight = Dimensions.get('window').height; 
 
 //props est la colocID, on le récupère ici car 1 appel en moins(appel ds tache obligé)
 // Besoin de colocID car Taches est subcollection de Colocs 
@@ -24,9 +27,12 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
   const handleDelete = async (id) => {
     await deleteDoc(doc(db, "Colocs/"+props.clcID +"/Taches/", id));
   }
+
+const Empty=require('../Img/Empty.png');
+
 const renderContent = () => {
-  
   if(allTasks){
+  if(allTasks.docs.length > 0){
     return(
       allTasks.docs.map(t => {
         return(
@@ -44,16 +50,28 @@ const renderContent = () => {
   
       })
     )
-  }
+  }}
   return (
-    <SkeletonPlaceholder
-    backgroundColor='rgb(255,255,255,.62)'
-    speed= {900}
-    >
-    <TacheCard Tache='loading....' key='load'/>
-    </SkeletonPlaceholder>
+  // <View style={{alignItems: 'center', height: windowHeight / 1.5, justifyContent:'space-between', backgroundColor: 'red'}}>
+  //    <ImageContainer image={Empty} /> 
+  //    <Text style={styles.emptytext}>Oops, il n’y pas encore de {'\n'} liste de course</Text>
+  //    <Arrow style={styles.arrow}/>
+  // </View>
+
+    <View>
+      <Text>
+        Prout
+      </Text>
+     </View>
   )
+
 }
+
+const ImageContainer = ({image}) => (
+  <View style={styles.ImageContainer}>
+      <Image source={image} style={styles.Image}/>
+  </View>
+);
 
 /* SETUP DE LA BOTTOMSHEET MODIFIER */
 
@@ -265,13 +283,12 @@ const Rappel = [
        
           <ScrollView showsVerticalScrollIndicator={false}>
       
-        <Text style={styles.CategorieRecurrente}>Récurrente</Text>
-        {
-          renderContent()
-      }
+        {/* <Text style={styles.CategorieRecurrente}>Récurrente</Text> */}
+          {
+            renderContent()
+          }
 
-
-        <Text style={styles.CategoriePeriode}>Cette semaine</Text>
+        {/* <Text style={styles.CategoriePeriode}>Cette semaine</Text> */} 
          
         </ScrollView>
             
@@ -424,6 +441,33 @@ const styles = StyleSheet.create({
     textdate: {
       fontSize: 16,
       opacity: .3
+    },
+
+    emptytext: {
+      textAlign: 'center',
+      color: '#172ACE',
+      fontWeight: '700',
+      fontSize: 16,
+      paddingBottom: windowHeight / 10,
+    },
+
+    ImageContainer: {
+        height: '40%',
+        width: '60%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 20
+    },
+    
+    Image: {
+        height: '100%',
+        width: '100%',
+        },
+
+    arrow: {
+      marginLeft: '40%',
+      marginBottom: 80,
+      backgroundColor: 'red'
     }
 })
 
