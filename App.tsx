@@ -22,6 +22,7 @@ import SignupScreen from './screens/Signup';
 import { auth,db } from './firebase-config';
 import { getDoc, doc, query, where, getDocs, collection } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import HomePageScreen from './screens/Homepage';
 
 
 //initialisation des root pour la NavBar Bottom// DEFINIT LES PARAMETRES QUE LON PASSE DANS LES SCREENS
@@ -45,6 +46,7 @@ export type RootStackParams = {
 }
 
 export type AuthStackParams = {
+  Homepage: undefined;
   Login: undefined;
   Signup: undefined;
 }
@@ -56,6 +58,7 @@ const AuthScreenStack = () => {
     <AuthStack.Navigator screenOptions={{
       headerShown: false,
      }}>
+       <AuthStack.Screen name= "Homepage" component={HomePageScreen} />
       <AuthStack.Screen name = "Login" component={LoginScreen}/>
       <AuthStack.Screen name= "Signup" component={SignupScreen} />
     </AuthStack.Navigator>

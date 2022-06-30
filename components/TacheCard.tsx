@@ -1,10 +1,6 @@
-import { deleteDoc, doc } from 'firebase/firestore';
-import React, { useCallback, useRef } from 'react';
+import React, {  } from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
-import { Colors, Drawer } from 'react-native-ui-lib';
 import Horloge from '../Icons/Horloge.svg';
-import {db} from '../firebase-config';
-import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 
 
 interface Props {
@@ -44,6 +40,7 @@ const styles = StyleSheet.create({
     shadowOffset: {width: -2, height: 1},
     shadowOpacity: 0.1,
     shadowRadius: 3,
+    marginTop: 12,
   },
   
   container: {
