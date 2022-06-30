@@ -7,7 +7,7 @@ import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import AddButton from '../Icons/AddButton.svg'
 import * as Haptics from 'expo-haptics';
 import {v4 as uuid} from 'uuid';
-import { updateDoc, serverTimestamp, addDoc, collection, getDoc, doc, where, query, getDocs } from "firebase/firestore";
+import { updateDoc, serverTimestamp, addDoc, collection, getDoc, doc, where, query, getDocs, increment } from "firebase/firestore";
 import {db} from '../firebase-config'
 import { useCollectionOnce } from 'react-firebase-hooks/firestore';
 import { useNavigation, useNavigationState } from '@react-navigation/native';
@@ -105,10 +105,31 @@ const isNumber = (str) => {
       return
     }
     await addDoc(collection(db, "Colocs/" +props.clcID+ "/Transactions"), {timestamp: serverTimestamp(), amount: Number(amount), giverID: payeur, receiversID: areConcerned, desc: title});
+    updateSolde();
+    setAmount("");
+    setAreConcerned([]);
+    setPayeur(null);
+    setTitle("")
     bottomSheetRef.current?.close();
     
   };
 
+const updateSolde = async () => {
+  const length = areConcerned.length;
+  var payeurIsIn = false;
+  for(var i = 0; i<length; i++){
+    if(!(areConcerned[i]==payeur)){//si c pas le payeur
+      await updateDoc(doc(db, "Users", areConcerned[i]), {solde: increment(-Number(amount)/length)});
+    }else {// si le payeur a payé pr lui aussi
+      payeurIsIn = true;
+      await updateDoc(doc(db, "Users", areConcerned[i]), {solde: increment(Number(amount)-(Number(amount)/length))});
+    }
+    if(!payeurIsIn){
+      await updateDoc(doc(db, "Users", payeur), {solde: increment(Number(amount))});
+    }
+  }
+
+}
 
 const [title, setTitle] = React.useState("");
 const [amount, setAmount] = useState("");

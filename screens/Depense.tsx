@@ -62,7 +62,7 @@ const DepenseScreen = ({ route, navigation }: Props) => {
         throttleTime= {200}
         />
     
-          {show ? <DepenseGlobal clcID ={route.params.clcID}/> : <DepensePerso/>}
+          {show ? <DepenseGlobal clcID ={route.params.clcID}/> : <DepensePerso clcID={route.params.clcID}/>}
         
        
      

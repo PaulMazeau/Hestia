@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {View, Text, StyleSheet, Dimensions, Image} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
@@ -9,6 +9,7 @@ import { getDoc, doc } from 'firebase/firestore';
 import { auth, db } from '../firebase-config';
 import Selection from '../components/Selection';
 import MiniJeu from '../components/MiniJeu';
+import { useFocusEffect } from '@react-navigation/native';
 
 
 //importer l'image de maison
@@ -20,7 +21,18 @@ type Props = NativeStackScreenProps<RootStackParams, 'AccueilStack'>;
 const AccueilScreen = ({ route, navigation }: Props) => {
     const[tache, setTache] = useState("")
     const[solde, setSolde] = useState("...")
-    useEffect( ()=> {
+    // useEffect( ()=> {
+    //     const getData = async () => {
+    //       const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
+          
+    //       setTache(data.data().tache)
+    //       setSolde(data.data().solde)
+    //     }
+    //     getData();
+    // })
+    //on guette la data dès que le screen est focus
+    useFocusEffect(
+        React.useCallback(() => {
         const getData = async () => {
           const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
           
@@ -28,8 +40,13 @@ const AccueilScreen = ({ route, navigation }: Props) => {
           setSolde(data.data().solde)
         }
         getData();
-    }, [])
-
+    
+          return () => {
+            // screen unfocus
+    
+          };
+        }, [])
+      );
   return (
     <View style={styles.body}>
         

@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Top from '../components/HeaderDark';
 import { BorderRadiuses, SegmentedControl, Spacings, Drawer, Colors } from 'react-native-ui-lib';
@@ -11,15 +11,39 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import TopBackNavigation from '../components/TopBackNavigation';
 import { useCollection, useCollectionData } from 'react-firebase-hooks/firestore';
-import { getDoc, doc, collection, orderBy, query, deleteDoc } from 'firebase/firestore';
+import { getDoc, doc, collection, orderBy, query, deleteDoc, updateDoc, increment } from 'firebase/firestore';
 import{db} from '../firebase-config'
 import { RotateInUpLeft } from 'react-native-reanimated';
 
 type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
 
 const AllDepense = ({route, navigation}: Props) => {
+  const [oldData, setOldData] = useState(null);
   const handleDelete = async (id) => {
+    const oldDoc = await getDoc(doc(db, "Colocs/"+route.params.clcID +"/Transactions/", id));
+    updateSolde(oldDoc);
     await deleteDoc(doc(db, "Colocs/"+route.params.clcID +"/Transactions/", id));
+
+  }
+  //update le solde après supression de la transac
+  const updateSolde = async (docu) => {
+    const areConcerned  = docu.data().receiversID;
+    const length = areConcerned.length;
+    const amount = docu.data().amount;
+    const payeur = docu.data().giverID;
+    var payeurIsIn = false;
+    for(var i = 0; i<length; i++){
+      if(!(areConcerned[i]==payeur)){//si c pas le payeur
+        await updateDoc(doc(db, "Users", areConcerned[i]), {solde: increment(+amount/length)});
+        
+      }else {// si le payeur a payé pr lui aussi
+        payeurIsIn = true;
+        await updateDoc(doc(db, "Users", areConcerned[i]), {solde: increment(-amount+(amount/length))});
+      }
+      if(!payeurIsIn){
+        await updateDoc(doc(db, "Users", payeur), {solde: increment(-amount)});
+      }
+    }
   }
   const [allTransacs] = useCollection(query(collection(db, "Colocs/"+route.params.clcID+ "/Transactions"), orderBy('timestamp', 'desc')))
   const renderContent = () =>{
