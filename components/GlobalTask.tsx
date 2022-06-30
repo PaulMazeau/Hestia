@@ -14,8 +14,7 @@ import ParticipantCard from './ParticipantCard';
 import * as Haptics from 'expo-haptics';
 import Edit from '../Icons/Edit.svg'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import Arrow from '../Icons/Arrow.svg'
-
+import Arrow from '../Icons/Arrow.svg';
 
 const windowHeight = Dimensions.get('window').height; 
 
@@ -52,17 +51,13 @@ const renderContent = () => {
     )
   }}
   return (
-  // <View style={{alignItems: 'center', height: windowHeight / 1.5, justifyContent:'space-between', backgroundColor: 'red'}}>
-  //    <ImageContainer image={Empty} /> 
-  //    <Text style={styles.emptytext}>Oops, il n’y pas encore de {'\n'} liste de course</Text>
-  //    <Arrow style={styles.arrow}/>
-  // </View>
+   <View style={{alignItems: 'center', height: windowHeight / 1.9, justifyContent:'space-between', backgroundColor: 'red'}}>
+      <ImageContainer image={Empty} /> 
+      <Text style={styles.emptytext}>Oops, il n’y pas encore de {'\n'} liste de course</Text>
+      <Arrow style={styles.arrow}/>
+   </View>
 
-    <View>
-      <Text>
-        Prout
-      </Text>
-     </View>
+  
   )
 
 }
@@ -466,8 +461,7 @@ const styles = StyleSheet.create({
 
     arrow: {
       marginLeft: '40%',
-      marginBottom: 80,
-      backgroundColor: 'red'
+      backgroundColor: 'green'
     }
 })
 

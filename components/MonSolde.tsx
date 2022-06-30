@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
     shadowOffset: {width: -2, height: 1},
     shadowOpacity: 0.1,
     shadowRadius: 3,
+    width: '55%',
   },
   
   container: {
@@ -58,6 +59,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     height: 70,
+    marginRight: '2,5%'
   },
   
   top: {
@@ -70,7 +72,6 @@ const styles = StyleSheet.create({
   titre: {
     fontWeight: '600',
     fontSize: 19,
-
   },
 
   dateContainer: {
@@ -80,7 +81,6 @@ const styles = StyleSheet.create({
 
   date: {
     fontSize: 14,
-    marginLeft: 5,
   },
 
   avatar: {

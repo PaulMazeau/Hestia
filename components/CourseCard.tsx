@@ -21,6 +21,7 @@ const RestaurantCard: React.FC<Props> = ({name, onPress, courseID, clcID}) => {
     rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete()}]}
     leftItem={{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete()}}
     style={styles.drawer}
+    disableHaptic={false}
     >    
     <TouchableOpacity onPress={() => onPress(name)}>
       <View style={styles.container}>

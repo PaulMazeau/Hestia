@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
     shadowOffset: {width: -2, height: 1},
     shadowOpacity: 0.1,
     shadowRadius: 3,
-    marginTop: 12,
   },
   
   container: {
