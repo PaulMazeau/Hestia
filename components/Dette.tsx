@@ -3,8 +3,9 @@ import {View, Text, StyleSheet, Image} from 'react-native';
 
 
 const ProfilImage=require('../Img/test2.png');
-
-const Dette  = () => {
+//props est amount, deveur, receveur;
+const Dette  = (props) => {
+  if(props.amount != 0){
   return (
     
         <View style={styles.container}>
@@ -13,15 +14,15 @@ const Dette  = () => {
 
           <View style={styles.Text}>
               <View style={styles.Left}>
-                  <Text style={styles.titre}>Tu dois</Text>
+                  <Text style={styles.titre}>{props.deveur} doit</Text>
 
                   <View style={styles.dateContainer}>
-                      <Text style={styles.date}>à Thomas</Text>
+                      <Text style={styles.date}>à {props.receveur}</Text>
                   </View>
               </View>
 
               <View style={styles.Right}>
-                  <Text style={styles.titre}>55€</Text>
+                  <Text style={styles.titre}>{props.amount}</Text>
 
                   <View style={styles.dateContainer}>
                       <Text style={styles.date}>05/04/2022</Text>
@@ -31,7 +32,10 @@ const Dette  = () => {
             </View>
         </View>
     
-  );
+  )};
+  return(
+    <View><Text>Pas de transacs ! </Text></View>
+  )
 };
 
 const ImageContainer = ({image}) => (

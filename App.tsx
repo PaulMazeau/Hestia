@@ -5,7 +5,7 @@ import CoursesScreen from './screens/Courses';
 import AccueilScreen from './screens/Accueil';
 import TacheScreen from './screens/Tache';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import React, { useState } from 'react';
+import React, { useState, useContext, createContext } from 'react';
 import DepenseScreen from './screens/Depense';
 import CourseScreen from './screens/Course';
 import SettingsScreen from './screens/Settings';
@@ -175,25 +175,26 @@ const DepenseScreenStack = (t) => {
   );
 };
 
-  
+
 export default function App() {
   const[username, setUsername] = useState("");
   const [clcID, setClcID] = useState("");
   const[usr, loading, error] = useAuthState(auth);
   const [clcName, setClcName] = useState("");
+  const getData = async () => {
+    const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
+    setClcName(data.data().nomColoc);
+    setClcID(data.data().colocID);
+    setUsername(data.data().nom);
+  }
+  
+
   const renderContent = () =>{
-    
     if(usr){
-      const getData = async () => {
-      const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
-      setClcName(data.data().nomColoc);
-      setClcID(data.data().colocID);
-      setUsername(data.data().nom);
-      
-    }
     getData();
     if(!(username == "")){
-      return ( <RootStack.Navigator
+      return ( 
+      <RootStack.Navigator
         initialRouteName="AccueilStack" 
         screenOptions={{
         headerShown: false,
@@ -208,7 +209,8 @@ export default function App() {
           
           
     
-        </RootStack.Navigator>)
+        </RootStack.Navigator>
+        )
         }}
       return <AuthScreenStack />
       
