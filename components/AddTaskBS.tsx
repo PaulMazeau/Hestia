@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {StyleSheet, View, Text, TextInput, ScrollView, TouchableOpacity} from 'react-native'
 import { Dropdown } from 'react-native-element-dropdown';
 import ParticipantCard from './ParticipantCard';
@@ -6,7 +6,7 @@ import Plus from '../Icons/Plus.svg'
 import BottomSheet, { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import AddButton from '../Icons/AddButton.svg';
 import * as Haptics from 'expo-haptics';
-import { addDoc, collection, updateDoc, doc } from 'firebase/firestore';
+import { addDoc, collection, updateDoc, doc, getDoc, getDocs, where, query } from 'firebase/firestore';
 import {db} from '../firebase-config'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
@@ -42,9 +42,42 @@ const Recurrence = [
 //props est clcID necessaire pr add un doc à la subcollction tache
 
 const AddTaskBS = (props) => {
+  //liste des users de la coloc et list des users slectionné pr la tache (ID)
+  const [userList, setUserList] = useState([])
+  const [areConcerned, setAreConcerned] = useState([]);
 
+  //récupère les utilisateurs de la colocs (prbablement a entrer ds app.tsx)
+useEffect( () => {
+  const getUsers = async () => {
+    const data = await getDoc(doc(db, "Colocs", props.clcID));
+    const membersID = data.data().membersID;
+    const q = query(collection(db, "Users"), where('uuid', 'in', membersID))
+    const querySnapshot = await getDocs(q);
+    setUserList(querySnapshot.docs.map((doc) => ({...doc.data()})));
+  }
+  getUsers();
+}, [])
 
-
+//pour indiquer si la personne est concernée ou non par la dépense
+const putInOrPutOut = (id) => {
+  if(areConcerned.includes(id)){
+    setAreConcerned(areConcerned.filter(elt => !(elt==id)))
+  }else {
+  setAreConcerned([...areConcerned, id])
+}}
+//rend les cartes des participants ds la scrollview horizontale
+const renderUsers = () => {
+  return(
+    userList.map((user)=> {
+      
+      return(
+        <TouchableOpacity key ={user.uuid} onPress = {() => {putInOrPutOut(user.uuid)}}>
+        <ParticipantCard key ={user.uuid} name={user.nom} />
+        </TouchableOpacity>
+      )
+    })
+  )
+}
 
 // ref
 const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -91,7 +124,6 @@ const hideDatePicker = () => {
 
 const handleConfirmDate = (date) => {
   setDate(date.toLocaleDateString('fr-FR', optionsDate));
-  console.log("A date has been picked: ", date);
   hideDatePicker();
 };
 
@@ -108,7 +140,6 @@ const hideRappelPicker = () => {
 
 const handleConfirmRappel = (date) => {
   setRappel(date.toLocaleDateString('fr-FR', optionsRappel));
-  console.log("A date has been picked: ", date);
   hideRappelPicker();
 };
 
@@ -240,12 +271,7 @@ return (
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={{flexGrow: 1}}
                     keyboardShouldPersistTaps='handled'>
-                        <ParticipantCard/>
-                        <ParticipantCard/>
-                        <ParticipantCard/>
-                        <ParticipantCard/>
-                        <ParticipantCard/>
-                        <ParticipantCard/>
+                        {renderUsers()}
                 </ScrollView>
             </View>
       </View>

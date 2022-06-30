@@ -20,12 +20,12 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 // Besoin de colocID car Taches est subcollection de Colocs 
 
  const GlobalTask = (props) => {
-  const [allTasks] = useCollection(collection(db, "Colocs/"+props.clcID+ "/Taches"));
+  const [allTasks, loading, error] = useCollection(collection(db, "Colocs/"+props.clcID+ "/Taches"));
   const handleDelete = async (id) => {
     await deleteDoc(doc(db, "Colocs/"+props.clcID +"/Taches/", id));
   }
+  //pr check is il existe des tahes : alltasks.docs length > 0
 const renderContent = () => {
-  
   if(allTasks){
     return(
       allTasks.docs.map(t => {

@@ -11,22 +11,27 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import TopBackNavigation from '../components/TopBackNavigation';
 import { useCollection, useCollectionData } from 'react-firebase-hooks/firestore';
-import { getDoc, doc, collection, orderBy, query } from 'firebase/firestore';
+import { getDoc, doc, collection, orderBy, query, deleteDoc } from 'firebase/firestore';
 import{db} from '../firebase-config'
+import { RotateInUpLeft } from 'react-native-reanimated';
 
 type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
 
 const AllDepense = ({route, navigation}: Props) => {
+  const handleDelete = async (id) => {
+    await deleteDoc(doc(db, "Colocs/"+route.params.clcID +"/Transactions/", id));
+  }
   const [allTransacs] = useCollection(query(collection(db, "Colocs/"+route.params.clcID+ "/Transactions"), orderBy('timestamp', 'desc')))
   const renderContent = () =>{
     if(allTransacs){
       return(
         allTransacs.docs.map(c => {
           return(
-            <View style={styles.Transaction}>
+            <View style={styles.Transaction} key = {c.id}>
             <Drawer 
-            rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => console.log('prout')}]}
-            leftItem={{text: 'Modifier', background: Colors.green30, onPress: () => console.log('2 prout')}}>
+            rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete(c.id)}]}
+            leftItem={{text: 'Modifier', background: Colors.green30, onPress: () => console.log('2 prout')}}
+            key = {c.id}>
             <Transaction key={c.id} giverID={c.data().giverID} receiverID={c.data().receiverID} amount={c.data().amount} desc={c.data().desc}/>
             </Drawer>
             </View>

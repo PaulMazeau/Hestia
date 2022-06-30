@@ -13,25 +13,37 @@ import AddDepenseBS from './AddDepenseBS';
 import { collection, getDocs, limit, orderBy, query } from 'firebase/firestore';
 import {db} from '../firebase-config';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { useCollection, useCollectionData } from 'react-firebase-hooks/firestore';
+import { isEmpty } from '@firebase/util';
 
-//type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
+type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
 
 
-//props est colocID à passer dans la botomsheet avec usersList
+// props est colocID à passer dans la botomsheet avec usersList
 const AllDepense = (props) => {
- 
+
 
 //on cherche la dernière transac en placant un ecouteur sur la db
-const [values, loading, error] = useCollectionData(query(collection(db, "Colocs/"+props.clcID+ "/Transactions"), orderBy('timestamp', 'desc'), limit(1)))
-const getLastestTransac = () => {
-   
+const q = query(collection(db, "Colocs/"+props.clcID+ "/Transactions"), orderBy('timestamp', 'desc'), limit(1));
+const [values, loading, error] = useCollection(q);
+
+//on affiche la dernière transac
+const getLastestTransac =  () => {
+  if(loading){
+    <Text>Loading...</Text>
+  }
   if(values){
+    if(values.docs.length > 0){
     return (
-      <Transaction giverID={values[0].giverID} receiversID={values[0].receiversID} amount={values[0].amount} desc={values[0].desc}/>
+      values.docs.map(v=>{
+        return(
+          <Transaction key = {v.id} giverID={v.data().giverID} receiversID={v.data().receiversID} amount={v.data().amount} desc={v.data().desc}/>
+        )
+      })
+      
       
     )
-  }
+  }}
   return (
     <Text>Loading...</Text>
   )

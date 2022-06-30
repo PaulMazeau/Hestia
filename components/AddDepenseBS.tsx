@@ -10,12 +10,13 @@ import {v4 as uuid} from 'uuid';
 import { updateDoc, serverTimestamp, addDoc, collection, getDoc, doc, where, query, getDocs } from "firebase/firestore";
 import {db} from '../firebase-config'
 import { useCollectionOnce } from 'react-firebase-hooks/firestore';
+import { useNavigation, useNavigationState } from '@react-navigation/native';
 
 
 //ATTRIBUTS dans bdd : amount, giverID, receiversID array, desc
 //props est colocID pr trouver le chemin pr addDoc
 const AddDepenseBS = (props) => {
-
+const nav = useNavigation()
 const bottomSheetRef = useRef<BottomSheetModal>(null);
 
 const renderBackdrop = useCallback((props) => {
