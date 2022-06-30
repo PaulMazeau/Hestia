@@ -23,7 +23,7 @@ const windowHeight = Dimensions.get('window').height;
 // Besoin de colocID car Taches est subcollection de Colocs 
 
  const GlobalTask = (props) => {
-  const [allTasks] = useCollection(collection(db, "Colocs/"+props.clcID+ "/Taches"));
+  const [allTasks, loading, error] = useCollection(collection(db, "Colocs/"+props.clcID+ "/Taches"));
   const handleDelete = async (id) => {
     await deleteDoc(doc(db, "Colocs/"+props.clcID +"/Taches/", id));
   }

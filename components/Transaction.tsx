@@ -17,7 +17,7 @@ const MonSolde  = (props) => {
       setWhoPaid(data.data().nom);
     }
     getWhoPaid();
-  }, [])
+  })
   return (
     <View style={styles.global}>
         <View style={styles.container}>
