@@ -1,5 +1,5 @@
 import { setStatusBarBackgroundColor } from 'expo-status-bar';
-import { arrayRemove, updateDoc, doc } from 'firebase/firestore';
+import { arrayRemove, updateDoc, doc, arrayUnion } from 'firebase/firestore';
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, TouchableHighlight, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import { Colors, Drawer, RadioButton } from 'react-native-ui-lib';
@@ -18,32 +18,34 @@ interface FoodProps {
 
 const Food: React.FC<FoodProps> = ({name, clcID, courseID, itemType}) => {
   const [radiobutton, setstate] = useState(false);
-  const handleDeleteItem = async () => {
-      if(itemType == "fruits"){
+  const [nameBis, setNameBis] = useState(name); //copie du nom pr pvoir le moidifier dans le text input sans pb
+  const handleUpdateItem = async () => { //supprime l'elt puis le rajoute si c pas lelt string vide
+    if(itemType == "fruits"){
       await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {fruits: arrayRemove(name)});
+      if(!(nameBis=="")){updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {fruits: arrayUnion(nameBis)});}
       
   return}
       if(itemType=="viandes"){
           await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {viandes: arrayRemove(name)});
-          
+          if(!(nameBis=="")){updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {fruits: arrayUnion(nameBis)});}
           return
       }
       if(itemType=="boisson"){
           await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {boisson: arrayRemove(name)});
-          
+          if(!(nameBis=="")){updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {fruits: arrayUnion(nameBis)});}
           return
       }
       if(itemType=="maison"){
           await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {maison: arrayRemove(name)});
-          
+          if(!(nameBis=="")){updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {fruits: arrayUnion(nameBis)});}
           return
       }
-  
   }
     return (     
         <View style = {styles.Ligne}>
           <RadioButton size={25} selected={radiobutton} onPress={() => setstate(!radiobutton)}/>
-          <TextInput style={!radiobutton? styles.food_text_valid:styles.food_text_invalid}>{name}</TextInput>
+          <TextInput style={!radiobutton? styles.food_text_valid:styles.food_text_invalid} value={nameBis} onBlur={() => handleUpdateItem()}
+          onChangeText={(event) => setNameBis(event)}></TextInput>
         </View>
     );
   

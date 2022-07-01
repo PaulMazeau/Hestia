@@ -99,8 +99,10 @@ const CourseScreen = ({ route, navigation }: Props) => {
         <View style={styles.whiteBackGround}>
           <Text style={styles.Food_title}>Fruits & Légumes</Text>
           <View style = {styles.separator}></View>
+          
           {renderFruits()}
           <AddFood clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"fruits"}></AddFood>
+          
           
           <Text style={styles.Food_title}>Viandes</Text>
           <View style = {styles.separator}></View>
