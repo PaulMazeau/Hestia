@@ -40,9 +40,10 @@ const AllDepense = ({route, navigation}: Props) => {
         payeurIsIn = true;
         await updateDoc(doc(db, "Users", areConcerned[i]), {solde: increment(-amount+(amount/length))});
       }
+     
+      }
       if(!payeurIsIn){
         await updateDoc(doc(db, "Users", payeur), {solde: increment(-amount)});
-      }
     }
   }
   const [allTransacs] = useCollection(query(collection(db, "Colocs/"+route.params.clcID+ "/Transactions"), orderBy('timestamp', 'desc')))
