@@ -4,7 +4,6 @@ import {View, StyleSheet, TextInput} from 'react-native';
 import { RadioButton } from 'react-native-ui-lib';
 import {db} from '../firebase-config';
 
-
 interface AddFoodProps {
     courseID: string;
     clcID: string;

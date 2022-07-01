@@ -10,6 +10,7 @@ import { auth, db } from '../firebase-config';
 import Selection from '../components/Selection';
 import MiniJeu from '../components/MiniJeu';
 import { useFocusEffect } from '@react-navigation/native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 //importer l'image de maison
@@ -55,9 +56,12 @@ const AccueilScreen = ({ route, navigation }: Props) => {
             < Top  name={route.params.username} clcName={route.params.clcName}/>
             <ImageContainer image={ProfilImage} />
         </View>
- 
+    
+    
         <View style={styles.container}>
-            
+        <ScrollView 
+        showsVerticalScrollIndicator={false}
+        >  
             <View>
             <Text style={styles.TitreCategorie}>La selection du mois</Text>
                 <Selection/>
@@ -69,10 +73,10 @@ const AccueilScreen = ({ route, navigation }: Props) => {
             </View>
 
             <View style={styles.Categorie}>
-                {/* <Text style={styles.TitreCategorie}>Ma prochaine Tâche</Text> */}
+                <Text style={styles.TitreCategorie}>Ta prochaine Tâche</Text>
                 <TacheCard Tache={tache}/>
             </View>
-                
+    </ScrollView>           
         </View>
     </View>
   );
@@ -93,7 +97,9 @@ const styles = StyleSheet.create({
 
     container: {
         flex: 1,
-        padding: 16,
+        marginTop: 16,
+        marginLeft: 16,
+        marginRight: 16
     },
 
     Categorie: {
@@ -110,11 +116,12 @@ const styles = StyleSheet.create({
     TitreCategorie: {
         fontSize: 19,
         fontWeight: 'bold',
+        marginBottom: 10
     },
 
     first50:{
         backgroundColor: '#172ACE',
-        flex: 1,
+        flex: .9,
         borderBottomLeftRadius: 30,
         borderBottomRightRadius: 30,
     },
@@ -127,6 +134,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         marginLeft:'auto',
         marginRight:'auto',
+        marginTop: -10
     },
 
     Image: {
@@ -135,7 +143,7 @@ const styles = StyleSheet.create({
     },
 
     CategorieBottom: {
-        marginBottom: 15,
+        marginBottom: 12,
         flexDirection: 'row',
         justifyContent: 'space-between',
     },

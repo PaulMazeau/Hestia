@@ -1,14 +1,14 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import React, { useEffect, useState } from 'react';
-import {StyleSheet, View, Text, FlatList, KeyboardAvoidingView, Platform} from 'react-native';
+import React, {  } from 'react';
+import {StyleSheet, View, Text, KeyboardAvoidingView, Platform} from 'react-native';
 import { RootStackParams } from '../App';
 import TopBackNavigation from '../components/TopBackNavigation';
 import Top from '../components/HeaderDark';
 import Food from '../components/Food';
 import { ScrollView } from 'react-native-gesture-handler';
-import { getDoc, doc, collection, query, where } from 'firebase/firestore';
-import { auth, db } from '../firebase-config';
-import { useCollectionData, useDocumentData } from 'react-firebase-hooks/firestore';
+import { doc } from 'firebase/firestore';
+import { db } from '../firebase-config';
+import { useDocumentData } from 'react-firebase-hooks/firestore';
 import AddFood from '../components/AddFood';
 import { useHeaderHeight } from '@react-navigation/elements';
 
@@ -97,25 +97,28 @@ const CourseScreen = ({ route, navigation }: Props) => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{paddingBottom:10}}>
         <View style={styles.whiteBackGround}>
+
           <Text style={styles.Food_title}>Fruits & Légumes</Text>
-          <View style = {styles.separator}></View>
-          
-          {renderFruits()}
+            <View style = {styles.separator}></View>
+              {renderFruits()}
           <AddFood clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"fruits"}></AddFood>
           
           
           <Text style={styles.Food_title}>Viandes</Text>
-          <View style = {styles.separator}></View>
-          {renderViandes()}  
+            <View style = {styles.separator}></View>
+              {renderViandes()}  
           <AddFood clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"viandes"}></AddFood>
+
           <Text style={styles.Food_title}>Boissons</Text>
-          <View style = {styles.separator}></View>
-          {renderBoissons()}
+            <View style = {styles.separator}></View>
+              {renderBoissons()}
           <AddFood clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"boisson"}></AddFood>
+
           <Text style={styles.Food_title}>Maison</Text>
-          <View style = {styles.separator}></View>
-          {renderMaison()}
+            <View style = {styles.separator}></View>
+              {renderMaison()}
           <AddFood clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"maison"}></AddFood>
+
         </View>
         </View>
       </ScrollView>

@@ -1,12 +1,8 @@
-import { setStatusBarBackgroundColor } from 'expo-status-bar';
 import { arrayRemove, updateDoc, doc, arrayUnion } from 'firebase/firestore';
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, TouchableHighlight, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
-import { Colors, Drawer, RadioButton } from 'react-native-ui-lib';
+import { View, StyleSheet, TextInput } from 'react-native';
+import { RadioButton } from 'react-native-ui-lib';
 import {db} from '../firebase-config';
-
-
-
 
 interface FoodProps {
     name: string;
