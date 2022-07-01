@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import {View, Text, StyleSheet, Dimensions, Image} from 'react-native';
+import React, { useState } from 'react';
+import {View, Text, StyleSheet, Image} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
 import Top from '../components/HeaderClear';

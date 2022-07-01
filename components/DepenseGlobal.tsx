@@ -37,7 +37,9 @@ const getLastestTransac =  () => {
     return (
       values.docs.map(v=>{
         return(
-          <Transaction key = {v.id} giverID={v.data().giverID} receiversID={v.data().receiversID} amount={v.data().amount} desc={v.data().desc}/>
+          <View style={{marginTop: 12}}>
+            <Transaction key = {v.id} giverID={v.data().giverID} receiversID={v.data().receiversID} amount={v.data().amount} desc={v.data().desc}/>
+          </View>
         )
       })
       
@@ -55,7 +57,7 @@ const getLastestTransac =  () => {
   useNavigation<StackNavigationProp<RootStackParams>>();
   
   return (
-  <View style={{flex:1}}>
+  <View style={{flex:1, }}>
       <Text style={styles.DerniereDepense}>Equilibrage</Text>
        <Equilibrage/>
           <View style={styles.Title}>

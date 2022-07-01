@@ -42,7 +42,7 @@ const Food: React.FC<FoodProps> = ({name, clcID, courseID, itemType}) => {
   }
     return (      
         <View style = {styles.Ligne}>
-          <RadioButton size={22} selected={radiobutton} onPress={() => console.log('test')} />
+          <RadioButton size={22} selected={radiobutton} onPress={() => setstate(!radiobutton)}/>
           <TextInput onPressIn={() => setstate(!radiobutton)} style={!radiobutton? styles.food_text_valid:styles.food_text_invalid}>{name}</TextInput>
         </View>
   
