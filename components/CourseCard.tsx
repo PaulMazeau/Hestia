@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 3,
     backgroundColor: 'white',
+    borderRadius: 10,
   },
 
   avatar1: {
