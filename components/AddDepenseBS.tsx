@@ -109,7 +109,7 @@ const isNumber = (str) => {
     setAmount("");
     setAreConcerned([]);
     setPayeur(null);
-    setTitle("")
+    setTitle("");
     bottomSheetRef.current?.close();
     
   };
@@ -120,13 +120,16 @@ const updateSolde = async () => {
   for(var i = 0; i<length; i++){
     if(!(areConcerned[i]==payeur)){//si c pas le payeur
       await updateDoc(doc(db, "Users", areConcerned[i]), {solde: increment(-Number(amount)/length)});
-    }else {// si le payeur a payé pr lui aussi
-      payeurIsIn = true;
-      await updateDoc(doc(db, "Users", areConcerned[i]), {solde: increment(Number(amount)-(Number(amount)/length))});
+      console.log("user:" + areConcerned[i] +"amount:-"+amount+"/"+length.toString())
+    }else {// soit le payeur a payé pr lui aussi, soit que pr les autres
+        payeurIsIn=true;
+        await updateDoc(doc(db, "Users", areConcerned[i]), {solde: increment(Number(amount)-(Number(amount)/length))});
+      console.log("payeur" +"amount:"+amount+"-"+amount+"/"+length.toString())
     }
-    if(!payeurIsIn){
-      await updateDoc(doc(db, "Users", payeur), {solde: increment(Number(amount))});
-    }
+  }
+  if(!payeurIsIn){
+    await updateDoc(doc(db, "Users", payeur), {solde: increment(Number(amount))});
+      console.log("payeur:" +"amount:"+amount)
   }
 
 }
