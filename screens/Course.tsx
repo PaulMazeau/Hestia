@@ -1,6 +1,6 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
-import {StyleSheet, View, Text, FlatList} from 'react-native';
+import {StyleSheet, View, Text, FlatList, KeyboardAvoidingView, Platform} from 'react-native';
 import { RootStackParams } from '../App';
 import TopBackNavigation from '../components/TopBackNavigation';
 import Top from '../components/HeaderDark';
@@ -10,6 +10,7 @@ import { getDoc, doc, collection, query, where } from 'firebase/firestore';
 import { auth, db } from '../firebase-config';
 import { useCollectionData, useDocumentData } from 'react-firebase-hooks/firestore';
 import AddFood from '../components/AddFood';
+import { useHeaderHeight } from '@react-navigation/elements';
 
 type Props = NativeStackScreenProps<RootStackParams, 'Course'>;
 
@@ -78,7 +79,7 @@ const CourseScreen = ({ route, navigation }: Props) => {
     )
   }
 
-  
+  const headerHeight = useHeaderHeight();
   return (
     <View style={styles.container}>
      < Top  name={route.params.username} clcName={route.params.clcName}/>
@@ -88,7 +89,11 @@ const CourseScreen = ({ route, navigation }: Props) => {
         <TopBackNavigation/>
         <Text style={styles.screenTitle}>{route.params.name}</Text>
       </View>
-
+      <KeyboardAvoidingView
+        keyboardVerticalOffset={headerHeight}
+        style={{flex:1}}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{paddingBottom:10}}>
         <View style={styles.whiteBackGround}>
@@ -112,7 +117,7 @@ const CourseScreen = ({ route, navigation }: Props) => {
         </View>
         </View>
       </ScrollView>
-
+  </KeyboardAvoidingView>
         
     
     </View>

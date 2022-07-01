@@ -1,11 +1,9 @@
-import { setStatusBarBackgroundColor } from 'expo-status-bar';
-import { updateDoc, doc, FieldValue, arrayUnion } from 'firebase/firestore';
-import React, { useState } from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image, TouchableHighlight, TextInput, KeyboardAvoidingView} from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
-import { Colors, Drawer, RadioButton } from 'react-native-ui-lib';
+import { updateDoc, doc, arrayUnion } from 'firebase/firestore';
+import React from 'react';
+import {View, StyleSheet, TextInput} from 'react-native';
+import { RadioButton } from 'react-native-ui-lib';
 import {db} from '../firebase-config';
-import { useHeaderHeight } from '@react-navigation/elements';
+
 
 interface AddFoodProps {
     courseID: string;
@@ -43,7 +41,7 @@ return}
   }
   
     return (      
-      
+    
         <View style = {[(!item ||item.length === 0)? styles.LigneTransparent: styles.Ligne]}>
           <RadioButton size={25} selected={false} />
           <TextInput
@@ -56,6 +54,7 @@ return}
                 } 
             />
         </View>
+        
   
     );
   
@@ -66,8 +65,9 @@ const styles = StyleSheet.create({
       padding : 7,
       flexDirection : 'row',
       justifyContent: 'flex-start',
-      opacity:0.4
+      opacity:0.4,
     },
+
     Ligne: {
         padding : 5,
         flexDirection : 'row',

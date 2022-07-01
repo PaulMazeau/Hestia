@@ -1,7 +1,7 @@
 import { setStatusBarBackgroundColor } from 'expo-status-bar';
 import { arrayRemove, updateDoc, doc } from 'firebase/firestore';
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, TouchableHighlight, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, TouchableHighlight, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import { Colors, Drawer, RadioButton } from 'react-native-ui-lib';
 import {db} from '../firebase-config';
 
@@ -40,12 +40,11 @@ const Food: React.FC<FoodProps> = ({name, clcID, courseID, itemType}) => {
       }
   
   }
-    return (      
+    return (     
         <View style = {styles.Ligne}>
           <RadioButton size={25} selected={radiobutton} onPress={() => setstate(!radiobutton)}/>
           <TextInput style={!radiobutton? styles.food_text_valid:styles.food_text_invalid}>{name}</TextInput>
         </View>
-  
     );
   
 };
