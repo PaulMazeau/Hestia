@@ -1,6 +1,6 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
-import {StyleSheet, View, Text, FlatList} from 'react-native';
+import {StyleSheet, View, Text, FlatList, KeyboardAvoidingView} from 'react-native';
 import { RootStackParams } from '../App';
 import TopBackNavigation from '../components/TopBackNavigation';
 import Top from '../components/HeaderDark';
@@ -94,8 +94,10 @@ const CourseScreen = ({ route, navigation }: Props) => {
         <View style={styles.whiteBackGround}>
           <Text style={styles.Food_title}>Fruits & Légumes</Text>
           <View style = {styles.separator}></View>
+          
           {renderFruits()}
           <AddFood clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"fruits"}></AddFood>
+          
           
           <Text style={styles.Food_title}>Viandes</Text>
           <View style = {styles.separator}></View>
