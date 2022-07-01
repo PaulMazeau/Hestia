@@ -45,7 +45,7 @@ const getLastestTransac =  () => {
     )
   }}
   return (
-    <Text>Loading...</Text>
+    <Text>PAS DE DEPENSE...</Text>
   )
 }
 
