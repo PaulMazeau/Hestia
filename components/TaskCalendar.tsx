@@ -1,4 +1,6 @@
+import { SHEET_STATE } from '@gorhom/bottom-sheet';
 import moment from 'moment';
+import { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import CalendarStrip from 'react-native-calendar-strip';
 
@@ -7,23 +9,41 @@ let datesWhitelist = [{
     end: moment().add(10, 'y')  // total 4 days enabled
   }];
 
-let fetchedDates = ["2022-06-15", "2022-06-17", "2022-06-22", "2022-06-27"];
-let markedDatesArray = [];
+// let fetchedDates = ["08/07/2022"];
+// // let markedDatesArray = [];
 
-for (let i = 0; i < fetchedDates.length; i++) {
-    markedDatesArray.push({
-      date: moment(`${fetchedDates[i]}`, "YYYY-MM-DD"),
-      dots: [
-        {
-          color: 'red',
-        },
-      ],
-    });
+// for (let i = 0; i < fetchedDates.length; i++) {
+//     markedDatesArray.push({
+//       date: moment(`${fetchedDates[i]}`, "DD/MM/YYYY"),
+//       dots: [
+//         {
+//           color: 'red',
+//         },
+//       ],
+//     });
+//   }
+
+//props est les dates ou luser a une tahce
+const TaskCalendar = (props) => {
+  const [markedDates, setMarkedDates] = useState([]);
+  const markedDatesArray = () => {
+    var res = []
+    if(props.userDates.length > 0){
+      for(var i=0; i< props.userDates.length; i++){
+        res.push({
+          date : moment(props.userDates[i].toDate().toLocaleDateString('fr-FR'), "DD/MM/YYYY"),
+          dots: [
+            {
+              color: 'red',
+            },
+          ],
+        });
+      }
+    }
+    return res;
   }
 
-
-const TaskCalendar = () => (
-
+  return(
   <View>
     <CalendarStrip
       scrollerPaging={true}
@@ -35,12 +55,12 @@ const TaskCalendar = () => (
       dateNameStyle={{color: 'black'}}
       iconContainer={{flex: 0.1}}
       showMonth={false}
-      markedDates={markedDatesArray}
+      markedDates={markedDatesArray()}
       datesWhitelist={datesWhitelist}
     />
   </View>
 
-);
+)};
 
 const styles = StyleSheet.create({ 
 

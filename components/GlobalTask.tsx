@@ -22,7 +22,7 @@ const windowHeight = Dimensions.get('window').height;
 // Besoin de colocID car Taches est subcollection de Colocs 
 
  const GlobalTask = (props) => {
-  const [allTasks, loading, error] = useCollection(collection(db, "Colocs/"+props.clcID+ "/Taches"));
+  // const [allTasks, loading, error] = useCollection(collection(db, "Colocs/"+props.clcID+ "/Taches"));
   const handleDelete = async (id) => {
     await deleteDoc(doc(db, "Colocs/"+props.clcID +"/Taches/", id));
   }
@@ -30,10 +30,10 @@ const windowHeight = Dimensions.get('window').height;
 const Empty=require('../Img/Empty.png');
 
 const renderContent = () => {
-  if(allTasks){
-  if(allTasks.docs.length > 0){
+  if(!(props.tasks ===undefined)){
+  if(props.tasks.docs.length > 0){
     return(
-      allTasks.docs.map(t => {
+      props.tasks.docs.map(t => {
         return(
 
           <View style={styles.Card} key = {t.id}>
@@ -278,12 +278,12 @@ const Rappel = [
        
           <ScrollView showsVerticalScrollIndicator={false}>
       
-        {/* <Text style={styles.CategorieRecurrente}>Récurrente</Text> */}
+        
           {
             renderContent()
           }
 
-        {/* <Text style={styles.CategoriePeriode}>Cette semaine</Text> */} 
+      
          
         </ScrollView>
             
