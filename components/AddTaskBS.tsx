@@ -21,8 +21,7 @@ const Recurrence = [
     { label: '3 jours', value: '3' },
     { label: '1 semaine', value: '7' },
     { label: '2 semaines', value: '14' },
-    { label: '1 mois', value: '1 month' },
-    { label: '2 mois', value: '2 months' },
+    { label: '1 mois', value: '28' },
   ];
 
   const Notification = [
@@ -31,13 +30,6 @@ const Recurrence = [
   ];
 
 
-  const Rappel = [
-    { rappel: 'Aucun', id: '1' },
-    { rappel: '1 heures', id: '2' },
-    { rappel: '2 heures', id: '3' },
-    { rappel: '1 jour', id: '4' },
-    { rappel: '1 semaine', id: '5' },
-  ];
 
 
 
@@ -87,9 +79,9 @@ const bottomSheetRef = useRef<BottomSheetModal>(null);
 const [title, setTitle] = useState("");
 const [value, setValue] = useState("");
 const [dateString, setDateString] = useState("") // pr l'affichage ds la bs
-const [rappel, setRappel] = useState(today.toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'}))
+const [rappel, setRappel] = useState(today.toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'}))//pr lheure du rappel
 const [date, setDate] = useState(today); //pr foutre un timestamp dans la db
-const [recur, setRecur] = useState("");
+const [recur, setRecur] = useState(""); //string du nb de jour entre chaque itération de la tache
 
 const sheetRef = useRef<BottomSheet>(null);
 
@@ -97,8 +89,8 @@ const [isOpen, setIsOpen] = useState(false);
 
 const handleAddTask = async () => {
   bottomSheetRef.current?.close();
-
-  await addDoc(collection(db, 'Colocs/'+props.clcID+'/Taches'), {desc: title, colocID: props.clcID, date: date, rappel: rappel, concerned: areConcerned}); 
+  // TODO : updateConcernedInfos();
+  await addDoc(collection(db, 'Colocs/'+props.clcID+'/Taches'), {desc: title, colocID: props.clcID, date: date, rappel: rappel, concerned: areConcerned, recur: recur}); 
 };
 
 const buttonPressed = () => {
@@ -217,9 +209,9 @@ return (
                 labelField="label"
                 valueField="value"
                 placeholder="Choisir une récurrence"
-                value={value}
+                value={recur}
                 onChange={item => {
-                    setValue(item.value);
+                    setRecur(item.value);
                 }}
             />
             </View>
