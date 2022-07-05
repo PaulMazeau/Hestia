@@ -14,7 +14,7 @@ import { doc, setDoc } from 'firebase/firestore';
 type Props = NativeStackScreenProps<AuthStackParams, 'Avatar'>;
 
 
-const data : String[] = [
+const dataAvatar = [
   '../Img/Avatars/Avatar1.png',
   '../Img/Avatars/Avatar2.png',
   '../Img/Avatars/Avatar4.png',
@@ -38,8 +38,8 @@ const data : String[] = [
 const AvatarCreationScreen = ({route, navigation}: Props) => {
   {/**variable dynamique de type Image pour changer l'appercu de l'avatar en cliquand dans la gallerie, on l'initialise avec une image*/}
   const [avatar, setAvatar] = useState(require('../Img/Avatars/Avatar1.png'))
-  const [avatarUrl, setAvatarUrl] = useState(data[0])
-
+  const [avatarUrl, setAvatarUrl] = useState(dataAvatar[0])
+  
   const handleSignup = () => {
     if(route.params.username==""){
         alert("Rentre un nom d'utilisateur !");
@@ -95,15 +95,15 @@ const AvatarCreationScreen = ({route, navigation}: Props) => {
       keyboardShouldPersistTaps='handled'
       >
       {/**component qui prend deux images (la deuxieme peut etre null si pas assez d'images) et qui renvoit une colonne de deux avatars cliquable */}                
-      <AvatarColum image1={data[0]} image2={data[1]} setAvatar={setAvatar} avatar1={require('../Img/Avatars/Avatar1.png')} avatar2={require('../Img/Avatars/Avatar2.png')} setAvatarUrl={setAvatarUrl}/>
-      <AvatarColum image1={data[2]} image2={data[3]} setAvatar={setAvatar} avatar1={require('../Img/Avatars/Avatar4.png')} avatar2={require('../Img/Avatars/Avatar5.png')} setAvatarUrl={setAvatarUrl}/>
-      <AvatarColum image1={data[4]} image2={data[5]} setAvatar={setAvatar} avatar1={require('../Img/Avatars/Avatar6.png')} avatar2={require('../Img/Avatars/Avatar7.png')} setAvatarUrl={setAvatarUrl}/>
-      <AvatarColum image1={data[6]} image2={data[7]} setAvatar={setAvatar} avatar1={require('../Img/Avatars/Avatar3.png')} avatar2={require('../Img/Avatars/Avatar8.png')} setAvatarUrl={setAvatarUrl}/>
-      <AvatarColum image1={data[8]} image2={data[9]} setAvatar={setAvatar} avatar1={require('../Img/Avatars/Avatar9.png')} avatar2={require('../Img/Avatars/Avatar10.png')} setAvatarUrl={setAvatarUrl}/>
-      <AvatarColum image1={data[10]} image2={data[11]} setAvatar={setAvatar} avatar1={require('../Img/Avatars/Avatar11.png')} avatar2={require('../Img/Avatars/Avatar12.png')} setAvatarUrl={setAvatarUrl}/>
-      <AvatarColum image1={data[12]} image2={data[13]} setAvatar={setAvatar} avatar1={require('../Img/Avatars/Avatar13.png')} avatar2={require('../Img/Avatars/Avatar14.png')} setAvatarUrl={setAvatarUrl}/>
-      <AvatarColum image1={data[14]} image2={data[15]} setAvatar={setAvatar} avatar1={require('../Img/Avatars/Avatar15.png')} avatar2={require('../Img/Avatars/Avatar16.png')} setAvatarUrl={setAvatarUrl}/>
-      <AvatarColum image1={data[16]} image2={null} setAvatar={setAvatar} avatar1={require('../Img/Avatars/Avatar17.png')} avatar2={null} setAvatarUrl={setAvatarUrl}/> 
+      <AvatarColum image1={dataAvatar[0]} image2={dataAvatar[1]} setAvatar={setAvatar} avatar1={require('../Img/Avatars/Avatar1.png')} avatar2={require('../Img/Avatars/Avatar2.png')} setAvatarUrl={setAvatarUrl}/>
+      <AvatarColum image1={dataAvatar[2]} image2={dataAvatar[3]} setAvatar={setAvatar} avatar1={require('../Img/Avatars/Avatar4.png')} avatar2={require('../Img/Avatars/Avatar5.png')} setAvatarUrl={setAvatarUrl}/>
+      <AvatarColum image1={dataAvatar[4]} image2={dataAvatar[5]} setAvatar={setAvatar} avatar1={require('../Img/Avatars/Avatar6.png')} avatar2={require('../Img/Avatars/Avatar7.png')} setAvatarUrl={setAvatarUrl}/>
+      <AvatarColum image1={dataAvatar[6]} image2={dataAvatar[7]} setAvatar={setAvatar} avatar1={require('../Img/Avatars/Avatar3.png')} avatar2={require('../Img/Avatars/Avatar8.png')} setAvatarUrl={setAvatarUrl}/>
+      <AvatarColum image1={dataAvatar[8]} image2={dataAvatar[9]} setAvatar={setAvatar} avatar1={require('../Img/Avatars/Avatar9.png')} avatar2={require('../Img/Avatars/Avatar10.png')} setAvatarUrl={setAvatarUrl}/>
+      <AvatarColum image1={dataAvatar[10]} image2={dataAvatar[11]} setAvatar={setAvatar} avatar1={require('../Img/Avatars/Avatar11.png')} avatar2={require('../Img/Avatars/Avatar12.png')} setAvatarUrl={setAvatarUrl}/>
+      <AvatarColum image1={dataAvatar[12]} image2={dataAvatar[13]} setAvatar={setAvatar} avatar1={require('../Img/Avatars/Avatar13.png')} avatar2={require('../Img/Avatars/Avatar14.png')} setAvatarUrl={setAvatarUrl}/>
+      <AvatarColum image1={dataAvatar[14]} image2={dataAvatar[15]} setAvatar={setAvatar} avatar1={require('../Img/Avatars/Avatar15.png')} avatar2={require('../Img/Avatars/Avatar16.png')} setAvatarUrl={setAvatarUrl}/>
+      <AvatarColum image1={dataAvatar[16]} image2={null} setAvatar={setAvatar} avatar1={require('../Img/Avatars/Avatar17.png')} avatar2={null} setAvatarUrl={setAvatarUrl}/> 
   </ScrollView>
     
 

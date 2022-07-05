@@ -6,10 +6,10 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParams } from '../App';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import AvatarCreationScreen from '../screens/AvatarCreation';
 
 
 
-const ProfilImage=require('../Img/avatarHeader.png');
 
 //props est name du frérot + de la coloc
 const Top = (props) => {
@@ -17,13 +17,12 @@ const Top = (props) => {
     const navigation =
     useNavigation<StackNavigationProp<RootStackParams>>();
     
-    
     return (
     
     <SafeAreaView style= {{backgroundColor: '#172ACE', paddingBottom:Platform.OS === 'android' ? 25:0}}>
     <View style={styles.Header}>
     <TouchableOpacity onPress={() => navigation.push('Settings')}>
-        <ImageContainer image={ProfilImage} />
+        <Image source={{uri: props.avatarUrl}} style={styles.ImageContainer}/>
     </TouchableOpacity>
     <View style={styles.Title}>
         <Text style={styles.BigTitle}>Hi, {props.name}</Text>
@@ -38,17 +37,8 @@ const Top = (props) => {
 };
 
 
+
 export default Top;
-
-
-const ImageContainer = ({image}) => (
-    <View style={styles.ImageContainer}>
-        <Image source={image} style={styles.Image}/>
-    </View>
-);
-
-
-
 
 const styles = StyleSheet.create ({
     Header: {
@@ -77,6 +67,7 @@ const styles = StyleSheet.create ({
         width: 40,
         overflow: 'hidden',
         borderRadius: 7,
+        backgroundColor: 'red'
     },
     Image: {
         height: '100%',
