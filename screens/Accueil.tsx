@@ -23,7 +23,7 @@ type Props = NativeStackScreenProps<RootStackParams, 'AccueilStack'>;
 const AccueilScreen = ({ route, navigation }: Props) => {
 
     const [user, setUser] = useContext(UserContext);
- 
+    
   return (
     <View style={styles.body}>
         

@@ -190,7 +190,6 @@ export default function App() {
   useEffect(() => { 
     onAuthStateChanged(auth, async (user) => {
     if(user){const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
-    console.log(data.data())
     setUserData(data.data());}else{setUserData(null);}
   })}, [])
   

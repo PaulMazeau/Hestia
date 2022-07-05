@@ -61,7 +61,7 @@ type Props = NativeStackScreenProps<RootStackParams, 'TacheStack'>;
               outlineWidth= {2}
               throttleTime= {100}
               />
-              {show ? <GlobalTask tasks={allTasks} clcID = {user.colocID}/> : <MesTask tasks = {allTasks}/> }
+              {show ? <GlobalTask tasks={allTasks} clcID = {user.colocID}/> : <MesTask tasks = {allTasks} clcID={user.colocID}/> }
 
       </View>
 

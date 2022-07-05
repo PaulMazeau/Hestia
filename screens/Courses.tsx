@@ -13,7 +13,7 @@ import { UserContext } from '../Context/userContextFile';
 type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
 
 const CoursesScreen = ({route, navigation}: Props) => {
-  const user = useContext(UserContext)
+  const [user, setUser] = useContext(UserContext)
   const [allCourses] = useCollection(collection(db, "Colocs/"+user.colocID+ "/Courses"))
   const renderContent = () =>{
   if(allCourses){
