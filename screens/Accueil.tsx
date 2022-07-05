@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
@@ -11,7 +11,8 @@ import Selection from '../components/Selection';
 import MiniJeu from '../components/MiniJeu';
 import { useFocusEffect } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
-
+import {UserContext } from '../Context/userContextFile';
+import { TouchableOpacity } from 'react-native-ui-lib';
 
 //importer l'image de maison
 const ProfilImage=require('../Img/Home.png');
@@ -20,40 +21,15 @@ const ProfilImage=require('../Img/Home.png');
 type Props = NativeStackScreenProps<RootStackParams, 'AccueilStack'>;
 
 const AccueilScreen = ({ route, navigation }: Props) => {
-    const[tache, setTache] = useState("")
-    const[solde, setSolde] = useState("...")
-    // useEffect( ()=> {
-    //     const getData = async () => {
-    //       const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
-          
-    //       setTache(data.data().tache)
-    //       setSolde(data.data().solde)
-    //     }
-    //     getData();
-    // })
-    //on guette la data dès que le screen est focus
-    useFocusEffect(
-        React.useCallback(() => {
-        const getData = async () => {
-          const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
-          
-          setTache(data.data().tache)
-          setSolde(data.data().solde)
-        }
-        getData();
-    
-          return () => {
-            // screen unfocus
-    
-          };
-        }, [])
-      );
+
+    const [user, setUser] = useContext(UserContext);
+ 
   return (
     <View style={styles.body}>
         
         <View style={styles.first50}>
            
-            < Top  name={route.params.username} clcName={route.params.clcName}/>
+            < Top  name={user.nom} clcName={user.nomColoc}/>
             <ImageContainer image={ProfilImage} />
         </View>
     
@@ -68,17 +44,18 @@ const AccueilScreen = ({ route, navigation }: Props) => {
             </View>
 
             <View style={styles.CategorieBottom}>
-                <MonSolde solde={solde}/>
+                <MonSolde solde={user.solde}/>
                 <MiniJeu/>
             </View>
 
             <View style={styles.Categorie}>
                 <Text style={styles.TitreCategorie}>Ta prochaine Tâche</Text>
-                <TacheCard Tache={tache}/>
+                <TacheCard Tache={user.tache}/>
             </View>
     </ScrollView>           
         </View>
     </View>
+   
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState} from 'react';
+import React, { useCallback, useContext, useEffect, useRef, useState} from 'react';
 import {View, Text, StyleSheet, Button, TouchableOpacity,} from 'react-native';
 import Top from '../components/HeaderDark';
 import { BorderRadiuses, SegmentedControl } from 'react-native-ui-lib';
@@ -11,12 +11,13 @@ import { getDoc, doc, collection, query, getDocs, orderBy, limit  } from 'fireba
 import { auth, db } from '../firebase-config';
 import { RootStackParams } from '../App';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { UserContext } from '../Context/userContextFile';
 
 
 type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
 
 const DepenseScreen = ({ route, navigation }: Props) => {
-  
+  const [user, setUser] = useContext(UserContext); 
  
   // ref
   const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -44,7 +45,7 @@ const DepenseScreen = ({ route, navigation }: Props) => {
 
   return (      
       <View style={styles.container}>
-     < Top  name={route.params.username} clcName={route.params.clcName}/>
+     < Top  name={user.nom} clcName={user.nomColoc}/>
           <Text style={styles.screenTitle}>Gestion des dépenses</Text>
 
           <SegmentedControl 
@@ -62,7 +63,7 @@ const DepenseScreen = ({ route, navigation }: Props) => {
         throttleTime= {200}
         />
     
-          {show ? <DepenseGlobal clcID ={route.params.clcID}/> : <DepensePerso clcID={route.params.clcID}/>}
+          {show ? <DepenseGlobal clcID ={user.colocID}/> : <DepensePerso clcID={user.colocID}/>}
         
        
      

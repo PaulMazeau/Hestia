@@ -1,4 +1,4 @@
-import React, {  } from 'react';
+import React, { useContext } from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -9,18 +9,19 @@ import AddListeCourseBS from '../components/AddListCourseBS';
 import { collection  } from 'firebase/firestore';
 import { db } from '../firebase-config';
 import { useCollection } from 'react-firebase-hooks/firestore';
+import { UserContext } from '../Context/userContextFile';
 type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
 
 const CoursesScreen = ({route, navigation}: Props) => {
-
-  const [allCourses] = useCollection(collection(db, "Colocs/"+route.params.clcID+ "/Courses"))
+  const user = useContext(UserContext)
+  const [allCourses] = useCollection(collection(db, "Colocs/"+user.colocID+ "/Courses"))
   const renderContent = () =>{
   if(allCourses){
     return(
       allCourses.docs.map(c => {
         return(
           
-          <CourseCard key= {c.id} name={c.data().Nom} courseID={c.id} clcID = {route.params.clcID} onPress = {(name) => navigation.navigate('Course', {name: name, courseID: c.id, clcID: route.params.clcID, username: route.params.username, clcName: route.params.clcName})}/>
+          <CourseCard key= {c.id} name={c.data().Nom} courseID={c.id} clcID = {user.colocID} onPress = {(name) => navigation.navigate('Course', {name: name, courseID: c.id, clcID: user.colocID, username: user.nom, clcName: user.nomColoc})}/>
         )
   
       })
@@ -35,7 +36,7 @@ const CoursesScreen = ({route, navigation}: Props) => {
   return (
    
  <View style={styles.Body}>
-   < Top  name={route.params.username} clcName={route.params.clcName}/>
+   < Top  name={user.nom} clcName={user.nomColoc}/>
   
         <Text style={styles.screenTitle}>Listes de Course</Text>
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -44,7 +45,7 @@ const CoursesScreen = ({route, navigation}: Props) => {
 
         </ScrollView>
 
-        <AddListeCourseBS clcID= {route.params.clcID}/>
+        <AddListeCourseBS clcID= {user.colocID}/>
         
     </View>
   );

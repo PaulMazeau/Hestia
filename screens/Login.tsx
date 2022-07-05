@@ -30,7 +30,8 @@ const LoginScreen = () => {
     }
 
     const handleLogin = () => {
-        signInWithEmailAndPassword(auth, email, password).catch(error => alert(error.message))
+        signInWithEmailAndPassword(auth, email, password).catch(error => console.log(error.message))
+        console.log("sign")
     }
     
     const headerHeight = useHeaderHeight();

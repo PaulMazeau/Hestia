@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useContext, useMemo, useRef, useState } from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Top from '../components/HeaderDark';
 import { BorderRadiuses, SegmentedControl, Spacings, Drawer, Colors } from 'react-native-ui-lib';
@@ -14,15 +14,17 @@ import { useCollection, useCollectionData } from 'react-firebase-hooks/firestore
 import { getDoc, doc, collection, orderBy, query, deleteDoc, updateDoc, increment } from 'firebase/firestore';
 import{db} from '../firebase-config'
 import { RotateInUpLeft } from 'react-native-reanimated';
+import { UserContext } from '../Context/userContextFile';
 
 type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
 
 const AllDepense = ({route, navigation}: Props) => {
   const [oldData, setOldData] = useState(null);
-  const handleDelete = async (id) => {
-    const oldDoc = await getDoc(doc(db, "Colocs/"+route.params.clcID +"/Transactions/", id));
+  const[user, setUser] = useContext(UserContext);
+  const handleDelete = async (id) => { //update le solde et delete le doc
+    const oldDoc = await getDoc(doc(db, "Colocs/"+user.colocID+"/Transactions/", id));
     updateSolde(oldDoc);
-    await deleteDoc(doc(db, "Colocs/"+route.params.clcID +"/Transactions/", id));
+    await deleteDoc(doc(db, "Colocs/"+user.colocID+"/Transactions/", id));
 
   }
   //update le solde après supression de la transac
@@ -45,8 +47,11 @@ const AllDepense = ({route, navigation}: Props) => {
       if(!payeurIsIn){
         await updateDoc(doc(db, "Users", payeur), {solde: increment(-amount)});
     }
+    const refreshedData = await getDoc(doc(db, "Users", user.uuid))
+    console.log(refreshedData.data().solde)
+    setUser({...user, solde: refreshedData.data().solde}) //update le contexte av le nouvo solde
   }
-  const [allTransacs] = useCollection(query(collection(db, "Colocs/"+route.params.clcID+ "/Transactions"), orderBy('timestamp', 'desc')))
+  const [allTransacs] = useCollection(query(collection(db, "Colocs/"+user.colocID+ "/Transactions"), orderBy('timestamp', 'desc')))
   const renderContent = () =>{
     if(allTransacs){
       return(
@@ -76,7 +81,7 @@ const AllDepense = ({route, navigation}: Props) => {
  
 
 <View style={styles.container}>
-< Top  name={route.params.username} clcName={route.params.clcName}/>
+< Top  name={user.nom} clcName={user.nomColoc}/>
   
   <View style={styles.Title}>
   <TopBackNavigation/>

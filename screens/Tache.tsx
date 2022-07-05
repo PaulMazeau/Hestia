@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Top from '../components/HeaderDark';
 import { SegmentedControl, BorderRadiuses } from 'react-native-ui-lib';
@@ -10,19 +10,20 @@ import { auth, db } from '../firebase-config';
 import { RootStackParams } from '../App';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useCollection } from 'react-firebase-hooks/firestore';
+import { UserContext } from '../Context/userContextFile';
 type Props = NativeStackScreenProps<RootStackParams, 'TacheStack'>;
 
  const TacheScreen = ({route, navigation}: Props) => {
-
+  const [user, setUser] = useContext(UserContext);
   const [show, setShow] = React.useState(true);
 
   const onChangeIndex = useCallback((index: number) => {
     setShow((r) => !r)
   }, []);
 
-  const [allTasks, loading, error] = useCollection(collection(db, "Colocs/"+route.params.clcID+ "/Taches"));
+  const [allTasks, loading, error] = useCollection(collection(db, "Colocs/"+user.colocID+ "/Taches"));
 
-  //récupère les dates ou luser a ue-ne tache à paser ds taskcalendar
+  //récupère les dates ou luser a une tache à passer ds taskcalendar pr point rouge
   const fetchDates = () => {
     const res = []
     if(!(allTasks === undefined)){
@@ -41,7 +42,7 @@ type Props = NativeStackScreenProps<RootStackParams, 'TacheStack'>;
 
       <View style={styles.container}>
 
-          <Top name={route.params.username} clcName={route.params.clcName}/>
+          <Top name={user.nom} clcName={user.nomColoc}/>
               <Text style={styles.screenTitle}>Tâche à faire</Text>
 
                 <TaskCalendar userDates = {fetchDates()}/> 
@@ -60,7 +61,7 @@ type Props = NativeStackScreenProps<RootStackParams, 'TacheStack'>;
               outlineWidth= {2}
               throttleTime= {100}
               />
-              {show ? <GlobalTask tasks={allTasks} clcID = {route.params.clcID}/> : <MesTask tasks = {allTasks}/> }
+              {show ? <GlobalTask tasks={allTasks} clcID = {user.colocID}/> : <MesTask tasks = {allTasks}/> }
 
       </View>
 

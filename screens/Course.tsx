@@ -1,5 +1,5 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import React, {  } from 'react';
+import React, { useContext } from 'react';
 import {StyleSheet, View, Text, KeyboardAvoidingView, Platform} from 'react-native';
 import { RootStackParams } from '../App';
 import TopBackNavigation from '../components/TopBackNavigation';
@@ -11,12 +11,14 @@ import { db } from '../firebase-config';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import AddFood from '../components/AddFood';
 import { useHeaderHeight } from '@react-navigation/elements';
+import { UserContext } from '../Context/userContextFile';
 
 type Props = NativeStackScreenProps<RootStackParams, 'Course'>;
 
 //dans la db course: Nom, boisson, fruits, maison, viandes, 
 const CourseScreen = ({ route, navigation }: Props) => {
   //data est la liste de course
+  const user = useContext(UserContext)
   const [data, loading, error] = useDocumentData(doc(db, "Colocs/"+route.params.clcID+ "/Courses", route.params.courseID))
   const renderFruits = () => {
     if(data && data.fruits){

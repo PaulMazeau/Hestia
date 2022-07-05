@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, ImageComponent, Image, TextInput} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
@@ -10,6 +10,7 @@ import {auth, db} from '../firebase-config'
 import {signOut} from 'firebase/auth'
 import{doc, getDoc} from 'firebase/firestore'
 import { useFocusEffect } from '@react-navigation/native';
+import { UserContext } from '../Context/userContextFile';
 
 const ProfilImage=require('../Img/avatar1.png');
 
@@ -54,7 +55,7 @@ const Settings = () => {
 
   return (
     <View>
-      <Top/>
+      < Top/>
     <View style={styles.container}>
     
     

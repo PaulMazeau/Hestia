@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import {StyleSheet, View, Text, Button, Image, Alert, TextInput, ScrollView, TouchableOpacity} from 'react-native'
 import { Dropdown } from 'react-native-element-dropdown';
 import ParticipantCard from './ParticipantCard';
@@ -11,6 +11,7 @@ import { updateDoc, serverTimestamp, addDoc, collection, getDoc, doc, where, que
 import {db} from '../firebase-config'
 import { useCollectionOnce } from 'react-firebase-hooks/firestore';
 import { useNavigation, useNavigationState } from '@react-navigation/native';
+import { UserContext } from '../Context/userContextFile';
 
 
 //ATTRIBUTS dans bdd : amount, giverID, receiversID array, desc
@@ -19,7 +20,10 @@ const AddDepenseBS = (props) => {
 const nav = useNavigation()
 const bottomSheetRef = useRef<BottomSheetModal>(null);
 
+const[user, setUser] = useContext(UserContext); //pr update le usercontexte
 const renderBackdrop = useCallback((props) => {
+  
+
   return (
     <BottomSheetBackdrop
       {...props}
@@ -116,22 +120,23 @@ const isNumber = (str) => {
 
 const updateSolde = async () => {
   const length = areConcerned.length;
-  var payeurIsIn = false;
+  var payeurIsIn = false; //payeur a payé aussi pr lui
   for(var i = 0; i<length; i++){
     if(!(areConcerned[i]==payeur)){//si c pas le payeur
       await updateDoc(doc(db, "Users", areConcerned[i]), {solde: increment(-Number(amount)/length)});
-      console.log("user:" + areConcerned[i] +"amount:-"+amount+"/"+length.toString())
+     
     }else {// soit le payeur a payé pr lui aussi, soit que pr les autres
         payeurIsIn=true;
         await updateDoc(doc(db, "Users", areConcerned[i]), {solde: increment(Number(amount)-(Number(amount)/length))});
-      console.log("payeur" +"amount:"+amount+"-"+amount+"/"+length.toString())
+ 
     }
   }
   if(!payeurIsIn){
     await updateDoc(doc(db, "Users", payeur), {solde: increment(Number(amount))});
-      console.log("payeur:" +"amount:"+amount)
-  }
 
+  }
+  const refreshedData = await getDoc(doc(db, "Users", user.uuid))
+  setUser({...user, solde: refreshedData.data().solde}) //update le contexte av le nouvo solde
 }
 
 const [title, setTitle] = React.useState("");
