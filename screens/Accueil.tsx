@@ -14,7 +14,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 
 //importer l'image de maison
-const ProfilImage=require('../Img/Home.png');
+const ProfilImage=require('../Img/Apartment2.png');
 
 
 type Props = NativeStackScreenProps<RootStackParams, 'AccueilStack'>;

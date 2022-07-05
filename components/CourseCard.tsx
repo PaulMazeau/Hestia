@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
 
   body: {
     marginBottom: 15,
-    elevation: 20,
+    elevation: 2,
     shadowColor: 'black',
     shadowOffset: {width: -2, height: 1},
     shadowOpacity: 0.1,
