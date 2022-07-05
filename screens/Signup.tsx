@@ -92,7 +92,7 @@ const SignupScreen = () => {
             </View>
             
                 <TouchableOpacity
-                    onPress={handleSignup}
+                    onPress={() => navigation.navigate('Avatar')}
                     style = {styles.buttonSuivant}>
                         <Text style = {styles.buttonText}>Suivant</Text>
                 </TouchableOpacity>

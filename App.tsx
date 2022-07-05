@@ -26,6 +26,7 @@ import HomePageScreen from './screens/Homepage';
 import {UserContext} from './Context/userContextFile'
 import { getAdditionalUserInfo, onAuthStateChanged } from 'firebase/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
+import  AvatarCreationScreen from './screens/AvatarCreation'
 
 //initialisation des root pour la NavBar Bottom// DEFINIT LES PARAMETRES QUE LON PASSE DANS LES SCREENS
 export type RootStackParams = {
@@ -51,6 +52,11 @@ export type AuthStackParams = {
   Homepage: undefined;
   Login: undefined;
   Signup: undefined;
+  Avatar: {
+    username: string;
+    email: string;
+    password: string
+  }
 }
 
 const AuthStack = createNativeStackNavigator<AuthStackParams>()
@@ -63,6 +69,7 @@ const AuthScreenStack = () => {
        <AuthStack.Screen name= "Homepage" component={HomePageScreen} />
       <AuthStack.Screen name = "Login" component={LoginScreen}/>
       <AuthStack.Screen name= "Signup" component={SignupScreen} />
+      <AuthStack.Screen name= "Avatar" component={AvatarCreationScreen} />
     </AuthStack.Navigator>
   )
 }
