@@ -82,7 +82,7 @@ const CourseScreen = ({ route, navigation }: Props) => {
   const headerHeight = useHeaderHeight();
   return (
     <View style={styles.container}>
-     < Top  name={route.params.username} clcName={route.params.clcName}/>
+     < Top  name={route.params.username} clcName={route.params.clcName} avatar={route.params.avatar} />
     
       
       <View style = {styles.Title}>

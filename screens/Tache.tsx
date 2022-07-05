@@ -27,7 +27,7 @@ type Props = NativeStackScreenProps<RootStackParams, 'TacheStack'>;
 
       <View style={styles.container}>
 
-          <Top name={route.params.username} clcName={route.params.clcName}/>
+          <Top name={route.params.username} clcName={route.params.clcName} avatar={route.params.avatar}/>
               <Text style={styles.screenTitle}>Tâche à faire</Text>
 
                 <TaskCalendar/>

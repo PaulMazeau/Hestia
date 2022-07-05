@@ -22,6 +22,7 @@ type Props = NativeStackScreenProps<RootStackParams, 'AccueilStack'>;
 const AccueilScreen = ({ route, navigation }: Props) => {
     const[tache, setTache] = useState("")
     const[solde, setSolde] = useState("...")
+    const [avatar, setAvatar] = useState("");
     // useEffect( ()=> {
     //     const getData = async () => {
     //       const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
@@ -39,6 +40,7 @@ const AccueilScreen = ({ route, navigation }: Props) => {
           
           setTache(data.data().tache)
           setSolde(data.data().solde)
+          setAvatar(data.data().avatarUrl)
         }
         getData();
     
@@ -53,7 +55,7 @@ const AccueilScreen = ({ route, navigation }: Props) => {
         
         <View style={styles.first50}>
            
-            < Top  name={route.params.username} clcName={route.params.clcName}/>
+            < Top  name={route.params.username} clcName={route.params.clcName} avatar={avatar}/>
             <ImageContainer image={ProfilImage} />
         </View>
     

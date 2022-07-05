@@ -1,5 +1,5 @@
 import React, {  } from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Image} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { ScrollView } from 'react-native-gesture-handler';
 import CourseCard from '../components/CourseCard';
@@ -9,6 +9,8 @@ import AddListeCourseBS from '../components/AddListCourseBS';
 import { collection  } from 'firebase/firestore';
 import { db } from '../firebase-config';
 import { useCollection } from 'react-firebase-hooks/firestore';
+
+
 type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
 
 const CoursesScreen = ({route, navigation}: Props) => {
@@ -20,7 +22,7 @@ const CoursesScreen = ({route, navigation}: Props) => {
       allCourses.docs.map(c => {
         return(
           
-          <CourseCard key= {c.id} name={c.data().Nom} courseID={c.id} clcID = {route.params.clcID} onPress = {(name) => navigation.navigate('Course', {name: name, courseID: c.id, clcID: route.params.clcID, username: route.params.username, clcName: route.params.clcName})}/>
+          <CourseCard key= {c.id} name={c.data().Nom} courseID={c.id} clcID = {route.params.clcID} onPress = {(name) => navigation.navigate('Course', {name: name, courseID: c.id, clcID: route.params.clcID, username: route.params.username, clcName: route.params.clcName, avatar: route.params.avatar})}/>
         )
   
       })
@@ -32,16 +34,15 @@ const CoursesScreen = ({route, navigation}: Props) => {
 
   }
 
+  
   return (
    
  <View style={styles.Body}>
-   < Top  name={route.params.username} clcName={route.params.clcName}/>
+   < Top  name={route.params.username} clcName={route.params.clcName} avatar={route.params.avatar}/>
   
         <Text style={styles.screenTitle}>Listes de Course</Text>
         <ScrollView showsVerticalScrollIndicator={false}>
-        
           {renderContent()}
-
         </ScrollView>
 
         <AddListeCourseBS clcID= {route.params.clcID}/>

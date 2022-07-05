@@ -57,7 +57,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     },
 
-
   titre: {
     fontWeight: '600',
     fontSize: 16,

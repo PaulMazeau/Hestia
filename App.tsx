@@ -23,23 +23,24 @@ import { auth,db } from './firebase-config';
 import { getDoc, doc, query, where, getDocs, collection } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import HomePageScreen from './screens/Homepage';
+import AvatarCreationScreen from './screens/AvatarCreation';
 
 
 //initialisation des root pour la NavBar Bottom// DEFINIT LES PARAMETRES QUE LON PASSE DANS LES SCREENS
 export type RootStackParams = {
-  AccueilStack: {username: string; clcID: string; clcName: string;};
-  CoursesStack: {username: string; clcID: string; clcName: string;};
+  AccueilStack: {username: string; clcID: string; clcName: string; avatarUrl: string};
+  CoursesStack: {username: string; clcID: string; clcName: string; avatarUrl: string};
   AuthStack : NavigatorScreenParams<AuthStackParams>;
-  TacheStack: {username: string; clcID: string; clcName: string;};
+  TacheStack: {username: string; clcID: string; clcName: string; avatarUrl: string};
   Course: {
     name: string;
     courseID: string;
     username: string;
     clcID: string;
     clcName: string;
+    avatarUrl: string;
   }
- 
-  DepenseStack: {username: string; clcID: string; clcName: string;};
+  DepenseStack: {username: string; clcID: string; clcName: string; avatarUrl: string};
   Settings: undefined;
   ColocSettings: undefined;
   ListDepense: undefined;
@@ -49,6 +50,7 @@ export type AuthStackParams = {
   Homepage: undefined;
   Login: undefined;
   Signup: undefined;
+  Avatar: {username: string; email: string; password: string};
 }
 
 const AuthStack = createNativeStackNavigator<AuthStackParams>()
@@ -61,6 +63,7 @@ const AuthScreenStack = () => {
        <AuthStack.Screen name= "Homepage" component={HomePageScreen} />
       <AuthStack.Screen name = "Login" component={LoginScreen}/>
       <AuthStack.Screen name= "Signup" component={SignupScreen} />
+      <AuthStack.Screen name= "Avatar" component={AvatarCreationScreen} />
     </AuthStack.Navigator>
   )
 }
@@ -71,13 +74,14 @@ const RootStack = createBottomTabNavigator<RootStackParams>();
 
 //initialisation des root pour la sous navigation dans la page Course
 export type CoursesStackParams = {
-  Courses: {username: string, clcID: string;clcName: string;};
+  Courses: {username: string, clcID: string; clcName: string; avatarUrl: string;};
   Course: {
     name: string;
     courseID: string;
     username: string;
     clcID: string;
     clcName: string;
+    avatarUrl: string;
   };
   Settings : undefined;
   ColocSettings : undefined;
@@ -106,6 +110,7 @@ export type AccueilStackParams = {
     username: string;
     clcID: string;
     clcName: string;
+    avatarUrl: string;
   }
 };
 
@@ -128,7 +133,7 @@ const AccueilScreenStack = (t) => {
 
 
 export type TacheStackParams = {
-  Tache: {username: string; clcID: string; clcName: string;};
+  Tache: {username: string; clcID: string; clcName: string; avatarUrl: string;};
   Settings: undefined;
   ColocSettings : undefined;
 };
@@ -181,17 +186,21 @@ export default function App() {
   const [clcID, setClcID] = useState("");
   const[usr, loading, error] = useAuthState(auth);
   const [clcName, setClcName] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState("");
   const getData = async () => {
     const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
     setClcName(data.data().nomColoc);
     setClcID(data.data().colocID);
     setUsername(data.data().nom);
+    setAvatarUrl(data.data().avatarUrl);
   }
   
 
   const renderContent = () =>{
+
     if(usr){
     getData();
+    
     if(!(username == "")){
       return ( 
       <RootStack.Navigator
@@ -202,13 +211,11 @@ export default function App() {
         tabBarInactiveTintColor: "grey",
       
        }}>
-          <RootStack.Screen name="AccueilStack" component={AccueilScreenStack} options={{tabBarIcon: (({color, size}) => <Accueil color={color} />), tabBarLabel: "Accueil"}} initialParams={{ username: username, clcID: clcID, clcName: clcName } } />
-          <RootStack.Screen name="CoursesStack" component={CourseScreenStack} options={{tabBarIcon: (({color, size}) => <Course color={color} />), tabBarLabel: "Course"}} initialParams={{username: username, clcID: clcID, clcName: clcName}} />
-          <RootStack.Screen name="TacheStack" component={TacheScreenStack} options={{tabBarIcon: (({color, size}) => <Tache color={color} />), tabBarLabel: "Tâche"}} initialParams={{username: username, clcID: clcID, clcName: clcName}}/>
-          <RootStack.Screen name="DepenseStack" component={DepenseScreenStack} options={{tabBarIcon: (({color, size}) => <Depense color={color} />), tabBarLabel: "Dépense"}} initialParams={{username: username, clcID: clcID, clcName: clcName}}/>
-          
-          
-    
+          <RootStack.Screen name="AccueilStack" component={AccueilScreenStack} options={{tabBarIcon: (({color, size}) => <Accueil color={color} />), tabBarLabel: "Accueil"}} initialParams={{ username: username, clcID: clcID, clcName: clcName, avatarUrl: avatarUrl } } />
+          <RootStack.Screen name="CoursesStack" component={CourseScreenStack} options={{tabBarIcon: (({color, size}) => <Course color={color} />), tabBarLabel: "Course"}} initialParams={{username: username, clcID: clcID, clcName: clcName, avatarUrl: avatarUrl }} />
+          <RootStack.Screen name="TacheStack" component={TacheScreenStack} options={{tabBarIcon: (({color, size}) => <Tache color={color} />), tabBarLabel: "Tâche"}} initialParams={{username: username, clcID: clcID, clcName: clcName, avatarUrl: avatarUrl }}/>
+          <RootStack.Screen name="DepenseStack" component={DepenseScreenStack} options={{tabBarIcon: (({color, size}) => <Depense color={color} />), tabBarLabel: "Dépense"}} initialParams={{username: username, clcID: clcID, clcName: clcName, avatarUrl: avatarUrl }}/>
+
         </RootStack.Navigator>
         )
         }}

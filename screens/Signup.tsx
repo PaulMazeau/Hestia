@@ -8,6 +8,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParams } from '../App';
 import TopBackNavigationClear from '../components/TopBackNavigationClear';
 import { useHeaderHeight } from '@react-navigation/elements';
+import { NavigationEvents } from 'react-navigation';
 
 const SignupScreen = () => {
 
@@ -25,10 +26,11 @@ const SignupScreen = () => {
             const userUid = userCred.user.uid; // The UID of the user.
             // set account  doc  
             const entry = {
-                nom: username,
-                uuid: userUid,
+              nom: username,
+              uuid: userUid,
               solde: 0,
               tache: "Rien de prévu!"
+
             }
            setDoc(doc(db, 'Users', userUid),entry); 
           }).catch(error => alert(error.message));
@@ -38,7 +40,7 @@ const SignupScreen = () => {
     const headerHeight = useHeaderHeight();
     return(
         <KeyboardAvoidingView
-        keyboardVerticalOffset={headerHeight -260}
+        keyboardVerticalOffset={headerHeight -265}
         style={{flex:1}}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
@@ -92,7 +94,7 @@ const SignupScreen = () => {
             </View>
             
                 <TouchableOpacity
-                    onPress={handleSignup}
+                    onPress={() => {navigation.navigate('Avatar', {username: username, email: email, password: password}); console.log(username, email, password)}}
                     style = {styles.buttonSuivant}>
                         <Text style = {styles.buttonText}>Suivant</Text>
                 </TouchableOpacity>
@@ -194,28 +196,5 @@ const styles = StyleSheet.create({
             width: '100%',
             
         },
-
-        buttonGoogle:{
-            backgroundColor:'#0f3fdb',
-            width: '85%',
-            padding: 15,
-            borderRadius: 10,
-            marginTop: 25,
-            marginLeft: '7.5%',
-            marginRight: '7.5%',
-            justifyContent: 'center',
-            flexDirection: 'row',
-            alignItems: 'center',
-            
-           
-        },
-
-        TextGoogle: {
-        color:'white',
-        fontWeight:'700',
-        fontSize:16,
-        marginLeft: 10
-        }
-
 })
 
