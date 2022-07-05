@@ -9,18 +9,20 @@ import * as Haptics from 'expo-haptics';
 import { addDoc, collection, updateDoc, doc, getDoc, getDocs, where, query } from 'firebase/firestore';
 import {db} from '../firebase-config'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { Timestamp } from 'react-native-reanimated/lib/types/lib/reanimated2/commonTypes';
+import { FadeOutToBottomAndroidSpec } from '@react-navigation/stack/lib/typescript/src/TransitionConfigs/TransitionSpecs';
 
-
+const today = new Date();
 
 const Recurrence = [
-    { label: 'Aucune', value: '1' },
-    { label: '1 jour', value: '2' },
-    { label: '2 jours', value: '3' },
-    { label: '3 jours', value: '4' },
-    { label: '1 semaine', value: '5' },
-    { label: '2 semaines', value: '6' },
-    { label: '1 mois', value: '7' },
-    { label: '2 mois', value: '8' },
+    { label: 'Aucune', value: '0' },
+    { label: '1 jour', value: '1' },
+    { label: '2 jours', value: '2' },
+    { label: '3 jours', value: '3' },
+    { label: '1 semaine', value: '7' },
+    { label: '2 semaines', value: '14' },
+    { label: '1 mois', value: '1 month' },
+    { label: '2 mois', value: '2 months' },
   ];
 
   const Notification = [
@@ -43,8 +45,8 @@ const Recurrence = [
 
 const AddTaskBS = (props) => {
   //liste des users de la coloc et list des users slectionné pr la tache (ID)
-  const [userList, setUserList] = useState([])
-  const [areConcerned, setAreConcerned] = useState([]);
+  const [userList, setUserList] = useState([]) 
+  const [areConcerned, setAreConcerned] = useState([]); //pr savoir qui est concerné par la tache
 
   //récupère les utilisateurs de la colocs (prbablement a entrer ds app.tsx)
 useEffect( () => {
@@ -82,10 +84,12 @@ const renderUsers = () => {
 // ref
 const bottomSheetRef = useRef<BottomSheetModal>(null);
 
-const [title, setTitle] = React.useState("");
+const [title, setTitle] = useState("");
 const [value, setValue] = useState("");
-const [date, setDate] = useState("")
-const [rappel, setRappel] = useState("")
+const [dateString, setDateString] = useState("") // pr l'affichage ds la bs
+const [rappel, setRappel] = useState(today.toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'}))
+const [date, setDate] = useState(today); //pr foutre un timestamp dans la db
+const [recur, setRecur] = useState("");
 
 const sheetRef = useRef<BottomSheet>(null);
 
@@ -93,8 +97,8 @@ const [isOpen, setIsOpen] = useState(false);
 
 const handleAddTask = async () => {
   bottomSheetRef.current?.close();
-//.then pr que le nvo doc aie comme id le nom généré par firestore
-  await addDoc(collection(db, 'Colocs/'+props.clcID+'/Taches'), {desc: title, colocID: props.clcID, date: date}); 
+
+  await addDoc(collection(db, 'Colocs/'+props.clcID+'/Taches'), {desc: title, colocID: props.clcID, date: date, rappel: rappel, concerned: areConcerned}); 
 };
 
 const buttonPressed = () => {
@@ -111,6 +115,8 @@ const renderBackdrop = useCallback((props) => {
   );
 }, []);
 
+
+//SETUP DATE PICKER
 const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 const optionsDate = { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' };
 
@@ -123,7 +129,8 @@ const hideDatePicker = () => {
 };
 
 const handleConfirmDate = (date) => {
-  setDate(date.toLocaleDateString('fr-FR', optionsDate));
+  setDateString(date.toLocaleDateString('fr-FR', optionsDate));
+  setDate(date);
   hideDatePicker();
 };
 
@@ -139,9 +146,11 @@ const hideRappelPicker = () => {
 };
 
 const handleConfirmRappel = (date) => {
-  setRappel(date.toLocaleDateString('fr-FR', optionsRappel));
+  // setRappel(date.toLocaleDateString('fr-FR', optionsRappel));
+  setRappel(date.toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'}))
   hideRappelPicker();
 };
+//FIN SETUP DATE PICKER
 
 return (
 
@@ -180,8 +189,8 @@ return (
         <Text style={styles.subTitle}>Date</Text>
               <TextInput 
                 style={styles.datepicker}
-                onChangeText={(event) => {setDate(event);}}
-                value={date}
+                // onChangeText={(event) => {setDateString(event);}}
+                value={dateString}
                 placeholder="Choisir la date"
                 onPressIn={showDatePicker} 
               />
@@ -242,7 +251,7 @@ return (
                   
                       <TextInput 
                       style={styles.datepickerRappel}
-                      onChangeText={(event) => {setRappel(event);}}
+                      // onChangeText={(event) => {setRappel(event);}} g comment pcq cette ligne sert à rien sauf a fausser la data quon rentre dans la db
                       value={rappel}
                       placeholder="Entrer le rappel"
                       onPressIn={showRappelPicker} 
@@ -251,11 +260,11 @@ return (
                       <DateTimePickerModal
                       isVisible={isRappelPickerVisible}
                       onConfirm={handleConfirmRappel}
-                      onCancel={handleConfirmRappel}
+                      onCancel={hideRappelPicker}
                       cancelTextIOS='Annuler'
                       confirmTextIOS='Confirmer'
                       locale="fr_FR"
-                      mode="datetime"
+                      mode="time"
                     />
 
             </View>

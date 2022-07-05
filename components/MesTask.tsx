@@ -5,29 +5,49 @@ import TacheCard from '../components/TacheCard';
 import { ScrollView } from 'react-native-gesture-handler';
 import Top from '../components/HeaderDark';
 import AddTaskBS from './AddTaskBS';
+import { auth } from '../firebase-config';
+import { render } from 'react-dom';
 
-
- const MesTask = () => {
-
+//props est toute les tasks
+ const MesTask = (props) => {
+  //check quelles taches corespont a luser
+  const checkTasks = () => {
+    var res = []
+    if(props.tasks){
+     if(props.tasks.docs.length > 0 ){
+        for(var i =0; i<props.tasks.docs.length; i++){
+          if(props.tasks.docs[i].data().concerned.includes(auth.currentUser.uid)){
+            res.push(props.tasks.docs[i].data());
+          }
+        }
+     }
+    }
+    return res;
+  }
+  //rendu des taches corespondant a luser
+  const renderTasks = () => {
+     const tasks = checkTasks();
+      return(
+        tasks.map(t => {
+          return(
+            <TacheCard Tache = {t.desc} key = {t.desc}/>
+          )
+        })
+      )
+  }
   return (
    
     <View style={{flex: 1}}>
           
     <ScrollView showsVerticalScrollIndicator={false}>
 
-  <Text style={styles.CategorieRecurrente}>Récurrente</Text>
 
-    <TacheCard Tache='jten supplie'/>
-    <TacheCard Tache='jten supplie'/>
 
-  <Text style={styles.CategoriePeriode}>Cette semaine</Text>
+    {renderTasks()}
 
-    <TacheCard Tache='jten supplie'/>
     
 
   </ScrollView>
-
-  <AddTaskBS/>
 
       </View>
   );

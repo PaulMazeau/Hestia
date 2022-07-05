@@ -5,10 +5,11 @@ import { SegmentedControl, BorderRadiuses } from 'react-native-ui-lib';
 import GlobalTask from '../components/GlobalTask';
 import MesTask from '../components/MesTask';
 import TaskCalendar from '../components/TaskCalendar';
-import { getDoc, doc  } from 'firebase/firestore';
+import { getDoc, doc, collection } from 'firebase/firestore';
 import { auth, db } from '../firebase-config';
 import { RootStackParams } from '../App';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useCollection } from 'react-firebase-hooks/firestore';
 type Props = NativeStackScreenProps<RootStackParams, 'TacheStack'>;
 
  const TacheScreen = ({route, navigation}: Props) => {
@@ -19,9 +20,22 @@ type Props = NativeStackScreenProps<RootStackParams, 'TacheStack'>;
     setShow((r) => !r)
   }, []);
 
- 
-  
+  const [allTasks, loading, error] = useCollection(collection(db, "Colocs/"+route.params.clcID+ "/Taches"));
 
+  //récupère les dates ou luser a ue-ne tache à paser ds taskcalendar
+  const fetchDates = () => {
+    const res = []
+    if(!(allTasks === undefined)){
+      if(allTasks.docs.length > 0){
+        for(var i = 0; i < allTasks.docs.length; i++){
+          if(allTasks.docs[i].data().concerned.includes(auth.currentUser.uid)){
+            res.push(allTasks.docs[i].data().date)
+          }
+        }
+      }
+    }
+    return res;
+  }
 
   return (
 
@@ -30,7 +44,7 @@ type Props = NativeStackScreenProps<RootStackParams, 'TacheStack'>;
           <Top name={route.params.username} clcName={route.params.clcName} avatar={route.params.avatar}/>
               <Text style={styles.screenTitle}>Tâche à faire</Text>
 
-                <TaskCalendar/>
+                <TaskCalendar userDates = {fetchDates()}/> 
                 
               <SegmentedControl 
               containerStyle={styles.control}
@@ -46,7 +60,7 @@ type Props = NativeStackScreenProps<RootStackParams, 'TacheStack'>;
               outlineWidth= {2}
               throttleTime= {100}
               />
-              {show ? <GlobalTask clcID={route.params.clcID}/> : <MesTask/> }
+              {show ? <GlobalTask tasks={allTasks} clcID = {route.params.clcID}/> : <MesTask tasks = {allTasks}/> }
 
       </View>
 
