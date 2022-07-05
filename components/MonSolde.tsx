@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     height: 70,
-    marginRight: '2,5%'
+    marginRight: '2.5%'
   },
   
   top: {
