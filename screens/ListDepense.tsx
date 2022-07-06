@@ -81,7 +81,7 @@ const AllDepense = ({route, navigation}: Props) => {
  
 
 <View style={styles.container}>
-< Top  name={user.nom} clcName={user.nomColoc}/>
+< Top  name={user.nom} clcName={user.nomColoc} avatar = {user.avatarUrl}/>
   
   <View style={styles.Title}>
   <TopBackNavigation/>

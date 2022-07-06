@@ -23,7 +23,9 @@ const Top = (props) => {
     <SafeAreaView style= {{backgroundColor: '#172ACE', paddingBottom:Platform.OS === 'android' ? 25:0}}>
     <View style={styles.Header}>
     <TouchableOpacity onPress={() => navigation.push('Settings')}>
-        <ImageContainer image={ProfilImage} />
+    <View style={styles.ImageContainer}>
+        <Image source={{uri: props.avatar}} style={styles.Image}/>
+    </View>
     </TouchableOpacity>
     <View style={styles.Title}>
         <Text style={styles.BigTitle}>Hi, {props.name}</Text>
@@ -41,11 +43,11 @@ const Top = (props) => {
 export default Top;
 
 
-const ImageContainer = ({image}) => (
-    <View style={styles.ImageContainer}>
-        <Image source={image} style={styles.Image}/>
-    </View>
-);
+// const ImageContainer = ({image}) => (
+//     <View style={styles.ImageContainer}>
+//         <Image source={{uri: image}} style={styles.Image}/>
+//     </View>
+// );
 
 
 

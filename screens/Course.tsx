@@ -17,8 +17,9 @@ type Props = NativeStackScreenProps<RootStackParams, 'Course'>;
 
 //dans la db course: Nom, boisson, fruits, maison, viandes, 
 const CourseScreen = ({ route, navigation }: Props) => {
+  const [user, setUser] = useContext(UserContext);
   //data est la liste de course
-  const user = useContext(UserContext)
+
   const [data, loading, error] = useDocumentData(doc(db, "Colocs/"+route.params.clcID+ "/Courses", route.params.courseID))
   const renderFruits = () => {
     if(data && data.fruits){
@@ -84,7 +85,7 @@ const CourseScreen = ({ route, navigation }: Props) => {
   const headerHeight = useHeaderHeight();
   return (
     <View style={styles.container}>
-     < Top  name={route.params.username} clcName={route.params.clcName}/>
+     < Top  name={route.params.username} clcName={route.params.clcName} avatar = {user.avatarUrl}/>
     
       
       <View style = {styles.Title}>

@@ -36,7 +36,7 @@ const CoursesScreen = ({route, navigation}: Props) => {
   return (
    
  <View style={styles.Body}>
-   < Top  name={user.nom} clcName={user.nomColoc}/>
+   < Top  name={user.nom} clcName={user.nomColoc} avatar = {user.avatarUrl}/>
   
         <Text style={styles.screenTitle}>Listes de Course</Text>
         <ScrollView showsVerticalScrollIndicator={false}>

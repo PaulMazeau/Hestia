@@ -42,7 +42,7 @@ type Props = NativeStackScreenProps<RootStackParams, 'TacheStack'>;
 
       <View style={styles.container}>
 
-          <Top name={user.nom} clcName={user.nomColoc}/>
+          <Top name={user.nom} clcName={user.nomColoc} avatar = {user.avatarUrl}/>
               <Text style={styles.screenTitle}>Tâche à faire</Text>
 
                 <TaskCalendar userDates = {fetchDates()}/> 

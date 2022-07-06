@@ -55,7 +55,7 @@ const Settings = () => {
 
   return (
     <View>
-      < Top/>
+      < Top />
     <View style={styles.container}>
     
     

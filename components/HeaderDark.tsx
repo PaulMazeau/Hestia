@@ -10,7 +10,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 
 const ProfilImage=require('../Img/avatarHeader.png');
-//props est nom du frero
+//props est nom du frero + nom dla coloc + lurl de son avatar
 
 const Top = (props) => {
     
@@ -22,7 +22,9 @@ const Top = (props) => {
     <SafeAreaView style= {{backgroundColor: '#EDF0FA', paddingBottom:Platform.OS === 'android' ? 25:0}}>
     <View style={styles.Header}>
     <TouchableOpacity onPress={() => navigation.push('Settings')}>
-        <ImageContainer image={ProfilImage} />
+    <View style={styles.ImageContainer}>
+        <Image source={{uri: props.avatar}} style={styles.Image}/>
+    </View>
     </TouchableOpacity>
     <View style={styles.Title}>
         <Text style={styles.BigTitle}>Hi, {props.name}</Text>
@@ -40,11 +42,11 @@ const Top = (props) => {
 export default Top;
 
 
-const ImageContainer = ({image}) => (
-    <View style={styles.ImageContainer}>
-        <Image source={image} style={styles.Image}/>
-    </View>
-);
+// const ImageContainer = ({image}) => (
+//     <View style={styles.ImageContainer}>
+//         <Image source={image} style={styles.Image}/>
+//     </View>
+// );
 
 
 

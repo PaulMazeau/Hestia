@@ -3,24 +3,19 @@ import {View, Text, StyleSheet, Image, TouchableOpacity, ImageSourcePropType} fr
 
 
 interface Props {
-  image1: String;
-  image2: String | null;
-  setAvatar: React.Dispatch<React.SetStateAction<Image>>;
-  avatar1: Image;
-  avatar2: Image;
+  imageUrl1: String;
+  imageUrl2: String | null;
   setAvatarUrl: React.Dispatch<React.SetStateAction<String>>;
 }
 
-const AvatarColum: React.FC<Props> = ({image1, image2, setAvatar, avatar1, avatar2, setAvatarUrl}) => {
+const AvatarColum: React.FC<Props> = ({imageUrl1, imageUrl2, setAvatarUrl}) => {
     return (
         <View style={{flexDirection:'column'}}>
-        <TouchableOpacity onPress={() => {setAvatar(avatar1), setAvatarUrl(image1), console.log(image1)}}>
-          <SmallImage image={image1}></SmallImage>
-          <SmallImage image={avatar1}/>
+        <TouchableOpacity onPress={() => {setAvatarUrl(imageUrl1)}}>
+          <SmallImage source={{uri: imageUrl1}}/>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {if(image2!=null){setAvatar(avatar2), setAvatarUrl(image1), console.log(image2)}}}>
-          <SmallImage image={image2}></SmallImage>
-          <SmallImage image={avatar2}/>
+        <TouchableOpacity onPress={() => {if(imageUrl2!=null){setAvatarUrl(imageUrl2)}}}>
+          <SmallImage source={{uri: imageUrl2}}/>
         </TouchableOpacity>
       </View>
           
@@ -28,9 +23,9 @@ const AvatarColum: React.FC<Props> = ({image1, image2, setAvatar, avatar1, avata
     );
 };
 
-const SmallImage = ({image}) => (
+const SmallImage = ({source}) => (
     <View style={styles.SmallImages}>
-        <Image source={image} style={{height: '100%',width: '100%',borderRadius:15}}/>
+        <Image source={source} style={{height: '100%',width: '100%',borderRadius:15}}/>
     </View>
 );
 
