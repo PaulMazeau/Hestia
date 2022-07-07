@@ -54,8 +54,9 @@ import { UserContext } from '../Context/userContextFile';
         tasks.map(t => {
           return(
             
-         
+            <View style={styles.Card} >
             <TacheCard Tache = {t.data().desc} key = {t.id} id = {t.id} />
+            </View>
           )
           
         })
@@ -67,9 +68,9 @@ import { UserContext } from '../Context/userContextFile';
      return(
        tasks.map(t => {
          return(
-           
+          <View style={styles.Card} >
            <TacheCard Tache = {t.data().desc} key = {t.id} displayButton = {true} clcID={props.clcID} id={t.id}/>
-           
+           </View>
          )
          
        })
@@ -79,11 +80,11 @@ import { UserContext } from '../Context/userContextFile';
   
   return (
    
-    <View style={{flex: 1, marginTop: 5}}>
+    <View style={{flex: 1}}>
     <ScrollView showsVerticalScrollIndicator={false}>
-    <Text style={styles.Categorie}>Ta prochaine tache</Text>
+    <Text style={styles.Categorie1}>Ta prochaine tâche</Text>
     {renderNextUpTasks()}
-    <Text style={styles.Categorie}>Toute tes tâches</Text>
+    <Text style={styles.Categorie2}>Toute tes tâches</Text>
     {renderConcernedTasks()}
 
   </ScrollView>
@@ -93,16 +94,19 @@ import { UserContext } from '../Context/userContextFile';
 };
 
 const styles = StyleSheet.create({
-    Categorie:{
+    Categorie1:{
       fontSize: 19,
       fontWeight: 'bold',
-      marginBottom: 10,
+    },
+
+    Categorie2:{
+      fontSize: 19,
+      fontWeight: 'bold',
+      marginTop: 15,
     },
 
     Button: {
       backgroundColor: 'blue',
-     
-      
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: 10,
@@ -113,7 +117,10 @@ const styles = StyleSheet.create({
       fontSize: 13,
       textAlign: 'center',
       padding: 5
-    }
+    },
+    Card: {
+      marginTop: 12,
+    },
     
 
 })

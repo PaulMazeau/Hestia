@@ -102,7 +102,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     height: 70,
-    marginBottom: 10
   },
   
   top: {

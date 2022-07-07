@@ -35,7 +35,7 @@ const renderContent = () => {
     return(
       props.tasks.docs.map(t => {
         return(
-
+          
           <View style={styles.Card} key = {t.id}>
           <Drawer 
             rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete(t.id)}]}
@@ -201,26 +201,7 @@ const Rappel = [
                 </View>
           
                 <View style={styles.depenseTitle}>
-                  <View style={styles.groupe} >
-                      <View>
-                          <Text style={styles.subTitle}>Notification</Text>
-                            <Dropdown
-                              style={styles.dropdownRappel}
-                              placeholderStyle={styles.placeholderStyle}
-                              selectedTextStyle={styles.selectedTextStyle}
-                              data={Notification}
-                              maxHeight={300}
-                              labelField="off"
-                              valueField="input"
-                              placeholder="Oui"
-                              value={value}
-                              onChange={item => {
-                                  setValue(item.value);
-                              }}
-                          />
-                      </View>
-
-                      <View >
+                 
                           <Text style={styles.subTitle}>Rappel</Text>
                             <View>
                               <TouchableOpacity 
@@ -240,8 +221,6 @@ const Rappel = [
                               </TouchableOpacity>
                         
                             </View>
-                      </View>
-                  </View>
                 </View>
           
                 
@@ -278,7 +257,7 @@ const Rappel = [
        
           <ScrollView showsVerticalScrollIndicator={false}>
       
-        
+          <Text style={styles.Categorie}>Toutes les tâches</Text>
           {
             renderContent()
           }
@@ -313,7 +292,6 @@ const styles = StyleSheet.create({
 
     contentContainer: {
       flex: 1,
-      alignItems: 'center',
     },
 
     Title: {
@@ -371,20 +349,6 @@ const styles = StyleSheet.create({
       fontSize: 16,
     },
 
-    dropdownRappel: {
-      marginTop: 13,
-      marginLeft: 13,
-      marginRight: 13,
-      height: 44,
-      backgroundColor: 'white',
-      borderRadius: 14,
-      padding: 12,
-      elevation: 2,
-      borderWidth: 1,
-      borderColor: '#DDDDDD',
-      width: 160
-    },
-
     participant: {
       flexDirection: 'row',
       justifyContent: 'space-between',
@@ -430,7 +394,6 @@ const styles = StyleSheet.create({
       borderColor: '#DDDDDD',
       padding: 10,
       borderRadius: 14,
-      width: 160
     },
 
     textdate: {
@@ -462,7 +425,12 @@ const styles = StyleSheet.create({
     arrow: {
       marginLeft: '40%',
       backgroundColor: 'green'
-    }
+    },
+
+    Categorie:{
+      fontSize: 19,
+      fontWeight: 'bold',
+    },
 })
 
 export default GlobalTask;
