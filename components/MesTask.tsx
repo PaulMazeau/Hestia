@@ -1,18 +1,17 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { useCallback, useMemo, useRef } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Button, SafeAreaView, FlatList } from 'react-native';
+import React, { useContext } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import TacheCard from '../components/TacheCard';
 import { ScrollView } from 'react-native-gesture-handler';
-import Top from '../components/HeaderDark';
-import AddTaskBS from './AddTaskBS';
 import { auth, db } from '../firebase-config';
-import { render } from 'react-dom';
-import { Colors, Drawer } from 'react-native-ui-lib';
 import { updateDoc, doc, getDoc } from 'firebase/firestore';
+import { UserContext } from '../Context/userContextFile';
+
+
 
 //props est toute les tasks + clcID
  const MesTask = (props) => {
   //check quelles taches corespont a luser
+  const [user, setUser] = useContext(UserContext);
   const checkTasks = () => {
     var isIn = []
     var toDo = []
@@ -30,6 +29,9 @@ import { updateDoc, doc, getDoc } from 'firebase/firestore';
     }
     return {isIn, toDo};
   }
+
+  //Permet d'afficher ou non le bouton bleu sur ta derniere tache a faire
+
 
   //concerned est l'array des gens qui sont concerné par la tache, l'odre de cet array détermine lordre de faisage de la tache
   //qd 1 mec fait une tache, on le place dc a la fin de cet array
@@ -53,7 +55,7 @@ import { updateDoc, doc, getDoc } from 'firebase/firestore';
           return(
             
          
-            <TacheCard Tache = {t.data().desc} key = {t.id}/>
+            <TacheCard Tache = {t.data().desc} key = {t.id} id = {t.id} />
           )
           
         })
@@ -66,11 +68,8 @@ import { updateDoc, doc, getDoc } from 'firebase/firestore';
        tasks.map(t => {
          return(
            
-           <Drawer 
-             rightItems={[{text: 'Done', background: Colors.green30, onPress: () => handleDone(t.id)}]}
-             key = {t.id}>
-           <TacheCard Tache = {t.data().desc} key = {t.id}/>
-           </Drawer>
+           <TacheCard Tache = {t.data().desc} key = {t.id} displayButton = {true} clcID={props.clcID} id={t.id}/>
+           
          )
          
        })
@@ -80,15 +79,12 @@ import { updateDoc, doc, getDoc } from 'firebase/firestore';
   
   return (
    
-    <View style={{flex: 1}}>
-          
+    <View style={{flex: 1, marginTop: 5}}>
     <ScrollView showsVerticalScrollIndicator={false}>
-    <Text>Tu est le prochain à faire ces taches</Text>
+    <Text style={styles.Categorie}>Ta prochaine tache</Text>
     {renderNextUpTasks()}
-    <Text>Tu es concerné par ces Taches</Text>
+    <Text style={styles.Categorie}>Toute tes tâches</Text>
     {renderConcernedTasks()}
-
-    
 
   </ScrollView>
 
@@ -97,17 +93,27 @@ import { updateDoc, doc, getDoc } from 'firebase/firestore';
 };
 
 const styles = StyleSheet.create({
-
-    CategoriePeriode:{
+    Categorie:{
       fontSize: 19,
       fontWeight: 'bold',
-      marginTop: 24,
+      marginBottom: 10,
     },
 
-    CategorieRecurrente:{
-      fontSize: 19,
-      fontWeight: 'bold',
+    Button: {
+      backgroundColor: 'blue',
+     
+      
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 10,
     },
+  
+    confirmer: {
+      color: 'white',
+      fontSize: 13,
+      textAlign: 'center',
+      padding: 5
+    }
     
 
 })

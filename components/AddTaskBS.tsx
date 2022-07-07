@@ -156,7 +156,7 @@ return (
 
           <BottomSheetModal
         ref={bottomSheetRef}
-        snapPoints={['90%']}
+        snapPoints={['80%']}
         index= {0}
         backdropComponent={renderBackdrop}
       >
@@ -218,27 +218,7 @@ return (
       </View>
 
       <View style={styles.depenseTitle}>
-        <View style={styles.groupe}>
-            <View>
-                <Text style={styles.subTitle}>Notification</Text>
-                    <View>
-                    <Dropdown
-                            style={styles.dropdownNotif}
-                            placeholderStyle={styles.placeholderStyle}
-                            selectedTextStyle={styles.selectedTextStyle}
-                            data={Notification}
-                            maxHeight={300}
-                            labelField="off"
-                            valueField="input"
-                            placeholder="Oui"
-                            value={value}
-                            onChange={item => {
-                                setValue(item.value);
-                            }}
-                        />
-                    </View>
-            </View>
-            <View >
+
                 <Text style={styles.subTitle}>Rappel</Text>
                   
                       <TextInput 
@@ -249,18 +229,16 @@ return (
                       onPressIn={showRappelPicker} 
                       />
                      
-                      <DateTimePickerModal
+                     <DateTimePickerModal
                       isVisible={isRappelPickerVisible}
                       onConfirm={handleConfirmRappel}
                       onCancel={hideRappelPicker}
                       cancelTextIOS='Annuler'
                       confirmTextIOS='Confirmer'
                       locale="fr_FR"
-                      mode="time"
+                      mode="datetime"
                     />
 
-            </View>
-        </View>
       </View>
 
      
@@ -409,8 +387,6 @@ const styles = StyleSheet.create({
 
       contentContainer: {
         flex: 1,
-        alignItems: 'center',
-        zIndex: 2,
       },
 
       OpenBS: {
@@ -439,7 +415,6 @@ const styles = StyleSheet.create({
         borderColor: '#DDDDDD',
         padding: 10,
         borderRadius: 14,
-        width: 160,
         fontSize: 16
       },
   
