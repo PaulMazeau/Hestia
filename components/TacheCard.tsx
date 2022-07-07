@@ -42,7 +42,7 @@ const TacheCard = (props) => {
 
               <View style={styles.dateContainer}>
                 <Horloge width={17} height={17}/>
-                <Text style={styles.date}>{props.day}/{props.month}/{props.year}</Text>
+                <Text style={styles.date}>{props.date}</Text>
               </View>
             </View>
 
