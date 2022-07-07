@@ -10,7 +10,7 @@ import Exit from '../Icons/Exit.svg';
 
 import TopBackNavigation from '../components/TopBackNavigation';
 import { BorderRadiuses } from 'react-native-ui-lib';
-import { getDoc, doc  } from 'firebase/firestore';
+import { getDoc, doc, query, collection, where, getDocs  } from 'firebase/firestore';
 import { auth, db } from '../firebase-config';
 import { UserContext } from '../Context/userContextFile';
 
@@ -31,6 +31,17 @@ const data : Image[] = [
 
 const ColocSettings = ({route, navigation}: Props) => {
     const [user, SetUser] = useContext(UserContext);
+    const [avatars, setAvatars] = useState([]); //list des avatars url de la coloc
+    useEffect(()=> {
+        const getData = async () => {
+            const data = await getDoc(doc(db, "Colocs", user.colocID));
+            const membersID = data.data().membersID;
+            const q = query(collection(db, "Users"), where('uuid', 'in', membersID))
+            const querySnapshot = await getDocs(q);
+            setAvatars(querySnapshot.docs.map((doc) => ({...doc.data().avatarUrl})));
+        }
+        getData();
+    }, [])
   return (
     <View style={styles.Body}>
         <Top clcName={user.nomColoc} avatar={user.avatarUrl} name={user.nom}/>
@@ -41,7 +52,7 @@ const ColocSettings = ({route, navigation}: Props) => {
         </View>
         <View style={styles.containerColoc}>
             <FlatList 
-                data={data} 
+                data={avatars} 
                 renderItem={renderItem} 
                 numColumns={3}   
                 columnWrapperStyle={{justifyContent:'space-evenly', paddingTop: 20, paddingBottom: 20,}}
@@ -71,16 +82,11 @@ const ColocSettings = ({route, navigation}: Props) => {
 
 const renderItem : ListRenderItem<any> = ({item}) => {
     return (
-        <ImageContainer image={item}></ImageContainer>
+        <View style={styles.ImageContainer}>
+        <Image source={{uri: item}} style={styles.Image}/>
+    </View>
         );
 };
-
-//importer l'image de maison
-const ImageContainer = ({image}) => (
-    <View style={styles.ImageContainer}>
-        <Image source={image} style={styles.Image}/>
-    </View>
-  );
 
 const styles = StyleSheet.create({
     Body:{
