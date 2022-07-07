@@ -47,8 +47,7 @@ const AllDepense = ({route, navigation}: Props) => {
       if(!payeurIsIn){
         await updateDoc(doc(db, "Users", payeur), {solde: increment(-amount)});
     }
-    const refreshedData = await getDoc(doc(db, "Users", user.uuid))
-    console.log(refreshedData.data().solde)
+    const refreshedData = await getDoc(doc(db, "Users", user.uuid)) // pr refresh le contexte av le nouveau solde
     setUser({...user, solde: refreshedData.data().solde}) //update le contexte av le nouvo solde
   }
   const [allTransacs] = useCollection(query(collection(db, "Colocs/"+user.colocID+ "/Transactions"), orderBy('timestamp', 'desc')))

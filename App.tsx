@@ -27,6 +27,7 @@ import {UserContext} from './Context/userContextFile'
 import { getAdditionalUserInfo, onAuthStateChanged } from 'firebase/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import  AvatarCreationScreen from './screens/AvatarCreation'
+import AvatarModificationScreen from './screens/AvatarModification';
 
 //initialisation des root pour la NavBar Bottom// DEFINIT LES PARAMETRES QUE LON PASSE DANS LES SCREENS
 export type RootStackParams = {
@@ -46,6 +47,7 @@ export type RootStackParams = {
   Settings: undefined;
   ColocSettings: undefined;
   ListDepense: undefined;
+  Avatarm: undefined;
 }
 
 export type AuthStackParams = {
@@ -90,6 +92,7 @@ export type CoursesStackParams = {
   };
   Settings : undefined;
   ColocSettings : undefined;
+  Avatarm: undefined;
 };
 
 const CoursesStack = createNativeStackNavigator<CoursesStackParams>();
@@ -102,6 +105,7 @@ const CourseScreenStack = (t) => {
     <CoursesStack.Screen name="Course" component={CourseScreen} />
     <ExploreStack.Screen name="Settings" component={SettingsScreen}/>
     <ExploreStack.Screen name="ColocSettings" component={ColocSettingsScreen}/>
+    <CoursesStack.Screen name= "Avatarm" component={AvatarModificationScreen} />
   </CoursesStack.Navigator>
   );
 };
@@ -111,6 +115,7 @@ export type AccueilStackParams = {
   Accueil: undefined;
   Settings: undefined;
   ColocSettings : undefined;
+  Avatarm: undefined;
 };
 
 
@@ -124,6 +129,7 @@ const AccueilScreenStack = () => {
           <ExploreStack.Screen name="Accueil" component={AccueilScreen}/>
           <ExploreStack.Screen name="Settings" component={SettingsScreen}/>
           <ExploreStack.Screen name="ColocSettings" component={ColocSettingsScreen}/>
+          <ExploreStack.Screen name= "Avatarm" component={AvatarModificationScreen} />
         </ExploreStack.Navigator>
       </View>
   );
@@ -135,6 +141,7 @@ export type TacheStackParams = {
   Tache: {username: string; clcID: string; clcName: string;};
   Settings: undefined;
   ColocSettings : undefined;
+  Avatarm: undefined;
 };
 
 
@@ -148,6 +155,7 @@ const TacheScreenStack = (t) => {
           <TacheStack.Screen name="Tache" component={TacheScreen} initialParams={t.route.params}/>
           <TacheStack.Screen name="Settings" component={SettingsScreen}/>
           <ExploreStack.Screen name="ColocSettings" component={ColocSettingsScreen}/>
+          <TacheStack.Screen name= "Avatarm" component={AvatarModificationScreen} />
         </TacheStack.Navigator>
       </View>
   );
@@ -159,6 +167,7 @@ export type DepenseStackParams = {
   Settings: undefined;
   ColocSettings : undefined;
   ListDepense: undefined;
+  Avatarm: undefined;
 };
 
 
@@ -174,6 +183,7 @@ const DepenseScreenStack = (t) => {
           <DepenseStack.Screen name="Settings" component={SettingsScreen}/>
           <ExploreStack.Screen name="ColocSettings" component={ColocSettingsScreen}/>
           <DepenseStack.Screen name="ListDepense" component={AllDepense} initialParams={t.route.params}/>
+          <DepenseStack.Screen name= "Avatarm" component={AvatarModificationScreen} />
         </DepenseStack.Navigator>
       </View>
   );

@@ -13,6 +13,7 @@ import { BorderRadiuses } from 'react-native-ui-lib';
 import { getDoc, doc, query, collection, where, getDocs  } from 'firebase/firestore';
 import { auth, db } from '../firebase-config';
 import { UserContext } from '../Context/userContextFile';
+import { render } from 'react-dom';
 
 
 type Props = NativeStackScreenProps<RootStackParams, 'ColocSettings'>;
@@ -38,8 +39,9 @@ const ColocSettings = ({route, navigation}: Props) => {
             const membersID = data.data().membersID;
             const q = query(collection(db, "Users"), where('uuid', 'in', membersID))
             const querySnapshot = await getDocs(q);
-            setAvatars(querySnapshot.docs.map((doc) => ({...doc.data().avatarUrl})));
-        }
+            setAvatars(querySnapshot.docs.map((doc)=> doc.data().avatarUrl));
+            
+                }
         getData();
     }, [])
   return (
@@ -57,6 +59,8 @@ const ColocSettings = ({route, navigation}: Props) => {
                 numColumns={3}   
                 columnWrapperStyle={{justifyContent:'space-evenly', paddingTop: 20, paddingBottom: 20,}}
             ></FlatList>
+           
+
         </View>
         <View style={styles.addButton}>
             <Addbutton></Addbutton>
