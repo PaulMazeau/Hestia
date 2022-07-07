@@ -43,7 +43,8 @@ import { updateDoc, doc, getDoc } from 'firebase/firestore';
     const doneDate = data.data().date.toDate();
     const recur = data.data().recur
     doneDate.setDate(doneDate.getDate() + Number(recur))
-    await updateDoc(doc(db, "Colocs/" + props.clcID + "/Taches/" + id), {concerned: newConcerned, date: doneDate})
+    //next one utile pr dans Acceuil qd on ve get la prochaine tache du frérot
+    await updateDoc(doc(db, "Colocs/" + props.clcID + "/Taches/" + id), {concerned: newConcerned, date: doneDate, nextOne: newConcerned[0]})
   }
   //rendu des taches corespondant a luser partie a opti mais ca me clc
   const renderConcernedTasks = () => {

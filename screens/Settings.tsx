@@ -38,7 +38,7 @@ const Settings = () => {
     }, [])
   );
 
-
+  const [user, setUser] = useContext(UserContext);
 
 
 
@@ -55,7 +55,7 @@ const Settings = () => {
 
   return (
     <View>
-      < Top />
+      < Top avatar={user.avatarUrl} name = {user.nom} clcName ={user.nomColoc}/>
     <View style={styles.container}>
     
     

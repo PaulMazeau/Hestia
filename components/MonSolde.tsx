@@ -19,7 +19,9 @@ const MonSolde  = (props) => {
       <TouchableOpacity onPress={() => navigation.navigate('DepenseStack')}>
         <View style={styles.container}>
                 
-            <ImageContainer image={ProfilImage} />  
+        <View style={styles.ImageContainer}>
+        <Image source={{uri: props.avatar}} style={styles.Image}/>
+    </View>
 
             <View style={styles.top}>
                 <Text style={styles.titre}>{props.solde} EUR</Text>
@@ -35,11 +37,11 @@ const MonSolde  = (props) => {
   );
 };
 
-const ImageContainer = ({image}) => (
-    <View style={styles.ImageContainer}>
-        <Image source={image} style={styles.Image}/>
-    </View>
-);
+// const ImageContainer = ({image}) => (
+//     <View style={styles.ImageContainer}>
+//         <Image source={image} style={styles.Image}/>
+//     </View>
+// );
 
 const styles = StyleSheet.create({
   global: {

@@ -89,9 +89,10 @@ const [isOpen, setIsOpen] = useState(false);
 
 const handleAddTask = async () => {
   bottomSheetRef.current?.close();
-  // TODO : updateConcernedInfos();
-  await addDoc(collection(db, 'Colocs/'+props.clcID+'/Taches'), {desc: title, colocID: props.clcID, date: date, rappel: rappel, concerned: areConcerned, recur: recur}); 
+  // TODO : updateNextOneInfo();
+  await addDoc(collection(db, 'Colocs/'+props.clcID+'/Taches'), {desc: title, colocID: props.clcID, date: date, rappel: rappel, concerned: areConcerned, recur: recur, nextOne: areConcerned[0]}); 
 };
+
 
 const buttonPressed = () => {
   bottomSheetRef.current?.present();

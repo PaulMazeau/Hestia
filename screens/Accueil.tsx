@@ -1,11 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
 import Top from '../components/HeaderClear';
 import TacheCard from '../components/TacheCard';
 import MonSolde from '../components/MonSolde';
-import { getDoc, doc } from 'firebase/firestore';
+import { getDoc, doc, orderBy, limit, collection, query, getDocs, where } from 'firebase/firestore';
 import { auth, db } from '../firebase-config';
 import Selection from '../components/Selection';
 import MiniJeu from '../components/MiniJeu';
@@ -13,6 +13,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
 import {UserContext } from '../Context/userContextFile';
 import { TouchableOpacity } from 'react-native-ui-lib';
+import { useCollection } from 'react-firebase-hooks/firestore';
 
 //importer l'image de maison
 const ProfilImage=require('../Img/Home.png');
@@ -21,9 +22,36 @@ const ProfilImage=require('../Img/Home.png');
 type Props = NativeStackScreenProps<RootStackParams, 'AccueilStack'>;
 
 const AccueilScreen = ({ route, navigation }: Props) => {
-
-    const [user, setUser] = useContext(UserContext);
     
+    const [user, setUser] = useContext(UserContext);
+    const [tache, setTache] = useState(null);
+    //récupère la tache a venir de luser
+ 
+    const q = query(collection(db, "Colocs/" + user.colocID + "/Taches"), where('nextOne', '==', user.uuid), orderBy('date', 'desc'), limit(1));
+    const [nextTask, loading] = useCollection(q);
+    //rendu de la tachecard a venir de luser
+    const renderTache = () => {
+        if(loading){
+            return(
+                <Text>LOADING</Text>
+            )
+        }
+        if(nextTask){
+            if(nextTask.docs.length>0){
+                return(
+                    nextTask.docs.map((t)=>{
+                        return(
+                            <TacheCard Tache={t.data().desc} key ={t.id}/>
+                        )
+                    })
+                )
+            }
+
+        }
+        return(
+            <TacheCard Tache="Rien à venir...."/>
+        )
+    }
   return (
     <View style={styles.body}>
         
@@ -44,13 +72,13 @@ const AccueilScreen = ({ route, navigation }: Props) => {
             </View>
 
             <View style={styles.CategorieBottom}>
-                <MonSolde solde={user.solde}/>
+                <MonSolde solde={user.solde} avatar={user.avatarUrl}/>
                 <MiniJeu/>
             </View>
 
             <View style={styles.Categorie}>
                 <Text style={styles.TitreCategorie}>Ta prochaine Tâche</Text>
-                <TacheCard Tache={user.tache}/>
+                {renderTache()}
             </View>
     </ScrollView>           
         </View>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, ImageComponent, Image, ListRenderItem} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { FlatList, ScrollView, Switch } from 'react-native-gesture-handler';
@@ -12,6 +12,7 @@ import TopBackNavigation from '../components/TopBackNavigation';
 import { BorderRadiuses } from 'react-native-ui-lib';
 import { getDoc, doc  } from 'firebase/firestore';
 import { auth, db } from '../firebase-config';
+import { UserContext } from '../Context/userContextFile';
 
 
 type Props = NativeStackScreenProps<RootStackParams, 'ColocSettings'>;
@@ -29,16 +30,10 @@ const data : Image[] = [
 
 
 const ColocSettings = ({route, navigation}: Props) => {
-    const [username, setUsername] = useState("");
-  useEffect( () => {
-    const getData = async () => {
-      const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
-      setUsername(data.data().nom)
-    }
-  }, [])
+    const [user, SetUser] = useContext(UserContext);
   return (
     <View style={styles.Body}>
-        <Top/>
+        <Top clcName={user.nomColoc} avatar={user.avatarUrl} name={user.nom}/>
         <View style={styles.container}>
         <View style={styles.Title}>
           <TopBackNavigation/>
