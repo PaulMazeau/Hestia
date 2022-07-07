@@ -18,25 +18,25 @@ type Props = NativeStackScreenProps<RootStackParams, 'Settings'>;
 
 
 
-const Settings = () => {
+const Settings = ({route, navigation}: Props) => {
  
-  const nav = useNavigation();
+  
 
-  useFocusEffect(
-    React.useCallback(() => {
+  // useFocusEffect(
+  //   React.useCallback(() => {
 
       
 
-      return () => {
+  //     return () => {
 
-       if(nav.canGoBack()){
-        nav.goBack();
-       }
-        // Useful for cleanup functions
+  //      if(nav.canGoBack()){
+  //       nav.goBack();
+  //      }
+  //       // Useful for cleanup functions
 
-      };
-    }, [])
-  );
+  //     };
+  //   }, [])
+  // );
 
   const [user, setUser] = useContext(UserContext);
 
@@ -46,7 +46,7 @@ const Settings = () => {
     signOut(auth);
 }
 
-  const navigation = useNavigation();
+  
 
   const [title, onChangeTitre] = React.useState(null);
   const [email, changeemail] = React.useState(null);
@@ -99,7 +99,7 @@ const Settings = () => {
 
       <View style={styles.ChampSettings}>
         <Text style={styles.subTitle}>Avatar</Text>
-        <TouchableOpacity onPress={() => console.log("blabla")} style={{marginTop: 13}}>
+        <TouchableOpacity onPress={()=>navigation.navigate('Avatarm')} style={{marginTop: 13}}>
           <View style={styles.avatar}>
             <Text style={styles.name}>Avatar</Text>
             <ImageContainer image={ProfilImage} />
