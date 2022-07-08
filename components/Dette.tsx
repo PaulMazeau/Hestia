@@ -10,11 +10,13 @@ const Dette  = (props) => {
     
         <View style={styles.container}>
                 
-            <ImageContainer image={ProfilImage} />  
+                <View style={styles.ImageContainer}>
+        <Image source={{uri: props.deveur.avatarUrl}} style={styles.Image}/>
+    </View>
 
           <View style={styles.Text}>
               <View style={styles.Left}>
-                  <Text style={styles.titre}>{props.deveur} doit</Text>
+                  <Text style={styles.titre}>{props.deveur.nom} doit</Text>
 
                   <View style={styles.dateContainer}>
                       <Text style={styles.date}>à {props.receveur}</Text>
@@ -22,7 +24,7 @@ const Dette  = (props) => {
               </View>
 
               <View style={styles.Right}>
-                  <Text style={styles.titre}>{props.amount}</Text>
+                  <Text style={styles.titre}>{props.amount} €</Text>
 
                   <View style={styles.dateContainer}>
                       <Text style={styles.date}>05/04/2022</Text>
@@ -34,15 +36,11 @@ const Dette  = (props) => {
     
   )};
   return(
-    <View><Text>Ieeeee</Text></View>
+    <View><Text></Text></View>
   )
 };
 
-const ImageContainer = ({image}) => (
-    <View style={styles.ImageContainer}>
-        <Image source={image} style={styles.Image}/>
-    </View>
-);
+
 
 const styles = StyleSheet.create({
   container: {
