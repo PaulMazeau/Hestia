@@ -11,7 +11,7 @@ const Selection  = () => {
 
   return (
     <View style={styles.global}>
-      <TouchableOpacity onPress={() => console.log('prout')}>
+    
         <View style={styles.container}>
                 
             <View style={styles.Top}>
@@ -37,7 +37,7 @@ const Selection  = () => {
             </View>
 
         </View>
-        </TouchableOpacity>
+
     </View>
     
   );

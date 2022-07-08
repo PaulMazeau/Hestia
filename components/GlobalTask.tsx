@@ -1,20 +1,17 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { View, Text, StyleSheet, Button, TextInput, TouchableOpacity, Image, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Dimensions } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import TacheCard from '../components/TacheCard';
 import AddTaskBS from './AddTaskBS';
-import {useCollection} from 'react-firebase-hooks/firestore';
-import { collection, deleteDoc, doc } from 'firebase/firestore'
+import { deleteDoc, doc } from 'firebase/firestore'
 import { db } from '../firebase-config';
-import SkeletonPlaceholder from "react-native-skeleton-placeholder";
-import { Colors, Drawer, FeatureHighlight } from 'react-native-ui-lib';
+import { Colors, Drawer } from 'react-native-ui-lib';
 import BottomSheet, { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import { Dropdown } from 'react-native-element-dropdown';
 import ParticipantCard from './ParticipantCard';
 import * as Haptics from 'expo-haptics';
 import Edit from '../Icons/Edit.svg'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import Arrow from '../Icons/Arrow.svg';
 
 const windowHeight = Dimensions.get('window').height; 
 
@@ -51,10 +48,9 @@ const renderContent = () => {
     )
   }}
   return (
-   <View style={{alignItems: 'center', height: windowHeight / 1.9, justifyContent:'space-between', backgroundColor: 'red'}}>
+   <View style={styles.emptypage}>
       <ImageContainer image={Empty} /> 
-      <Text style={styles.emptytext}>Oops, il n’y pas encore de {'\n'} liste de course</Text>
-      <Arrow style={styles.arrow}/>
+      <Text style={styles.emptytext}>Oops, il n’y pas encore de {'\n'} tâches à faire</Text>
    </View>
 
   
@@ -403,18 +399,17 @@ const styles = StyleSheet.create({
 
     emptytext: {
       textAlign: 'center',
-      color: '#172ACE',
+      color: 'black',
       fontWeight: '700',
       fontSize: 16,
-      paddingBottom: windowHeight / 10,
     },
 
     ImageContainer: {
-        height: '40%',
-        width: '60%',
+        height: 175,
+        width: 220,
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 20
+        marginTop: 20,
     },
     
     Image: {
@@ -422,15 +417,14 @@ const styles = StyleSheet.create({
         width: '100%',
         },
 
-    arrow: {
-      marginLeft: '40%',
-      backgroundColor: 'green'
-    },
-
     Categorie:{
       fontSize: 19,
       fontWeight: 'bold',
     },
+
+    emptypage: {
+      alignItems: 'center',
+    }
 })
 
 export default GlobalTask;

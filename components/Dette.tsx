@@ -34,7 +34,7 @@ const Dette  = (props) => {
     
   )};
   return(
-    <View><Text>Pas de transacs ! </Text></View>
+    <View><Text>Ieeeee</Text></View>
   )
 };
 

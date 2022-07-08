@@ -1,20 +1,15 @@
-import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import Top from '../components/HeaderDark';
-import Depense from '../components/DepenseDiagram';
-import { ScrollView } from 'react-native-gesture-handler';
+import React, {  } from 'react';
+import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import Transaction from '../components/Transaction';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import Equilibrage from './Equilibrage';
 import AddDepenseBS from './AddDepenseBS';
-import { collection, getDocs, limit, orderBy, query } from 'firebase/firestore';
+import { collection, limit, orderBy, query } from 'firebase/firestore';
 import {db} from '../firebase-config';
-import { BottomSheetModal } from '@gorhom/bottom-sheet';
-import { useCollection, useCollectionData } from 'react-firebase-hooks/firestore';
-import { isEmpty } from '@firebase/util';
+import { useCollection } from 'react-firebase-hooks/firestore';
 
 type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
 
@@ -26,7 +21,7 @@ const AllDepense = (props) => {
 //on cherche la dernière transac en placant un ecouteur sur la db
 const q = query(collection(db, "Colocs/"+props.clcID+ "/Transactions"), orderBy('timestamp', 'desc'), limit(1));
 const [values, loading, error] = useCollection(q);
-
+const EmptyDepense=require('../Img/EmptyDepense.png');
 //on affiche la dernière transac
 const getLastestTransac =  () => {
   if(loading){
@@ -47,11 +42,18 @@ const getLastestTransac =  () => {
     )
   }}
   return (
-    <Text>PAS DE DEPENSE...</Text>
+    <View style={styles.emptypage}>
+      <ImageContainer image={EmptyDepense} /> 
+      <Text style={styles.emptytext}>Oops, il n’y pas encore de {'\n'} transactions</Text>
+   </View>
   )
 }
 
-  
+const ImageContainer = ({image}) => (
+  <View style={styles.ImageContainer}>
+      <Image source={image} style={styles.Image}/>
+  </View>
+);
 
   const navigation =
   useNavigation<StackNavigationProp<RootStackParams>>();
@@ -106,6 +108,32 @@ const styles = StyleSheet.create({
   fontSize: 14,
   color: '#8F8F8F',
   },
+
+  ImageContainer: {
+    height: 175,
+    width: 220,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+},
+
+Image: {
+    height: '100%',
+    width: '100%',
+    },
+
+emptytext: {
+    textAlign: 'center',
+    color: 'black',
+    fontWeight: '700',
+    fontSize: 16,
+    marginTop: 10
+},
+
+    emptypage: {
+      alignItems: 'center',
+      marginTop: 20
+    }
 })
 
 export default AllDepense;

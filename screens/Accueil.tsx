@@ -1,23 +1,20 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
 import Top from '../components/HeaderClear';
 import TacheCard from '../components/TacheCard';
 import MonSolde from '../components/MonSolde';
-import { getDoc, doc, orderBy, limit, collection, query, getDocs, where } from 'firebase/firestore';
-import { auth, db } from '../firebase-config';
+import { orderBy, limit, collection, query, where } from 'firebase/firestore';
+import { db } from '../firebase-config';
 import Selection from '../components/Selection';
 import MiniJeu from '../components/MiniJeu';
-import { useFocusEffect } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
 import {UserContext } from '../Context/userContextFile';
-import { TouchableOpacity } from 'react-native-ui-lib';
 import { useCollection } from 'react-firebase-hooks/firestore';
 
 //importer l'image de maison
 const ProfilImage=require('../Img/Home.png');
-
 
 type Props = NativeStackScreenProps<RootStackParams, 'AccueilStack'>;
 
@@ -139,7 +136,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         marginLeft:'auto',
         marginRight:'auto',
-        marginTop: -10
+        marginTop: -25
     },
 
     Image: {

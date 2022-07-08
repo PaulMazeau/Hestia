@@ -1,19 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, ImageComponent, Image, ListRenderItem} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Image, ListRenderItem} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import { FlatList, ScrollView, Switch } from 'react-native-gesture-handler';
+import { FlatList, Switch } from 'react-native-gesture-handler';
 import { RootStackParams } from '../App';
 import Top from '../components/HeaderSettings';
-import Fleche from '../Icons/fleche.svg';
-import Addbutton from '../Icons/AddButton.svg';
+import AddColoc from '../Icons/AddColoc.svg';
 import Exit from '../Icons/Exit.svg';
-
 import TopBackNavigation from '../components/TopBackNavigation';
-import { BorderRadiuses } from 'react-native-ui-lib';
 import { getDoc, doc, query, collection, where, getDocs  } from 'firebase/firestore';
-import { auth, db } from '../firebase-config';
+import { db } from '../firebase-config';
 import { UserContext } from '../Context/userContextFile';
-import { render } from 'react-dom';
 
 
 type Props = NativeStackScreenProps<RootStackParams, 'ColocSettings'>;
@@ -33,6 +29,7 @@ const data : Image[] = [
 const ColocSettings = ({route, navigation}: Props) => {
     const [user, SetUser] = useContext(UserContext);
     const [avatars, setAvatars] = useState([]); //list des avatars url de la coloc
+
     useEffect(()=> {
         const getData = async () => {
             const data = await getDoc(doc(db, "Colocs", user.colocID));
@@ -57,14 +54,15 @@ const ColocSettings = ({route, navigation}: Props) => {
                 data={avatars} 
                 renderItem={renderItem} 
                 numColumns={3}   
-                columnWrapperStyle={{justifyContent:'space-evenly', paddingTop: 20, paddingBottom: 20,}}
+                columnWrapperStyle={{justifyContent:'space-between'}}
+                scrollEnabled= {false}
             ></FlatList>
            
 
         </View>
-        <View style={styles.addButton}>
-            <Addbutton></Addbutton>
-        </View>
+        <TouchableOpacity style={styles.addButton}>
+            <AddColoc/>
+        </TouchableOpacity>
 
         <TouchableOpacity onPress={() => console.log("blabla")}>
             <View style={styles.Setting}>
@@ -86,9 +84,12 @@ const ColocSettings = ({route, navigation}: Props) => {
 
 const renderItem : ListRenderItem<any> = ({item}) => {
     return (
-        <View style={styles.ImageContainer}>
-        <Image source={{uri: item}} style={styles.Image}/>
-    </View>
+    <View style={styles.colocataire} key={item}>
+        <View style={styles.ImageContainer} key={item}>
+        <Image source={{uri: item}} style={styles.Image} key={item}/>
+        </View>
+        <Text style={styles.nom}> Marc </Text>
+     </View>
         );
 };
 
@@ -97,37 +98,41 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: '#EDF0FA',
     },
+
     addButton:{
-        borderRadius:100,
         flexDirection:'row', 
         justifyContent:"center",
-        top:-30,
-        
+        top:-40,
     },
+
     container: {
         paddingBottom: 16,
-        
         paddingLeft: 16,
         paddingRight: 16,
         backgroundColor: '#EDF0FA',
         height: '100%',
-        flexDirection : 'column',
-        
     },
+
     containerColoc: {
         height: 'auto',
         backgroundColor: 'blue',
-        borderRadius: 20,
-        paddingBottom: 20
+        borderRadius: 13,
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingTop: 10,
+        paddingBottom: 35,
     },
+
     screenTitle: {
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 15,
     },
+
     name:{
         fontWeight: '700'
     },
+
     Setting: {
         backgroundColor: "white",
         padding: 15,
@@ -138,6 +143,7 @@ const styles = StyleSheet.create({
         height: 50,
         marginBottom: 20,
     },
+
     Quitter:{
         backgroundColor: "#CE1717",
         padding: 15,
@@ -148,26 +154,37 @@ const styles = StyleSheet.create({
         height: 50,
         marginBottom: 20,   
     },
+
     ImageContainer: {
-        height: 60,
-        width: 60,
-        borderRadius:100,
+        height: 95,
+        width: 95,
+        borderRadius: 13,
         overflow: 'hidden',
         justifyContent:'center',
         alignItems:'flex-end',
     },
+
     Image: {
         height: '100%',
-        width: '100%',
-        
-        
-        
+        width: '100%',   
     },
+
     Title: {
         flexDirection : 'row', 
-        marginTop : 10,
-        marginBottom : 10,
     },
+
+    nom: {
+        color: 'white',
+        fontSize: 13,
+        alignItems: 'center',
+        marginTop: 5,
+        fontWeight: '700'
+    },
+
+    colocataire: {
+        alignItems: 'center',
+        margin: 6
+    }
 })
 
 export default ColocSettings;

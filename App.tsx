@@ -32,7 +32,7 @@ import AvatarModificationScreen from './screens/AvatarModification';
 //initialisation des root pour la NavBar Bottom// DEFINIT LES PARAMETRES QUE LON PASSE DANS LES SCREENS
 export type RootStackParams = {
   AccueilStack: undefined
-  CoursesStack: {username: string; clcID: string; clcName: string;};
+  CoursesStack: {username: string; clcID: string; clcName: string; };
   AuthStack : NavigatorScreenParams<AuthStackParams>;
   TacheStack: {username: string; clcID: string; clcName: string;};
   Course: {
@@ -82,7 +82,7 @@ const RootStack = createBottomTabNavigator<RootStackParams>();
 
 //initialisation des root pour la sous navigation dans la page Course
 export type CoursesStackParams = {
-  Courses: {username: string, clcID: string;clcName: string;};
+  Courses: {username: string, clcID: string; clcName: string; courseID: string};
   Course: {
     name: string;
     courseID: string;
