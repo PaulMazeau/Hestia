@@ -17,13 +17,14 @@ const RestaurantCard: React.FC<Props> = ({name, onPress, courseID, clcID}) => {
   }
   return (
     <View style={styles.body}>
-    <TouchableOpacity onPress={() => onPress(name)}>
+    
     <Drawer
     rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete()}]}
     leftItem={{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete()}}
     style={styles.drawer}
     disableHaptic={false}
     >  
+    <TouchableOpacity onPress={() => onPress(name)}>
       <View style={styles.container}>
         <Text style={styles.name}>{name}</Text>
         <View style={styles.participants}>
@@ -31,9 +32,8 @@ const RestaurantCard: React.FC<Props> = ({name, onPress, courseID, clcID}) => {
         <Image style={styles.avatar2} source={require('../Img/test2.png')}/>
         </View>
       </View>
+      </TouchableOpacity>
        </Drawer>
-    </TouchableOpacity>
-   
     </View>
   );
 };
@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
   },
 
   body: {
-    marginBottom: 15,
     elevation: 20,
     shadowColor: 'black',
     shadowOffset: {width: -2, height: 1},

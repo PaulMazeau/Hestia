@@ -43,13 +43,19 @@ const DepensePerso = (props) => {
       }
       usersCopy.sort((a, b) => b.solde - a.solde) //on retrie la liste avec les nouveaux soldes 
   }else{usersCopy.pop()}}
-  return (
-    debtList.map(d =>{
-      return(
-        d
+  if (debtList.length > 0) {
+    return (
+      debtList.map(d =>{
+        return(
+          d
+        )
+      }
       )
-    }
     )
+    
+  }
+  return(
+    <View><Text>Chargement</Text></View>
   )
   }
 

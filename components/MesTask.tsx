@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import TacheCard from '../components/TacheCard';
 import { ScrollView } from 'react-native-gesture-handler';
 import { auth, db } from '../firebase-config';
@@ -12,6 +12,7 @@ import { UserContext } from '../Context/userContextFile';
  const MesTask = (props) => {
   //check quelles taches corespont a luser
   const [user, setUser] = useContext(UserContext);
+  const EmptyPersonnalTask=require('../Img/EmptyPersonnalTask.png');
   const checkTasks = () => {
     var isIn = []
     var toDo = []
@@ -48,6 +49,7 @@ import { UserContext } from '../Context/userContextFile';
     await updateDoc(doc(db, "Colocs/" + props.clcID + "/Taches/" + id), {concerned: newConcerned, date: doneDate})
   }
   //rendu des taches corespondant a luser partie a opti mais ca me clc
+  
   const renderConcernedTasks = () => {
      const tasks = checkTasks().isIn;
       return(
@@ -65,26 +67,43 @@ import { UserContext } from '../Context/userContextFile';
   }
   const renderNextUpTasks = () => {
     const tasks = checkTasks().toDo;
-     return(
-       tasks.map(t => {
-         return(
-          <View style={styles.Card} key = {t.id}>
-           <TacheCard Tache = {t.data().desc} key = {t.id} displayButton = {true} clcID={props.clcID} id={t.id}/>
-           </View>
-         )
-         
-       })
-       
-     )
+    if (tasks) { 
+      if (tasks.length > 0) {
+        return(
+          
+          tasks.map(t => {
+            return(
+             <View style={styles.Card} >
+              <TacheCard Tache = {t.data().desc} key = {t.id} displayButton = {true} clcID={props.clcID} id={t.id}/>
+              </View>
+            )
+            
+          })
+        )}
+        return (
+          <View style={styles.emptypage}>
+            <ImageContainer image={EmptyPersonnalTask}/>
+            <Text style={styles.emptytext}>Tu n'es pas le prochain sur aucune tâche</Text>
+          </View>
+        )
+      }
+
+     
  }
   
+ const ImageContainer = ({image}) => (
+  <View style={styles.ImageContainer}>
+      <Image source={image} style={styles.Image}/>
+  </View>
+);   
+
   return (
    
-    <View style={{flex: 1}}>
+    <View style={{flex: 1}} >
     <ScrollView showsVerticalScrollIndicator={false}>
     <Text style={styles.Categorie1}>Les tâches que tu es le prochain à faire</Text>
     {renderNextUpTasks()}
-    <Text style={styles.Categorie2}>Toutes tes tâches auquelles tu participes</Text>
+    
     {renderConcernedTasks()}
 
   </ScrollView>
@@ -102,7 +121,8 @@ const styles = StyleSheet.create({
     Categorie2:{
       fontSize: 19,
       fontWeight: 'bold',
-      marginTop: 15,
+      marginTop: 10,
+      marginBottom: 12
     },
 
     Button: {
@@ -118,9 +138,39 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       padding: 5
     },
+
     Card: {
       marginTop: 12,
     },
+
+    emptytext: {
+      textAlign: 'center',
+      color: 'black',
+      fontWeight: '600',
+      fontSize: 14,
+    },
+
+    ImageContainer: {
+        height: 100,
+        width: 135,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 20,
+    },
+    
+    Image: {
+        height: '100%',
+        width: '100%',
+        },
+
+    Categorie:{
+      fontSize: 19,
+      fontWeight: 'bold',
+    },
+
+    emptypage: {
+      alignItems: 'center',
+    }
     
 
 })

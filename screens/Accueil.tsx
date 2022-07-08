@@ -1,18 +1,16 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import {View, Text, StyleSheet, Image, Platform} from 'react-native';
+import React, { useContext, useState } from 'react';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
 import Top from '../components/HeaderClear';
 import TacheCard from '../components/TacheCard';
 import MonSolde from '../components/MonSolde';
-import { getDoc, doc, orderBy, limit, collection, query, getDocs, where } from 'firebase/firestore';
-import { auth, db } from '../firebase-config';
+import { orderBy, limit, collection, query, where } from 'firebase/firestore';
+import { db, auth } from '../firebase-config';
 import Selection from '../components/Selection';
 import MiniJeu from '../components/MiniJeu';
-import { useFocusEffect } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
 import {UserContext } from '../Context/userContextFile';
-import { TouchableOpacity } from 'react-native-ui-lib';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
@@ -20,7 +18,6 @@ import storage from "@react-native-async-storage/async-storage";
 import Notif from '../notifications'
 //importer l'image de maison
 const ProfilImage=require('../Img/Home.png');
-
 
 type Props = NativeStackScreenProps<RootStackParams, 'AccueilStack'>;
 
@@ -147,7 +144,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         marginLeft:'auto',
         marginRight:'auto',
-        marginTop: -10
+        marginTop: -25
     },
 
     Image: {

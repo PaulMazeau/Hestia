@@ -1,19 +1,16 @@
-import React, { useCallback, useContext, useMemo, useRef, useState } from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import React, { useContext, useState } from 'react';
+import {View, Text, StyleSheet, Image} from 'react-native';
 import Top from '../components/HeaderDark';
-import { BorderRadiuses, SegmentedControl, Spacings, Drawer, Colors } from 'react-native-ui-lib';
+import { Drawer, Colors } from 'react-native-ui-lib';
 import Depense from '../components/DepenseDiagram';
 import { ScrollView } from 'react-native-gesture-handler';
 import Transaction from '../components/Transaction';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import TopBackNavigation from '../components/TopBackNavigation';
-import { useCollection, useCollectionData } from 'react-firebase-hooks/firestore';
+import { useCollection } from 'react-firebase-hooks/firestore';
 import { getDoc, doc, collection, orderBy, query, deleteDoc, updateDoc, increment } from 'firebase/firestore';
 import{db} from '../firebase-config'
-import { RotateInUpLeft } from 'react-native-reanimated';
 import { UserContext } from '../Context/userContextFile';
 
 type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
@@ -21,6 +18,7 @@ type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
 const AllDepense = ({route, navigation}: Props) => {
   const [oldData, setOldData] = useState(null);
   const[user, setUser] = useContext(UserContext);
+  const EmptyDepense=require('../Img/EmptyDepense.png');
   const handleDelete = async (id) => { //update le solde et delete le doc
     const oldDoc = await getDoc(doc(db, "Colocs/"+user.colocID+"/Transactions/", id));
     updateSolde(oldDoc);
@@ -53,6 +51,7 @@ const AllDepense = ({route, navigation}: Props) => {
   const [allTransacs] = useCollection(query(collection(db, "Colocs/"+user.colocID+ "/Transactions"), orderBy('timestamp', 'desc')))
   const renderContent = () =>{
     if(allTransacs){
+      if(allTransacs.docs.length > 0)
       return(
         allTransacs.docs.map(c => {
           return(
@@ -68,13 +67,21 @@ const AllDepense = ({route, navigation}: Props) => {
     
         })
       )
-      return (
-        <Text>Loading........</Text>
-      )
+      
     } 
+    return (
+      <View style={styles.emptypage}>
+      <ImageContainer image={EmptyDepense} /> 
+      <Text style={styles.emptytext}>Oops, il n’y pas encore de {'\n'} liste de course</Text>
+      </View>
+    )
   
     }
-
+    const ImageContainer = ({image}) => (
+      <View style={styles.ImageContainer}>
+          <Image source={image} style={styles.Image}/>
+      </View>
+    );
 
   return (
  
@@ -136,6 +143,31 @@ container: {
     backgroundColor: '#EDF0FA'
 },
 
+ImageContainer: {
+  height: 120,
+  width: 175,
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginTop: 20,
+},
+
+Image: {
+  height: '70%',
+  width: '70%',
+  },
+
+emptytext: {
+  textAlign: 'center',
+  color: 'black',
+  fontWeight: '700',
+  fontSize: 16,
+  marginTop: 10
+},
+
+  emptypage: {
+    alignItems: 'center',
+    
+  }
 
 })
 
