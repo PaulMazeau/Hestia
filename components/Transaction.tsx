@@ -7,29 +7,34 @@ const ProfilImage=require('../Img/avatarHeader.png');
 
 
 
-//Props est giverID, receiverID, amount et date
+//Props est giverID, receiverID, amount et
 
 const MonSolde  = (props) => {
-  const [whoPaid, setWhoPaid] = useState("")
+  const [whoPaidName, setWhoPaidName] = useState("");
+  const [whoPaidAvatar, setWhoPaidAvatar] = useState("not an empty string lol"); //pr se débarasser du warning 
   useEffect(() => {
     const getWhoPaid = async () =>{
       const data = await getDoc(doc(db, "Users", props.giverID));
-      setWhoPaid(data.data().nom);
+      setWhoPaidName(data.data().nom);
+      setWhoPaidAvatar(data.data().avatarUrl)
     }
     getWhoPaid();
-  })
+  }, [])
+
   return (
     <View style={styles.global}>
         <View style={styles.container}>
                 
-            <ImageContainer image={ProfilImage} />  
+        <View style={styles.ImageContainer}>
+        <Image source={{uri: whoPaidAvatar}} style={styles.Image}/>
+    </View>  
 
           <View style={styles.Text}>
               <View style={styles.Left}>
                   <Text style={styles.titre}>{props.desc}</Text>
 
                   <View style={styles.dateContainer}>
-                      <Text style={styles.date}>Payé par {whoPaid}</Text>
+                      <Text style={styles.date}>Payé par {whoPaidName}</Text>
                   </View>
               </View>
 
@@ -48,11 +53,7 @@ const MonSolde  = (props) => {
   );
 };
 
-const ImageContainer = ({image}) => (
-    <View style={styles.ImageContainer}>
-        <Image source={image} style={styles.Image}/>
-    </View>
-);
+
 
 const styles = StyleSheet.create({
   global: {

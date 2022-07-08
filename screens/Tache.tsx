@@ -11,6 +11,8 @@ import { RootStackParams } from '../App';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { UserContext } from '../Context/userContextFile';
+import * as Notifications from 'expo-notifications';
+
 type Props = NativeStackScreenProps<RootStackParams, 'TacheStack'>;
 
  const TacheScreen = ({route, navigation}: Props) => {
@@ -23,20 +25,41 @@ type Props = NativeStackScreenProps<RootStackParams, 'TacheStack'>;
 
   const [allTasks, loading, error] = useCollection(collection(db, "Colocs/"+user.colocID+ "/Taches"));
 
-  //récupère les dates ou luser a une tache à passer ds taskcalendar pr point rouge
-  const fetchDates = () => {
+  //récupère les dates ou luser a une tache pr passer passer ds taskcalendar pr point rouge et permet de setup les notifs
+  const fetchDates = async () => {
     const res = []
+    const notifs = await Notifications.getAllScheduledNotificationsAsync();
+    const notifsTacheID = notifs.map((n)=> n.content.data.tacheID)
     if(!(allTasks === undefined)){
       if(allTasks.docs.length > 0){
         for(var i = 0; i < allTasks.docs.length; i++){
-          if(allTasks.docs[i].data().concerned.includes(auth.currentUser.uid)){
-            res.push(allTasks.docs[i].data().date)
+          const task = allTasks.docs[i].data()
+          if(task.nextOne == auth.currentUser.uid){ //point rouge la ou luser est le next on
+            res.push(task.date)
+          if(!(notifsTacheID.includes(allTasks.docs[i].id))){ //parametrage de la notif si luser est sur la next one
+            const trigger = new Date (task.date.toDate().toString())
+            trigger.setHours(Number(task.rappel.substr(0, 2)))
+            trigger.setMinutes(Number(task.rappel.substr(3, 5)))
+            const now = new Date(Date.now())
+            if(trigger > now){
+            await Notifications.scheduleNotificationAsync({
+              content:{
+                title:"Rappel de tache !",
+                body:"Tu dois:" + allTasks.docs[i].data().desc,
+                data: {tacheID: allTasks.docs[i].id}
+              },
+              trigger,
+            })}//TODO: update la notif lorsque la tache est update par luser... 
+          }
           }
         }
       }
     }
     return res;
   }
+
+
+
 
   return (
 

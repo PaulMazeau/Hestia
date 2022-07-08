@@ -76,7 +76,7 @@ const renderUsers = () => {
       
       return(
         <TouchableOpacity key ={user.uuid} onPress = {() => {putInOrPutOut(user.uuid)}}>
-        <ParticipantCard key ={user.uuid} name={user.nom} />
+        <ParticipantCard key ={user.uuid} name={user.nom} avatar={user.avatarUrl}/>
         </TouchableOpacity>
       )
     })

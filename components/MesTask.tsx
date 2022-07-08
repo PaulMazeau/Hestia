@@ -54,7 +54,7 @@ import { UserContext } from '../Context/userContextFile';
         tasks.map(t => {
           return(
             
-            <View style={styles.Card} >
+            <View style={styles.Card} key = {t.id} >
             <TacheCard Tache = {t.data().desc} key = {t.id} id = {t.id} />
             </View>
           )
@@ -68,7 +68,7 @@ import { UserContext } from '../Context/userContextFile';
      return(
        tasks.map(t => {
          return(
-          <View style={styles.Card} >
+          <View style={styles.Card} key = {t.id}>
            <TacheCard Tache = {t.data().desc} key = {t.id} displayButton = {true} clcID={props.clcID} id={t.id}/>
            </View>
          )
@@ -82,9 +82,9 @@ import { UserContext } from '../Context/userContextFile';
    
     <View style={{flex: 1}}>
     <ScrollView showsVerticalScrollIndicator={false}>
-    <Text style={styles.Categorie1}>Ta prochaine tâche</Text>
+    <Text style={styles.Categorie1}>Les tâches que tu es le prochain à faire</Text>
     {renderNextUpTasks()}
-    <Text style={styles.Categorie2}>Toute tes tâches</Text>
+    <Text style={styles.Categorie2}>Toutes tes tâches auquelles tu participes</Text>
     {renderConcernedTasks()}
 
   </ScrollView>

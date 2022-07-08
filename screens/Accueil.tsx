@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import {View, Text, StyleSheet, Image, Platform} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
 import Top from '../components/HeaderClear';
@@ -14,7 +14,10 @@ import { ScrollView } from 'react-native-gesture-handler';
 import {UserContext } from '../Context/userContextFile';
 import { TouchableOpacity } from 'react-native-ui-lib';
 import { useCollection } from 'react-firebase-hooks/firestore';
-
+import * as Notifications from 'expo-notifications';
+import Constants from 'expo-constants';
+import storage from "@react-native-async-storage/async-storage";
+import Notif from '../notifications'
 //importer l'image de maison
 const ProfilImage=require('../Img/Home.png');
 
@@ -22,7 +25,6 @@ const ProfilImage=require('../Img/Home.png');
 type Props = NativeStackScreenProps<RootStackParams, 'AccueilStack'>;
 
 const AccueilScreen = ({ route, navigation }: Props) => {
-    
     const [user, setUser] = useContext(UserContext);
     const [tache, setTache] = useState(null);
     //récupère la tache a venir de luser
@@ -41,7 +43,7 @@ const AccueilScreen = ({ route, navigation }: Props) => {
                 return(
                     nextTask.docs.map((t)=>{
                         return(
-                            <TacheCard Tache={t.data().desc} key ={t.id}/>
+                            <TacheCard Tache={t.data().desc} key ={t.id} nextOne={t.data().nextOne}/>
                         )
                     })
                 )
@@ -49,8 +51,12 @@ const AccueilScreen = ({ route, navigation }: Props) => {
 
         }
         return(
-            <TacheCard Tache="Rien à venir...."/>
+            <TacheCard Tache="Rien à venir...." nextOne={auth.currentUser.uid}/>
         )
+    }
+    
+    const getNotifData = async () => {
+        const notifs = await Notifications.getAllScheduledNotificationsAsync();
     }
   return (
     <View style={styles.body}>
@@ -80,6 +86,8 @@ const AccueilScreen = ({ route, navigation }: Props) => {
                 <Text style={styles.TitreCategorie}>Ta prochaine Tâche</Text>
                 {renderTache()}
             </View>
+           <Notif />
+           <TouchableOpacity onPress= {()=> getNotifData()}><Text>Fetch moi la data</Text></TouchableOpacity>
     </ScrollView>           
         </View>
     </View>

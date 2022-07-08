@@ -1,5 +1,5 @@
 import { deleteDoc, doc, getDoc, updateDoc } from '@firebase/firestore';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Button } from 'react-native';
 import { db } from '../firebase-config';
 import Horloge from '../Icons/Horloge.svg';
@@ -10,7 +10,7 @@ interface Props {
   Tache: string;
 }
 
-//props est tache id et colocID et le titre de la tache et la date UNIFORMISER LES NOMS !!!!!!!!
+//props est tache id et colocID et nextOne ID pr l'affichage de l'avatar url et le titre de la tache et la date UNIFORMISER LES NOMS !!!!!!!!
 const TacheCard = (props) => {
   const handleDone = async (tacheID, clcID) => {
     const data = await getDoc(doc(db, "Colocs/" + clcID + "/Taches/" + tacheID))
@@ -23,12 +23,18 @@ const TacheCard = (props) => {
      doneDate.setDate(doneDate.getDate() + Number(recur))
      await updateDoc(doc(db, "Colocs/" + props.clcID + "/Taches/" + props.id), {concerned: newConcerned, date: doneDate})
   }
-
+  const [avatar, setAvatar] = useState("tg le warning");
   var [ isPress, setIsPress ] = useState(<Valider/>);
-  
+  useEffect(() => {
+    const getData = async () => {
+      const data = await getDoc(doc(db, "Users", props.nextOne));
+      setAvatar(data.data().avatarUrl);
+    }
+    getData();
+  }, [])
 
   function handlePress(tacheID, clcID) { 
-      setIsPress(<TouchableOpacity onPress={() => handleDone(tacheID, clcID)} style={styles.ButtonConfirm}><Text style={styles.confirmer}> Confirmer ?</Text></TouchableOpacity>);
+      setIsPress(<TouchableOpacity onPress={() => handleDone(tacheID, clcID)} style={styles.ButtonConfirm}><Text style={styles.confirmer}> Tâche </Text></TouchableOpacity>);
   }
   
   const renderContent =() => {
@@ -42,7 +48,7 @@ const TacheCard = (props) => {
 
               <View style={styles.dateContainer}>
                 <Horloge width={17} height={17}/>
-                <Text style={styles.date}>{props.day}/{props.month}/{props.year}</Text>
+                <Text style={styles.date}>//</Text>
               </View>
             </View>
 
@@ -69,8 +75,7 @@ const TacheCard = (props) => {
             </View>
 
             <View style={styles.participants}>
-              <Image style={styles.avatar1} source={require('../Img/test1.png')}/>
-              <Image style={styles.avatar2} source={require('../Img/test2.png')}/>
+              <Image style={styles.avatar1} source={{uri: avatar}}/>
             </View> 
 
         </View>
