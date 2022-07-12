@@ -55,7 +55,6 @@ import { UserContext } from '../Context/userContextFile';
       return(
         tasks.map(t => {
           return(
-            
             <View style={styles.Card} key = {t.id} >
             <TacheCard Tache = {t.data().desc} key = {t.id} id = {t.id} nextOne={t.data().nextOne} date={t.data().date}/>
             </View>
@@ -65,6 +64,16 @@ import { UserContext } from '../Context/userContextFile';
         
       )
   }
+
+const renderConcernedTasksTitle = () => {
+  if (checkTasks().isIn.length > 0){
+  return (
+     <Text style={styles.Categorie2}>Toute tes tâches</Text>     
+  )
+}
+}
+
+
   const renderNextUpTasks = () => {
     const tasks = checkTasks().toDo;
     if (tasks) { 
@@ -121,8 +130,7 @@ const styles = StyleSheet.create({
     Categorie2:{
       fontSize: 19,
       fontWeight: 'bold',
-      marginTop: 10,
-      marginBottom: 12
+      marginTop: 15,
     },
 
     Button: {

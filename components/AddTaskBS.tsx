@@ -24,15 +24,6 @@ const Recurrence = [
     { label: '1 mois', value: '28' },
   ];
 
-  const Notification = [
-    { off: 'Oui', input: '2' },
-    { off: 'Non', input: '1' },
-  ];
-
-
-
-
-
 //props est clcID necessaire pr add un doc à la subcollction tache
 
 const AddTaskBS = (props) => {

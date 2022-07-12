@@ -7,6 +7,7 @@ import AddButton from '../Icons/AddButton.svg';
 import * as Haptics from 'expo-haptics';
 import { addDoc, collection, updateDoc, doc } from 'firebase/firestore';
 import {db} from '../firebase-config'
+import CategorieCard from './CourseCategorie';
 //props est la clcID utilisé pr create un nv doc
 
 const AddListeCourseBS = (props) => {
@@ -75,12 +76,11 @@ return (
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={{flexGrow: 1}}
                     keyboardShouldPersistTaps='handled'>
-                        <ParticipantCard/>
-                        <ParticipantCard/>
-                        <ParticipantCard/>
-                        <ParticipantCard/>
-                        <ParticipantCard/>
-                        <ParticipantCard/>
+                        <CategorieCard name='Repas'/>
+                        <CategorieCard name='Soirée'/>
+                        <CategorieCard name='Végétarien'/>
+                        <CategorieCard name='Ménage'/>
+                        <CategorieCard name='Divers'/>
                 </ScrollView>
             </View>
       </View>

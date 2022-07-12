@@ -1,13 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image, SafeAreaView, Platform} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { ScrollView } from 'react-native-gesture-handler';
-import { AuthStackParams, RootStackParams } from '../App';
+import { RootStackParams } from '../App';
 import TopBackNavigationClear from '../components/TopBackNavigationClear';
 import AvatarColum from '../components/AvatarColumn';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth, db, storage } from '../firebase-config';
-import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { db, storage } from '../firebase-config';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, list, ref } from 'firebase/storage';
 import { UserContext } from '../Context/userContextFile';
 
@@ -19,7 +18,7 @@ type Props = NativeStackScreenProps<RootStackParams, 'Avatarm'>;
 const AvatarModificationScreen = ({route, navigation}: Props) => {
   const [avatarUrl, setAvatarUrl] = useState(null) //a passer dans db
   const [avatarURLS, setAvatarURLS] = useState([]); //liste des urls de tt les avatars de la db
-  const avatarListRef = ref(storage, "Avatars/");
+  const avatarListRef = ref(storage, "AvatarsCompress/");
   const [user, setUser] = useContext(UserContext);
   //PARTIE A OPTIMISER EST INTERACTION AVEC AVATARCOLUMN (on passe une url o component qui va la dl puis passe l'url o screen qui va la dl :c nul)
   //on remplit la liste des urls de tt les avatars de la db
@@ -183,7 +182,7 @@ const styles = StyleSheet.create({
   Title: {
       flexDirection : 'row', 
       alignItems: 'center',
-      marginTop: '10%'
+      marginTop: '30%'
     },
 
     screenTitle: {

@@ -1,6 +1,6 @@
 import { deleteDoc, doc } from 'firebase/firestore';
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Button } from 'react-native';
 import { Colors, Drawer } from 'react-native-ui-lib';
 import {db} from '../firebase-config'
 
@@ -16,24 +16,25 @@ const RestaurantCard: React.FC<Props> = ({name, onPress, courseID, clcID}) => {
     await deleteDoc(doc(db, "Colocs/"+clcID+"/Courses", courseID));
   }
   return (
-    <View style={styles.body}>
-    
+      <View style={styles.body}>
     <Drawer
     rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete()}]}
     leftItem={{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete()}}
     style={styles.drawer}
     disableHaptic={false}
-    >  
+    >
+    <View style={styles.body}>
     <TouchableOpacity onPress={() => onPress(name)}>
       <View style={styles.container}>
+        
+        <Image style={styles.categorie} source={require('../Img/test1.png')}/>
         <Text style={styles.name}>{name}</Text>
-        <View style={styles.participants}>
-        <Image style={styles.avatar1} source={require('../Img/test1.png')}/>
-        <Image style={styles.avatar2} source={require('../Img/test2.png')}/>
-        </View>
+     
       </View>
       </TouchableOpacity>
-       </Drawer>
+    
+    </View>
+    </Drawer>
     </View>
   );
 };
@@ -44,16 +45,11 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    height: 50,
+    height: 60,
   },
 
-  name:{
-    fontWeight: '700'
-  },
-
-  body: {
+  shadow: {
     elevation: 20,
     shadowColor: 'black',
     shadowOffset: {width: -2, height: 1},
@@ -63,34 +59,27 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 
-  avatar1: {
-    width: 40,
-    height: 40,
-    borderRadius: 50,
-    overflow: 'hidden',
-    borderWidth: 3,
-    borderColor: 'white',
-    marginLeft: -17,
-    zIndex: 1
-  },
-  
-  avatar2: {
-    width: 40,
-    height: 40,
-    borderRadius: 50,
-    overflow: 'hidden',
-    borderWidth: 3,
-    borderColor: 'white',
-    marginLeft: -20,
+  name:{
+    fontWeight: '600',
+    marginLeft: 10,
+    fontSize: 16
   },
 
-  participants: {
-    flexDirection: 'row',
+  body: {
+    backgroundColor: 'white',
+    borderRadius: 10,
   },
+
+  categorie: {
+    width: 40,
+    height: 40,
+    borderRadius: 50,
+    overflow: 'hidden',
+    },
 
   drawer: {
     borderRadius: 10
-  }
+  },
 });
 
 export default RestaurantCard;
