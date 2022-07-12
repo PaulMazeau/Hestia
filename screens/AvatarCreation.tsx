@@ -20,7 +20,7 @@ const AvatarCreationScreen = ({route, navigation}: Props) => {
   // const [avatar, setAvatar] = useState(null) //pr affichage
   const [avatarUrl, setAvatarUrl] = useState(null) //a passer dans db
   const [avatarURLS, setAvatarURLS] = useState([]); //liste des urls de tt les avatars de la db
-  const avatarListRef = ref(storage, "Avatars/");
+  const avatarListRef = ref(storage, "AvatarsCompress/");
   //PARTIE A OPTIMISER EST INTERACTION AVEC AVATARCOLUMN (on passe une url o component qui la dl qui passe l'url o screen qui la dl c nul)
   //on remplit la liste des urls de tt les avatars de la db
   useEffect(() => {

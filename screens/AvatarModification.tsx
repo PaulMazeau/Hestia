@@ -18,7 +18,7 @@ type Props = NativeStackScreenProps<RootStackParams, 'Avatarm'>;
 const AvatarModificationScreen = ({route, navigation}: Props) => {
   const [avatarUrl, setAvatarUrl] = useState(null) //a passer dans db
   const [avatarURLS, setAvatarURLS] = useState([]); //liste des urls de tt les avatars de la db
-  const avatarListRef = ref(storage, "Avatars/");
+  const avatarListRef = ref(storage, "AvatarsCompress/");
   const [user, setUser] = useContext(UserContext);
   //PARTIE A OPTIMISER EST INTERACTION AVEC AVATARCOLUMN (on passe une url o component qui va la dl puis passe l'url o screen qui va la dl :c nul)
   //on remplit la liste des urls de tt les avatars de la db
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
   Title: {
       flexDirection : 'row', 
       alignItems: 'center',
-      marginTop: '10%'
+      marginTop: '30%'
     },
 
     screenTitle: {
