@@ -24,38 +24,43 @@ type Props = NativeStackScreenProps<RootStackParams, 'TacheStack'>;
   }, []);
 
   const [allTasks, loading, error] = useCollection(collection(db, "Colocs/"+user.colocID+ "/Taches"));
-
   //récupère les dates ou luser a une tache pr passer passer ds taskcalendar pr point rouge et permet de setup les notifs
-  const fetchDates = async () => {
+  const fetchDates =  () => {
     const res = []
-    const notifs = await Notifications.getAllScheduledNotificationsAsync();
-    const notifsTacheID = notifs.map((n)=> n.content.data.tacheID)
     if(!(allTasks === undefined)){
       if(allTasks.docs.length > 0){
         for(var i = 0; i < allTasks.docs.length; i++){
           const task = allTasks.docs[i].data()
-          if(task.nextOne == auth.currentUser.uid){ //point rouge la ou luser est le next on
+          if(task.nextOne == auth.currentUser.uid){ //point rouge la ou luser est le next one + notif
             res.push(task.date)
-          if(!(notifsTacheID.includes(allTasks.docs[i].id))){ //parametrage de la notif si luser est sur la next one
-            const trigger = new Date (task.date.toDate().toString())
-            trigger.setHours(Number(task.rappel.substr(0, 2)))
-            trigger.setMinutes(Number(task.rappel.substr(3, 5)))
-            const now = new Date(Date.now())
-            if(trigger > now){
-            await Notifications.scheduleNotificationAsync({
-              content:{
-                title:"Rappel de tache !",
-                body:"Tu dois:" + allTasks.docs[i].data().desc,
-                data: {tacheID: allTasks.docs[i].id}
-              },
-              trigger,
-            })}//TODO: update la notif lorsque la tache est update par luser... 
-          }
+            pushNotif(task, allTasks.docs[i].id)
+   
           }
         }
       }
     }
     return res;
+  }
+
+  //push la notif associée à la task, dans une autre fonction car sinon les points rouges de taskcalendar ne marchent pas
+  const pushNotif = async(task, id) => {
+    const notifs = await Notifications.getAllScheduledNotificationsAsync();
+    const notifsTacheID = notifs.map((n)=> n.content.data.tacheID);
+    if(!(notifsTacheID.includes(id))){ //parametrage de la notif si luser est sur la next one
+      const trigger = new Date (task.date.toDate().toString())
+      trigger.setHours(Number(task.rappel.substr(0, 2)))
+      trigger.setMinutes(Number(task.rappel.substr(3, 5)))
+      const now = new Date(Date.now())
+      if(trigger > now){
+      await Notifications.scheduleNotificationAsync({
+              content:{
+                title:"Rappel de tache !",
+                body:"Tu dois:" + " " + task.desc,
+                data: {tacheID: id}
+              },
+              trigger,
+            })}//TODO: update la notif lorsque la tache est update par luser... 
+          }
   }
 
 

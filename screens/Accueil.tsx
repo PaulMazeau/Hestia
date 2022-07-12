@@ -40,7 +40,7 @@ const AccueilScreen = ({ route, navigation }: Props) => {
                 return(
                     nextTask.docs.map((t)=>{
                         return(
-                            <TacheCard Tache={t.data().desc} key ={t.id} nextOne={t.data().nextOne}/>
+                            <TacheCard Tache={t.data().desc} key ={t.id} nextOne={t.data().nextOne} date={t.data().date}/>
                         )
                     })
                 )
@@ -48,7 +48,7 @@ const AccueilScreen = ({ route, navigation }: Props) => {
 
         }
         return(
-            <TacheCard Tache="Rien à venir...." nextOne={auth.currentUser.uid}/>
+            <TacheCard Tache="Rien à venir...." nextOne={auth.currentUser.uid} />
         )
     }
     

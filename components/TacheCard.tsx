@@ -12,8 +12,9 @@ interface Props {
 
 //props est tache id et colocID et nextOne ID pr l'affichage de l'avatar url et le titre de la tache et la date UNIFORMISER LES NOMS !!!!!!!!
 const TacheCard = (props) => {
-  const handleDone = async (tacheID, clcID) => {
-    const data = await getDoc(doc(db, "Colocs/" + clcID + "/Taches/" + tacheID))
+  const handleDone = async () => {
+    console.log("in")
+    const data = await getDoc(doc(db, "Colocs/" + props.clcID + "/Taches/" + props.id))
      const justDid = data.data().concerned[0]
      const newConcerned = data.data().concerned
      newConcerned.splice(0, 1);
@@ -21,7 +22,7 @@ const TacheCard = (props) => {
      const doneDate = data.data().date.toDate();
      const recur = data.data().recur
      doneDate.setDate(doneDate.getDate() + Number(recur))
-     await updateDoc(doc(db, "Colocs/" + props.clcID + "/Taches/" + props.id), {concerned: newConcerned, date: doneDate})
+     await updateDoc(doc(db, "Colocs/" + props.clcID + "/Taches/" + props.id), {concerned: newConcerned, date: doneDate, nextOne: newConcerned[0]})
   }
   const [avatar, setAvatar] = useState("tg le warning");
   var [ isPress, setIsPress ] = useState(<Valider/>);
@@ -33,10 +34,19 @@ const TacheCard = (props) => {
     getData();
   }, [])
 
-  function handlePress(tacheID, clcID) { 
-      setIsPress(<TouchableOpacity onPress={() => handleDone(tacheID, clcID)} style={styles.ButtonConfirm}><Text style={styles.confirmer}> Tâche </Text></TouchableOpacity>);
+  function handlePress() { 
+      setIsPress(<TouchableOpacity onPress={() => {handleDone(); setIsPress(<Valider/>)}} style={styles.ButtonConfirm}><Text style={styles.confirmer}> Tâche </Text></TouchableOpacity>);
   }
-  
+  const renderDate = (date) => {
+    if(!date){return ""}
+    else{
+      const days = ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.']
+      const dayIndex = date.toDate().getDay()
+      return(days[dayIndex] + " " + date.toDate().getDate().toString())
+
+    }
+  }
+
   const renderContent =() => {
     if(props.displayButton){
       return(
@@ -48,11 +58,11 @@ const TacheCard = (props) => {
 
               <View style={styles.dateContainer}>
                 <Horloge width={17} height={17}/>
-                <Text style={styles.date}>//</Text>
+                <Text style={styles.date}>{renderDate(props.date)}</Text>
               </View>
             </View>
 
-              <TouchableOpacity onPress={() => {handlePress(props.id, props.clcID)}} style={styles.Button}>
+              <TouchableOpacity onPress={() => {handlePress()}} style={styles.Button}>
                 {isPress}
               </TouchableOpacity>
 
@@ -70,7 +80,7 @@ const TacheCard = (props) => {
 
               <View style={styles.dateContainer}>
                 <Horloge width={17} height={17}/>
-                <Text style={styles.date}>{props.day}/{props.month}/{props.year}</Text>
+                <Text style={styles.date}>{renderDate(props.date)}</Text>
               </View>
             </View>
 
