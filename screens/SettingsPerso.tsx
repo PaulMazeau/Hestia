@@ -9,13 +9,11 @@ import {auth} from '../firebase-config'
 import {signOut} from 'firebase/auth'
 import { UserContext } from '../Context/userContextFile';
 
-const ProfilImage=require('../Img/avatar1.png');
-
-type Props = NativeStackScreenProps<RootStackParams, 'Settings'>;
+type Props = NativeStackScreenProps<RootStackParams, 'SettingsPerso'>;
 
 
 
-const Settings = ({route, navigation}: Props) => {
+const SettingsPerso = ({route, navigation}: Props) => {
  
   
 
@@ -37,14 +35,6 @@ const Settings = ({route, navigation}: Props) => {
 
   const [user, setUser] = useContext(UserContext);
 
-
-
-  const handleSignOut = () => {
-    signOut(auth);
-}
-
-  
-
   const [title, onChangeTitre] = React.useState(null);
   const [email, changeemail] = React.useState(null);
   const [motdepasse, resetmotdepasse] = React.useState(null);
@@ -61,7 +51,7 @@ const Settings = ({route, navigation}: Props) => {
           <Text style={styles.screenTitle}>Paramètres</Text>
         </View>
 
-    {/* <View style={styles.ChampSettings}>
+   <View style={styles.ChampSettings}>
         <Text style={styles.subTitle}>Nom</Text>
         <TextInput
                 style={styles.input}
@@ -92,49 +82,17 @@ const Settings = ({route, navigation}: Props) => {
                 placeholder="********"
                 
             />
-      </View> */}
-
-      <View style={styles.ChampSettings}>
-        <Text style={styles.subTitle}>Paramètre utilisateur</Text>
-        <TouchableOpacity onPress={()=>navigation.navigate('SettingsPerso')} style={{marginTop: 13}}>
-          <View style={styles.avatar}>
-            <Text style={styles.name}>Parametre utilisateur</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.ChampSettings}>
-        <Text style={styles.subTitle}>Avatar</Text>
-        <TouchableOpacity onPress={()=>navigation.navigate('Avatarm')} style={{marginTop: 13}}>
-          <View style={styles.avatar}>
-            <Text style={styles.name}>Avatar</Text>
-            <ImageContainer image={ProfilImage} />
-          </View>
-        </TouchableOpacity>
-      </View>
-        
-        <View style={{justifyContent: 'space-between', flexDirection:'row'}}>
-        <TouchableOpacity onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); handleSignOut() }} style={styles.DeconnecterButton}>
-            <Text style={styles.Modifier}>Se deconnecter</Text>
-          </TouchableOpacity>
-
+      </View> 
+      <View style={styles.Button}>
           <TouchableOpacity onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); navigation.goBack() }} style={styles.ModifierButton}>
             <Text style={styles.Modifier}>Sauvegarder</Text>
           </TouchableOpacity>
         </View>
+     </View>
     
-    </View>
-
     </View>
   );
 };
-
-//importer l'image de l'avatar
-const ImageContainer = ({image}) => (
-    <View style={styles.ImageContainer}>
-        <Image source={image} style={styles.Image}/>
-    </View>
-  );
 
 const styles = StyleSheet.create({
     
@@ -168,32 +126,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '500'
       },
-
-        avatar: {
-          backgroundColor: "white",
-          padding: 15,
-          borderRadius: 10,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          height: 50,
-          marginBottom: 10,
-        },
-
-        ImageContainer: {
-          height: 35,
-          width: 35,
-          overflow: 'hidden',
-          borderRadius: 90,
-          justifyContent:'center',
-          alignItems:'flex-end',
-        },
-
-        Image: {
-          height: '100%',
-          width: '100%',
-        },
-
+      
         Title: {
           flexDirection : 'row', 
           marginBottom : 10,
@@ -208,7 +141,7 @@ const styles = StyleSheet.create({
           borderRadius: 5,
           backgroundColor: '#172ACE',
           width: 154,
-          justifyContent: 'center'
+          justifyContent: 'center',
         },
 
         Modifier: {
@@ -218,14 +151,10 @@ const styles = StyleSheet.create({
           textAlign: 'center',
         },
 
-        DeconnecterButton: {
-          height: 40,
-          borderRadius: 5,
-          backgroundColor: 'red',
-          width: 154,
-          justifyContent: 'center'
-        },
+        Button: {
+            alignItems: 'flex-end'
+        }
         
 })
 
-export default Settings;
+export default SettingsPerso;
