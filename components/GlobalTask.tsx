@@ -38,7 +38,7 @@ const renderContent = () => {
             rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete(t.id)}]}
             leftItem={{text: 'Modifier', background: Colors.green30, onPress: () => buttonPressed()}}
             key = {t.id}>
-              <TacheCard Tache={t.data().desc} key={t.id} nextOne = {t.data().nextOne}/>
+              <TacheCard Tache={t.data().desc} key={t.id} nextOne = {t.data().nextOne} date ={t.data().date}/>
           </Drawer>
           </View>
 

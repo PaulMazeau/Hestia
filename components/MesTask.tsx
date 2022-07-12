@@ -56,7 +56,7 @@ import { UserContext } from '../Context/userContextFile';
         tasks.map(t => {
           return(
             <View style={styles.Card} key = {t.id} >
-            <TacheCard Tache = {t.data().desc} key = {t.id} id = {t.id} />
+            <TacheCard Tache = {t.data().desc} key = {t.id} id = {t.id} nextOne={t.data().nextOne} date={t.data().date}/>
             </View>
           )
           
@@ -82,8 +82,8 @@ const renderConcernedTasksTitle = () => {
           
           tasks.map(t => {
             return(
-             <View style={styles.Card} >
-              <TacheCard Tache = {t.data().desc} key = {t.id} displayButton = {true} clcID={props.clcID} id={t.id}/>
+             <View style={styles.Card} key={t.data().desc} >
+              <TacheCard Tache = {t.data().desc} key = {t.data().desc} displayButton = {true} clcID={props.clcID} id={t.id} nextOne={t.data().nextOne} date={t.data().date}/>
               </View>
             )
             
@@ -110,10 +110,9 @@ const renderConcernedTasksTitle = () => {
    
     <View style={{flex: 1}} >
     <ScrollView showsVerticalScrollIndicator={false}>
-    <Text style={styles.Categorie1}>C'est toi le prochain</Text>
+    <Text style={styles.Categorie1}>Tâches où tu es le suivant</Text>
     {renderNextUpTasks()}
-
-    {renderConcernedTasksTitle()}
+    <Text style={styles.Categorie1}>Toutes tes tâches</Text>
     {renderConcernedTasks()}
 
   </ScrollView>
