@@ -1,10 +1,11 @@
-import { deleteDoc, doc, getDoc, updateDoc } from '@firebase/firestore';
-import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, Button } from 'react-native';
+import { doc, getDoc, updateDoc } from '@firebase/firestore';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Modal, Alert, Pressable } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { db } from '../firebase-config';
 import Horloge from '../Icons/Horloge.svg';
 import Valider from '../Icons/Valider.svg'
-import { UserContext } from '../Context/userContextFile';
+import ParticipantCard from './ParticipantCard';
 
 interface Props {
   Tache: string;
@@ -12,6 +13,8 @@ interface Props {
 
 //props est tache id et colocID et nextOne ID pr l'affichage de l'avatar url et le titre de la tache et la date UNIFORMISER LES NOMS !!!!!!!!
 const TacheCard = (props) => {
+  const [modalVisible, setModalVisible] = useState(false);
+
   const handleDone = async (tacheID, clcID) => {
     const data = await getDoc(doc(db, "Colocs/" + clcID + "/Taches/" + tacheID))
      const justDid = data.data().concerned[0]
@@ -85,7 +88,64 @@ const TacheCard = (props) => {
   }
 
   return (
-    <View>{renderContent()}</View>
+    <View>
+      <TouchableOpacity onPress={() => setModalVisible(true)}>
+      {renderContent()}
+      </TouchableOpacity>
+    
+    <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.PopUpCentre}>
+          <View style={styles.modalView}>
+            <Text style={styles.ModalTitleTache}>{props.Tache}</Text>
+
+            <View style={styles.Repetition}>
+              <Text style={styles.ModalTitle}>Répétition:</Text>
+            </View>
+
+            <View style={styles.ProchainConcerné}>
+              <Text style={styles.ModalTitle}>Prochain concerné:</Text>
+            </View>
+
+            <View style={styles.Participants}>
+              <Text style={styles.ModalTitle}>Participants:</Text>
+              <View style={{flexDirection: 'row'}}>
+              <ScrollView  
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={{flexGrow: 1}}
+                    keyboardShouldPersistTaps='handled'>
+                <ParticipantCard/>
+                <ParticipantCard/>
+                <ParticipantCard/>
+                <ParticipantCard/>
+                <ParticipantCard/>
+                <ParticipantCard/>
+              </ScrollView>
+              </View>
+            </View>
+
+            <TouchableOpacity
+              style={[styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}
+            >
+              <Text style={styles.textStyle}>Fermez le modal</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+    
+    
+    </View>
+
+    
     
   );
 };
@@ -182,6 +242,82 @@ const styles = StyleSheet.create({
     marginRight: 35
   },
   
+
+  // Style du modal
+
+  PopUpCentre: {
+    flex: 1,
+    justifyContent: "center",
+  },
+
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 12,
+    padding: 16,
+   
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+
+  ModalTitle: {
+    fontSize: 19,
+    fontWeight: '600',
+  },
+  
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+
+  buttonClose: {
+    backgroundColor: "#172ACE",
+    height: 36,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 7
+  },
+
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center"
+  },
+
+  Repetition: {
+    marginBottom: 15
+  },
+
+  ProchainConcerné: {
+    marginBottom: 15
+  },
+
+  Participants: {
+    marginBottom: 15
+  },
+
+  ModalTitleTache: {
+    fontWeight: '600',
+    fontSize: 19,
+    marginBottom: 15,
+    textAlign: 'center'
+  }
 
 });
 
