@@ -55,7 +55,6 @@ import { UserContext } from '../Context/userContextFile';
       return(
         tasks.map(t => {
           return(
-            
             <View style={styles.Card} key = {t.id} >
             <TacheCard Tache = {t.data().desc} key = {t.id} id = {t.id} />
             </View>
@@ -65,6 +64,16 @@ import { UserContext } from '../Context/userContextFile';
         
       )
   }
+
+const renderConcernedTasksTitle = () => {
+  if (checkTasks().isIn.length > 0){
+  return (
+     <Text style={styles.Categorie2}>Toute tes tâches</Text>     
+  )
+}
+}
+
+
   const renderNextUpTasks = () => {
     const tasks = checkTasks().toDo;
     if (tasks) { 
@@ -101,9 +110,10 @@ import { UserContext } from '../Context/userContextFile';
    
     <View style={{flex: 1}} >
     <ScrollView showsVerticalScrollIndicator={false}>
-    <Text style={styles.Categorie1}>Les tâches que tu es le prochain à faire</Text>
+    <Text style={styles.Categorie1}>C'est toi le prochain</Text>
     {renderNextUpTasks()}
-    
+
+    {renderConcernedTasksTitle()}
     {renderConcernedTasks()}
 
   </ScrollView>
@@ -121,8 +131,7 @@ const styles = StyleSheet.create({
     Categorie2:{
       fontSize: 19,
       fontWeight: 'bold',
-      marginTop: 10,
-      marginBottom: 12
+      marginTop: 15,
     },
 
     Button: {

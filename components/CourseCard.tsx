@@ -26,11 +26,10 @@ const RestaurantCard: React.FC<Props> = ({name, onPress, courseID, clcID}) => {
     >  
     <TouchableOpacity onPress={() => onPress(name)}>
       <View style={styles.container}>
+        
+        <Image style={styles.categorie} source={require('../Img/test1.png')}/>
         <Text style={styles.name}>{name}</Text>
-        <View style={styles.participants}>
-        <Image style={styles.avatar1} source={require('../Img/test1.png')}/>
-        <Image style={styles.avatar2} source={require('../Img/test2.png')}/>
-        </View>
+     
       </View>
       </TouchableOpacity>
        </Drawer>
@@ -44,13 +43,14 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    height: 50,
+    height: 60,
   },
 
   name:{
-    fontWeight: '700'
+    fontWeight: '600',
+    marginLeft: 10,
+    fontSize: 16
   },
 
   body: {
@@ -63,30 +63,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 
-  avatar1: {
+  categorie: {
     width: 40,
     height: 40,
     borderRadius: 50,
     overflow: 'hidden',
-    borderWidth: 3,
-    borderColor: 'white',
-    marginLeft: -17,
-    zIndex: 1
-  },
-  
-  avatar2: {
-    width: 40,
-    height: 40,
-    borderRadius: 50,
-    overflow: 'hidden',
-    borderWidth: 3,
-    borderColor: 'white',
-    marginLeft: -20,
-  },
-
-  participants: {
-    flexDirection: 'row',
-  },
+    },
 
   drawer: {
     borderRadius: 10

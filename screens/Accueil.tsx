@@ -88,7 +88,7 @@ const AccueilScreen = ({ route, navigation }: Props) => {
     </ScrollView>           
         </View>
     </View>
-   
+    
   );
 };
 

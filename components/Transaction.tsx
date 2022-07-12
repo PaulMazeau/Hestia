@@ -33,13 +33,13 @@ const MonSolde  = (props) => {
               <View style={styles.Left}>
                   <Text style={styles.titre}>{props.desc}</Text>
 
-                  <View style={styles.dateContainer}>
+                  <View style={styles.payeurContainer}>
                       <Text style={styles.date}>Payé par {whoPaidName}</Text>
                   </View>
               </View>
 
               <View style={styles.Right}>
-                  <Text style={styles.titre}>{props.amount}</Text>
+                  <Text style={styles.titre}>{props.amount}€</Text>
 
                   <View style={styles.dateContainer}>
                       <Text style={styles.date}>{props.date}</Text>
@@ -83,7 +83,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     marginLeft: 10,
-    alignItems: 'center'
+    alignItems: 'center',
+    
   },
 
   titre: {
@@ -94,7 +95,12 @@ const styles = StyleSheet.create({
 
   dateContainer: {
     flexDirection: 'row',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
+  },
+
+  payeurContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
   },
 
   date: {

@@ -24,11 +24,7 @@ const Dette  = (props) => {
               </View>
 
               <View style={styles.Right}>
-                  <Text style={styles.titre}>{props.amount} €</Text>
-
-                  <View style={styles.dateContainer}>
-                      <Text style={styles.date}>05/04/2022</Text>
-                  </View>
+                  <Text style={styles.amout}>{props.amount}€</Text>
               </View>
 
             </View>
@@ -36,7 +32,7 @@ const Dette  = (props) => {
     
   )};
   return(
-    <View><Text></Text></View>
+    <View><Text>C'est carrée</Text></View>
   )
 };
 
@@ -66,7 +62,7 @@ const styles = StyleSheet.create({
 
   Right: {
     flexDirection: 'column',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     marginLeft: 10,
     alignItems: 'center'
   },
@@ -74,7 +70,6 @@ const styles = StyleSheet.create({
   titre: {
     fontWeight: '600',
     fontSize: 19,
-
   },
 
   dateContainer: {
@@ -106,6 +101,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     flex: 1,
+  },
+  
+  amout: {
+    fontWeight: '600',
+    fontSize: 23,
   }
 });
 
