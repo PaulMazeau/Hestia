@@ -1,6 +1,6 @@
 import { deleteDoc, doc } from 'firebase/firestore';
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Button } from 'react-native';
 import { Colors, Drawer } from 'react-native-ui-lib';
 import {db} from '../firebase-config'
 
@@ -16,14 +16,14 @@ const RestaurantCard: React.FC<Props> = ({name, onPress, courseID, clcID}) => {
     await deleteDoc(doc(db, "Colocs/"+clcID+"/Courses", courseID));
   }
   return (
-    <View style={styles.body}>
-    
+      <View style={styles.body}>
     <Drawer
     rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete()}]}
     leftItem={{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete()}}
     style={styles.drawer}
     disableHaptic={false}
-    >  
+    >
+    <View style={styles.body}>
     <TouchableOpacity onPress={() => onPress(name)}>
       <View style={styles.container}>
         
@@ -32,7 +32,9 @@ const RestaurantCard: React.FC<Props> = ({name, onPress, courseID, clcID}) => {
      
       </View>
       </TouchableOpacity>
-       </Drawer>
+    
+    </View>
+    </Drawer>
     </View>
   );
 };
@@ -47,6 +49,16 @@ const styles = StyleSheet.create({
     height: 60,
   },
 
+  shadow: {
+    elevation: 20,
+    shadowColor: 'black',
+    shadowOffset: {width: -2, height: 1},
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    backgroundColor: 'white',
+    borderRadius: 10,
+  },
+
   name:{
     fontWeight: '600',
     marginLeft: 10,
@@ -54,11 +66,6 @@ const styles = StyleSheet.create({
   },
 
   body: {
-    elevation: 20,
-    shadowColor: 'black',
-    shadowOffset: {width: -2, height: 1},
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
     backgroundColor: 'white',
     borderRadius: 10,
   },
@@ -72,7 +79,7 @@ const styles = StyleSheet.create({
 
   drawer: {
     borderRadius: 10
-  }
+  },
 });
 
 export default RestaurantCard;
