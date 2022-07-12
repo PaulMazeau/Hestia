@@ -27,6 +27,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import  AvatarCreationScreen from './screens/AvatarCreation'
 import AvatarModificationScreen from './screens/AvatarModification';
 import SettingsPerso from './screens/SettingsPerso';
+import NoColocScreen from './screens/NoColoc';
 
 //initialisation des root pour la NavBar Bottom// DEFINIT LES PARAMETRES QUE LON PASSE DANS LES SCREENS
 export type RootStackParams = {
@@ -61,6 +62,7 @@ export type AuthStackParams = {
   }
 }
 
+
 const AuthStack = createNativeStackNavigator<AuthStackParams>()
 
 const AuthScreenStack = () => {
@@ -75,6 +77,24 @@ const AuthScreenStack = () => {
     </AuthStack.Navigator>
   )
 }
+
+export type NoColocStackParams = {
+  NoColoc: undefined
+}
+const NoColocStack = createNativeStackNavigator<NoColocStackParams>()
+
+const NoColocSreenStack = () => {
+  return(
+    <NoColocStack.Navigator screenOptions={{
+      headerShown: false,
+     }}>
+      <NoColocStack.Screen name = "NoColoc" component={NoColocScreen} />
+     </NoColocStack.Navigator>
+  )
+}
+
+
+
 
 const RootStack = createBottomTabNavigator<RootStackParams>();
 
@@ -212,8 +232,8 @@ export default function App() {
   })}, [])
   
   const renderContent = () =>{
-    if(userData){
-     
+    if(userData){ //si luser est login
+     if(!(userData.colocID == "0")){ //si luser est dans une coloc
       return ( 
       
       <RootStack.Navigator
@@ -234,7 +254,10 @@ export default function App() {
         </RootStack.Navigator>
        
         )
+        }else{ //si luser na pas de coloc
+          return<NoColocSreenStack/>
         }
+      }
       return <AuthScreenStack />
       
       }
