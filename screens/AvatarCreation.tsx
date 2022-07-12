@@ -51,7 +51,14 @@ const AvatarCreationScreen = ({route, navigation}: Props) => {
           avatarUrl: avatarUrl
         }
        setDoc(doc(db, 'Users', userUid),entry); 
-      }).catch(error => alert(error.message));
+      }).catch((error) => {
+        switch(error.code){
+          case 'auth/email-already-in-use': alert('Cette adresse mail est déjà utilisée !');
+          break;
+          case 'auth/invalid-email': alert('Rentre une adresse mail valide !');
+          break;
+        }
+      });
     
 }
 
@@ -117,7 +124,7 @@ const renderContent = () => {
 
   
   <TouchableOpacity
-  onPress={() => {handleSignup(); console.log(route.params.username, avatarUrl)}}
+  onPress={() => {handleSignup()}}
   >
     <View style={styles.CestPartiBouton}>
       <Text style={styles.CestPartiText}> C'est parti</Text>

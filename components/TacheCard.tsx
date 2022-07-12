@@ -1,4 +1,5 @@
 import { doc, getDoc, updateDoc } from '@firebase/firestore';
+import { getDocs, query, where, collection } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Modal, Alert, Pressable } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -10,7 +11,7 @@ import ParticipantCard from './ParticipantCard';
 interface Props {
   Tache: string;
 }
-
+// et aussi recur la récurrence+ les user concernés pr affichange ds modal
 //props est tache id et colocID et nextOne ID pr l'affichage de l'avatar url et le titre de la tache et la date UNIFORMISER LES NOMS !!!!!!!!
 const TacheCard = (props) => {
 
@@ -29,11 +30,13 @@ const TacheCard = (props) => {
      await updateDoc(doc(db, "Colocs/" + props.clcID + "/Taches/" + props.id), {concerned: newConcerned, date: doneDate, nextOne: newConcerned[0]})
   }
   const [avatar, setAvatar] = useState("tg le warning");
+  const [nextOneName, setNextOneName] = useState("");
   var [ isPress, setIsPress ] = useState(<Valider/>);
   useEffect(() => {
     const getData = async () => {
       const data = await getDoc(doc(db, "Users", props.nextOne));
       setAvatar(data.data().avatarUrl);
+      setNextOneName(data.data().nom);
     }
     getData();
   }, [])
@@ -50,6 +53,27 @@ const TacheCard = (props) => {
 
     }
   }
+  //liste des data des concerned
+const [concernedList, setConcernedList] = useState([]);
+  const getConcernedData = async () => {
+    if(props.concerned){
+      const q = query(collection(db, "Users"), where('uuid', 'in', props.concerned))
+      const querySnapshot = await getDocs(q);
+      setConcernedList(querySnapshot.docs.map((doc) => ({...doc.data()})));
+  }}
+//affichange participantCard
+  const renderUsers = () => {
+    if(concernedList){
+    return(
+      concernedList.map((user)=> {
+        
+        return(
+          <ParticipantCard key ={user.uuid} name={user.nom} avatar={user.avatarUrl}/>
+
+        )
+      })
+    )
+  }}
 
   const renderContent =() => {
     if(props.displayButton){
@@ -100,7 +124,7 @@ const TacheCard = (props) => {
 
   return (
     <View>
-      <TouchableOpacity onPress={() => setModalVisible(true)}>
+      <TouchableOpacity onPress={() => {setModalVisible(true); getConcernedData()}}>
       {renderContent()}
       </TouchableOpacity>
     
@@ -122,7 +146,7 @@ const TacheCard = (props) => {
             </View>
 
             <View style={styles.ProchainConcerné}>
-              <Text style={styles.ModalTitle}>Prochain concerné:</Text>
+              <Text style={styles.ModalTitle}>Prochain concerné: {nextOneName}</Text>
             </View>
 
             <View style={styles.Participants}>
@@ -133,12 +157,7 @@ const TacheCard = (props) => {
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={{flexGrow: 1}}
                     keyboardShouldPersistTaps='handled'>
-                <ParticipantCard/>
-                <ParticipantCard/>
-                <ParticipantCard/>
-                <ParticipantCard/>
-                <ParticipantCard/>
-                <ParticipantCard/>
+                {renderUsers()}
               </ScrollView>
               </View>
             </View>

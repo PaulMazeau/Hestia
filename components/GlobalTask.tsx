@@ -17,7 +17,7 @@ const windowHeight = Dimensions.get('window').height;
 
 //props est la colocID, on le récupère ici car 1 appel en moins(appel ds tache obligé)
 // Besoin de colocID car Taches est subcollection de Colocs 
-
+//props est userList a passer dnas la bs et dans le popup de tachecard
  const GlobalTask = (props) => {
   // const [allTasks, loading, error] = useCollection(collection(db, "Colocs/"+props.clcID+ "/Taches"));
   const handleDelete = async (id) => {
@@ -38,7 +38,7 @@ const renderContent = () => {
             rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete(t.id)}]}
             leftItem={{text: 'Modifier', background: Colors.green30, onPress: () => buttonPressed()}}
             key = {t.id}>
-              <TacheCard Tache={t.data().desc} key={t.id} nextOne = {t.data().nextOne} date ={t.data().date}/>
+              <TacheCard Tache={t.data().desc} key={t.id} nextOne = {t.data().nextOne} date ={t.data().date} concerned={t.data().concerned} recur={t.data().recur}/>
           </Drawer>
           </View>
 
@@ -262,7 +262,7 @@ const Rappel = [
          
         </ScrollView>
             
-        <AddTaskBS clcID={props.clcID}/>
+        <AddTaskBS clcID={props.clcID} userList={props.userList}/>
             </View>
   );
 };

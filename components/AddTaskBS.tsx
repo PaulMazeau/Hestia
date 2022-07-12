@@ -24,24 +24,12 @@ const Recurrence = [
     { label: '1 mois', value: '28' },
   ];
 
-//props est clcID necessaire pr add un doc à la subcollction tache
+//props est clcID necessaire pr add un doc à la subcollction tache + la userList pr les participants cards
 
 const AddTaskBS = (props) => {
   //liste des users de la coloc et list des users slectionné pr la tache (ID)
-  const [userList, setUserList] = useState([]) 
-  const [areConcerned, setAreConcerned] = useState([]); //pr savoir qui est concerné par la tache
 
-  //récupère les utilisateurs de la colocs (prbablement a entrer ds app.tsx)
-useEffect( () => {
-  const getUsers = async () => {
-    const data = await getDoc(doc(db, "Colocs", props.clcID));
-    const membersID = data.data().membersID;
-    const q = query(collection(db, "Users"), where('uuid', 'in', membersID))
-    const querySnapshot = await getDocs(q);
-    setUserList(querySnapshot.docs.map((doc) => ({...doc.data()})));
-  }
-  getUsers();
-}, [])
+  const [areConcerned, setAreConcerned] = useState([]); //pr savoir qui est concerné par la tache
 
 //pour indiquer si la personne est concernée ou non par la dépense
 const putInOrPutOut = (id) => {
@@ -53,7 +41,7 @@ const putInOrPutOut = (id) => {
 //rend les cartes des participants ds la scrollview horizontale
 const renderUsers = () => {
   return(
-    userList.map((user)=> {
+    props.userList.map((user)=> {
       
       return(
         <TouchableOpacity key ={user.uuid} onPress = {() => {putInOrPutOut(user.uuid)}}>

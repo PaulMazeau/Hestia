@@ -3,13 +3,12 @@ import {StatusBar, StyleSheet, Text, TouchableOpacity, View, Image} from 'react-
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParams } from '../App';
-
+import { auth } from '../firebase-config';
 const Logo=require('../Img/LogoHestia.png');
 
 
 const HomePageScreen = () => {
     const navigation = useNavigation<NativeStackNavigationProp<AuthStackParams>>();
-    
     return(
         <View style={styles.container}> 
             <StatusBar barStyle="light-content" />  
@@ -33,6 +32,7 @@ const HomePageScreen = () => {
                         >
                             <Text style = {styles.TextSignIn}>S'inscrire</Text>
                     </TouchableOpacity>
+                    
                 
                 </View>         
         </View>
