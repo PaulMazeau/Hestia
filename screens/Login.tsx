@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {KeyboardAvoidingView, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native'
-import {createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import {createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import {auth, db} from '../firebase-config'
 import { isSearchBarAvailableForCurrentPlatform } from 'react-native-screens';
 import { useNavigation } from '@react-navigation/native';
@@ -14,24 +14,15 @@ const LoginScreen = () => {
     const navigation = useNavigation<NativeStackNavigationProp<AuthStackParams>>();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const handleSignup = () => {
-        createUserWithEmailAndPassword(auth, email, password).then(function(userCred) {
-            // get user data from the auth trigger
-            const userUid = userCred.user.uid; // The UID of the user.
-            const email = userCred.user.email; // The email of the user..
-            // set account  doc  
-            const membre = {
-                uuid: userUid,
-              solde: 0
-            }
-           setDoc(doc(db, 'Users', userUid),membre); 
-          }).catch(error => alert(error.message));
-        
-    }
 
     const handleLogin = () => {
-        signInWithEmailAndPassword(auth, email, password).catch(error => console.log(error.message))
-        console.log("sign")
+        signInWithEmailAndPassword(auth, email, password).catch((error) => {
+            switch(error.code){
+                case 'auth/user-not-found': alert("Ce compte n'existe pas !");
+                break;
+                case 'auth/wrong-password': alert ("Combinaison email/mot de passe invalide");
+            }
+        })
     }
     
     const headerHeight = useHeaderHeight();

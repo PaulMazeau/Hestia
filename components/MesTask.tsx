@@ -92,7 +92,7 @@ const renderConcernedTasksTitle = () => {
         return (
           <View style={styles.emptypage}>
             <ImageContainer image={EmptyPersonnalTask}/>
-            <Text style={styles.emptytext}>Tu n'es pas le prochain sur aucune tâche</Text>
+            <Text style={styles.emptytext}>Tu n'es le prochain sur aucune tâche...</Text>
           </View>
         )
       }

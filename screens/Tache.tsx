@@ -5,7 +5,7 @@ import { SegmentedControl, BorderRadiuses } from 'react-native-ui-lib';
 import GlobalTask from '../components/GlobalTask';
 import MesTask from '../components/MesTask';
 import TaskCalendar from '../components/TaskCalendar';
-import { getDoc, doc, collection } from 'firebase/firestore';
+import { getDoc, doc, collection, query, where, getDocs } from 'firebase/firestore';
 import { auth, db } from '../firebase-config';
 import { RootStackParams } from '../App';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -18,10 +18,21 @@ type Props = NativeStackScreenProps<RootStackParams, 'TacheStack'>;
  const TacheScreen = ({route, navigation}: Props) => {
   const [user, setUser] = useContext(UserContext);
   const [show, setShow] = React.useState(true);
+  const [userList, setUserList] = useState([]);//pr récup la liste des users a passer dans la bs + la popup des tachescard
 
   const onChangeIndex = useCallback((index: number) => {
     setShow((r) => !r)
   }, []);
+  useEffect( () => {
+    const getUsers = async () => {
+      const data = await getDoc(doc(db, "Colocs", user.colocID));
+      const membersID = data.data().membersID;
+      const q = query(collection(db, "Users"), where('uuid', 'in', membersID))
+      const querySnapshot = await getDocs(q);
+      setUserList(querySnapshot.docs.map((doc) => ({...doc.data()})));
+    }
+    getUsers();
+  }, [])
 
   const [allTasks, loading, error] = useCollection(collection(db, "Colocs/"+user.colocID+ "/Taches"));
   //récupère les dates ou luser a une tache pr passer passer ds taskcalendar pr point rouge et permet de setup les notifs
@@ -89,7 +100,7 @@ type Props = NativeStackScreenProps<RootStackParams, 'TacheStack'>;
               outlineWidth= {2}
               throttleTime= {100}
               />
-              {show ? <GlobalTask tasks={allTasks} clcID = {user.colocID}/> : <MesTask tasks = {allTasks} clcID={user.colocID}/> }
+              {show ? <GlobalTask tasks={allTasks} clcID = {user.colocID} userList = {userList}/> : <MesTask tasks = {allTasks} clcID={user.colocID}/> }
 
       </View>
 
