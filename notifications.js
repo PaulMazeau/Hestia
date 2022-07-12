@@ -58,10 +58,10 @@ getPermission();
     };
   }, []);
   
-  const dateString = "08/07/2022"
-  const trigger = new Date(dateString);
-  trigger.setHours(15);
-  trigger.setMinutes(0)
+  // const dateString = "08/07/2022"
+  // const trigger = new Date(dateString);
+  // trigger.setHours(15);
+  // trigger.setMinutes(0)
   const notifyMe = async () => {
     await Notifications.scheduleNotificationAsync({
         content: {
@@ -69,7 +69,9 @@ getPermission();
           body: "body",
           data: { date: "31/12/2000" }
         },
-        trigger,
+        trigger:{
+          seconds: 5,
+        }
       });
   }
  

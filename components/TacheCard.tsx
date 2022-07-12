@@ -92,7 +92,6 @@ const TacheCard = (props) => {
 
 const styles = StyleSheet.create({
   global: {
-    elevation: 20,
     shadowColor: 'black',
     shadowOffset: {width: -2, height: 1},
     shadowOpacity: 0.1,
@@ -100,6 +99,7 @@ const styles = StyleSheet.create({
   },
   
   container: {
+    elevation:2,
     backgroundColor: "white",
     padding: 15,
     borderRadius: 10,

@@ -29,12 +29,14 @@ const MiniJeu  = () => {
 const styles = StyleSheet.create({
   global: {
     marginTop: 12,
-    elevation: 20,
     shadowColor: 'black',
     shadowOffset: {width: -2, height: 1},
     shadowOpacity: 0.1,
     shadowRadius: 3,
-    width: '42,5%',
+    width: '42.5%',
+    elevation: 2,
+    borderRadius:10
+    
   },
   
   container: {
