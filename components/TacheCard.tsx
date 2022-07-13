@@ -36,7 +36,7 @@ const TacheCard = (props) => {
     const getData = async () => {
       const data = await getDoc(doc(db, "Users", props.nextOne));
       setAvatar(data.data().avatarUrl);
-      setNextOneName(data.data().nom);
+      setNextOneName(data.data().nom);     
     }
     getData();
   }, [])
@@ -129,7 +129,7 @@ const [concernedList, setConcernedList] = useState([]);
       </TouchableOpacity>
     
     <Modal
-        animationType="fade"
+        animationType="slide"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -145,12 +145,22 @@ const [concernedList, setConcernedList] = useState([]);
               <Text style={styles.ModalTitle}>Répétition:</Text>
             </View>
 
-            <View style={styles.ProchainConcerné}>
-              <Text style={styles.ModalTitle}>Prochain concerné: {nextOneName}</Text>
+            <View style={styles.ProchainConcerne}>
+            
+            
+                <Text style={styles.ModalTitle}>Prochain concerné: </Text>
+                <View style={styles.cardProchainconcerne}>                
+                  <Image source={{uri: avatar}} style={styles.avatarProchainConcerne}/> 
+
+                  <View>
+                    <Text style={styles.textProchainParticipant}> {nextOneName} </Text>
+                    <Text style={styles.textProchainParticipant}> {renderDate(props.date)} </Text>
+                  </View>
+                </View>
             </View>
 
-            <View style={styles.Participants}>
-              <Text style={styles.ModalTitle}>Participants:</Text>
+            <View style={styles.Rotation}>
+              <Text style={styles.ModalTitle}>Rotation:</Text>
               <View style={{flexDirection: 'row'}}>
               <ScrollView  
                     horizontal={true}
@@ -166,7 +176,7 @@ const [concernedList, setConcernedList] = useState([]);
               style={[styles.buttonClose]}
               onPress={() => setModalVisible(!modalVisible)}
             >
-              <Text style={styles.textStyle}>Fermez le modal</Text>
+              <Text style={styles.textStyle}>Confirmer</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -334,11 +344,30 @@ const styles = StyleSheet.create({
     marginBottom: 15
   },
 
-  ProchainConcerné: {
-    marginBottom: 15
+  ProchainConcerne: {
+    marginBottom: 15,
   },
 
-  Participants: {
+  cardProchainconcerne: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10
+  },
+
+  avatarProchainConcerne: {
+    width: 45,
+    height: 45,
+    borderRadius: 50,
+    overflow: 'hidden',
+  },
+
+  textProchainParticipant: {
+    fontSize: 15,
+    fontWeight: '400',
+    margin: 1
+  },
+
+  Rotation: {
     marginBottom: 15
   },
 

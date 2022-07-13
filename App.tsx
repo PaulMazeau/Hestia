@@ -93,9 +93,6 @@ const NoColocSreenStack = () => {
   )
 }
 
-
-
-
 const RootStack = createBottomTabNavigator<RootStackParams>();
 
 
