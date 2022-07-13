@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, TextInput} from 'react-native'
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform} from 'react-native'
 import TopBackNavigation from '../components/TopBackNavigation'
 import * as Haptics from 'expo-haptics';
+import { KeyboardAwareScrollView } from 'react-native-ui-lib';
 
 
 const NoColocScreen = ()  => {
@@ -10,13 +11,13 @@ const NoColocScreen = ()  => {
     
     return(
 
-
-        
+        <KeyboardAwareScrollView>
         
         <View style={styles.container}>
             <SafeAreaView>
                 <TopBackNavigation/>
             </SafeAreaView>
+            
             
             <View style={styles.creerColocContainer}>
                 <Text style={styles.texteBlanc}>Créer une coloc</Text>
@@ -50,7 +51,7 @@ const NoColocScreen = ()  => {
                 </View>
             </View>
         </View>
-        
+        </KeyboardAwareScrollView>
     )
 }
 
@@ -65,6 +66,8 @@ const styles = StyleSheet.create({
         padding:25
         },
     creerColocContainer:{
+        paddingTop:30,
+        paddingBottom:30,
         marginBottom:15,
         marginTop:15,
         backgroundColor:'#172ACE',
@@ -82,6 +85,8 @@ const styles = StyleSheet.create({
     rejoindreColocContainer:{
         marginBottom:15,
         marginTop:15,
+        paddingTop:30,
+        paddingBottom:30,
         backgroundColor:'white',
         flex:0.5,
         borderRadius:15,
