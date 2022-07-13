@@ -1,54 +1,98 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform} from 'react-native'
 import TopBackNavigation from '../components/TopBackNavigation'
 import * as Haptics from 'expo-haptics';
 import { KeyboardAwareScrollView } from 'react-native-ui-lib';
-
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { AuthStackParams } from '../App';
+import { signOut } from 'firebase/auth';
+import { auth } from '../firebase-config';
+import {v4 as uuid} from 'uuid';
+import { setDoc, doc, updateDoc, getDocs, collection, getDoc } from 'firebase/firestore';
+import {db} from '../firebase-config';
+import { UserContext } from '../Context/userContextFile';
 
 const NoColocScreen = ()  => {
-    const [nomColoc, onChangeNom] = React.useState(null);
-    const [codeColoc, onChangeCode] = React.useState(null);
+    const [user, setUser] = useContext(UserContext);
+    const [nomColoc, setNomColoc] = React.useState(null);
+    const [codeColoc, setCodeColoc] = React.useState(null);
+    const [allColoc, setAllColoc] = React.useState([]);
+    const navigation =
+    useNavigation<StackNavigationProp<AuthStackParams>>();
     
+    const handleCreateColoc = async () => {
+        const userID = auth.currentUser.uid
+        var colocID = uuid().substring(0, 6)
+        while(allColoc.includes(colocID)){
+            colocID = uuid().substring(0, 6)
+        }
+        const colocEntry = {
+            id: colocID,
+            nom: nomColoc,
+            membersID: [userID],
+        }
+        await setDoc(doc(db, 'Colocs', colocID),colocEntry);
+        await updateDoc(doc(db, 'Users', userID), {colocID: colocID, nomColoc: nomColoc});
+        setUser({...user, colocID: colocID, nomColoc: nomColoc}) //a foutre coté serveur
+    }
+
+    const handleJoinColoc = async () => { //a foutre côté serveur ms ok pr le moment 
+        if(!(allColoc.includes(codeColoc))){alert("Ce code n'existe pas !"); setCodeColoc("")}
+        else {
+            const colocData = await getDoc(doc(db, "Colocs", codeColoc));
+            await updateDoc(doc(db, "Users", auth.currentUser.uid), {colocID: codeColoc, nomColoc: colocData.data().nom})
+            var membersID = colocData.data().membersID;
+            membersID.push(auth.currentUser.uid);
+            await updateDoc(doc(db, "Colocs", codeColoc), {membersID: membersID});
+            setUser({...user, colocID: codeColoc, nomColoc: colocData.data().nom})
+        }
+    }
+
+    useEffect(() => {//a foutre ABSOLUMENT coté serveur mdr
+        const getData = async ()=> {
+            const data = await getDocs(collection(db, 'Colocs'));
+            const allIds = data.docs.map(d => d.id);
+            setAllColoc(allIds);
+        } 
+        getData();
+    }, [])
     return(
 
         <KeyboardAwareScrollView>
         
         <View style={styles.container}>
-            <SafeAreaView>
-                <TopBackNavigation/>
-            </SafeAreaView>
-            
-            
             <View style={styles.creerColocContainer}>
-                <Text style={styles.texteBlanc}>Créer une coloc</Text>
+                <Text style={styles.texteBlanc}>Crées ta coloc</Text>
                 <TextInput
                 style={styles.inputBlanc}
-                onChangeText={onChangeNom}
+                onChangeText={(event) => {setNomColoc(event)}}
                 value={nomColoc}
                 placeholder="Choisir un nom pour la coloc"
                 placeholderTextColor='lightgrey'
                 />
                 <View style={styles.ButtonBlanc}>
-                    <TouchableOpacity onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)}}>
-                    <Text style={styles.texteCreer}>Créer</Text>
+                    <TouchableOpacity onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); handleCreateColoc();}}>
+                    <Text style={styles.texteCreer}>C'est parti !</Text>
                     </TouchableOpacity>
                 </View>
             </View>
 
             <View style={styles.rejoindreColocContainer}>
-                <Text style={styles.texteNoir}>Rejoindre une coloc</Text>
+                <Text style={styles.texteNoir}>Rejoins ta coloc</Text>
                 <TextInput
                 style={styles.inputGris}
-                onChangeText={onChangeCode}
+                onChangeText={(event) => setCodeColoc(event)}
                 value={codeColoc}
                 placeholder="Entre un code de coloc"
                 placeholderTextColor='gray'
                 />
                 <View style={styles.ButtonBleu}>
-                    <TouchableOpacity onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)}}>
+                    <TouchableOpacity onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); handleJoinColoc()}}>
                     <Text style={styles.texteRejoindre}>Rejoindre</Text>
                     </TouchableOpacity>
                 </View>
+                <TouchableOpacity onPress={()=> {navigation.navigate('Homepage'); signOut(auth)}}><Text>Changer de compte</Text></TouchableOpacity>
             </View>
         </View>
         </KeyboardAwareScrollView>

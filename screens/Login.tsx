@@ -23,6 +23,7 @@ const LoginScreen = () => {
                 case 'auth/wrong-password': alert ("Combinaison email/mot de passe invalide");
             }
         })
+        navigation.navigate('NoColoc');
     }
     
     const headerHeight = useHeaderHeight();

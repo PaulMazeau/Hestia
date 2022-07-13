@@ -48,8 +48,7 @@ const renderContent = () => {
 
 const handleUpdate = async () => {
     await updateDoc(doc(db, "Users", user.uuid), {avatarUrl: avatarUrl});
-    const refreshedData = await getDoc(doc(db, "Users", user.uuid)); //update le contexte av la nouvelle pfp
-    setUser({...user, avatarUrl: refreshedData.data().avatarUrl});
+    setUser({...user, avatarUrl: avatarUrl});
 }
 
 

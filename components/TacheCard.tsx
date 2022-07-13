@@ -101,7 +101,7 @@ const [concernedList, setConcernedList] = useState([]);
     }
     return (
       <View style={styles.global}>
-      
+        <TouchableOpacity onPress={() => {setModalVisible(true); getConcernedData()}}>
         <View style={styles.container}>
             <View style={styles.top}>
               <Text style={styles.titre}>{props.Tache}</Text>
@@ -117,6 +117,7 @@ const [concernedList, setConcernedList] = useState([]);
             </View> 
 
         </View>
+        </TouchableOpacity>
     
     </View>
     )
@@ -124,10 +125,8 @@ const [concernedList, setConcernedList] = useState([]);
 
   return (
     <View>
-      <TouchableOpacity onPress={() => {setModalVisible(true); getConcernedData()}}>
       {renderContent()}
-      </TouchableOpacity>
-    
+      
     <Modal
         animationType="slide"
         transparent={true}
@@ -196,13 +195,14 @@ const styles = StyleSheet.create({
     shadowOffset: {width: -2, height: 1},
     shadowOpacity: 0.1,
     shadowRadius: 3,
+    backgroundColor:"white",
+    elevation:2,
+    borderRadius:10,
+    
   },
   
   container: {
-    elevation:2,
-    backgroundColor: "white",
     padding: 15,
-    borderRadius: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
