@@ -15,26 +15,6 @@ const SignupScreen = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [username, setUsername] = useState("");
-    const handleSignup = () => {
-        if(username==""){
-            alert("Rentre un nom d'utilisateur !");
-            return
-        }
-        createUserWithEmailAndPassword(auth, email, password).then(function(userCred) {
-            // get user data from the auth trigger
-            const userUid = userCred.user.uid; // The UID of the user.
-            // set account  doc  
-            const entry = {
-                nom: username,
-                uuid: userUid,
-              solde: 0,
-              colocID: "0"
-            }
-           setDoc(doc(db, 'Users', userUid),entry); 
-          }).catch((error) => {alert(error.message); console.log(error.code)});
-        
-    }
-    
     const headerHeight = useHeaderHeight();
     return(
         <KeyboardAvoidingView

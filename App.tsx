@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native';
-import { NavigationContainer, NavigatorScreenParams } from '@react-navigation/native';
+import { NavigationContainer, NavigatorScreenParams, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CoursesScreen from './screens/Courses';
 import AccueilScreen from './screens/Accueil';
@@ -28,6 +28,7 @@ import  AvatarCreationScreen from './screens/AvatarCreation'
 import AvatarModificationScreen from './screens/AvatarModification';
 import SettingsPerso from './screens/SettingsPerso';
 import NoColocScreen from './screens/NoColoc';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 //initialisation des root pour la NavBar Bottom// DEFINIT LES PARAMETRES QUE LON PASSE DANS LES SCREENS
 export type RootStackParams = {
@@ -60,39 +61,54 @@ export type AuthStackParams = {
     email: string;
     password: string
   }
+  NoColoc: undefined;
 }
 
 
 const AuthStack = createNativeStackNavigator<AuthStackParams>()
 
 const AuthScreenStack = () => {
+  
   return (
-    <AuthStack.Navigator screenOptions={{
+    <AuthStack.Navigator initialRouteName = {'Homepage'}screenOptions={{
       headerShown: false,
      }}>
        <AuthStack.Screen name= "Homepage" component={HomePageScreen} />
       <AuthStack.Screen name = "Login" component={LoginScreen}/>
       <AuthStack.Screen name= "Signup" component={SignupScreen} />
       <AuthStack.Screen name= "Avatar" component={AvatarCreationScreen} />
-    </AuthStack.Navigator>
-  )
-}
+      <AuthStack.Screen name = "NoColoc" component={NoColocScreen} />
+    </AuthStack.Navigator>)
+    }
 
-export type NoColocStackParams = {
-  NoColoc: undefined
-}
-const NoColocStack = createNativeStackNavigator<NoColocStackParams>()
-
-const NoColocSreenStack = () => {
-  return(
-    <NoColocStack.Navigator screenOptions={{
-      headerShown: false,
-     }}>
-      <NoColocStack.Screen name = "NoColoc" component={NoColocScreen} />
-     </NoColocStack.Navigator>
-  )
-}
-
+    export type NoColocStackParams = {
+      Homepage: undefined;
+      Login: undefined;
+      Signup: undefined;
+      Avatar: {
+        username: string;
+        email: string;
+        password: string
+      }
+      NoColoc: undefined;
+    }
+    
+    
+    const NoColocStack = createNativeStackNavigator<NoColocStackParams>()
+    
+    const NoColocScreenStack = () => {
+      
+      return (
+        <NoColocStack.Navigator initialRouteName = {'NoColoc'}screenOptions={{
+          headerShown: false,
+         }}>
+          <NoColocStack.Screen name = "NoColoc" component={NoColocScreen} />
+           <NoColocStack.Screen name= "Homepage" component={HomePageScreen} />
+          <NoColocStack.Screen name = "Login" component={LoginScreen}/>
+          <NoColocStack.Screen name= "Signup" component={SignupScreen} />
+          <NoColocStack.Screen name= "Avatar" component={AvatarCreationScreen} />
+        </NoColocStack.Navigator>)
+        }
 
 
 
@@ -220,9 +236,7 @@ const DepenseScreenStack = (t) => {
 
 
 
-
 export default function App() {
-
   const[userData, setUserData] = useState(null);
 //place un écouteur sur auth et fetch la data si user logged in, set la data sur null sur user logged out (utile dans renderContent)
   useEffect(() => { 
@@ -230,8 +244,11 @@ export default function App() {
     if(user){const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
     setUserData(data.data());}else{setUserData(null);}
   })}, [])
+
+
   
   const renderContent = () =>{
+
     if(userData){ //si luser est login
      if(!(userData.colocID == "0")){ //si luser est dans une coloc
       return ( 
@@ -255,7 +272,9 @@ export default function App() {
        
         )
         }else{ //si luser na pas de coloc
-          return<NoColocSreenStack/>
+          //utilité : luser quitte lapp alors quil na pas rejoint de coloc.
+          //NoCOlocscreen sur authstack et nocolocstack pr que une fois login/signup luser arrive sur
+          return (<NoColocScreenStack />)
         }
       }
       return <AuthScreenStack />
@@ -267,7 +286,7 @@ export default function App() {
     <GestureHandlerRootView style={styles.body}>
      <BottomSheetModalProvider>
       <View style={styles.body}>
-       <NavigationContainer //Création de la navBar
+       <NavigationContainer 
        >
  
         <UserContext.Provider value = {[userData, setUserData]}>

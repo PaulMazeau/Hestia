@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image, SafeAreaView, Platform} from 'react-native';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {NativeStackNavigationProp, NativeStackScreenProps} from '@react-navigation/native-stack';
 import { ScrollView } from 'react-native-gesture-handler';
-import { AuthStackParams, RootStackParams } from '../App';
+import { AuthStackParams, NoColocStackParams, RootStackParams } from '../App';
 import TopBackNavigationClear from '../components/TopBackNavigationClear';
 import AvatarColum from '../components/AvatarColumn';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth, db, storage } from '../firebase-config';
 import { doc, setDoc } from 'firebase/firestore';
 import { getDownloadURL, list, ref } from 'firebase/storage';
+import { useNavigation } from '@react-navigation/native';
 
 
 
@@ -33,12 +34,14 @@ const AvatarCreationScreen = ({route, navigation}: Props) => {
     })
     console.log(avatarURLS)
   }, [])
+  const navigation2 = useNavigation<NativeStackNavigationProp<NoColocStackParams>>();
 
   const handleSignup = () => {
     if(route.params.username==""){
         alert("Rentre un nom d'utilisateur !");
         return
     }
+    navigation2.navigate('NoColoc')
     createUserWithEmailAndPassword(auth, route.params.email, route.params.password).then(function(userCred) {
         // get user data from the auth trigger
         const userUid = userCred.user.uid; // The UID of the user.
@@ -47,7 +50,7 @@ const AvatarCreationScreen = ({route, navigation}: Props) => {
           nom: route.params.username,
           uuid: userUid,
           solde: 0,
-          tache: "Rien de prévu!",
+          colocID: "0",
           avatarUrl: avatarUrl
         }
        setDoc(doc(db, 'Users', userUid),entry); 
