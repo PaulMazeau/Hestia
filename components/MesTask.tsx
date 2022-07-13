@@ -56,7 +56,7 @@ import { UserContext } from '../Context/userContextFile';
         tasks.map(t => {
           return(
             <View style={styles.Card} key = {t.id} >
-            <TacheCard Tache = {t.data().desc} key = {t.id} id = {t.id} nextOne={t.data().nextOne} date={t.data().date}/>
+            <TacheCard Tache = {t.data().desc} key = {t.id} id = {t.id} nextOne={t.data().nextOne} date={t.data().date} concerned={t.data().concerned} recur={t.data().recur}/>
             </View>
           )
           
@@ -83,7 +83,7 @@ const renderConcernedTasksTitle = () => {
           tasks.map(t => {
             return(
              <View style={styles.Card} key={t.data().desc} >
-              <TacheCard Tache = {t.data().desc} key = {t.data().desc} displayButton = {true} clcID={props.clcID} id={t.id} nextOne={t.data().nextOne} date={t.data().date}/>
+              <TacheCard Tache = {t.data().desc} key = {t.data().desc} displayButton = {true} clcID={props.clcID} id={t.id} nextOne={t.data().nextOne} date={t.data().date} concerned={t.data().concerned} recur={t.data().recur}/>
               </View>
             )
             
