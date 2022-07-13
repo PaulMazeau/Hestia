@@ -67,8 +67,17 @@ const sheetRef = useRef<BottomSheet>(null);
 const [isOpen, setIsOpen] = useState(false);
 
 const handleAddTask = async () => {
+  if(recur == "") {alert("Sélectionne une récurrence pour ta tâche !"); return}
+  if(date== today) {alert ("Quand doit être effectuée la tâche ?"); return}
+  if(title == "") {alert("Rentre un titre pour cette tâche !"); return}
+  if(rappel == ""){alert("A quelle heure souhaiterais-tu recevoir un rappel ?"); return}
+  if(areConcerned.length == 0) {alert("Cette tâche concerne qui ?"); return}
   bottomSheetRef.current?.close();
   await addDoc(collection(db, 'Colocs/'+props.clcID+'/Taches'), {desc: title, colocID: props.clcID, date: date, rappel: rappel, concerned: areConcerned, recur: recur, nextOne: areConcerned[0]}); 
+  setTitle("");
+  setAreConcerned([]);
+  setDate(today);
+  setRecur("");
 };
 
 

@@ -1,5 +1,5 @@
 import { doc, getDoc, updateDoc } from '@firebase/firestore';
-import { getDocs, query, where, collection } from 'firebase/firestore';
+import { getDocs, query, where, collection, deleteDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Modal, Alert, Pressable } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -12,13 +12,14 @@ interface Props {
   Tache: string;
 }
 // et aussi recur la récurrence+ les user concernés pr affichange ds modal
-//props est tache id et colocID et nextOne ID pr l'affichage de l'avatar url et le titre de la tache et la date UNIFORMISER LES NOMS !!!!!!!!
+//props est tache id + tout les attributs dune tache (nextone, desc, recur, date) et colocID et nextOne ID pr l'affichage de l'avatar url et le titre de la tache et la date UNIFORMISER LES NOMS !!!!!!!!
 const TacheCard = (props) => {
 
   const [modalVisible, setModalVisible] = useState(false);
   
   const handleDone = async () => {
-    console.log("in")
+    if(props.recur == '0'){await deleteDoc(doc(db, "Colocs/" + props.clcID + "/Taches/" + props.id))}
+    else{
     const data = await getDoc(doc(db, "Colocs/" + props.clcID + "/Taches/" + props.id))
      const justDid = data.data().concerned[0]
      const newConcerned = data.data().concerned
@@ -28,7 +29,7 @@ const TacheCard = (props) => {
      const recur = data.data().recur
      doneDate.setDate(doneDate.getDate() + Number(recur))
      await updateDoc(doc(db, "Colocs/" + props.clcID + "/Taches/" + props.id), {concerned: newConcerned, date: doneDate, nextOne: newConcerned[0]})
-  }
+  }}
   const [avatar, setAvatar] = useState("tg le warning");
   const [nextOneName, setNextOneName] = useState("");
   var [ isPress, setIsPress ] = useState(<Valider/>);
@@ -53,6 +54,19 @@ const TacheCard = (props) => {
 
     }
   }
+
+  const renderRecur = () => {
+    if(!props.recur){return ""}
+    switch(props.recur){
+      case '0': return "Aucune"; break;
+      case '1': return "Tous les jours"; break;
+      case '2': return "Tous les 2 jours"; break;
+      case'3': return "Tous les 3 jours"; break;
+      case '7': return "Une fois par semaine"; break;
+      case '14': return "Une fois toutes les 2 semaines"; break;
+      case '28': return "Une fois par mois"; break;
+    }
+  }
   //liste des data des concerned
 const [concernedList, setConcernedList] = useState([]);
   const getConcernedData = async () => {
@@ -74,12 +88,12 @@ const [concernedList, setConcernedList] = useState([]);
       })
     )
   }}
-
+//rendu contionnelle de la tache card en fction de si dans mes tasks ou non
   const renderContent =() => {
     if(props.displayButton){
       return(
         <View style={styles.global}>
-      
+      <TouchableOpacity onPress={() => {setModalVisible(true); getConcernedData()}}>
         <View style={styles.container}>
             <View style={styles.top}>
               <Text style={styles.titre}>{props.Tache}</Text>
@@ -95,7 +109,7 @@ const [concernedList, setConcernedList] = useState([]);
               </TouchableOpacity>
 
         </View>
-    
+        </TouchableOpacity>
     </View>
       )
     }
@@ -141,7 +155,7 @@ const [concernedList, setConcernedList] = useState([]);
             <Text style={styles.ModalTitleTache}>{props.Tache}</Text>
 
             <View style={styles.Repetition}>
-              <Text style={styles.ModalTitle}>Répétition:</Text>
+              <Text style={styles.ModalTitle}>Répétition: {renderRecur()}</Text>
             </View>
 
             <View style={styles.ProchainConcerne}>
