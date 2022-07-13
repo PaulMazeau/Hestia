@@ -18,7 +18,7 @@ const SignupScreen = () => {
     const headerHeight = useHeaderHeight();
     return(
         <KeyboardAvoidingView
-        keyboardVerticalOffset={headerHeight -260}
+        keyboardVerticalOffset={headerHeight -221}
         style={{flex:1}}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >

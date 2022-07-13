@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import { BorderRadiuses } from 'react-native-ui-lib';
 import { RootStackParams } from '../App';
 
 
@@ -51,13 +52,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 3,
     width: '55%',
+    elevation: 2,
+    backgroundColor:'white',
+    borderRadius:10
   },
   
   container: {
-    elevation: 2,
-    backgroundColor: "white",
     padding: 15,
-    borderRadius: 10,
     flexDirection: 'row',
     alignItems: 'center',
     height: 70,

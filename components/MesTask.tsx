@@ -112,7 +112,7 @@ const renderConcernedTasksTitle = () => {
     <ScrollView showsVerticalScrollIndicator={false}>
     <Text style={styles.Categorie1}>Tâches où tu es le suivant</Text>
     {renderNextUpTasks()}
-    <Text style={styles.Categorie1}>Toutes tes tâches</Text>
+    {renderConcernedTasksTitle()}
     {renderConcernedTasks()}
 
   </ScrollView>
