@@ -43,7 +43,6 @@ const getLastestTransac =  () => {
   }}
   return (
     <View style={styles.emptypage}>
-      <ImageContainer image={EmptyDepense} /> 
       <Text style={styles.emptytext}>Oops, il n’y pas encore de {'\n'} transactions</Text>
    </View>
   )

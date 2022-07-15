@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -10,9 +10,28 @@ import { collection  } from 'firebase/firestore';
 import { db } from '../firebase-config';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { UserContext } from '../Context/userContextFile';
+import ContentLoader, { Circle, Facebook, Rect } from 'react-content-loader/native'
+
 type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
 
 const CoursesScreen = ({route, navigation}: Props) => {
+  const [loading, isLoading] = useState(false);
+  
+  const MyLoader = () => ( 
+  <ContentLoader 
+  viewBox="0 0 380 70"
+  speed={1}
+  backgroundColor={'white'}
+  foregroundColor={'#DDD'}
+  >
+
+  <Circle cx="30" cy="30" r="30" />
+  <Rect x="80" y="17" rx="4" ry="4" width="300" height="13" />
+  <Rect x="80" y="40" rx="3" ry="3" width="250" height="10" />
+  </ContentLoader>)
+
+
+
   const [user, setUser] = useContext(UserContext)
   const [allCourses] = useCollection(collection(db, "Colocs/"+user.colocID+ "/Courses"))
   const EmptyCourse=require('../Img/EmptyCourse.png');
@@ -30,12 +49,21 @@ const CoursesScreen = ({route, navigation}: Props) => {
         })
       )
       
-    } }
+    } 
+  else {
+    return (
+      <View style={styles.emptypage}>
+        <ImageContainer image={EmptyCourse} /> 
+        <Text style={styles.emptytext}>Oops, il n’y pas encore de {'\n'} liste de course</Text>
+     </View>
+    )  
+  }
+  
+  }
   
   return (
-    <View style={styles.emptypage}>
-      <ImageContainer image={EmptyCourse} /> 
-      <Text style={styles.emptytext}>Oops, il n’y pas encore de {'\n'} liste de course</Text>
+    <View>
+    {MyLoader()}
    </View>
   )  
   }
@@ -45,7 +73,7 @@ const CoursesScreen = ({route, navigation}: Props) => {
         <Image source={image} style={styles.Image}/>
     </View>
   );
-  
+
 
   return (
    
@@ -56,7 +84,9 @@ const CoursesScreen = ({route, navigation}: Props) => {
         <ScrollView showsVerticalScrollIndicator={false}>
         
           {renderContent()}
+          
 
+          
         </ScrollView>
 
         <AddListeCourseBS clcID= {user.colocID}/>

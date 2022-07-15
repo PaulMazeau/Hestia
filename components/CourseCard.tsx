@@ -3,6 +3,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Button } from 'react-native';
 import { Colors, Drawer } from 'react-native-ui-lib';
 import {db} from '../firebase-config'
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 
 interface Props {
   name: string;
@@ -16,6 +17,9 @@ const RestaurantCard: React.FC<Props> = ({name, onPress, courseID, clcID}) => {
     await deleteDoc(doc(db, "Colocs/"+clcID+"/Courses", courseID));
   }
   return (
+    <SkeletonTheme baseColor="#202020" highlightColor="#444">
+        
+  
       <View style={styles.body}>
     <Drawer
     rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete()}]}
@@ -36,6 +40,8 @@ const RestaurantCard: React.FC<Props> = ({name, onPress, courseID, clcID}) => {
     </View>
     </Drawer>
     </View>
+
+    </SkeletonTheme>
   );
 };
 
