@@ -1,21 +1,122 @@
-import React from "react";
+import { getNextTriggerDateAsync, setBadgeCountAsync } from "expo-notifications";
+import { collection, getDocs, orderBy, query, startAt, where } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
+import { useCollection } from "react-firebase-hooks/firestore";
 import { StyleSheet, View } from "react-native";
 import { DefaultTransition } from "react-navigation-stack/lib/typescript/src/vendor/TransitionConfigs/TransitionPresets";
 import { Bar, VictoryAxis, VictoryBar, VictoryChart, VictoryTheme } from "victory-native";
+import {db, auth} from '../firebase-config'
+// const data = [
+//   {quarter: 1, earnings: 100},
+//   {quarter: 2, earnings: 150},
+//   {quarter: 3, earnings: 125},
+//   {quarter: 4, earnings: 240},
+//   {quarter: 5, earnings: 226},
+//   {quarter: 6, earnings: 140},
+//   {quarter: 7, earnings: 175},
+// ];
 
-const data = [
-  {quarter: 1, earnings: 100},
-  {quarter: 2, earnings: 150},
-  {quarter: 3, earnings: 125},
-  {quarter: 4, earnings: 240},
-  {quarter: 5, earnings: 226},
-  {quarter: 6, earnings: 140},
-  {quarter: 7, earnings: 175},
-];
 
-class Depense extends React.Component {
-  render() {
+const today = new Date(Date.now())
+
+const matchMonth = (index) => {
+  const months = ['__', 'Jan','Fev', 'Mar', 'Avr', 'Mai', 'Jui', 'Juil', 'Aout', 'Sept', 'Oct', 'Nov', 'Dec']
+  return months[index];
+}
+
+//pr recuperer les strings des 6 derniers mois et les indexs
+const getLastSixMonthsStrings = () => {
+    let monthIndex = today.getMonth() + 1
+    let res = [];
+    for(var i=0; i<7; i++){
+      if((monthIndex - i) > 0){
+        res.push(monthIndex-i)
+      }else{
+        res.push(12 + (monthIndex-i))
+      }
+    }
+    res = res.reverse()
+    return res.map(i => matchMonth(i));
+}
+
+const getLastSixMonthsIndexes = () => {
+  let monthIndex = today.getMonth() + 1
+  let res = [];
+  for(var i=0; i<7; i++){
+    if((monthIndex - i) > 0){
+      res.push(monthIndex-i)
+    }else{
+      res.push(12 + (monthIndex-i))
+    }
+  }
+  res = res.reverse()
+  return res.map(i => (i-1));
+}
+
+//pr dans la query 
+const SixMonthsAgoFromToday = new Date(today);
+SixMonthsAgoFromToday.setMonth(getLastSixMonthsIndexes()[0])
+
+// const [transacs, setTransacs] = useState(null);
+// useEffect(() => {
+//   const getData = async () => {
+//     const q = query(collection)
+//   }
+// }, [])
+
+//props est la clc id pr get les dépense
+const Depense = (props)  => {
+
+  const[data, setData] = useState([
+    {quarter: 1, earnings: 0},
+    {quarter: 2, earnings: 0},
+    {quarter: 3, earnings: 0},
+    {quarter: 4, earnings: 0},
+    {quarter: 5, earnings: 0},
+    {quarter: 6, earnings: 0},
+    {quarter: 7, earnings: 0},
+  ]);
+
+  //get toutes les transac dil y a mois de 6 moins
+useEffect(() => {
+  const getData = async ()=> {
+    const q = query(collection(db, "Colocs/"+props.clcID+ "/Transactions"), where('concerned', 'array-contains', auth.currentUser.uid), orderBy('timestamp'), startAt(SixMonthsAgoFromToday));
+    const docs =  await getDocs(q);
+    setData(orderData(docs));
+  }
+  getData();
+}, [])
+//sommer les montants dépensés par mois
+const orderData = (data) => {
+  const res = [
+    {quarter: 1, earnings: 0}, //il ya a 6 mois....
+    {quarter: 2, earnings: 0},
+    {quarter: 3, earnings: 0},
+    {quarter: 4, earnings: 0},
+    {quarter: 5, earnings: 0},
+    {quarter: 6, earnings: 0},
+    {quarter: 7, earnings: 0},//mois d'ojd
+  ];
+  
+ if(data.docs.length==0) {return res}
+  const startingMonth = data.docs[0].data().timestamp.toDate().getMonth();
+  for(var i = 0; i<data.docs.length; i++){
+    let currentMonth = data.docs[i].data().timestamp.toDate().getMonth();
+    switch(currentMonth - startingMonth){ 
+      case 0: res[6].earnings += data.docs[i].data().amount; break; //ça signifie currentMonth est il y a 6 mois
+      case 1: res[5].earnings +=  data.docs[i].data().amount; break;
+      case 2: res[4].earnings +=  data.docs[i].data().amount; break;
+      case 3: res[3].earnings +=  data.docs[i].data().amount; break;
+      case 4: res[2].earnings +=  data.docs[i].data().amount; break;
+      case 5: res[1].earnings +=  data.docs[i].data().amount; break;
+      case 6: res[0].earnings +=  data.docs[i].data().amount; break;
+    }
+  }
+  return res 
+
+}
+
     return (
       <View style={styles.container}>
         <VictoryChart
@@ -23,7 +124,7 @@ class Depense extends React.Component {
         >
           <VictoryAxis
             tickValues={[1, 2, 3, 4, 5, 6, 7]}
-            tickFormat={["Jan", "Fev", "Mar", "Avr", "Mai", "Jui", "Jui"]}
+            tickFormat={getLastSixMonthsStrings()}
             style={{ 
               axis: {stroke: "transparent"}, 
           }}
@@ -47,7 +148,7 @@ class Depense extends React.Component {
       </View>
     )
   }
-}
+
 
 const styles = StyleSheet.create({
       container: {

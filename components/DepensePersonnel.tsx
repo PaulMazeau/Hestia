@@ -63,7 +63,7 @@ const DepensePerso = (props) => {
   
 <View style={{flex: 1}}>
 <ScrollView showsVerticalScrollIndicator={false}>
-    <Depense/>
+    <Depense clcID= {props.clcID}/>
 
                 <Text style={styles.DerniereDepense}>Tes transactions</Text>
 
