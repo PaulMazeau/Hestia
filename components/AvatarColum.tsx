@@ -2,6 +2,8 @@ import React from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity, ImageSourcePropType} from 'react-native';
 
 
+
+
 interface Props {
   image1: Image;
   image2: Image | null;
@@ -31,8 +33,8 @@ const SmallImage = ({image}) => (
 
 const styles = StyleSheet.create({
     SmallImages:{
-      height: 90,
-      width: 90,
+      height: 110,
+      width: 110,
       margin:5
       
     },

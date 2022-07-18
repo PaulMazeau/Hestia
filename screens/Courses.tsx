@@ -12,11 +12,10 @@ type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
 
 
 const data : Image[] = [
-  require('../Img/Avatars/Avatar1.png'),
-  require('../Img/Avatars/Avatar2.png'),
-  require('../Img/Avatars/Avatar4.png'),
-  require('../Img/Avatars/Avatar5.png'),
-  require('../Img/Avatars/Avatar6.png'),
+  require('../Img/Avatars/Avatar1-min.png'),
+  require('../Img/Avatars/Avatar1.jpg'),
+  require('../Img/Avatars/Avatar5.1000.jpg'),
+  require('../Img/Avatars/Avatar5.jpg'),
   require('../Img/Avatars/Avatar7.png'),
   require('../Img/Avatars/Avatar3.png'),
   require('../Img/Avatars/Avatar8.png'),

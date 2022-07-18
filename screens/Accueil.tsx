@@ -8,7 +8,7 @@ import MonSolde from '../components/MonSolde';
 
 
 //importer l'image de maison
-const ProfilImage=require('../Img/Home.png');
+const ProfilImage=require('../Img/Apartment5.png');
 
 
 type Props = NativeStackScreenProps<RootStackParams, 'AccueilStack'>;
