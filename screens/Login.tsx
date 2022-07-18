@@ -14,7 +14,6 @@ const LoginScreen = () => {
     const navigation = useNavigation<NativeStackNavigationProp<AuthStackParams>>();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
     const handleLogin = () => {
         signInWithEmailAndPassword(auth, email, password).catch((error) => {
             switch(error.code){
@@ -23,7 +22,7 @@ const LoginScreen = () => {
                 case 'auth/wrong-password': alert ("Combinaison email/mot de passe invalide");
             }
         })
-        navigation.navigate('NoColoc');
+        navigation.navigate('NoColoc'); //ou on pourrait get la data de luser et update le context mais c ok 
     }
     
     const headerHeight = useHeaderHeight();

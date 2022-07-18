@@ -272,8 +272,9 @@ export default function App() {
        
         )
         }else{ //si luser na pas de coloc
-          //utilité : luser quitte lapp alors quil na pas rejoint de coloc.
-          //NoCOlocscreen sur authstack et nocolocstack pr que une fois login/signup luser arrive sur
+          //utilité : luser quitte lapp alors quil na pas rejoint de coloc => dans noColocScreenStack, l'itinitalroute est Nocoloc
+          //NoCOlocscreen sur authstack et nocolocstack pr que une fois login/signup luser arrive sur lecran nocoloc via le nav.navigate
+          //permet aussi deviter davoir a update le contexte
           return (<NoColocScreenStack />)
         }
       }
