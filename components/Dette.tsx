@@ -24,7 +24,7 @@ const Dette  = (props) => {
               </View>
 
               <View style={styles.Right}>
-                  <Text style={styles.amout}>{props.amount}€</Text>
+                  <Text style={styles.amout}>{props.amount.toFixed(1)}€</Text>
               </View>
 
             </View>
