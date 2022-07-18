@@ -29,6 +29,7 @@ const data : Image[] = [
 const ColocSettings = ({route, navigation}: Props) => {
     const [user, SetUser] = useContext(UserContext);
     const [avatars, setAvatars] = useState([]); //list des avatars url de la coloc
+   
 
     useEffect(()=> {
         const getData = async () => {
@@ -36,11 +37,14 @@ const ColocSettings = ({route, navigation}: Props) => {
             const membersID = data.data().membersID;
             const q = query(collection(db, "Users"), where('uuid', 'in', membersID))
             const querySnapshot = await getDocs(q);
-            setAvatars(querySnapshot.docs.map((doc)=> doc.data().avatarUrl));
-            
+            setAvatars(querySnapshot.docs.map((doc)=> doc.data()));
                 }
         getData();
     }, [])
+
+    const handleLeaveColoc = async () => {
+        
+    }
   return (
     <View style={styles.Body}>
         <Top clcName={user.nomColoc} avatar={user.avatarUrl} name={user.nom}/>
@@ -71,7 +75,7 @@ const ColocSettings = ({route, navigation}: Props) => {
             </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => console.log("blabla")}>
+        <TouchableOpacity onPress={() => handleLeaveColoc()}>
             <View style={styles.Quitter}>
                 <Exit></Exit>
                 <Text style={{fontWeight: '700', color:'white'}}>Quitter la colocation</Text>
@@ -86,9 +90,9 @@ const renderItem : ListRenderItem<any> = ({item}) => {
     return (
     <View style={styles.colocataire} key={item}>
         <View style={styles.ImageContainer} key={item}>
-        <Image source={{uri: item}} style={styles.Image} key={item}/>
+        <Image source={{uri: item.avatarUrl}} style={styles.Image} key={item}/>
         </View>
-        <Text style={styles.nom}> Marc </Text>
+        <Text style={styles.nom}> {item.nom} </Text>
      </View>
         );
 };

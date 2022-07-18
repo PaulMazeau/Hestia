@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image, SafeAreaView, Platform} from 'react-native';
 import {NativeStackNavigationProp, NativeStackScreenProps} from '@react-navigation/native-stack';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -10,6 +10,7 @@ import { auth, db, storage } from '../firebase-config';
 import { doc, setDoc } from 'firebase/firestore';
 import { getDownloadURL, list, ref } from 'firebase/storage';
 import { useNavigation } from '@react-navigation/native';
+import { UserContext } from '../Context/userContextFile';
 
 
 
@@ -24,6 +25,7 @@ const AvatarCreationScreen = ({route, navigation}: Props) => {
   const avatarListRef = ref(storage, "AvatarsCompress/");
   //PARTIE A OPTIMISER EST INTERACTION AVEC AVATARCOLUMN (on passe une url o component qui la dl qui passe l'url o screen qui la dl c nul)
   //on remplit la liste des urls de tt les avatars de la db
+  const[user, setUser] = useContext(UserContext);
   useEffect(() => {
     list(avatarListRef).then((response) => {
       response.items.forEach((item) => {
@@ -41,7 +43,6 @@ const AvatarCreationScreen = ({route, navigation}: Props) => {
         alert("Rentre un nom d'utilisateur !");
         return
     }
-    navigation2.navigate('NoColoc')
     createUserWithEmailAndPassword(auth, route.params.email, route.params.password).then(function(userCred) {
         // get user data from the auth trigger
         const userUid = userCred.user.uid; // The UID of the user.
@@ -53,12 +54,14 @@ const AvatarCreationScreen = ({route, navigation}: Props) => {
           colocID: "0",
           avatarUrl: avatarUrl
         }
+        navigation.navigate('NoColoc')
+        setUser(entry); //update du contexte
        setDoc(doc(db, 'Users', userUid),entry); 
       }).catch((error) => {
         switch(error.code){
-          case 'auth/email-already-in-use': alert('Cette adresse mail est déjà utilisée !');
+          case 'auth/email-already-in-use': alert('Cette adresse mail est déjà utilisée !'); navigation.navigate('Signup');
           break;
-          case 'auth/invalid-email': alert('Rentre une adresse mail valide !');
+          case 'auth/invalid-email': alert('Rentre une adresse mail valide !'); navigation.navigate('Signup')
           break;
         }
       });
@@ -74,7 +77,6 @@ const renderContent = () => {
       render.push(<AvatarColum imageUrl1={avatarURLS[i]} imageUrl2={avatarURLS[i+1]}  setAvatarUrl={setAvatarUrl} key = {avatarURLS[i]}/>)
     }else{render.push(<AvatarColum imageUrl1={avatarURLS[i]} imageUrl2={null}  setAvatarUrl={setAvatarUrl} key = {avatarURLS[i]}/>)}
   }
-  console.log(avatarURLS)
   return render;
 }
 

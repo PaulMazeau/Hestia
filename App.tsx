@@ -273,7 +273,7 @@ export default function App() {
         )
         }else{ //si luser na pas de coloc
           //utilité : luser quitte lapp alors quil na pas rejoint de coloc.
-          //NoCOlocscreen sur authstack et nocolocstack pr que une fois login/signup luser arrive sur
+          //NoCOlocscreen sur authstack et nocolocstack pr que une fois login/signup luser arrive sur lecran
           return (<NoColocScreenStack />)
         }
       }

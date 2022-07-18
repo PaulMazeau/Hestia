@@ -51,7 +51,7 @@ const getLastSixMonthsIndexes = () => {
     }
   }
   res = res.reverse()
-  return res.map(i => (i-1));
+  return res.map(i => (i-1)); //) car les mois commencent à 0
 }
 
 //pr dans la query 
@@ -88,6 +88,7 @@ useEffect(() => {
   getData();
 }, [])
 //sommer les montants dépensés par mois
+
 const orderData = (data) => {
   const res = [
     {quarter: 1, earnings: 0}, //il ya a 6 mois....

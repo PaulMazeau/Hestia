@@ -108,7 +108,8 @@ const isNumber = (str) => {
       alert("Envoie le nom")
       return
     }
-    const allParticipant = areConcerned.push(payeur);
+    const allParticipant = areConcerned;
+    allParticipant.push(payeur);//utile dans DepenseDiagramme pr rapidement check si luser est concerné par une transac (payeur ou receveur)
     await addDoc(collection(db, "Colocs/" +props.clcID+ "/Transactions"), {timestamp: serverTimestamp(), amount: Number(amount), giverID: payeur, receiversID: areConcerned, desc: title, concerned: allParticipant});
     updateSolde();
     setAmount("");
