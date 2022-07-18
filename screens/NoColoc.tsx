@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform} from 'react-native'
-import TopBackNavigation from '../components/TopBackNavigation'
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, TextInput, Platform,} from 'react-native'
 import * as Haptics from 'expo-haptics';
-import { KeyboardAwareScrollView } from 'react-native-ui-lib';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AuthStackParams } from '../App';
@@ -58,9 +57,9 @@ const NoColocScreen = ()  => {
         getData();
     }, [])
     return(
-
-        <KeyboardAwareScrollView>
         
+        <KeyboardAwareScrollView contentContainerStyle={{flex:1}} extraScrollHeight={70} resetScrollToCoords={{x:0,y:-200}}>
+        <SafeAreaView style= {{backgroundColor: '#EDF0FA', paddingBottom:Platform.OS === 'android' ? 25:0}}>
         <View style={styles.container}>
             <View style={styles.creerColocContainer}>
                 <Text style={styles.texteBlanc}>Crées ta coloc</Text>
@@ -80,6 +79,7 @@ const NoColocScreen = ()  => {
 
             <View style={styles.rejoindreColocContainer}>
                 <Text style={styles.texteNoir}>Rejoins ta coloc</Text>
+                
                 <TextInput
                 style={styles.inputGris}
                 onChangeText={(event) => setCodeColoc(event)}
@@ -92,9 +92,17 @@ const NoColocScreen = ()  => {
                     <Text style={styles.texteRejoindre}>Rejoindre</Text>
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity onPress={()=> {navigation.navigate('Homepage'); signOut(auth)}}><Text>Changer de compte</Text></TouchableOpacity>
             </View>
+
+            <View style={styles.ChangerCompte}>
+            <TouchableOpacity onPress={()=> {navigation.navigate('Homepage'); signOut(auth)}}>
+                <Text>Changer de compte</Text>
+            </TouchableOpacity>
+            </View>
+            
+
         </View>
+        </SafeAreaView>
         </KeyboardAwareScrollView>
     )
 }
@@ -104,18 +112,21 @@ const NoColocScreen = ()  => {
 const styles = StyleSheet.create({
 
     container: {
-        flex: 1,
         backgroundColor:'#EDF0FA',
         flexDirection:'column',
-        padding:25
+        padding:25,
+        alignItems:'center',
+        justifyContent:'center',
+        height:'100%'
         },
     creerColocContainer:{
         paddingTop:30,
         paddingBottom:30,
+        paddingLeft:20,
+        paddingRight:20,
         marginBottom:15,
         marginTop:15,
         backgroundColor:'#172ACE',
-        flex:0.5,
         borderRadius:15,
         flexDirection:'column',
         justifyContent:'center',
@@ -125,14 +136,16 @@ const styles = StyleSheet.create({
         shadowOffset: {width: -2, height: 1},
         shadowOpacity: 0.1,
         shadowRadius: 3,
+        width:'100%'
     },
     rejoindreColocContainer:{
         marginBottom:15,
         marginTop:15,
         paddingTop:30,
         paddingBottom:30,
+        paddingLeft:20,
+        paddingRight:20,
         backgroundColor:'white',
-        flex:0.5,
         borderRadius:15,
         flexDirection:'column',
         justifyContent:'center',
@@ -142,20 +155,23 @@ const styles = StyleSheet.create({
         shadowOffset: {width: -2, height: 1},
         shadowOpacity: 0.1,
         shadowRadius: 3,
+        width:'100%'
     },
     inputBlanc: {
         height: 44,
         marginTop: 13,
         padding: 10,
         borderRadius: 5,
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        
     },
     inputGris: {
         height: 44,
         marginTop: 13,
         padding: 10,
         borderRadius: 5,
-        backgroundColor: '#E8E8E8'
+        backgroundColor: '#E8E8E8',
+        
     },
     texteBlanc:{
         color:'white',
@@ -192,6 +208,20 @@ const styles = StyleSheet.create({
         backgroundColor: '#172ACE',
         width: 154,
         justifyContent: 'center',
+    },
+    ChangerCompte:{
+        marginTop:50,
+        height: 40,
+        borderRadius: 5,
+        backgroundColor: 'white',
+        width: 154,
+        justifyContent: 'center',
+        alignItems:'center',
+        elevation:2,
+        shadowColor: 'black',
+        shadowOffset: {width: -2, height: 1},
+        shadowOpacity: 0.1,
+        shadowRadius: 3,
     }
 
 })

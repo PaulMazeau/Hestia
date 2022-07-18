@@ -10,6 +10,7 @@ import AddDepenseBS from './AddDepenseBS';
 import { collection, limit, orderBy, query } from 'firebase/firestore';
 import {db} from '../firebase-config';
 import { useCollection } from 'react-firebase-hooks/firestore';
+import ContentLoader, { Circle, Rect } from 'react-content-loader/native';
 
 type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
 
@@ -17,6 +18,18 @@ type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
 // props est colocID à passer dans la botomsheet avec usersList
 const AllDepense = (props) => {
 
+  const MyLoader = () => ( 
+    <ContentLoader 
+    viewBox="0 0 380 70"
+    speed={1}
+    backgroundColor={'white'}
+    foregroundColor={'#DDD'}
+    >
+  
+    <Circle cx="30" cy="30" r="30" />
+    <Rect x="80" y="17" rx="4" ry="4" width="300" height="13" />
+    <Rect x="80" y="40" rx="3" ry="3" width="250" height="10" />
+    </ContentLoader>)
 
 //on cherche la dernière transac en placant un ecouteur sur la db
 const q = query(collection(db, "Colocs/"+props.clcID+ "/Transactions"), orderBy('timestamp', 'desc'), limit(1));
@@ -40,19 +53,22 @@ const getLastestTransac =  () => {
       
       
     )
-  }}
+  }
+  else {
+    return (
+      <View style={styles.emptypage}>
+        <Text style={styles.emptytext}>Oops, il n’y pas encore de {'\n'} transactions</Text>
+     </View>
+    )
+  }
+
+}
   return (
-    <View style={styles.emptypage}>
-      <Text style={styles.emptytext}>Oops, il n’y pas encore de {'\n'} transactions</Text>
+    <View>
+      {MyLoader()}
    </View>
   )
 }
-
-const ImageContainer = ({image}) => (
-  <View style={styles.ImageContainer}>
-      <Image source={image} style={styles.Image}/>
-  </View>
-);
 
   const navigation =
   useNavigation<StackNavigationProp<RootStackParams>>();
@@ -83,6 +99,7 @@ const styles = StyleSheet.create({
       paddingLeft: 16,
       paddingRight: 16,
   },
+  
   screenTitle: {
       fontSize: 24,
       fontWeight: 'bold',

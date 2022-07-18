@@ -17,7 +17,7 @@ import Constants from 'expo-constants';
 import storage from "@react-native-async-storage/async-storage";
 import Notif from '../notifications'
 //importer l'image de maison
-const ProfilImage=require('../Img/Home.png');
+const ProfilImage=require('../Img/Apartment5.png');
 
 type Props = NativeStackScreenProps<RootStackParams, 'AccueilStack'>;
 
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         marginLeft:'auto',
         marginRight:'auto',
-        marginTop: -25
+        marginTop: 0
     },
 
     Image: {

@@ -1,67 +1,86 @@
 import React from "react";
-import {ProgressChart} from "react-native-chart-kit";
-import { Dimensions, View } from "react-native";
-import { Bar, VictoryAxis, VictoryBar, VictoryChart, VictoryStack } from "victory-native";
+import { View } from "react-native";
+import { VictoryAxis, VictoryBar, VictoryChart, VictoryContainer, VictoryGroup, VictoryLabel } from "victory-native";
 
+const NegativeAwareTickLabel = props => {
+  const {
+    datum, // Bar's specific data object
+    y, // Calculated y data value IN SVG SPACE (from top-right corner)
+    dy, // Distance from data's y value to label's y value
+    scale, // Function that converts from data-space to svg-space
+    ...rest // Other props passed to label from Bar
+  } = props;
 
-const solde=[
-  { x: 'paul', y: 2 },
-  { x: 'pablo', y: 3 },
-  { x: 'tomy', y: -5 },
-  { x: 'kev', y: 4 }
-];
+  return (
+    <VictoryLabel
+      datum={datum} // Shove `datum` back into label. We destructured it from `props` so we'd have it available for a future step
+      y={scale.y(0)} // Set y to the svg-space location of the axis
+      dy={20 * Math.sign(datum.y)} // Change direction of offset based on the datum value
+      {...rest} // Shove the rest of the props into the label
+    />
+  );
+};
 
 
 class Equilibrage extends React.Component {
- 
-
-
-    
+  
   render() {
-
+    const data = [
+      { x: 'Paul', y: 7 },
+      { x: 'Marcel', y: 3 },
+      { x: 'Nicolas', y: -5 },
+      { x: 'Lena', y: 9 },
+      { x: 'Thibault', y: -9 },
+      { x: 'Louis', y: 9 },
+    ];
+    
     return (
-
       <View style={{
         backgroundColor: 'white', 
-        borderRadius: 13, 
-        width: 'auto', 
-        height: 300,
+        borderRadius: 13,
         marginTop: 15,
-        marginBottom: 15
+        marginBottom: 15, 
+        width:'auto'
       }}>
-      
-        <VictoryChart height={350} width={350}
-          domainPadding={{ x: 10, y: 10 }}
-          scale={{ x: "time" }}
-          horizontal={true}        
-        >
-           <VictoryAxis dependentAxis crossAxis 
-           standalone={true}
-           style={{ 
-            axis: {stroke: "transparent"}, 
-            ticks: {stroke: "transparent"},
-            tickLabels: { fill:"transparent"} 
-           }}/>
+        
+      <VictoryChart 
+      domainPadding={{x: [25, 50], y: 15}}
+       animate={{
+        duration: 500,
+         onLoad: { duration: 800 }
+       }}
+      padding={{ top: 20, bottom: 20, left: 10, right: 20 }}
+      >
+          <VictoryAxis
+          style={{
+            tickLabels: { fill: "none" },
+            axis: {stroke: "none"}, 
+            ticks: {fill: "none"},
+          }}
 
-           <VictoryAxis crossAxis
-           style={{ 
-            axis: {stroke: "transparent"}, 
-            ticks: {stroke: "transparent"},
-           }}
-           />
-          
-          <VictoryBar
-            dataComponent={ <Bar cornerRadius={4}/> }
-            style={{data: {
-              fill: ({ datum }) => datum.x === 1 ? "#000000" : "#172ACE",
-            },}}
-            data={solde}
+        />
+        
+        <VictoryGroup data={data}>
+          <VictoryBar 
+          labels={({ datum }) => `${datum.y}€`} 
+          cornerRadius={7}
           />
-          
-        </VictoryChart>
-        </View>
+          <VictoryBar
+          cornerRadius={7}
+          labels={({ datum }) => `${datum.x}`}
+          style={{data: {
+            fill: ({ datum }) => datum.y < 0 ? "red" : "#172ACE",
+          },}}
+            labelComponent={<NegativeAwareTickLabel />}
+          />
+        </VictoryGroup>
+
+       
+      </VictoryChart>
+      </View>
     );
   }
- }
+}
+
 
 export default Equilibrage
