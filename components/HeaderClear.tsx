@@ -5,11 +5,6 @@ import Settings from '../Icons/Settings.svg';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParams } from '../App';
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-
-
-
-const ProfilImage=require('../Img/avatarHeader.png');
 
 //props est name du frérot + de la coloc
 const Top = (props) => {

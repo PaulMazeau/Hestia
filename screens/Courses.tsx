@@ -15,7 +15,6 @@ import ContentLoader, { Circle, Facebook, Rect } from 'react-content-loader/nati
 type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
 
 const CoursesScreen = ({route, navigation}: Props) => {
-  const [loading, isLoading] = useState(false);
   
   const MyLoader = () => ( 
   <ContentLoader 
