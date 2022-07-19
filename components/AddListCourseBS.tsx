@@ -97,7 +97,7 @@ return (
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => {putInOrPutOut(4)}}>
                           <View style={[courseImage==4?styles.emoji_valid:styles.emoji_invalid]}>
-                          <CategorieCard name='Menage' avatar={require('../Img/Balais3-min.png')}/>
+                          <CategorieCard name='Menage' avatar={require('../Img/Balais-min.png')}/>
                           </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => {putInOrPutOut(5)}}>
