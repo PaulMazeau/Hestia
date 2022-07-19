@@ -37,9 +37,10 @@ class Equilibrage extends React.Component {
       <View style={{
         backgroundColor: 'white', 
         borderRadius: 13,
-        marginTop: 15,
+        marginTop: 10,
         marginBottom: 15, 
-        width:'auto'
+        width:'auto',
+        height: 275
       }}>
         
       <VictoryChart 
@@ -49,6 +50,7 @@ class Equilibrage extends React.Component {
          onLoad: { duration: 800 }
        }}
       padding={{ top: 20, bottom: 20, left: 10, right: 20 }}
+      height={275}
       >
           <VictoryAxis
           style={{

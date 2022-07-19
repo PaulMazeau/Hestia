@@ -16,7 +16,7 @@ const Top = (props) => {
       useNavigation<StackNavigationProp<RootStackParams>>();
     return (
     
-    <SafeAreaView style= {{backgroundColor: '#EDF0FA', paddingBottom:Platform.OS === 'android' ? 25:0}}>
+    <SafeAreaView style= {{backgroundColor: '#EDF0FA', paddingBottom:Platform.OS === 'android' ? 25:-25}}>
     <View style={styles.Header}>
     <View style={styles.ImageContainer}>
         <Image source={{uri: props.avatar}} style={styles.Image}/>
