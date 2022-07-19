@@ -211,7 +211,7 @@ return (
                       <TextInput 
                       style={styles.datepickerRappel}
                       // onChangeText={(event) => {setRappel(event);}} g comment pcq cette ligne sert à rien sauf a fausser la data quon rentre dans la db
-                      value={rappel}
+                      value={rappel.slice(0,5)}
                       placeholder="Entrer le rappel"
                       onPressIn={showRappelPicker} 
                       />
