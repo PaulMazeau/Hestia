@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native';
-import { NavigationContainer, NavigatorScreenParams, useNavigation } from '@react-navigation/native';
+import { NavigationContainer, NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CoursesScreen from './screens/Courses';
 import AccueilScreen from './screens/Accueil';
@@ -28,7 +28,6 @@ import  AvatarCreationScreen from './screens/AvatarCreation'
 import AvatarModificationScreen from './screens/AvatarModification';
 import SettingsPerso from './screens/SettingsPerso';
 import NoColocScreen from './screens/NoColoc';
-import { StackNavigationProp } from '@react-navigation/stack';
 import DepenseCollective from './components/DepenseCollective';
 
 //initialisation des root pour la NavBar Bottom// DEFINIT LES PARAMETRES QUE LON PASSE DANS LES SCREENS
