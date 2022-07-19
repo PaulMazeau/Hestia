@@ -17,7 +17,7 @@ const Selection  = () => {
             <View style={styles.Top}>
 
                     <Text style={styles.text}>
-                        Découvrez une selection de recette, {'\n'}sortie, jeu et restaurant à faire {'\n'}entre colocataire.
+                        Découvrez une selection de recettes, {'\n'}sorties, jeux et restaurants à faire {'\n'}entre colocataires.
                     </Text>
 
                    

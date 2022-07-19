@@ -9,7 +9,7 @@ import {auth} from '../firebase-config'
 import {signOut} from 'firebase/auth'
 import { UserContext } from '../Context/userContextFile';
 
-const ProfilImage=require('../Img/avatar1.png');
+
 
 type Props = NativeStackScreenProps<RootStackParams, 'Settings'>;
 
@@ -95,10 +95,10 @@ const Settings = ({route, navigation}: Props) => {
       </View> */}
 
       <View style={styles.ChampSettings}>
-        <Text style={styles.subTitle}>Paramètre utilisateur</Text>
+        <Text style={styles.subTitle}>Paramètres utilisateur</Text>
         <TouchableOpacity onPress={()=>navigation.navigate('SettingsPerso')} style={{marginTop: 13}}>
           <View style={styles.avatar}>
-            <Text style={styles.name}>Parametre utilisateur</Text>
+            <Text style={styles.name}>Nom, adresse mail, mot de passe...</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -108,7 +108,7 @@ const Settings = ({route, navigation}: Props) => {
         <TouchableOpacity onPress={()=>navigation.navigate('Avatarm')} style={{marginTop: 13}}>
           <View style={styles.avatar}>
             <Text style={styles.name}>Avatar</Text>
-            <ImageContainer image={ProfilImage} />
+            <ImageContainer image={{uri: user.avatarUrl}} />
           </View>
         </TouchableOpacity>
       </View>
