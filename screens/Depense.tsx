@@ -16,7 +16,7 @@ const DepenseScreen = ({ route, navigation }: Props) => {
   
   const [show, setShow] = React.useState(true);
   
-  const segments = {second: [{label: 'Equilibrage dépense'}, {label: 'Dépenses générales'}]}
+  const segments = {second: [{label: 'Equilibrage dépenses'}, {label: 'Dépenses générales'}]}
   const onChangeIndex = useCallback((index: number) => {
     setShow((r) => !r)
   }, []);

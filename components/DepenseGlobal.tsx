@@ -71,7 +71,7 @@ const getLastestTransac =  () => {
   
   return (
   <View style={{flex:1, }}>
-      <Text style={styles.RecapDepense}>Recapitulatif dépenses</Text>
+      <Text style={styles.RecapDepense}>Récapitulatif dépenses</Text>
        <Depense/>
           <View style={styles.Title}>
             <Text style={styles.DerniereDepense}>Dernière Dépense</Text>
