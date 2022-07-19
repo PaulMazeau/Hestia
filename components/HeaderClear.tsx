@@ -19,7 +19,8 @@ const Top = (props) => {
     <View style={styles.Header}>
     <TouchableOpacity onPress={() => navigation.push('Settings')}>
     <View style={styles.ImageContainer}>
-        <Image source={{uri: props.avatar}} style={styles.Image}/>
+        <Image source={{uri: props.avatar,
+        cache: 'force-cache'}} style={styles.Image}/>
     </View>
     </TouchableOpacity>
     <View style={styles.Title}>

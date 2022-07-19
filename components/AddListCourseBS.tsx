@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import {StyleSheet, View, Text, TextInput, ScrollView, TouchableOpacity} from 'react-native'
 import ParticipantCard from './ParticipantCard';
 import Plus from '../Icons/Plus.svg'
@@ -13,7 +13,7 @@ import CategorieCard from './CourseCategorie';
 const AddListeCourseBS = (props) => {
 
 const [titre, setTitre] = React.useState("");
-
+const [courseImage, setCourseImage] = React.useState(null);
 const bottomSheetRef = useRef<BottomSheetModal>(null);
 
 const handleAddList = async () => {
@@ -21,6 +21,10 @@ const handleAddList = async () => {
   bottomSheetRef.current?.close();
 };
 
+const putInOrPutOut = (id) => {
+  if(courseImage==id) {setCourseImage(null);return;}
+  setCourseImage(id);
+}
 const renderBackdrop = useCallback((props) => {
   return (
     <BottomSheetBackdrop
@@ -35,7 +39,7 @@ const renderBackdrop = useCallback((props) => {
     bottomSheetRef.current?.present();
   }
 
-
+  
 return (
 
 <View style={{flex: 1}}>
@@ -76,11 +80,31 @@ return (
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={{flexGrow: 1}}
                     keyboardShouldPersistTaps='handled'>
-                        <CategorieCard name='Repas'/>
-                        <CategorieCard name='Soirée'/>
-                        <CategorieCard name='Végétarien'/>
-                        <CategorieCard name='Ménage'/>
-                        <CategorieCard name='Divers'/>
+                        <TouchableOpacity onPress={() => {putInOrPutOut(1)}}>
+                          <View style={[courseImage==1?styles.emoji_valid:styles.emoji_invalid]}>
+                          <CategorieCard name='Repas' avatar={require('../Img/Steak2-min.png')}/>
+                          </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => {putInOrPutOut(2)}}>
+                          <View style={[courseImage==2?styles.emoji_valid:styles.emoji_invalid]}>
+                          <CategorieCard name='Soirée' avatar={require('../Img/beer2-min.png')}/>
+                          </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => {putInOrPutOut(3)}}>
+                          <View style={[courseImage==3?styles.emoji_valid:styles.emoji_invalid]}>
+                          <CategorieCard name='Végé' avatar={require('../Img/Broccoli3-min.png')}/>
+                          </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => {putInOrPutOut(4)}}>
+                          <View style={[courseImage==4?styles.emoji_valid:styles.emoji_invalid]}>
+                          <CategorieCard name='Menage' avatar={require('../Img/Balais-min.png')}/>
+                          </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => {putInOrPutOut(5)}}>
+                          <View style={[courseImage==5?styles.emoji_valid:styles.emoji_invalid]}>
+                          <CategorieCard name='Divers' avatar={require('../Img/Caddie-min.png')}/>
+                          </View>
+                        </TouchableOpacity>
                 </ScrollView>
             </View>
       </View>
@@ -225,6 +249,30 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
         flex: 1,
+      },
+      emoji_invalid : {
+        backgroundColor: "white",
+        borderRadius: 10,
+        alignItems: 'center',
+        height: 80,
+        borderWidth: 1,
+        borderColor: '#DDDDDD',
+        width: 64,
+        justifyContent: 'center',
+        marginRight: 8,
+        padding: 5
+      },
+      emoji_valid : {
+        backgroundColor: 'rgba(237,240,250, .5)',
+        borderRadius: 10,
+        alignItems: 'center',
+        height: 80,
+        borderWidth: 1,
+        borderColor: '#172ACE',
+        width: 64,
+        justifyContent: 'center',
+        marginRight: 8,
+        padding: 5
       },
 })
 

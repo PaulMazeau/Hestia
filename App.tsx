@@ -246,13 +246,12 @@ export default function App() {
   useEffect(() => { 
     onAuthStateChanged(auth, async (user) => {
     if(user){const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
-    setUserData(data.data());}else{setUserData(null);}
+    setUserData(data.data());}else{setUserData(null)}
   })}, [])
 
 
   
   const renderContent = () =>{
-
     if(userData){ //si luser est login
      if(!(userData.colocID == "0")){ //si luser est dans une coloc
       return ( 

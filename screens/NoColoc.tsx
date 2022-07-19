@@ -16,7 +16,7 @@ const NoColocScreen = ()  => {
     const [user, setUser] = useContext(UserContext);
     const [nomColoc, setNomColoc] = React.useState(null);
     const [codeColoc, setCodeColoc] = React.useState(null);
-    const [allColoc, setAllColoc] = React.useState([]);
+    var allColoc = [];
     const navigation =
     useNavigation<StackNavigationProp<AuthStackParams>>();
     
@@ -52,7 +52,7 @@ const NoColocScreen = ()  => {
         const getData = async ()=> {
             const data = await getDocs(collection(db, 'Colocs'));
             const allIds = data.docs.map(d => d.id);
-            setAllColoc(allIds);
+            allColoc = allIds;
         } 
         getData();
     }, [])
