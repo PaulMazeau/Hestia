@@ -82,22 +82,22 @@ return (
                     keyboardShouldPersistTaps='handled'>
                         <TouchableOpacity onPress={() => {putInOrPutOut(1)}}>
                           <View style={[courseImage==1?styles.emoji_valid:styles.emoji_invalid]}>
-                          <CategorieCard name='Repas' avatar={require('../Img/Steak2-min.png')}/>
+                          <CategorieCard name='Repas' avatar={require('../Img/Steak8-min.png')} color='red'/>
                           </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => {putInOrPutOut(2)}}>
                           <View style={[courseImage==2?styles.emoji_valid:styles.emoji_invalid]}>
-                          <CategorieCard name='Soirée' avatar={require('../Img/beer2-min.png')}/>
+                          <CategorieCard name='Soirée' avatar={require('../Img/beer5-min.png')}/>
                           </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => {putInOrPutOut(3)}}>
                           <View style={[courseImage==3?styles.emoji_valid:styles.emoji_invalid]}>
-                          <CategorieCard name='Végé' avatar={require('../Img/Broccoli3-min.png')}/>
+                          <CategorieCard name='Végé' avatar={require('../Img/Broccoli5-min.png')}/>
                           </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => {putInOrPutOut(4)}}>
                           <View style={[courseImage==4?styles.emoji_valid:styles.emoji_invalid]}>
-                          <CategorieCard name='Menage' avatar={require('../Img/Balais-min.png')}/>
+                          <CategorieCard name='Menage' avatar={require('../Img/Balais2-min.png')}/>
                           </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => {putInOrPutOut(5)}}>
