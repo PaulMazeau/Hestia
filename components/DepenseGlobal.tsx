@@ -11,6 +11,7 @@ import { collection, limit, orderBy, query } from 'firebase/firestore';
 import {db} from '../firebase-config';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import ContentLoader, { Circle, Rect } from 'react-content-loader/native';
+import Depense from './DepenseDiagram';
 
 type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
 
@@ -63,11 +64,6 @@ const getLastestTransac =  () => {
   }
 
 }
-  return (
-    <View>
-      {MyLoader()}
-   </View>
-  )
 }
 
   const navigation =
@@ -75,11 +71,11 @@ const getLastestTransac =  () => {
   
   return (
   <View style={{flex:1, }}>
-      <Text style={styles.DerniereDepense}>Equilibrage</Text>
-       <Equilibrage/>
+      <Text style={styles.RecapDepense}>Recapitulatif dépenses</Text>
+       <Depense/>
           <View style={styles.Title}>
             <Text style={styles.DerniereDepense}>Dernière Dépense</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('ListDepense')} >
+            <TouchableOpacity onPress={() => navigation.navigate('SousMenuDepense')} >
               <Text style={styles.VoirToutes}>Voir toutes {'>'}</Text>
              </TouchableOpacity>
           </View>
@@ -118,6 +114,12 @@ const styles = StyleSheet.create({
   DerniereDepense:{
     fontSize: 19,
     fontWeight: 'bold',
+  },
+
+  RecapDepense:{
+    fontSize: 19,
+    fontWeight: 'bold',
+    marginBottom: 15
   },
   
   VoirToutes: {

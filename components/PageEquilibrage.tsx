@@ -1,28 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import Depense from '../components/DepenseDiagram';
+import Depense from './DepenseDiagram';
 import { ScrollView } from 'react-native-gesture-handler';
-import Avance from './Avance';
 import Dette from './Dette';
-import{auth, db} from '../firebase-config'
+import{db} from '../firebase-config'
 import { useFocusEffect } from '@react-navigation/native';
 import { getDoc, doc, query, where, getDocs, collection } from 'firebase/firestore';
-import ContentLoader, { Circle, Rect } from 'react-content-loader/native';
+import Equilibrage from './Equilibrage';
+import AddDepenseBS from './AddDepenseBS';
 
-const DepensePerso = (props) => {
-
-  const MyLoader = () => ( 
-    <ContentLoader 
-    viewBox="0 0 380 70"
-    speed={1}
-    backgroundColor={'white'}
-    foregroundColor={'#DDD'}
-    >
-  
-    <Circle cx="30" cy="30" r="30" />
-    <Rect x="80" y="17" rx="4" ry="4" width="300" height="13" />
-    <Rect x="80" y="40" rx="3" ry="3" width="250" height="10" />
-    </ContentLoader>)
+const PageEquilibrage = (props) => {
 
   const [userList, setUserList] = useState([]);
   useFocusEffect(
@@ -78,12 +65,16 @@ const DepensePerso = (props) => {
   
 <View style={{flex: 1}}>
 <ScrollView showsVerticalScrollIndicator={false}>
-    <Depense clcID= {props.clcID}/>
+  <Equilibrage/>
+    {/* <Depense clcID= {props.clcID}/> */}
 
                 <Text style={styles.DerniereDepense}>Tes transactions</Text>
 
                 {renderSettle()}
               </ScrollView>
+
+          
+          <AddDepenseBS clcID={props.clcID}/>
 
       </View>       
 
@@ -101,4 +92,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default DepensePerso;
+export default PageEquilibrage;

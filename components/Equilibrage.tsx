@@ -31,7 +31,6 @@ class Equilibrage extends React.Component {
       { x: 'Nicolas', y: -5 },
       { x: 'Lena', y: 9 },
       { x: 'Thibault', y: -9 },
-      { x: 'Louis', y: 9 },
     ];
     
     return (

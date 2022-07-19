@@ -16,7 +16,7 @@ import Accueil from './Icons/Accueil.svg';
 import Course from './Icons/Course.svg';
 import Depense from './Icons/Depense.svg';
 import Tache from './Icons/Tache.svg';
-import AllDepense from './screens/ListDepense';
+import SousMenuDepense from './screens/SousMenuDepense';
 import LoginScreen from './screens/Login';
 import SignupScreen from './screens/Signup';
 import { auth,db } from './firebase-config';
@@ -29,6 +29,7 @@ import AvatarModificationScreen from './screens/AvatarModification';
 import SettingsPerso from './screens/SettingsPerso';
 import NoColocScreen from './screens/NoColoc';
 import { StackNavigationProp } from '@react-navigation/stack';
+import DepenseCollective from './components/DepenseCollective';
 
 //initialisation des root pour la NavBar Bottom// DEFINIT LES PARAMETRES QUE LON PASSE DANS LES SCREENS
 export type RootStackParams = {
@@ -47,9 +48,10 @@ export type RootStackParams = {
   DepenseStack: {username: string; clcID: string; clcName: string;};
   Settings: undefined;
   ColocSettings: undefined;
-  ListDepense: undefined;
+  SousMenuDepense: undefined;
   Avatarm: undefined;
   SettingsPerso: undefined;
+  DepenseCollective: undefined;
 }
 
 export type AuthStackParams = {
@@ -208,9 +210,10 @@ export type DepenseStackParams = {
   Depense: undefined;
   Settings: undefined;
   ColocSettings : undefined;
-  ListDepense: undefined;
+  SousMenuDepense: undefined;
   Avatarm: undefined;
   SettingsPerso: undefined;
+  DepenseCollective: undefined;
 };
 
 
@@ -225,9 +228,10 @@ const DepenseScreenStack = (t) => {
           <DepenseStack.Screen name="Depense" component={DepenseScreen} initialParams={t.route.params}/>
           <DepenseStack.Screen name="Settings" component={SettingsScreen}/>
           <ExploreStack.Screen name="ColocSettings" component={ColocSettingsScreen}/>
-          <DepenseStack.Screen name="ListDepense" component={AllDepense} initialParams={t.route.params}/>
-          <DepenseStack.Screen name= "Avatarm" component={AvatarModificationScreen} />
+          <DepenseStack.Screen name="SousMenuDepense" component={SousMenuDepense} initialParams={t.route.params}/>
           <DepenseStack.Screen name= "SettingsPerso" component={SettingsPerso} />
+          <DepenseStack.Screen name= "Avatarm" component={AvatarModificationScreen} />
+          <DepenseStack.Screen name= "DepenseCollective" component={DepenseCollective} initialParams={t.route.params}/>
         </DepenseStack.Navigator>
       </View>
   );

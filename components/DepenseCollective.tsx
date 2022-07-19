@@ -1,13 +1,12 @@
 import React, { useContext, useState } from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
-import Top from '../components/HeaderDark';
+import Top from './HeaderDark';
 import { Drawer, Colors } from 'react-native-ui-lib';
-import Depense from '../components/DepenseDiagram';
 import { ScrollView } from 'react-native-gesture-handler';
-import Transaction from '../components/Transaction';
+import Transaction from './Transaction';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
-import TopBackNavigation from '../components/TopBackNavigation';
+import TopBackNavigation from './TopBackNavigation';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { getDoc, doc, collection, orderBy, query, deleteDoc, updateDoc, increment } from 'firebase/firestore';
 import{db} from '../firebase-config'
@@ -15,7 +14,8 @@ import { UserContext } from '../Context/userContextFile';
 
 type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
 
-const AllDepense = ({route, navigation}: Props) => {
+const DepenseCollective = ({route, navigation}: Props) => {
+  
   const [oldData, setOldData] = useState(null);
   const[user, setUser] = useContext(UserContext);
   const EmptyDepense=require('../Img/EmptyDepense.png');
@@ -72,7 +72,7 @@ const AllDepense = ({route, navigation}: Props) => {
     return (
       <View style={styles.emptypage}>
       <ImageContainer image={EmptyDepense} /> 
-      <Text style={styles.emptytext}>Oops, il n’y pas encore de {'\n'} liste de course</Text>
+      <Text style={styles.emptytext}>Oops, il n’y pas encore de {'\n'} dépense</Text>
       </View>
     )
   
@@ -87,18 +87,12 @@ const AllDepense = ({route, navigation}: Props) => {
  
 
 <View style={styles.container}>
-< Top  name={user.nom} clcName={user.nomColoc} avatar = {user.avatarUrl}/>
-  
-  <View style={styles.Title}>
-  <TopBackNavigation/>
-  <Text style={styles.screenTitle}>Dépenses collectives</Text>
-  </View>
+
   <View style={{flex: 1}}>
 
-
+        
 <ScrollView showsVerticalScrollIndicator={false}>
   <View style={{marginBottom: 15}}>
-  <Depense/>
 
   <Text style={styles.DerniereDepense}>Toutes vos transactions</Text>
 
@@ -137,8 +131,6 @@ screenTitle: {
 },
 
 container: {
-    paddingLeft: 16,
-    paddingRight: 16,
     flex: 1,
     backgroundColor: '#EDF0FA'
 },
@@ -166,9 +158,12 @@ emptytext: {
 
   emptypage: {
     alignItems: 'center',
-    
-  }
+  },
+
+  control: {
+    marginBottom: 15,
+  },
 
 })
 
-export default AllDepense;
+export default DepenseCollective;

@@ -1,11 +1,7 @@
-import { getNextTriggerDateAsync, setBadgeCountAsync } from "expo-notifications";
 import { collection, getDocs, orderBy, query, startAt, where } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
-import { useCollection } from "react-firebase-hooks/firestore";
 import { StyleSheet, View } from "react-native";
-import { DefaultTransition } from "react-navigation-stack/lib/typescript/src/vendor/TransitionConfigs/TransitionPresets";
-import { Bar, VictoryAxis, VictoryBar, VictoryChart, VictoryTheme } from "victory-native";
+import { VictoryAxis, VictoryBar, VictoryChart } from "victory-native";
 import {db, auth} from '../firebase-config'
 // const data = [
 //   {quarter: 1, earnings: 100},
@@ -155,7 +151,7 @@ const styles = StyleSheet.create({
       container: {
         backgroundColor: 'white',
         borderRadius: 9,
-        marginBottom: 27,
+        marginBottom: 15,
         elevation: 2,
         shadowColor: 'black',
         shadowOffset: {width: -2, height: 1},
