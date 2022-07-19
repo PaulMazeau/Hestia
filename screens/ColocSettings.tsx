@@ -97,12 +97,10 @@ const ColocSettings = ({route, navigation}: Props) => {
             <AddColoc/>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => console.log("blabla")}>
             <View style={styles.Setting}>
                 <Text style={styles.name}>Thème sombre</Text>
                 <Switch onValueChange={() => console.log('value changed')}></Switch>
             </View>
-        </TouchableOpacity>
 
         <TouchableOpacity onPress={() => handleLeaveColoc()}>
             <View style={styles.Quitter}>
@@ -160,6 +158,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 15,
+        marginTop: 10,
     },
 
     name:{
@@ -175,6 +174,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         height: 50,
         marginBottom: 20,
+        marginTop: -25
     },
 
     Quitter:{

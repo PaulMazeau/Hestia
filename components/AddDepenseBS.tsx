@@ -161,7 +161,7 @@ return (
 
 <BottomSheetModal
 ref={bottomSheetRef}
-snapPoints={['70%']}
+snapPoints={['85%']}
 index= {0}
 backdropComponent={renderBackdrop}
 >
