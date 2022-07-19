@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParams } from '../App';
 import { auth } from '../firebase-config';
-const Logo=require('../Img/LogoHestia.png');
+const Logo=require('../Img/Icon.png');
 
 
 const HomePageScreen = () => {
