@@ -39,30 +39,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(237,240,250, .5)'
   },
 
-  participant_invalid : {
-    backgroundColor: "white",
-    borderRadius: 10,
-    alignItems: 'center',
-    height: 80,
-    borderWidth: 1,
-    borderColor: '#DDDDDD',
-    width: 64,
-    justifyContent: 'center',
-    marginRight: 8,
-    padding: 5
-  },
-  participant_valid : {
-    backgroundColor: 'rgba(237,240,250, .5)',
-    borderRadius: 10,
-    alignItems: 'center',
-    height: 80,
-    borderWidth: 1,
-    borderColor: '#172ACE',
-    width: 64,
-    justifyContent: 'center',
-    marginRight: 8,
-    padding: 5
-  },
   
 });
 
