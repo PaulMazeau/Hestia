@@ -1,6 +1,7 @@
 import React, { useCallback, useRef } from 'react';
 import {StyleSheet, View, Text, TextInput, TouchableOpacity} from 'react-native'
 import ParticipantCard from './ParticipantCard';
+
 import Plus from '../Icons/Plus.svg'
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import AddButton from '../Icons/AddButton.svg';

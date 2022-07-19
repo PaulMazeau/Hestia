@@ -2,6 +2,10 @@ import React, { useCallback, useRef, useState } from 'react';
 import {StyleSheet, View, Text, TextInput, TouchableOpacity, Button, Dimensions} from 'react-native'
 import { Dropdown } from 'react-native-element-dropdown';
 import ParticipantCard from './ParticipantCard';
+import ParticipantCard2 from './ParticipantCard copy';
+import ParticipantCard3 from './ParticipantCard copy 2';
+import ParticipantCard4 from './ParticipantCard copy 3';
+import ParticipantCard5 from './ParticipantCard copy 4';
 import Plus from '../Icons/Plus.svg'
 import BottomSheet, { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import AddButton from '../Icons/AddButton.svg';
@@ -181,11 +185,10 @@ return (
                     >
                       
                         <ParticipantCard/>
-                        <ParticipantCard/>
-                        <ParticipantCard/>
-                        <ParticipantCard/>
-                        <ParticipantCard/>
-                        <ParticipantCard/>
+                        <ParticipantCard2/>
+                        <ParticipantCard3/>
+                        <ParticipantCard4/>
+                        <ParticipantCard5/>
                      
                 </ScrollView>
             </View>
