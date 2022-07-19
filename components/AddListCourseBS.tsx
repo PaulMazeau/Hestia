@@ -73,7 +73,7 @@ return (
       </View>
      
       <View style={styles.depenseTitle}>
-        <Text style={styles.subTitle}>Participants</Text>
+        <Text style={styles.subTitle}>Type</Text>
             <View style={styles.participant}>
                 <ScrollView  
                     horizontal={true}
@@ -82,27 +82,27 @@ return (
                     keyboardShouldPersistTaps='handled'>
                         <TouchableOpacity onPress={() => {putInOrPutOut(1)}}>
                           <View style={[courseImage==1?styles.emoji_valid:styles.emoji_invalid]}>
-                          <CategorieCard name='Repas' avatar={require('../Img/Steak8-min.png')} color='red'/>
+                          <CategorieCard name='Repas' avatar={require('../Img/Steak8-min.png')} color='#DDCFDD'/>
                           </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => {putInOrPutOut(2)}}>
                           <View style={[courseImage==2?styles.emoji_valid:styles.emoji_invalid]}>
-                          <CategorieCard name='Soirée' avatar={require('../Img/beer5-min.png')}/>
+                          <CategorieCard name='Soirée' avatar={require('../Img/beer5-min.png')} color='#F5C295'/>
                           </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => {putInOrPutOut(3)}}>
                           <View style={[courseImage==3?styles.emoji_valid:styles.emoji_invalid]}>
-                          <CategorieCard name='Végé' avatar={require('../Img/Broccoli5-min.png')}/>
+                          <CategorieCard name='Végé' avatar={require('../Img/Broccoli5-min.png')} color='papayawhip'/>
                           </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => {putInOrPutOut(4)}}>
                           <View style={[courseImage==4?styles.emoji_valid:styles.emoji_invalid]}>
-                          <CategorieCard name='Menage' avatar={require('../Img/Balais2-min.png')}/>
+                          <CategorieCard name='Menage' avatar={require('../Img/Balais2-min.png')} color='#C1DDE9'/>
                           </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => {putInOrPutOut(5)}}>
                           <View style={[courseImage==5?styles.emoji_valid:styles.emoji_invalid]}>
-                          <CategorieCard name='Divers' avatar={require('../Img/Caddie-min.png')}/>
+                          <CategorieCard name='Divers' avatar={require('../Img/Caddie-min.png')} color='#CEFACB'/>
                           </View>
                         </TouchableOpacity>
                 </ScrollView>
