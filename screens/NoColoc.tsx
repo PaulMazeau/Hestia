@@ -62,7 +62,7 @@ const NoColocScreen = ()  => {
         <SafeAreaView style= {{backgroundColor: '#EDF0FA', paddingBottom:Platform.OS === 'android' ? 25:0}}>
         <View style={styles.container}>
             <View style={styles.creerColocContainer}>
-                <Text style={styles.texteBlanc}>Crées ta coloc</Text>
+                <Text style={styles.texteBlanc}>Crée ta coloc</Text>
                 <TextInput
                 style={styles.inputBlanc}
                 onChangeText={(event) => {setNomColoc(event)}}
@@ -84,7 +84,7 @@ const NoColocScreen = ()  => {
                 style={styles.inputGris}
                 onChangeText={(event) => setCodeColoc(event)}
                 value={codeColoc}
-                placeholder="Entre un code de coloc"
+                placeholder="Entrer un code de coloc"
                 placeholderTextColor='gray'
                 />
                 <View style={styles.ButtonBleu}>

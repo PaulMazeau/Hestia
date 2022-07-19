@@ -83,7 +83,6 @@ const AccueilScreen = ({ route, navigation }: Props) => {
                 {renderTache()}
             </View>
            <Notif />
-           <TouchableOpacity onPress= {()=> getNotifData()}><Text>Fetch moi la data</Text></TouchableOpacity>
     </ScrollView>           
         </View>
     </View>
