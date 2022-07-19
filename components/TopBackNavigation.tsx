@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   backButton: {
     justifyContent: "center",
     alignItems: "center",
-    paddingRight: 7,
+    marginTop: 10
   }
 })
 

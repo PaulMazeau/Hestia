@@ -19,7 +19,7 @@ const Top = (props) => {
 
     return (
     
-    <SafeAreaView style= {{backgroundColor: '#EDF0FA', paddingBottom:Platform.OS === 'android' ? 25:0}}>
+    <SafeAreaView style= {{backgroundColor: '#EDF0FA', paddingBottom:Platform.OS === 'android' ? 25:-35}}>
     <View style={styles.Header}>
     <TouchableOpacity onPress={() => navigation.push('Settings')}>
     <View style={styles.ImageContainer}>

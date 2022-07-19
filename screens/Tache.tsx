@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
     screenTitle: {
         fontSize: 24,
         fontWeight: 'bold',
+        marginTop: 10,
     }, 
 
     control: {
