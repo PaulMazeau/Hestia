@@ -142,7 +142,7 @@ return (
 
         
 
-          <BottomSheetModal
+      <BottomSheetModal
         ref={bottomSheetRef}
         snapPoints={['90%']}
         index= {0}
@@ -173,6 +173,7 @@ return (
                 value={dateString}
                 placeholder="Choisir la date"
                 onPressIn={showDatePicker} 
+                showSoftInputOnFocus={false}
               />
                     
               <DateTimePickerModal
@@ -213,8 +214,9 @@ return (
                       // onChangeText={(event) => {setRappel(event);}} g comment pcq cette ligne sert à rien sauf a fausser la data quon rentre dans la db
                       value={rappel.slice(0,5)}
                       placeholder="Entrer le rappel"
-                      onPressIn={showRappelPicker} 
-                      />
+                      onPressIn={showRappelPicker}
+                      showSoftInputOnFocus={false} 
+                      /> 
                      
                       <DateTimePickerModal
                       isVisible={isRappelPickerVisible}
