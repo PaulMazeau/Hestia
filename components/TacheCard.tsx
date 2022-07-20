@@ -141,6 +141,7 @@ const [concernedList, setConcernedList] = useState([]);
     <View>
       {renderContent()}
       
+     {/* début du pop up donnant le detail des taches */}
     <Modal
         animationType="slide"
         transparent={true}

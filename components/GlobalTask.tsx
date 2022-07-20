@@ -6,7 +6,7 @@ import AddTaskBS from './AddTaskBS';
 import { deleteDoc, doc } from 'firebase/firestore'
 import { db } from '../firebase-config';
 import { Colors, Drawer } from 'react-native-ui-lib';
-import BottomSheet, { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
+import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import { Dropdown } from 'react-native-element-dropdown';
 import ParticipantCard from './ParticipantCard';
 import * as Haptics from 'expo-haptics';
@@ -83,10 +83,6 @@ const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
 // ref
 const bottomSheetRef = useRef<BottomSheetModal>(null);
-
-const sheetRef = useRef<BottomSheet>(null);
-
-const [isOpen, setIsOpen] = useState(false);
 
 const buttonPressed = () => {
   bottomSheetRef.current?.present();
