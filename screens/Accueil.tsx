@@ -142,12 +142,13 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         marginLeft:'auto',
         marginRight:'auto',
-        marginTop: -20
+        marginTop: -20,
     },
 
     Image: {
         height: '100%',
         width: '100%',
+        translateX:-3,
     },
 
     CategorieBottom: {
