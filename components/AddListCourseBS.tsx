@@ -14,10 +14,12 @@ const AddListeCourseBS = (props) => {
 
 const [titre, setTitre] = React.useState("");
 const [courseImage, setCourseImage] = React.useState(null);
+const [emoji, setemoji] = React.useState(null);
+const [color, setcolor] = React.useState(null);
 const bottomSheetRef = useRef<BottomSheetModal>(null);
 
 const handleAddList = async () => {
-  await addDoc(collection(db, 'Colocs/'+props.clcID+'/Courses'), {Nom: titre, fruits: [], boisson: [], viandes: [], maison: []}); 
+  await addDoc(collection(db, 'Colocs/'+props.clcID+'/Courses'), {Nom: titre, Image:emoji, Color:color, fruits: [], boisson: [], viandes: [], maison: []}); 
   bottomSheetRef.current?.close();
 };
 
@@ -80,27 +82,27 @@ return (
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={{flexGrow: 1}}
                     keyboardShouldPersistTaps='handled'>
-                        <TouchableOpacity onPress={() => {putInOrPutOut(1)}}>
+                        <TouchableOpacity onPress={() => {putInOrPutOut(1); setemoji(require('../Img/Steak8-min.png')); setcolor('#DDCFDD')}}>
                           <View style={[courseImage==1?styles.emoji_valid:styles.emoji_invalid]}>
                           <CategorieCard name='Repas' avatar={require('../Img/Steak8-min.png')} color='#DDCFDD'/>
                           </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => {putInOrPutOut(2)}}>
+                        <TouchableOpacity onPress={() => {putInOrPutOut(2); setemoji(require('../Img/beer5-min.png')); setcolor('#F5C295')}}>
                           <View style={[courseImage==2?styles.emoji_valid:styles.emoji_invalid]}>
                           <CategorieCard name='Soirée' avatar={require('../Img/beer5-min.png')} color='#F5C295'/>
                           </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => {putInOrPutOut(3)}}>
+                        <TouchableOpacity onPress={() => {putInOrPutOut(3); setemoji(require('../Img/Broccoli5-min.png')); setcolor('papayawhip')}}>
                           <View style={[courseImage==3?styles.emoji_valid:styles.emoji_invalid]}>
                           <CategorieCard name='Végé' avatar={require('../Img/Broccoli5-min.png')} color='papayawhip'/>
                           </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => {putInOrPutOut(4)}}>
+                        <TouchableOpacity onPress={() => {putInOrPutOut(4); setemoji(require('../Img/Balais2-min.png')); setcolor('#C1DDE9')}}>
                           <View style={[courseImage==4?styles.emoji_valid:styles.emoji_invalid]}>
-                          <CategorieCard name='Menage' avatar={require('../Img/Balais2-min.png')} color='#C1DDE9'/>
+                          <CategorieCard name='Ménage' avatar={require('../Img/Balais2-min.png')} color='#C1DDE9'/>
                           </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => {putInOrPutOut(5)}}>
+                        <TouchableOpacity onPress={() => {putInOrPutOut(5); setemoji(require('../Img/Caddie-min.png')); setcolor('#CEFACB')}}>
                           <View style={[courseImage==5?styles.emoji_valid:styles.emoji_invalid]}>
                           <CategorieCard name='Divers' avatar={require('../Img/Caddie-min.png')} color='#CEFACB'/>
                           </View>

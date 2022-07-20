@@ -1,6 +1,6 @@
 import { deleteDoc, doc } from 'firebase/firestore';
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, Button } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Button, ImageSourcePropType, ColorValue } from 'react-native';
 import { Colors, Drawer } from 'react-native-ui-lib';
 import {db} from '../firebase-config'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
@@ -10,9 +10,11 @@ interface Props {
   onPress: (name: string) => void;
   courseID: string;
   clcID: string;
+  image: ImageSourcePropType;
+  color: ColorValue;
 }
 
-const RestaurantCard: React.FC<Props> = ({name, onPress, courseID, clcID}) => {
+const RestaurantCard: React.FC<Props> = ({name, onPress, courseID, clcID, image, color}) => {
   const handleDelete = async () => {
     await deleteDoc(doc(db, "Colocs/"+clcID+"/Courses", courseID));
   }
@@ -31,7 +33,7 @@ const RestaurantCard: React.FC<Props> = ({name, onPress, courseID, clcID}) => {
     <TouchableOpacity onPress={() => onPress(name)}>
       <View style={styles.container}>
         
-        <Image style={styles.categorie} source={require('../Img/test1.png')}/>
+        <Image style={[styles.categorie, {backgroundColor: color}]} source={image}/>
         <Text style={styles.name}>{name}</Text>
      
       </View>
