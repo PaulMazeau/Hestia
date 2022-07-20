@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     Image: {
         height: '100%',
         width: '100%',
-        translateX:-3,
+        transform: [{ translateX: -3}],
     },
 
     CategorieBottom: {
