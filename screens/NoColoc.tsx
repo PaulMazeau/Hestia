@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, TextInput, Dimensions} from 'react-native'
+import React, { useContext, useEffect } from 'react'
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Dimensions} from 'react-native'
 import * as Haptics from 'expo-haptics';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useNavigation } from '@react-navigation/native';
