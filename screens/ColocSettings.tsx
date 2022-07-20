@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useReducer, useState } from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image, ListRenderItem} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { FlatList, Switch } from 'react-native-gesture-handler';
@@ -10,6 +10,8 @@ import TopBackNavigation from '../components/TopBackNavigation';
 import { getDoc, doc, query, collection, where, getDocs, deleteDoc, updateDoc, increment, arrayRemove  } from 'firebase/firestore';
 import { db } from '../firebase-config';
 import { UserContext } from '../Context/userContextFile';
+import { Background } from 'victory-native';
+
 
 
 type Props = NativeStackScreenProps<RootStackParams, 'ColocSettings'>;
@@ -95,14 +97,23 @@ const ColocSettings = ({route, navigation}: Props) => {
            
 
         </View>
-        <TouchableOpacity style={styles.addButton}>
-            <AddColoc/>
-        </TouchableOpacity>
-
-            <View style={styles.Setting}>
-                <Text style={styles.name}>Thème sombre</Text>
-                <Switch onValueChange={() => console.log('value changed')}></Switch>
+        
+        
+        <View style={styles.Setting}>
+            <Text style={styles.name}>Code de la colocation : </Text>
+            <View style={{flexDirection:'row', alignItems:'center'}}>
+                <TouchableOpacity>
+                    <Text style={[styles.name, styles.codeColoc]}>{user.colocID}</Text>
+                </TouchableOpacity>
             </View>
+            
+        </View>
+            
+
+        <View style={styles.Setting}>
+            <Text style={styles.name}>Thème sombre</Text>
+            <Switch onValueChange={() => console.log('value changed')}></Switch>
+        </View>
 
         <TouchableOpacity onPress={() => handleLeaveColoc()}>
             <View style={styles.Quitter}>
@@ -133,9 +144,20 @@ const styles = StyleSheet.create({
     },
 
     addButton:{
+        margin:10,
         flexDirection:'row', 
         justifyContent:"center",
-        top:-40,
+        top:-30,
+    },
+
+    codeColoc:{
+        backgroundColor:'grey', 
+        borderRadius:5, 
+        color:'white', 
+        fontSize:15, 
+        padding:5, 
+        paddingLeft:10, 
+        paddingRight:10
     },
 
     container: {
@@ -154,6 +176,7 @@ const styles = StyleSheet.create({
         paddingRight: 10,
         paddingTop: 10,
         paddingBottom: 35,
+        marginBottom:10
     },
 
     screenTitle: {
@@ -167,16 +190,19 @@ const styles = StyleSheet.create({
         fontWeight: '700'
     },
 
+
+
     Setting: {
         backgroundColor: "white",
-        padding: 15,
+        paddingLeft: 15,
+        paddingRight:15,
         borderRadius: 10,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         height: 50,
-        marginBottom: 20,
-        marginTop: -25
+        marginBottom: 10,
+        marginTop: 10
     },
 
     Quitter:{
@@ -187,7 +213,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         height: 50,
-        marginBottom: 20,   
+        marginBottom: 20, 
+        marginTop:10  
     },
 
     ImageContainer: {

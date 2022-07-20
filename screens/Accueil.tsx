@@ -15,7 +15,7 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import * as Notifications from 'expo-notifications';
 import Notif from '../notifications'
 //importer l'image de maison
-const ProfilImage=require('../Img/Apartment5.2.png');
+const ProfilImage=require('../Img/Apartment5.7.png');
 
 const windowHeight = Dimensions.get('window').height;
 
