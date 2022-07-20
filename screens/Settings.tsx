@@ -113,13 +113,9 @@ const Settings = ({route, navigation}: Props) => {
         </TouchableOpacity>
       </View>
         
-        <View style={{justifyContent: 'space-between', flexDirection:'row'}}>
-        <TouchableOpacity onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); handleSignOut() }} style={styles.DeconnecterButton}>
+        <View style={{justifyContent: 'flex-end', flexDirection:'row'}}>
+          <TouchableOpacity onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); handleSignOut() }} style={styles.DeconnecterButton}>
             <Text style={styles.Modifier}>Se deconnecter</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); navigation.goBack() }} style={styles.ModifierButton}>
-            <Text style={styles.Modifier}>Sauvegarder</Text>
           </TouchableOpacity>
         </View>
     

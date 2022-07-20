@@ -14,7 +14,7 @@ const CategorieCard = (props) => {
   const [participant, setstate] = useState(false);
   return (
     <View style={styles.global}>
-            <Image style={[styles.avatar1, {backgroundColor: props.color}]} source={props.avatar}/>  
+            <Image style={[styles.avatar1]} source={props.avatar}/>  
             <Text style={styles.nom} numberOfLines={1}>{props.name}</Text>
     </View>
     
