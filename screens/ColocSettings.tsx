@@ -80,7 +80,7 @@ const ColocSettings = ({route, navigation}: Props) => {
         <View style={styles.container}>
         <View style={styles.Title}>
           <TopBackNavigation/>
-          <Text style={styles.screenTitle}>Paramètre de la colocation</Text>
+          <Text style={styles.screenTitle}>Paramètres de la colocation</Text>
         </View>
         <View style={styles.containerColoc}>
             <FlatList 

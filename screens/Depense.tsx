@@ -1,31 +1,46 @@
-import React, { useCallback, useContext} from 'react';
+import React, { useCallback, useContext, useEffect} from 'react';
 import {View, Text, StyleSheet,} from 'react-native';
 import Top from '../components/HeaderDark';
 import { BorderRadiuses, SegmentedControl } from 'react-native-ui-lib';
 import DepenseGlobal from '../components/DepenseGlobal';
 import { RootStackParams } from '../App';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { UserContext } from '../Context/userContextFile';
+import { UserContext, UserListContext } from '../Context/userContextFile';
 import PageEquilibrage from '../components/PageEquilibrage';
+import { getDoc, doc, query, collection, where, getDocs } from 'firebase/firestore';
+import {db} from '../firebase-config'
 
 
 type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
 
 const DepenseScreen = ({ route, navigation }: Props) => {
   const [user, setUser] = useContext(UserContext); 
-  
+  const[userList, setUserList] = React.useState([]);
   const [show, setShow] = React.useState(true);
   
-  const segments = {second: [{label: 'Equilibrage dépense'}, {label: 'Dépenses générales'}]}
+  const segments = {second: [{label: 'Equilibrage dépenses'}, {label: 'Dépenses générales'}]}
   const onChangeIndex = useCallback((index: number) => {
     setShow((r) => !r)
   }, []);
+
+
+  useEffect(()=> {
+    const getUsers = async () => {
+      const data = await getDoc(doc(db, "Colocs", user.colocID));
+      const membersID = data.data().membersID;
+      const q = query(collection(db, "Users"), where('uuid', 'in', membersID))
+      const querySnapshot = await getDocs(q);
+      setUserList(querySnapshot.docs.map((doc) => ({...doc.data()})));
+    }
+    getUsers();
+
+  }, [])
 
   return (      
       <View style={styles.container}>
      < Top  name={user.nom} clcName={user.nomColoc} avatar = {user.avatarUrl}/>
           <Text style={styles.screenTitle}>Gestion des dépenses</Text>
-
+          
           <SegmentedControl 
         onChangeIndex={onChangeIndex}
         initialIndex={0}
@@ -41,8 +56,8 @@ const DepenseScreen = ({ route, navigation }: Props) => {
         throttleTime= {200}
         />
     
-          {show ? <PageEquilibrage clcID ={user.colocID}/> : <DepenseGlobal clcID={user.colocID}/>}
-        
+          {show ? <PageEquilibrage userList ={userList} clcID= {user.colocID}/> : <DepenseGlobal clcID={user.colocID}/>}
+      
        
      
 

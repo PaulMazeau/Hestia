@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import Depense from './DepenseDiagram';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -8,31 +8,47 @@ import { useFocusEffect } from '@react-navigation/native';
 import { getDoc, doc, query, where, getDocs, collection } from 'firebase/firestore';
 import Equilibrage from './Equilibrage';
 import AddDepenseBS from './AddDepenseBS';
+import { connectStorageEmulator } from 'firebase/storage';
+import { VictoryAxis, VictoryBar, VictoryChart, VictoryContainer, VictoryGroup, VictoryLabel } from "victory-native";
 
-const PageEquilibrage = (props) => {
+const NegativeAwareTickLabel = damn => {
+  const {
+    datum, // Bar's specific data object
+    y, // Calculated y data value IN SVG SPACE (from top-right corner)
+    dy, // Distance from data's y value to label's y value
+    scale, // Function that converts from data-space to svg-space
+    ...rest // Other props passed to label from Bar
+  } = damn;
 
-  const [userList, setUserList] = useState([]);
-  useFocusEffect(
-    React.useCallback(() => {
-      const getUsers = async () => {
-        const data = await getDoc(doc(db, "Colocs", props.clcID));
-        const membersID = data.data().membersID;
-        const q = query(collection(db, "Users"), where('uuid', 'in', membersID))
-        const querySnapshot = await getDocs(q);
-        setUserList(querySnapshot.docs.map((doc) => ({...doc.data()})));
-      }
-      getUsers();
-
-      return () => {
-        // screen unfocus
-
-      };
-    }, [])
+  return (
+    <VictoryLabel
+      datum={datum} // Shove `datum` back into label. We destructured it from `props` so we'd have it available for a future step
+      y={scale.y(0)} // Set y to the svg-space location of the axis
+      dy={20 * Math.sign(datum.y)} // Change direction of offset based on the datum value
+      {...rest} // Shove the rest of the props into the label
+    />
   );
+};
 
+//props est userList
+const PageEquilibrage = (props) => {
+  //organiser la data pr la foutre dans le chart
+  const datab = () => {return [{x:'test', y: 10}, {x:'tg', y:-10},]}
+  const orderData = () => {
+    if(props.userList){
+      let res = []
+      for(var i = 0; i<props.userList.length; i++){
+        res.push({x: props.userList[i].nom, y: props.userList[i].solde})
+      }
+      return res;
+    }
+    return [{x: '', y: 0}]
+  }
+//rendu des dettes cards
   const renderSettle = () => {
     var debtList = [] //list des debts que l'on va afficher
-    let usersCopy = userList;
+    if(props.userList){
+    let usersCopy = props.userList;
      usersCopy.sort((a, b) => b.solde - a.solde) //tri par ordre décroissant de soldes
      while(usersCopy.length >= 2) {//tant qu'il existe des gens av des dettes pos ou neg 
       let maxEnHess = usersCopy.pop() // on pop le dernier de la liste qui ne devra plus rien 
@@ -45,6 +61,7 @@ const PageEquilibrage = (props) => {
       }
       usersCopy.sort((a, b) => b.solde - a.solde) //on retrie la liste avec les nouveaux soldes 
   }else{usersCopy.pop()}}// si personne est en benef, donc personne est en hess, donc on sort de la boucle (met un warning qd je sors dc je pop petit a petit)
+}
   if (debtList.length > 0) {
     return (
       debtList.map(d =>{
@@ -61,20 +78,63 @@ const PageEquilibrage = (props) => {
   )
   }
 
+  const whatsUserListAgain = () => {
+    console.log('in PE')
+    console.log(props.userList)
+    return props.userList
+  }
   return (
   
 <View style={{flex: 1}}>
-<ScrollView showsVerticalScrollIndicator={false}>
-  <Equilibrage/>
-    {/* <Depense clcID= {props.clcID}/> */}
+<ScrollView showsVerticalScrollIndicator={false} >
+<View style={{
+        backgroundColor: 'white', 
+        borderRadius: 13,
+        marginTop: 15,
+        marginBottom: 15, 
+        width:'auto'
+      }}>
+      <VictoryChart 
+      domainPadding={{x: [25, 50], y: 15}}
+       animate={{
+        duration: 500,
+         onLoad: { duration: 800 }
+       }}
+      padding={{ top: 20, bottom: 20, left: 10, right: 20 }}
+      >
+          <VictoryAxis
+          style={{
+            tickLabels: { fill: "none" },
+            axis: {stroke: "none"}, 
+            ticks: {fill: "none"},
+          }}
 
+        />
+        
+        <VictoryGroup data={orderData()}>
+          <VictoryBar 
+          labels={({ datum }) => `${datum.y}€`} 
+          cornerRadius={7}
+          />
+          <VictoryBar
+          cornerRadius={7}
+          labels={({ datum }) => `${datum.x}`}
+          style={{data: {
+            fill: ({ datum }) => datum.y < 0 ? "red" : "#172ACE",
+          },}}
+            labelComponent={<NegativeAwareTickLabel />}
+          />
+        </VictoryGroup>
+
+       
+      </VictoryChart>
+      </View>
                 <Text style={styles.DerniereDepense}>Tes transactions</Text>
-
                 {renderSettle()}
               </ScrollView>
 
           
-          <AddDepenseBS clcID={props.clcID}/>
+          <AddDepenseBS clcID={props.clcID} />
 
       </View>       
 

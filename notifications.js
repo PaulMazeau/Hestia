@@ -41,7 +41,7 @@ const Notif = () => {
             });
           }}
      
-getPermission();
+    getPermission();
 
     //listener qui font marcher expo notif
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
@@ -75,12 +75,7 @@ getPermission();
       });
   }
  
-  return (
-    
-    <TouchableOpacity onPress={()=> notifyMe()}><Text>Clique moi</Text></TouchableOpacity>
-
-  
-  )
+  return null;
 
 }
 

@@ -15,7 +15,7 @@ const HomePageScreen = () => {
             <View style={styles.bluebg}>
                 <ImageContainer image={Logo} /> 
                 <Text style={styles.title}>Bienvenue sur Hestia</Text>
-                <Text style={styles.subTitle}>Finis les frictions entre colocataires!</Text>
+                <Text style={styles.subTitle}>Fini les frictions entre colocataires!</Text>
             </View>
 
             <View style={styles.Allbutton}>

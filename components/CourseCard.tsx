@@ -20,7 +20,7 @@ const RestaurantCard: React.FC<Props> = ({name, onPress, courseID, clcID}) => {
     <SkeletonTheme baseColor="#202020" highlightColor="#444">
         
   
-      <View style={styles.body}>
+      <View style={[styles.body, styles.shadow]}>
     <Drawer
     rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete()}]}
     leftItem={{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete()}}
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   },
 
   shadow: {
-    elevation: 20,
+    elevation: 2,
     shadowColor: 'black',
     shadowOffset: {width: -2, height: 1},
     shadowOpacity: 0.1,

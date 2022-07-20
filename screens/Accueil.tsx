@@ -83,7 +83,6 @@ const AccueilScreen = ({ route, navigation }: Props) => {
                 {renderTache()}
             </View>
            <Notif />
-           <TouchableOpacity onPress= {()=> getNotifData()}><Text>Fetch moi la data</Text></TouchableOpacity>
     </ScrollView>           
         </View>
     </View>
@@ -143,12 +142,13 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         marginLeft:'auto',
         marginRight:'auto',
-        marginTop: -20
+        marginTop: -20,
     },
 
     Image: {
         height: '100%',
         width: '100%',
+        translateX:-3,
     },
 
     CategorieBottom: {
