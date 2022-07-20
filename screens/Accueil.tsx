@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, Image, Dimensions} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
 import Top from '../components/HeaderClear';
@@ -15,7 +15,10 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import * as Notifications from 'expo-notifications';
 import Notif from '../notifications'
 //importer l'image de maison
-const ProfilImage=require('../Img/Apartment5.2.png');
+const ProfilImage=require('../Img/Apartment5.7.png');
+
+const windowHeight = Dimensions.get('window').height;
+
 
 type Props = NativeStackScreenProps<RootStackParams, 'AccueilStack'>;
 
@@ -125,7 +128,7 @@ const styles = StyleSheet.create({
 
     first50:{
         backgroundColor: '#172ACE',
-        flex: .9,
+        height: windowHeight /2.4,
         borderBottomLeftRadius: 30,
         borderBottomRightRadius: 30,
     },
@@ -143,7 +146,7 @@ const styles = StyleSheet.create({
     Image: {
         height: '100%',
         width: '100%',
-        translateX:-3,
+        transform: [{ translateX: -3}],
     },
 
     CategorieBottom: {

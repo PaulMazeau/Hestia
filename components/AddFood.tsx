@@ -47,9 +47,9 @@ return}
                 style = {styles.food_text_valid}
                 onChangeText={(event) => { setItem(event)}}
                 value={item}
-                placeholder="Ajouter aliment"
+                placeholderTextColor = "#A9A9A9"
+                placeholder="Ajouter un aliment"
                 onBlur={() => handleAddItem()
-                
                 } 
             />
         </View>

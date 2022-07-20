@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import {StyleSheet, View, Text, TextInput, ScrollView, TouchableOpacity} from 'react-native'
 import { Dropdown } from 'react-native-element-dropdown';
 import ParticipantCard from './ParticipantCard';
@@ -6,11 +6,9 @@ import Plus from '../Icons/Plus.svg'
 import BottomSheet, { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import AddButton from '../Icons/AddButton.svg';
 import * as Haptics from 'expo-haptics';
-import { addDoc, collection, updateDoc, doc, getDoc, getDocs, where, query } from 'firebase/firestore';
+import { addDoc, collection } from 'firebase/firestore';
 import {db} from '../firebase-config'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { Timestamp } from 'react-native-reanimated/lib/types/lib/reanimated2/commonTypes';
-import { FadeOutToBottomAndroidSpec } from '@react-navigation/stack/lib/typescript/src/TransitionConfigs/TransitionSpecs';
 
 const today = new Date();
 
@@ -142,7 +140,7 @@ return (
 
         
 
-          <BottomSheetModal
+      <BottomSheetModal
         ref={bottomSheetRef}
         snapPoints={['90%']}
         index= {0}
@@ -161,7 +159,7 @@ return (
                 value={title}
                 placeholder="Entrer le titre"
                 maxLength={30}
-                
+                placeholderTextColor = "#A9A9A9"
             />
       </View>
 
@@ -173,6 +171,8 @@ return (
                 value={dateString}
                 placeholder="Choisir la date"
                 onPressIn={showDatePicker} 
+                showSoftInputOnFocus={false}
+                placeholderTextColor = "#A9A9A9"
               />
                     
               <DateTimePickerModal
@@ -213,8 +213,10 @@ return (
                       // onChangeText={(event) => {setRappel(event);}} g comment pcq cette ligne sert à rien sauf a fausser la data quon rentre dans la db
                       value={rappel.slice(0,5)}
                       placeholder="Entrer le rappel"
-                      onPressIn={showRappelPicker} 
-                      />
+                      onPressIn={showRappelPicker}
+                      showSoftInputOnFocus={false} 
+                      placeholderTextColor = "#A9A9A9"
+                      /> 
                      
                       <DateTimePickerModal
                       isVisible={isRappelPickerVisible}
