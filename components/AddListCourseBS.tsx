@@ -1,14 +1,23 @@
-import React, { useCallback, useRef, useState } from 'react';
-import {StyleSheet, View, Text, TextInput, ScrollView, TouchableOpacity} from 'react-native'
+import React, { useCallback, useRef, useState, useEffect } from 'react';
+import {StyleSheet, View, Text, TextInput, ScrollView, TouchableOpacity, ImageSourcePropType} from 'react-native'
 import ParticipantCard from './ParticipantCard';
 import Plus from '../Icons/Plus.svg'
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import AddButton from '../Icons/AddButton.svg';
 import * as Haptics from 'expo-haptics';
 import { addDoc, collection, updateDoc, doc } from 'firebase/firestore';
-import {db} from '../firebase-config'
+import {db, storage} from '../firebase-config'
 import CategorieCard from './CourseCategorie';
+import { getDownloadURL, list, ref } from 'firebase/storage';
 //props est la clcID utilisé pr create un nv doc
+
+const emojis : ImageSourcePropType[] = [
+  require('../Img/Steak8-min.png'),
+  require('../Img/beer5-min.png'),
+  require('../Img/Broccoli5-min.png'),
+  require('../Img/Balais2-min.png'),
+  require('../Img/Caddie-min.png')
+];
 
 const AddListeCourseBS = (props) => {
 
@@ -17,6 +26,18 @@ const [courseImage, setCourseImage] = React.useState(null);
 const [emoji, setemoji] = React.useState(null);
 const [color, setcolor] = React.useState(null);
 const bottomSheetRef = useRef<BottomSheetModal>(null);
+const emojisListRef = ref(storage, "Emojis/");
+const [emojiURLS, setEmojiURLS] = useState([]);
+useEffect(() => {
+  list(emojisListRef).then((response) => {
+    response.items.forEach((item) => {
+      getDownloadURL(item).then((url) => {
+        setEmojiURLS((prev) => [...prev, url]);
+      })
+    })
+  })
+  console.log(emojiURLS)
+}, [])
 
 const handleAddList = async () => {
   await addDoc(collection(db, 'Colocs/'+props.clcID+'/Courses'), {Nom: titre, Image:emoji, Color:color, fruits: [], boisson: [], viandes: [], maison: []}); 
@@ -82,29 +103,29 @@ return (
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={{flexGrow: 1}}
                     keyboardShouldPersistTaps='handled'>
-                        <TouchableOpacity onPress={() => {putInOrPutOut(1); setemoji(require('../Img/Steak8-min.png')); setcolor('#DDCFDD')}}>
+                        <TouchableOpacity onPress={() => {putInOrPutOut(1); setemoji({uri : emojiURLS[2]}); setcolor('#DDCFDD')}}>
                           <View style={[courseImage==1?styles.emoji_valid:styles.emoji_invalid]}>
-                          <CategorieCard name='Repas' avatar={require('../Img/Steak8-min.png')} color='#DDCFDD'/>
+                          <CategorieCard name='Repas' avatar={{uri : emojiURLS[2]}} color='#DDCFDD'/>
                           </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => {putInOrPutOut(2); setemoji(require('../Img/beer5-min.png')); setcolor('#F5C295')}}>
+                        <TouchableOpacity onPress={() => {putInOrPutOut(2); setemoji({uri : emojiURLS[4]}); setcolor('#F5C295')}}>
                           <View style={[courseImage==2?styles.emoji_valid:styles.emoji_invalid]}>
-                          <CategorieCard name='Soirée' avatar={require('../Img/beer5-min.png')} color='#F5C295'/>
+                          <CategorieCard name='Soirée' avatar={{uri : emojiURLS[4]}} color='#F5C295'/>
                           </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => {putInOrPutOut(3); setemoji(require('../Img/Broccoli5-min.png')); setcolor('papayawhip')}}>
+                        <TouchableOpacity onPress={() => {putInOrPutOut(3); setemoji({uri : emojiURLS[1]}); setcolor('papayawhip')}}>
                           <View style={[courseImage==3?styles.emoji_valid:styles.emoji_invalid]}>
-                          <CategorieCard name='Végé' avatar={require('../Img/Broccoli5-min.png')} color='papayawhip'/>
+                          <CategorieCard name='Végé' avatar={{uri : emojiURLS[1]}} color='papayawhip'/>
                           </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => {putInOrPutOut(4); setemoji(require('../Img/Balais2-min.png')); setcolor('#C1DDE9')}}>
+                        <TouchableOpacity onPress={() => {putInOrPutOut(4); setemoji({uri : emojiURLS[0]}); setcolor('#C1DDE9')}}>
                           <View style={[courseImage==4?styles.emoji_valid:styles.emoji_invalid]}>
-                          <CategorieCard name='Ménage' avatar={require('../Img/Balais2-min.png')} color='#C1DDE9'/>
+                          <CategorieCard name='Ménage' avatar={{uri : emojiURLS[0]}} color='#C1DDE9'/>
                           </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => {putInOrPutOut(5); setemoji(require('../Img/Caddie-min.png')); setcolor('#CEFACB')}}>
+                        <TouchableOpacity onPress={() => {putInOrPutOut(5); setemoji({uri : emojiURLS[3]}); setcolor('#CEFACB')}}>
                           <View style={[courseImage==5?styles.emoji_valid:styles.emoji_invalid]}>
-                          <CategorieCard name='Divers' avatar={require('../Img/Caddie-min.png')} color='#CEFACB'/>
+                          <CategorieCard name='Divers' avatar={{uri : emojiURLS[3]}} color='#CEFACB'/>
                           </View>
                         </TouchableOpacity>
                 </ScrollView>
