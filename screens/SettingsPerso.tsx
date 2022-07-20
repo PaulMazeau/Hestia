@@ -58,7 +58,7 @@ const SettingsPerso = ({route, navigation}: Props) => {
                 onChangeText={onChangeTitre}
                 value={title}
                 placeholder="Paul"
-                
+                placeholderTextColor = "#A9A9A9"
             />
       </View>
 
@@ -69,7 +69,7 @@ const SettingsPerso = ({route, navigation}: Props) => {
                 onChangeText={changeemail}
                 value={email}
                 placeholder="pol.mzeau@gmail.com"
-                
+                placeholderTextColor = "#A9A9A9"
             />
       </View>
 
@@ -80,7 +80,7 @@ const SettingsPerso = ({route, navigation}: Props) => {
                 onChangeText={resetmotdepasse}
                 value={motdepasse}
                 placeholder="********"
-                
+                placeholderTextColor = "#A9A9A9"
             />
       </View> 
       <View style={styles.Button}>

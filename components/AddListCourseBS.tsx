@@ -85,7 +85,7 @@ return (
                 onChangeText={(event) => {setTitre(event);}}
                 value={titre}
                 placeholder="Entrer le titre"
-                
+                placeholderTextColor = "#A9A9A9"
             />
       </View>
      

@@ -178,7 +178,7 @@ backdropComponent={renderBackdrop}
                 onChangeText={(event) => {setTitle(event)}}
                 value={title}
                 placeholder="Entrer le titre"
-                
+                placeholderTextColor = "#A9A9A9"
             />
       </View>
 
@@ -190,7 +190,7 @@ backdropComponent={renderBackdrop}
                 value={amount}
                 placeholder="Entrer le montant"
                 keyboardType='numeric'
-                
+                placeholderTextColor = "#A9A9A9"
             />
       </View>
 

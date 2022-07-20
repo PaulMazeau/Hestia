@@ -159,6 +159,7 @@ const Rappel = [
                   value={title}
                   placeholder="Entrer le titre"
                   maxLength={30}
+                  placeholderTextColor = "#A9A9A9"
                     />
                 </View>
           
