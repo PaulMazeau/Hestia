@@ -15,7 +15,7 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import * as Notifications from 'expo-notifications';
 import Notif from '../notifications'
 //importer l'image de maison
-const ProfilImage=require('../Img/Apartment5.png');
+const ProfilImage=require('../Img/Apartment5.2.png');
 
 type Props = NativeStackScreenProps<RootStackParams, 'AccueilStack'>;
 
@@ -135,19 +135,19 @@ const styles = StyleSheet.create({
     },
       
     ImageContainer: {
-        height: 230,
-        width: 313,
+        height: 200,
+        width: 370,
         overflow: 'hidden',
-        borderRadius: 90,
         justifyContent:'center',
         marginLeft:'auto',
         marginRight:'auto',
-        marginTop: -20
+        marginTop: -20,
     },
 
     Image: {
         height: '100%',
         width: '100%',
+        translateX:-3,
     },
 
     CategorieBottom: {

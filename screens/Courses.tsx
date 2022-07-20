@@ -41,7 +41,7 @@ const CoursesScreen = ({route, navigation}: Props) => {
         allCourses.docs.map(c => {
           return(
             <View style={styles.card} key= {c.id}>
-            <CourseCard key= {c.id} name={c.data().Nom} courseID={c.id} clcID = {user.colocID} onPress = {(name) => navigation.navigate('Course', {name: name, courseID: c.id, clcID: user.colocID, username: user.nom, clcName: user.nomColoc})}/>
+            <CourseCard color={c.data().Color} image={c.data().Image} key= {c.id} name={c.data().Nom} courseID={c.id} clcID = {user.colocID} onPress = {(name) => navigation.navigate('Course', {name: name, courseID: c.id, clcID: user.colocID, username: user.nom, clcName: user.nomColoc})}/>
             </View>
           )
     

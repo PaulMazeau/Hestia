@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, TextInput, Platform,} from 'react-native'
+import React, { useContext, useEffect } from 'react'
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Dimensions} from 'react-native'
 import * as Haptics from 'expo-haptics';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useNavigation } from '@react-navigation/native';
@@ -12,7 +12,11 @@ import { setDoc, doc, updateDoc, getDocs, collection, getDoc } from 'firebase/fi
 import {db} from '../firebase-config';
 import { UserContext } from '../Context/userContextFile';
 
+
+const windowHeight = Dimensions.get('window').height;
+
 const NoColocScreen = ()  => {
+    
     const [user, setUser] = useContext(UserContext);
     const [nomColoc, setNomColoc] = React.useState(null);
     const [codeColoc, setCodeColoc] = React.useState(null);
@@ -55,53 +59,57 @@ const NoColocScreen = ()  => {
         getData();
     }, [])
     return(
-        
-        <KeyboardAwareScrollView contentContainerStyle={{flex:1}} extraScrollHeight={70} resetScrollToCoords={{x:0,y:-200}}>
-        <SafeAreaView style= {{backgroundColor: '#EDF0FA', paddingBottom:Platform.OS === 'android' ? 25:0}}>
+
         <View style={styles.container}>
-            <View style={styles.creerColocContainer}>
-                <Text style={styles.texteBlanc}>Crée ta coloc</Text>
-                <TextInput
-                style={styles.inputBlanc}
-                onChangeText={(event) => {setNomColoc(event)}}
-                value={nomColoc}
-                placeholder="Choisir un nom pour la coloc"
-                placeholderTextColor='lightgrey'
-                />
-                <View style={styles.ButtonBlanc}>
-                    <TouchableOpacity onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); handleCreateColoc();}}>
-                    <Text style={styles.texteCreer}>C'est parti !</Text>
-                    </TouchableOpacity>
+            <KeyboardAwareScrollView contentContainerStyle={{flex:1}} extraScrollHeight={20} resetScrollToCoords={{x:0,y:-20}}>
+                <View style={styles.creerColocContainer}>
+                    
+                    <Text style={styles.texteBlanc}>Créer une colocation</Text>
+                        <TextInput
+                        style={styles.inputBlanc}
+                        onChangeText={(event) => {setNomColoc(event)}}
+                        value={nomColoc}
+                        placeholder="Choisir un nom pour la colocation"
+                        placeholderTextColor='lightgrey'
+                        />
+                        <View style={styles.ButtonBlanc}>
+                            <TouchableOpacity onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); handleCreateColoc();}}>
+                            <Text style={styles.texteCreer}>C'est parti !</Text>
+                            </TouchableOpacity>
+                        </View>
+                    
                 </View>
-            </View>
+           
+                <View style={{alignItems: 'center', paddingLeft: 16, paddingRight: 16}}>
 
-            <View style={styles.rejoindreColocContainer}>
-                <Text style={styles.texteNoir}>Rejoins ta coloc</Text>
-                
-                <TextInput
-                style={styles.inputGris}
-                onChangeText={(event) => setCodeColoc(event)}
-                value={codeColoc}
-                placeholder="Entrer un code de coloc"
-                placeholderTextColor='gray'
-                />
-                <View style={styles.ButtonBleu}>
-                    <TouchableOpacity onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); handleJoinColoc()}}>
-                    <Text style={styles.texteRejoindre}>Rejoindre</Text>
-                    </TouchableOpacity>
+                    <Text style={styles.texteNoir}>Rejoindre ta colocation</Text>
+                        <TextInput
+                        style={styles.inputGris}
+                        onChangeText={(event) => setCodeColoc(event)}
+                        value={codeColoc}
+                        placeholder="Entre un code de colocation"
+                        placeholderTextColor='gray'
+                        />
+
+                    <View style={styles.ButtonBleu}>
+                        <TouchableOpacity onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); handleJoinColoc()}}>
+                        <Text style={styles.texteRejoindre}>Rejoindre</Text>
+                        </TouchableOpacity>
+                    </View>
+
                 </View>
-            </View>
-
-            <View style={styles.ChangerCompte}>
-            <TouchableOpacity onPress={()=> {navigation.navigate('Homepage'); signOut(auth)}}>
-                <Text>Changer de compte</Text>
-            </TouchableOpacity>
-            </View>
             
+        
+            <View style={{alignItems:'center', marginTop: windowHeight / 10}}>
+                <View style={styles.ChangerCompte}>
+                <TouchableOpacity onPress={()=> {navigation.navigate('Homepage'); signOut(auth)}}>
+                    <Text>Changer de compte</Text>
+                </TouchableOpacity>
+                </View>
+            </View>  
 
+            </KeyboardAwareScrollView> 
         </View>
-        </SafeAreaView>
-        </KeyboardAwareScrollView>
     )
 }
 
@@ -110,87 +118,92 @@ const NoColocScreen = ()  => {
 const styles = StyleSheet.create({
 
     container: {
-        backgroundColor:'#EDF0FA',
-        flexDirection:'column',
-        padding:25,
-        alignItems:'center',
-        justifyContent:'center',
-        height:'100%'
+        backgroundColor: 'white',
+        flex: 1
         },
+
     creerColocContainer:{
-        paddingTop:30,
-        paddingBottom:30,
-        paddingLeft:20,
-        paddingRight:20,
-        marginBottom:15,
-        marginTop:15,
-        backgroundColor:'#172ACE',
-        borderRadius:15,
-        flexDirection:'column',
-        justifyContent:'center',
-        alignItems:'center',
+        width: '100%',
+        backgroundColor: '#172ACE',
+        paddingLeft: 16,
+        paddingRight: 16,
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
+        height: windowHeight / 2 ,
+        marginBottom: 25,
+
+        //ombre
         elevation:5,
         shadowColor: 'black',
         shadowOffset: {width: -2, height: 1},
         shadowOpacity: 0.1,
         shadowRadius: 3,
-        width:'100%'
+
+        //alignement
+        alignItems: 'center',
+        justifyContent: 'center'
     },
+
     rejoindreColocContainer:{
+        //width et height
+        width:'100%',
+
+        //margin et padding
         marginBottom:15,
         marginTop:15,
         paddingTop:30,
         paddingBottom:30,
         paddingLeft:20,
         paddingRight:20,
-        backgroundColor:'white',
         borderRadius:15,
-        flexDirection:'column',
+
+        //alignement
         justifyContent:'center',
         alignItems:'center',
-        elevation:2,
-        shadowColor: 'black',
-        shadowOffset: {width: -2, height: 1},
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-        width:'100%'
     },
+
     inputBlanc: {
         height: 44,
         marginTop: 13,
         padding: 10,
         borderRadius: 5,
         backgroundColor: 'white',
-        
+        width: '100%'  
     },
+    
     inputGris: {
         height: 44,
         marginTop: 13,
         padding: 10,
         borderRadius: 5,
         backgroundColor: '#E8E8E8',
-        
+        width: '100%'
     },
+
     texteBlanc:{
         color:'white',
-        fontSize:30
+        fontSize:22
     },
+
     texteNoir:{
         color:'black',
-        fontSize:30
+        fontSize:22
     },
+
     texteCreer: {
         fontSize: 16,
         fontWeight: '600',
         color: 'black',
         textAlign: 'center',
       },
+
       texteRejoindre: {
         fontSize: 16,
         fontWeight: '600',
         color: 'white',
         textAlign: 'center',
       },
+
     ButtonBlanc: {
         marginTop:50,
         height: 40,
@@ -199,6 +212,7 @@ const styles = StyleSheet.create({
         width: 154,
         justifyContent: 'center',
     },
+
     ButtonBleu: {
         marginTop:50,
         height: 40,
@@ -207,14 +221,16 @@ const styles = StyleSheet.create({
         width: 154,
         justifyContent: 'center',
     },
+
     ChangerCompte:{
-        marginTop:50,
+        marginBottom:50,
         height: 40,
         borderRadius: 5,
-        backgroundColor: 'white',
+        backgroundColor: '#EDF0FA',
         width: 154,
         justifyContent: 'center',
         alignItems:'center',
+        //ombre
         elevation:2,
         shadowColor: 'black',
         shadowOffset: {width: -2, height: 1},

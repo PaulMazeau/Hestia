@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {KeyboardAvoidingView, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native'
+import {Dimensions, KeyboardAvoidingView, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native'
 import {createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import {auth, db} from '../firebase-config'
 import { isSearchBarAvailableForCurrentPlatform } from 'react-native-screens';
@@ -9,6 +9,9 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParams } from '../App';
 import TopBackNavigationClear from '../components/TopBackNavigationClear';
 import { useHeaderHeight } from '@react-navigation/elements';
+
+
+const windowHeight = Dimensions.get('window').height;
 
 const LoginScreen = () => {
     const navigation = useNavigation<NativeStackNavigationProp<AuthStackParams>>();
@@ -128,7 +131,7 @@ const styles = StyleSheet.create({
     bluebg: {
         width: 'auto',
         backgroundColor: '#172ACE',
-        flex: .6,
+        height: windowHeight / 2 ,
         paddingLeft: 16,
         paddingRight: 16,
         borderBottomLeftRadius: 20,

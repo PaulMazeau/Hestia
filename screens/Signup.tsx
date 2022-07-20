@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {KeyboardAvoidingView, Platform, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View, SafeAreaView, Image} from 'react-native'
+import {KeyboardAvoidingView, Platform, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View, SafeAreaView, Image, Dimensions} from 'react-native'
 import {createUserWithEmailAndPassword } from "firebase/auth";
 import {auth, db} from '../firebase-config'
 import { useNavigation } from '@react-navigation/native';
@@ -8,6 +8,9 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParams } from '../App';
 import TopBackNavigationClear from '../components/TopBackNavigationClear';
 import { useHeaderHeight } from '@react-navigation/elements';
+
+
+const windowHeight = Dimensions.get('window').height;
 
 const SignupScreen = () => {
 
@@ -82,12 +85,6 @@ const SignupScreen = () => {
     )
 }
 
-const ImageContainer = ({image}) => (
-    <View style={styles.ImageContainer}>
-        <Image source={image} style={styles.Image}/>
-    </View>
-);
-
 export default SignupScreen
 
 const styles = StyleSheet.create({
@@ -141,7 +138,7 @@ const styles = StyleSheet.create({
     bluebg: {
         width: 'auto',
         backgroundColor: '#172ACE',
-        flex: .6,
+        height: windowHeight / 1.9 ,
         paddingLeft: 16,
         paddingRight: 16,
         borderBottomLeftRadius: 20,
@@ -173,21 +170,6 @@ const styles = StyleSheet.create({
             height: '100%',
             width: '100%',
             
-        },
-
-        buttonGoogle:{
-            backgroundColor:'#0f3fdb',
-            width: '85%',
-            padding: 15,
-            borderRadius: 10,
-            marginTop: 25,
-            marginLeft: '7.5%',
-            marginRight: '7.5%',
-            justifyContent: 'center',
-            flexDirection: 'row',
-            alignItems: 'center',
-            
-           
         },
 
         TextGoogle: {
