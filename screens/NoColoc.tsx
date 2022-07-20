@@ -16,10 +16,9 @@ const NoColocScreen = ()  => {
     const [user, setUser] = useContext(UserContext);
     const [nomColoc, setNomColoc] = React.useState(null);
     const [codeColoc, setCodeColoc] = React.useState(null);
-    var allColoc = [];
+    const[allColoc, setAllColoc] = React.useState([]);
     const navigation =
     useNavigation<StackNavigationProp<AuthStackParams>>();
-    
     const handleCreateColoc = async () => {
         const userID = auth.currentUser.uid
         var colocID = uuid().substring(0, 6)
@@ -51,8 +50,7 @@ const NoColocScreen = ()  => {
     useEffect(() => {//a foutre ABSOLUMENT coté serveur mdr
         const getData = async ()=> {
             const data = await getDocs(collection(db, 'Colocs'));
-            const allIds = data.docs.map(d => d.id);
-            allColoc = allIds;
+            setAllColoc(data.docs.map(d => d.id))
         } 
         getData();
     }, [])

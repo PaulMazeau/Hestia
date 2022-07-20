@@ -54,14 +54,9 @@ const getLastSixMonthsIndexes = () => {
 const SixMonthsAgoFromToday = new Date(today);
 SixMonthsAgoFromToday.setMonth(getLastSixMonthsIndexes()[0])
 
-// const [transacs, setTransacs] = useState(null);
-// useEffect(() => {
-//   const getData = async () => {
-//     const q = query(collection)
-//   }
-// }, [])
 
-//props est la clc id pr get les dépense
+
+//props est la clc id pr get les dépenses + global: bool pr savoir si on affiche depense perso ou globale
 const Depense = (props)  => {
 
   const[data, setData] = useState([
@@ -77,9 +72,15 @@ const Depense = (props)  => {
   //get toutes les transac dil y a mois de 6 moins
 useEffect(() => {
   const getData = async ()=> {
+    if(!(props.global)){
     const q = query(collection(db, "Colocs/"+props.clcID+ "/Transactions"), where('concerned', 'array-contains', auth.currentUser.uid), orderBy('timestamp'), startAt(SixMonthsAgoFromToday));
     const docs =  await getDocs(q);
-    setData(orderData(docs));
+    setData(orderData(docs));}
+    else{
+      const q = query(collection(db, "Colocs/"+props.clcID+ "/Transactions"), orderBy('timestamp'), startAt(SixMonthsAgoFromToday));
+      const docs =  await getDocs(q);
+      setData(orderData(docs));
+    }
   }
   getData();
 }, [])
@@ -98,8 +99,10 @@ const orderData = (data) => {
   
  if(data.docs.length==0) {return res}
   const startingMonth = data.docs[0].data().timestamp.toDate().getMonth();
+  let uuid = auth.currentUser.uid
   for(var i = 0; i<data.docs.length; i++){
     let currentMonth = data.docs[i].data().timestamp.toDate().getMonth();
+    let transac = data.docs[i].data()
     switch(currentMonth - startingMonth){ 
       case 0: res[6].earnings += data.docs[i].data().amount; break; //ça signifie currentMonth est il y a 6 mois
       case 1: res[5].earnings +=  data.docs[i].data().amount; break;

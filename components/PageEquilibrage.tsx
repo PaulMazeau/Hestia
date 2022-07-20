@@ -33,12 +33,11 @@ const NegativeAwareTickLabel = damn => {
 //props est userList
 const PageEquilibrage = (props) => {
   //organiser la data pr la foutre dans le chart
-  const datab = () => {return [{x:'test', y: 10}, {x:'tg', y:-10},]}
   const orderData = () => {
     if(props.userList){
       let res = []
       for(var i = 0; i<props.userList.length; i++){
-        res.push({x: props.userList[i].nom, y: props.userList[i].solde})
+        res.push({x: props.userList[i].nom, y: props.userList[i].solde.toFixed(1)})
       }
       return res;
     }
@@ -78,11 +77,7 @@ const PageEquilibrage = (props) => {
   )
   }
 
-  const whatsUserListAgain = () => {
-    console.log('in PE')
-    console.log(props.userList)
-    return props.userList
-  }
+ 
   return (
   
 <View style={{flex: 1}}>
@@ -134,7 +129,7 @@ const PageEquilibrage = (props) => {
               </ScrollView>
 
           
-          <AddDepenseBS clcID={props.clcID} />
+          <AddDepenseBS />
 
       </View>       
 

@@ -15,7 +15,7 @@ import { UserContext } from '../Context/userContextFile';
 
 
 //ATTRIBUTS dans bdd : amount, giverID, receiversID array, desc
-//props est colocID pr trouver le chemin pr addDoc
+//props est userList pr trouver le chemin pr addDoc
 const AddDepenseBS = (props) => {
 const nav = useNavigation()
 const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -43,7 +43,7 @@ const [areConcerned, setAreConcerned] = useState([]);
 //récupère les utilisateurs de la colocs (prbablement a entrer ds app.tsx)
 useEffect( () => {
   const getUsers = async () => {
-    const data = await getDoc(doc(db, "Colocs", props.clcID));
+    const data = await getDoc(doc(db, "Colocs", user.colocID));
     const membersID = data.data().membersID;
     const q = query(collection(db, "Users"), where('uuid', 'in', membersID))
     const querySnapshot = await getDocs(q);
@@ -71,6 +71,7 @@ const dropdownData = () => {
 
 //pour afficher les cartes des membres
 const renderUsers = () => {
+  if(userList){
   return(
     userList.map((user)=> {
       
@@ -80,7 +81,8 @@ const renderUsers = () => {
         </TouchableOpacity>
       )
     })
-  )
+  )}
+  return <></>
 }
 //pour checker qu'on envoit pas de la merde dans la bdd 
 const isNumber = (str) => {
@@ -110,7 +112,7 @@ const isNumber = (str) => {
     }
     const allParticipant = [...areConcerned];
     allParticipant.push(payeur);//utile dans DepenseDiagramme pr rapidement check si luser est concerné par une transac (payeur ou receveur)
-    await addDoc(collection(db, "Colocs/" +props.clcID+ "/Transactions"), {timestamp: serverTimestamp(), amount: Number(amount), giverID: payeur, receiversID: areConcerned, desc: title, concerned: allParticipant});
+    await addDoc(collection(db, "Colocs/" +user.colocID+ "/Transactions"), {timestamp: serverTimestamp(), amount: Number(amount), giverID: payeur, receiversID: areConcerned, desc: title, concerned: allParticipant});
     updateSolde();
     setAmount("");
     setAreConcerned([]);

@@ -48,13 +48,15 @@ const ColocSettings = ({route, navigation}: Props) => {
         const tacheSnapshot = await getDocs(tacheQuery);
         const transacSnapshot = await getDocs(transacQuery);
         tacheSnapshot.forEach(async (t) => {await deleteDoc(doc(db, 'Colocs/' + user.colocID + '/Taches', t.id))})
-        transacSnapshot.forEach(async (t) => {await deleteDoc(doc(db, 'Colocs/' + user.colocID + '/Transactions', t.id)); updateSolde(t)});
+        transacSnapshot.forEach(async (t) => {await deleteDoc(doc(db, 'Colocs/' + user.colocID + '/Transactions', t.id));
+         updateSolde(t)});
         await updateDoc(doc(db, 'Colocs', user.colocID), {membersID: arrayRemove(user.uuid)});
-        await updateDoc(doc(db, 'Users', user.uuid), {colocID: "0", nomColoc: "", solde: 0});
+        await updateDoc(doc(db, 'Users', user.uuid), {colocID: "0", nomColoc: ""});
         setUser({...user, colocID: "0"});
     }
 
     const updateSolde = async (docu) => {
+        console.log("solde updated")
         const areConcerned  = docu.data().receiversID;
         const length = areConcerned.length;
         const amount = docu.data().amount;

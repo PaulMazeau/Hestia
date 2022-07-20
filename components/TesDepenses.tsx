@@ -94,7 +94,7 @@ const TesDepense = ({route, navigation}: Props) => {
  
 
   <Text style={styles.sousTitre}>Récapitulatif de tes dépenses</Text>
-    <DepenseDiagram/>
+    <DepenseDiagram global={false} clcID = {user.colocID}/>
     <Text style={styles.listeTransac}>Toutes tes transactions</Text>
     {renderContent()}
     

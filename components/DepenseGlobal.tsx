@@ -36,7 +36,7 @@ const AllDepense = (props) => {
 const q = query(collection(db, "Colocs/"+props.clcID+ "/Transactions"), orderBy('timestamp', 'desc'), limit(1));
 const [values, loading, error] = useCollection(q);
 const EmptyDepense=require('../Img/EmptyDepense.png');
-//on affiche la dernière transac
+//on affiche la dernière transa
 const getLastestTransac =  () => {
   if(loading){
     <Text>Loading...</Text>
@@ -72,7 +72,7 @@ const getLastestTransac =  () => {
   return (
   <View style={{flex:1, }}>
       <Text style={styles.RecapDepense}>Récapitulatif dépenses</Text>
-       <Depense/>
+       <Depense clcID = {props.clcID} global = {true}/>
           <View style={styles.Title}>
             <Text style={styles.DerniereDepense}>Dernière Dépense</Text>
             <TouchableOpacity onPress={() => navigation.navigate('SousMenuDepense')} >
@@ -80,10 +80,6 @@ const getLastestTransac =  () => {
              </TouchableOpacity>
           </View>
             {getLastestTransac()}
-           
-
-            <AddDepenseBS clcID={props.clcID}/>
-            
 </View>
   );
 };
