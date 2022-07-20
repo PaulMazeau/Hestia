@@ -11,12 +11,13 @@ import { updateDoc, serverTimestamp, addDoc, collection, getDoc, doc, where, que
 import {db} from '../firebase-config'
 import { useCollectionOnce } from 'react-firebase-hooks/firestore';
 import { useNavigation, useNavigationState } from '@react-navigation/native';
-import { UserContext } from '../Context/userContextFile';
+import { UserContext, UserListContext } from '../Context/userContextFile';
 
 
 //ATTRIBUTS dans bdd : amount, giverID, receiversID array, desc
 //props est userList pr trouver le chemin pr addDoc
 const AddDepenseBS = (props) => {
+const [userList, setUserList]= useState([]);
 const nav = useNavigation()
 const bottomSheetRef = useRef<BottomSheetModal>(null);
 
@@ -34,7 +35,6 @@ const renderBackdrop = useCallback((props) => {
 }, []);
 
 
-const [userList, setUserList] = useState([])
 const [areConcerned, setAreConcerned] = useState([]);
   const buttonPressed = () => {
     bottomSheetRef.current?.present();

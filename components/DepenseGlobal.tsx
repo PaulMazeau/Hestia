@@ -72,7 +72,7 @@ const getLastestTransac =  () => {
   return (
   <View style={{flex:1, }}>
       <Text style={styles.RecapDepense}>Récapitulatif dépenses</Text>
-       <Depense clcID = {props.clcID} global = {true}/>
+       <Depense clcID = {props.clcID} global = {true} userList={props.userList}/>
           <View style={styles.Title}>
             <Text style={styles.DerniereDepense}>Dernière Dépense</Text>
             <TouchableOpacity onPress={() => navigation.navigate('SousMenuDepense')} >

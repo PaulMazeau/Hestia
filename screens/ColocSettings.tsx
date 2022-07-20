@@ -46,13 +46,16 @@ const ColocSettings = ({route, navigation}: Props) => {
         const tacheQuery = query(collection(db, 'Colocs/'+ user.colocID +'/Taches'), where('concerned', 'array-contains', user.uuid));
         const transacQuery = query(collection(db, 'Colocs/'+user.colocID+'/Transactions'), where('concerned', 'array-contains', user.uuid));
         const tacheSnapshot = await getDocs(tacheQuery);
-        const transacSnapshot = await getDocs(transacQuery);
+        const transacSnapshot = await getDocs(transacQuery);//a foutre coté serveur
         tacheSnapshot.forEach(async (t) => {await deleteDoc(doc(db, 'Colocs/' + user.colocID + '/Taches', t.id))})
         transacSnapshot.forEach(async (t) => {await deleteDoc(doc(db, 'Colocs/' + user.colocID + '/Transactions', t.id));
          updateSolde(t)});
         await updateDoc(doc(db, 'Colocs', user.colocID), {membersID: arrayRemove(user.uuid)});
-        await updateDoc(doc(db, 'Users', user.uuid), {colocID: "0", nomColoc: ""});
-        setUser({...user, colocID: "0"});
+        await updateDoc(doc(db, 'Users', user.uuid), {colocID: "0", nomColoc: "", membersID: []});
+        setUser({...user, colocID: "0", membersID: []});
+        for(var i = 0; i<user.membersID; i++){ //a foutre coté serveur
+            await updateDoc(doc(db, "Users", user.membersID[i]), {membersID: arrayRemove(user.uuid)})
+        }
     }
 
     const updateSolde = async (docu) => {

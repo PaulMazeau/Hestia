@@ -8,7 +8,7 @@ import { AuthStackParams } from '../App';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase-config';
 import {v4 as uuid} from 'uuid';
-import { setDoc, doc, updateDoc, getDocs, collection, getDoc } from 'firebase/firestore';
+import { setDoc, doc, updateDoc, getDocs, collection, getDoc, arrayUnion } from 'firebase/firestore';
 import {db} from '../firebase-config';
 import { UserContext } from '../Context/userContextFile';
 
@@ -35,19 +35,22 @@ const NoColocScreen = ()  => {
             membersID: [userID],
         }
         await setDoc(doc(db, 'Colocs', colocID),colocEntry);
-        await updateDoc(doc(db, 'Users', userID), {colocID: colocID, nomColoc: nomColoc});
-        setUser({...user, colocID: colocID, nomColoc: nomColoc}) //a foutre coté serveur
+        await updateDoc(doc(db, 'Users', userID), {colocID: colocID, nomColoc: nomColoc, membersID: [auth.currentUser.uid]});
+        setUser({...user, colocID: colocID, nomColoc: nomColoc, membersID: auth.currentUser.uid}) //a foutre coté serveur
     }
 
     const handleJoinColoc = async () => { //a foutre côté serveur ms ok pr le moment 
         if(!(allColoc.includes(codeColoc))){alert("Ce code n'existe pas !"); setCodeColoc("")}
         else {
             const colocData = await getDoc(doc(db, "Colocs", codeColoc));
-            await updateDoc(doc(db, "Users", auth.currentUser.uid), {colocID: codeColoc, nomColoc: colocData.data().nom})
             var membersID = colocData.data().membersID;
+            for(var i = 0; i<membersID.length; i++){ //a foutre coté serveur
+                await updateDoc(doc(db, "Users", membersID[i]), {membersID: arrayUnion(auth.currentUser.uid)})
+            }
             membersID.push(auth.currentUser.uid);
+            await updateDoc(doc(db, "Users", auth.currentUser.uid), {colocID: codeColoc, nomColoc: colocData.data().nom, membersID: membersID})
             await updateDoc(doc(db, "Colocs", codeColoc), {membersID: membersID});
-            setUser({...user, colocID: codeColoc, nomColoc: colocData.data().nom})
+            setUser({...user, colocID: codeColoc, nomColoc: colocData.data().nom, membersID: membersID})
         }
     }
 

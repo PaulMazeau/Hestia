@@ -6,10 +6,11 @@ import Transaction from './Transaction';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import { getDoc, doc, collection, orderBy, query, deleteDoc, updateDoc, increment } from 'firebase/firestore';
+import { getDoc, doc, collection, orderBy, query, deleteDoc, updateDoc, increment, where } from 'firebase/firestore';
 import{db} from '../firebase-config'
 import { UserContext } from '../Context/userContextFile';
 import DepenseDiagram from './DepenseDiagram';
+import { useFocusEffect } from '@react-navigation/native';
 
 type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
 
@@ -47,19 +48,20 @@ const TesDepense = ({route, navigation}: Props) => {
     const refreshedData = await getDoc(doc(db, "Users", user.uuid)) // pr refresh le contexte av le nouveau solde
     setUser({...user, solde: refreshedData.data().solde}) //update le contexte av le nouvo solde
   }
-  const [allTransacs] = useCollection(query(collection(db, "Colocs/"+user.colocID+ "/Transactions"), orderBy('timestamp', 'desc')))
+  const [allTransacs, loading, error] = useCollection(query(collection(db, "Colocs/"+user.colocID+ "/Transactions"), where('concerned', 'array-contains', user.uuid), orderBy('timestamp', 'desc')));
+ 
   const renderContent = () =>{
     if(allTransacs){
       if(allTransacs.docs.length > 0)
       return(
         allTransacs.docs.map(c => {
           return(
-            <View style= {{marginTop: 12}} key = {c.id}>
+            <View style= {{marginTop: 12}} key = {c.id+user.uuid}>
             <Drawer 
             rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete(c.id)}]}
             leftItem={{text: 'Modifier', background: Colors.green30, onPress: () => console.log('2 prout')}}
-            key = {c.id}>
-            <Transaction key={c.id} giverID={c.data().giverID} receiverID={c.data().receiverID} amount={c.data().amount} desc={c.data().desc}/>
+            key = {c.id+user.uuid}>
+            <Transaction key={c.id+user.uuid} giverID={c.data().giverID} amount={(c.data().amount + 0.001).toFixed(1)} desc={c.data().desc}/>
             </Drawer>
             </View>
           )

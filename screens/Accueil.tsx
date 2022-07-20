@@ -50,10 +50,6 @@ const AccueilScreen = ({ route, navigation }: Props) => {
         )
     }
     
-    const getNotifData = async () => {
-        const notifs = await Notifications.getAllScheduledNotificationsAsync();
-        console.log(notifs);
-    }
   return (
     <View style={styles.body}>
         

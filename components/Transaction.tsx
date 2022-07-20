@@ -1,5 +1,5 @@
 import { getDoc, doc } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import {db} from '../firebase-config'
 
@@ -12,13 +12,19 @@ const ProfilImage=require('../Img/avatarHeader.png');
 const MonSolde  = (props) => {
   const [whoPaidName, setWhoPaidName] = useState("");
   const [whoPaidAvatar, setWhoPaidAvatar] = useState("not an empty string lol"); //pr se débarasser du warning 
-  useEffect(() => {
-    const getWhoPaid = async () =>{
-      const data = await getDoc(doc(db, "Users", props.giverID));
-      setWhoPaidName(data.data().nom);
-      setWhoPaidAvatar(data.data().avatarUrl)
-    }
-    getWhoPaid();
+
+  const getData = async () =>{
+    const data = await getDoc(doc(db, "Users", props.giverID));
+    
+    setWhoPaidName(data.data().nom);
+    setWhoPaidAvatar(data.data().avatarUrl)}
+  
+
+  useEffect( () => {
+    let isCanceled = false;
+    getDoc(doc(db, "Users", props.giverID)).then((d) => {if(!isCanceled){
+      setWhoPaidAvatar(d.data().avatarUrl); setWhoPaidName(d.data().nom)}});
+    return () => {isCanceled = true}
   }, [])
 
   return (
