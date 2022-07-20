@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useReducer, useState } from 'react';
+import React, { useContext, useEffect, useReducer, useState, } from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image, ListRenderItem} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import { FlatList, Switch } from 'react-native-gesture-handler';
+import { FlatList, ScrollView, Switch } from 'react-native-gesture-handler';
 import { RootStackParams } from '../App';
+import * as Clipboard from 'expo-clipboard';
 import Top from '../components/HeaderSettings';
-import AddColoc from '../Icons/AddColoc.svg';
 import Exit from '../Icons/Exit.svg';
 import TopBackNavigation from '../components/TopBackNavigation';
 import { getDoc, doc, query, collection, where, getDocs, deleteDoc, updateDoc, increment, arrayRemove  } from 'firebase/firestore';
@@ -16,6 +16,7 @@ import { Background } from 'victory-native';
 
 type Props = NativeStackScreenProps<RootStackParams, 'ColocSettings'>;
 const ProfilImage=require('../Img/avatarHeader.png');
+
 
 
 const data : Image[] = [
@@ -31,6 +32,13 @@ const data : Image[] = [
 const ColocSettings = ({route, navigation}: Props) => {
     const [user, setUser] = useContext(UserContext);
     const [avatars, setAvatars] = useState([]); //list des avatars url de la coloc
+    const [inputValue, setInputValue] = useState("");
+
+    const copyText = (text) => {
+        Clipboard.setString(text);
+    };
+    
+
    
 
     useEffect(()=> {
@@ -79,6 +87,9 @@ const ColocSettings = ({route, navigation}: Props) => {
         }
 }
   return (
+    
+
+    
     <View style={styles.Body}>
         <Top clcName={user.nomColoc} avatar={user.avatarUrl} name={user.nom}/>
         <View style={styles.container}>
@@ -98,17 +109,16 @@ const ColocSettings = ({route, navigation}: Props) => {
 
         </View>
         
-        
-        <View style={styles.Setting}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={[styles.Setting, {marginTop:15}]}>
             <Text style={styles.name}>Code de la colocation : </Text>
             <View style={{flexDirection:'row', alignItems:'center'}}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => {copyText(user.colocID)}}>
                     <Text style={[styles.name, styles.codeColoc]}>{user.colocID}</Text>
                 </TouchableOpacity>
             </View>
             
         </View>
-            
 
         <View style={styles.Setting}>
             <Text style={styles.name}>Thème sombre</Text>
@@ -121,6 +131,7 @@ const ColocSettings = ({route, navigation}: Props) => {
                 <Text style={{fontWeight: '700', color:'white'}}>Quitter la colocation</Text>
             </View>
         </TouchableOpacity>
+        </ScrollView>
         </View>
     </View>
   );
@@ -161,11 +172,11 @@ const styles = StyleSheet.create({
     },
 
     container: {
-        paddingBottom: 16,
         paddingLeft: 16,
         paddingRight: 16,
         backgroundColor: '#EDF0FA',
         height: '100%',
+        flex: 1
     },
 
     containerColoc: {
@@ -176,7 +187,7 @@ const styles = StyleSheet.create({
         paddingRight: 10,
         paddingTop: 10,
         paddingBottom: 35,
-        marginBottom:10
+        
     },
 
     screenTitle: {
