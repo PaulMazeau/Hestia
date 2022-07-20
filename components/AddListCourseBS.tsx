@@ -99,27 +99,27 @@ return (
                     keyboardShouldPersistTaps='handled'>
                         <TouchableOpacity onPress={() => {putInOrPutOut(1); setemoji({uri : emojiURLS[0]}); setcolor('#DDCFDD')}}>
                           <View style={[courseImage==1?styles.emoji_valid:styles.emoji_invalid]}>
-                          <CategorieCard name='Repas' avatar={{uri : emojiURLS[0]}} color='#DDCFDD'/>
+                          <CategorieCard name='Repas' avatar={{uri : emojiURLS[0]}}/>
                           </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => {putInOrPutOut(2); setemoji({uri : emojiURLS[1]}); setcolor('#F5C295')}}>
                           <View style={[courseImage==2?styles.emoji_valid:styles.emoji_invalid]}>
-                          <CategorieCard name='Soirée' avatar={{uri : emojiURLS[1]}} color='#F5C295'/>
+                          <CategorieCard name='Soirée' avatar={{uri : emojiURLS[1]}}/>
                           </View>
                         </TouchableOpacity> 
                         <TouchableOpacity onPress={() => {putInOrPutOut(3); setemoji({uri : emojiURLS[2]}); setcolor('papayawhip')}}>
                           <View style={[courseImage==3?styles.emoji_valid:styles.emoji_invalid]}>
-                          <CategorieCard name='Végé' avatar={{uri : emojiURLS[2]}} color='papayawhip'/>
+                          <CategorieCard name='Végé' avatar={{uri : emojiURLS[2]}}/>
                           </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => {putInOrPutOut(4); setemoji({uri : emojiURLS[3]}); setcolor('#C1DDE9')}}>
                           <View style={[courseImage==4?styles.emoji_valid:styles.emoji_invalid]}>
-                          <CategorieCard name='Ménage' avatar={{uri : emojiURLS[3]}} color='#C1DDE9'/>
+                          <CategorieCard name='Ménage' avatar={{uri : emojiURLS[3]}}/>
                           </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => {putInOrPutOut(5); setemoji({uri : emojiURLS[4]}); setcolor('#CEFACB')}}>
                           <View style={[courseImage==5?styles.emoji_valid:styles.emoji_invalid]}>
-                          <CategorieCard name='Divers' avatar={{uri : emojiURLS[4]}} color='#CEFACB'/>
+                          <CategorieCard name='Divers' avatar={{uri : emojiURLS[4]}}/>
                           </View>
                         </TouchableOpacity>
                 </ScrollView>
