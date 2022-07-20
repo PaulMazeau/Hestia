@@ -36,6 +36,7 @@ useEffect(() => {
 const handleAddList = async () => {
   await addDoc(collection(db, 'Colocs/'+props.clcID+'/Courses'), {Nom: titre, Image:emoji, Color:color, fruits: [], boisson: [], viandes: [], maison: []}); 
   bottomSheetRef.current?.close();
+  setTitre('')
 };
 
 const putInOrPutOut = (id) => {
@@ -70,7 +71,7 @@ return (
 
  <BottomSheetModal
         ref={bottomSheetRef}
-        snapPoints={['55%']}
+        snapPoints={['60%']}
         index= {0}
         backdropComponent={renderBackdrop}
       >
