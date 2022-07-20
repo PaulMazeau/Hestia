@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import { Colors, Drawer } from 'react-native-ui-lib';
 import { TouchableOpacity } from 'react-native-ui-lib/src/incubator';
+import { Background } from 'victory-native';
 import Horloge from '../Icons/Horloge.svg';
 
 
@@ -13,7 +14,7 @@ const CategorieCard = (props) => {
   const [participant, setstate] = useState(false);
   return (
     <View style={styles.global}>
-            <Image style={styles.avatar1} source={props.avatar}/>  
+            <Image style={[styles.avatar1, {backgroundColor: props.color}]} source={props.avatar}/>  
             <Text style={styles.nom} numberOfLines={1}>{props.name}</Text>
     </View>
     

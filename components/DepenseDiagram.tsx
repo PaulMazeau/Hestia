@@ -118,6 +118,7 @@ const orderData = (data) => {
       <View style={styles.container}>
         <VictoryChart
           domainPadding={20}
+          height={275}
         >
           <VictoryAxis
             tickValues={[1, 2, 3, 4, 5, 6, 7]}
@@ -157,6 +158,7 @@ const styles = StyleSheet.create({
         shadowOffset: {width: -2, height: 1},
         shadowOpacity: 0.1,
         shadowRadius: 3,
+        height: 275
       },
 })
 

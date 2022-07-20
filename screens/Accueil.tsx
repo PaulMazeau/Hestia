@@ -13,8 +13,6 @@ import { ScrollView } from 'react-native-gesture-handler';
 import {UserContext } from '../Context/userContextFile';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import * as Notifications from 'expo-notifications';
-import Constants from 'expo-constants';
-import storage from "@react-native-async-storage/async-storage";
 import Notif from '../notifications'
 //importer l'image de maison
 const ProfilImage=require('../Img/Apartment5.png');
@@ -85,7 +83,6 @@ const AccueilScreen = ({ route, navigation }: Props) => {
                 {renderTache()}
             </View>
            <Notif />
-           <TouchableOpacity onPress= {()=> getNotifData()}><Text>Fetch moi la data</Text></TouchableOpacity>
     </ScrollView>           
         </View>
     </View>
@@ -145,7 +142,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         marginLeft:'auto',
         marginRight:'auto',
-        marginTop: 0
+        marginTop: -20
     },
 
     Image: {

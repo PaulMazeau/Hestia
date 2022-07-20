@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParams } from '../App';
 import { auth } from '../firebase-config';
-const Logo=require('../Img/LogoHestia.png');
+const Logo=require('../Img/Icon.png');
 
 
 const HomePageScreen = () => {
@@ -15,7 +15,7 @@ const HomePageScreen = () => {
             <View style={styles.bluebg}>
                 <ImageContainer image={Logo} /> 
                 <Text style={styles.title}>Bienvenue sur Hestia</Text>
-                <Text style={styles.subTitle}>Finis les frictions entre colocataires!</Text>
+                <Text style={styles.subTitle}>Fini les frictions entre colocataires!</Text>
             </View>
 
             <View style={styles.Allbutton}>

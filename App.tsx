@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native';
-import { NavigationContainer, NavigatorScreenParams, useNavigation } from '@react-navigation/native';
+import { NavigationContainer, NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CoursesScreen from './screens/Courses';
 import AccueilScreen from './screens/Accueil';
@@ -28,7 +28,6 @@ import  AvatarCreationScreen from './screens/AvatarCreation'
 import AvatarModificationScreen from './screens/AvatarModification';
 import SettingsPerso from './screens/SettingsPerso';
 import NoColocScreen from './screens/NoColoc';
-import { StackNavigationProp } from '@react-navigation/stack';
 import DepenseCollective from './components/DepenseCollective';
 
 //initialisation des root pour la NavBar Bottom// DEFINIT LES PARAMETRES QUE LON PASSE DANS LES SCREENS
@@ -262,12 +261,11 @@ export default function App() {
         headerShown: false,
         tabBarActiveTintColor: "#172ACE",
         tabBarInactiveTintColor: "grey",
-      
        }}>
-          <RootStack.Screen name="AccueilStack" component={AccueilScreenStack} options={{tabBarIcon: (({color, size}) => <Accueil color={color} />), tabBarLabel: "Accueil"}}  />
-          <RootStack.Screen name="CoursesStack" component={CourseScreenStack} options={{tabBarIcon: (({color, size}) => <Course color={color} />), tabBarLabel: "Course"}}  />
-          <RootStack.Screen name="TacheStack" component={TacheScreenStack} options={{tabBarIcon: (({color, size}) => <Tache color={color} />), tabBarLabel: "Tâche"}} />
-          <RootStack.Screen name="DepenseStack" component={DepenseScreenStack} options={{tabBarIcon: (({color, size}) => <Depense color={color} />), tabBarLabel: "Dépense"}} />
+          <RootStack.Screen name="AccueilStack" component={AccueilScreenStack} options={{tabBarIcon: (({color}) => <Accueil color={color} />), tabBarLabel: "Accueil"}}  />
+          <RootStack.Screen name="CoursesStack" component={CourseScreenStack} options={{tabBarIcon: (({color}) => <Course color={color} />), tabBarLabel: "Course"}}  />
+          <RootStack.Screen name="TacheStack" component={TacheScreenStack} options={{tabBarIcon: (({color}) => <Tache color={color} />), tabBarLabel: "Tâche"}} />
+          <RootStack.Screen name="DepenseStack" component={DepenseScreenStack} options={{tabBarIcon: (({color}) => <Depense color={color} />), tabBarLabel: "Dépense"}} />
           
           
     

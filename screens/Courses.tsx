@@ -53,7 +53,7 @@ const CoursesScreen = ({route, navigation}: Props) => {
     return (
       <View style={styles.emptypage}>
         <ImageContainer image={EmptyCourse} /> 
-        <Text style={styles.emptytext}>Oops, il n’y pas encore de {'\n'} liste de course</Text>
+        <Text style={styles.emptytext}>Oops, il n’y pas encore de {'\n'} liste de courses</Text>
      </View>
     )  
   }
@@ -79,7 +79,7 @@ const CoursesScreen = ({route, navigation}: Props) => {
  <View style={styles.Body}>
    < Top  name={user.nom} clcName={user.nomColoc} avatar = {user.avatarUrl}/>
   
-        <Text style={styles.screenTitle}>Listes de Course</Text>
+        <Text style={styles.screenTitle}>Listes de Courses</Text>
         <ScrollView showsVerticalScrollIndicator={false}>
         
           {renderContent()}
@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
       fontSize: 24,
       fontWeight: 'bold',
       marginBottom: 15,
+      marginTop: 10,
     },
     
     Body: {

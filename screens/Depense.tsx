@@ -18,7 +18,7 @@ const DepenseScreen = ({ route, navigation }: Props) => {
   const[userList, setUserList] = React.useState([]);
   const [show, setShow] = React.useState(true);
   
-  const segments = {second: [{label: 'Equilibrage dépense'}, {label: 'Dépenses générales'}]}
+  const segments = {second: [{label: 'Equilibrage dépenses'}, {label: 'Dépenses générales'}]}
   const onChangeIndex = useCallback((index: number) => {
     setShow((r) => !r)
   }, []);
@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
       fontSize: 24,
       fontWeight: 'bold',
       marginBottom: 15,
+      marginTop: 10,
   },
 
 

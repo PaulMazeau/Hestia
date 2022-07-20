@@ -71,7 +71,7 @@ const handleAddTask = async () => {
   if(date== today) {alert ("Quand doit être effectuée la tâche ?"); return}
   if(title == "") {alert("Rentre un titre pour cette tâche !"); return}
   if(rappel == ""){alert("A quelle heure souhaiterais-tu recevoir un rappel ?"); return}
-  if(areConcerned.length == 0) {alert("Cette tâche concerne qui ?"); return}
+  if(areConcerned.length == 0) {alert("Qui est concerné par cette tâche ?"); return}
   bottomSheetRef.current?.close();
   await addDoc(collection(db, 'Colocs/'+props.clcID+'/Taches'), {desc: title, colocID: props.clcID, date: date, rappel: rappel, concerned: areConcerned, recur: recur, nextOne: areConcerned[0]}); 
   setTitle("");
@@ -211,7 +211,7 @@ return (
                       <TextInput 
                       style={styles.datepickerRappel}
                       // onChangeText={(event) => {setRappel(event);}} g comment pcq cette ligne sert à rien sauf a fausser la data quon rentre dans la db
-                      value={rappel}
+                      value={rappel.slice(0,5)}
                       placeholder="Entrer le rappel"
                       onPressIn={showRappelPicker} 
                       />
