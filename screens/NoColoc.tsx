@@ -65,7 +65,7 @@ const NoColocScreen = ()  => {
 
         <View style={styles.container}>
             <KeyboardAwareScrollView contentContainerStyle={{flex:1}} extraScrollHeight={20} resetScrollToCoords={{x:0,y:-20}}>
-            <ImageBackground source={image} resizeMode="cover" style={styles.creerColocContainer} imageStyle={{ borderRadius: 20}}>
+            <ImageBackground source={image} resizeMode="cover" style={styles.creerColocContainer} imageStyle={{borderBottomLeftRadius: 20, borderBottomRightRadius: 20}}>
                     
                     <Text style={styles.texteBlanc}>Créer une colocation</Text>
                         <TextInput

@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
-import { Colors, Drawer } from 'react-native-ui-lib';
 import { TouchableOpacity } from 'react-native-ui-lib/src/incubator';
-import Horloge from '../Icons/Horloge.svg';
 
 
 //props est name du frelon + url de sa pfp

@@ -48,7 +48,7 @@ const DepenseCollective = ({route, navigation}: Props) => {
     const refreshedData = await getDoc(doc(db, "Users", user.uuid)) // pr refresh le contexte av le nouveau solde
     setUser({...user, solde: refreshedData.data().solde}) //update le contexte av le nouvo solde
   }
-  const [allTransacs] = useCollection(query(collection(db, "Colocs/"+user.colocID+ "/Transactions"), orderBy('timestamp', 'desc')))
+  const [allTransacs, loading, error] = useCollection(query(collection(db, "Colocs/"+user.colocID+ "/Transactions"), orderBy('timestamp', 'desc')))
   const renderContent = () =>{
     if(allTransacs){
       if(allTransacs.docs.length > 0)
@@ -58,8 +58,9 @@ const DepenseCollective = ({route, navigation}: Props) => {
             <View style= {{marginTop: 12}} key = {c.id}>
             <Drawer 
             rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete(c.id)}]}
-            leftItem={{text: 'Modifier', background: Colors.green30, onPress: () => console.log('2 prout')}}
-            key = {c.id}>
+            leftItem={{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete(c.id)}}
+            key = {c.id}
+            style={{borderRadius: 10}}>
             <Transaction key={c.id} giverID={c.data().giverID} receiverID={c.data().receiverID} amount={c.data().amount} desc={c.data().desc} date={c.data().timestamp} concerned={c.data().concerned}/>
             </Drawer>
             </View>

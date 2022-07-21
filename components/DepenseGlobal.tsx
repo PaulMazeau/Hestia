@@ -5,7 +5,6 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
-import Equilibrage from './Equilibrage';
 import AddDepenseBS from './AddDepenseBS';
 import { collection, limit, orderBy, query } from 'firebase/firestore';
 import {db} from '../firebase-config';

@@ -12,13 +12,12 @@ import MiniJeu from '../components/MiniJeu';
 import { ScrollView } from 'react-native-gesture-handler';
 import {UserContext } from '../Context/userContextFile';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import * as Notifications from 'expo-notifications';
 import Notif from '../notifications'
 
 //importer l'image de maison
-const ProfilImage=require('../Img/Apartment5.7.png');
+
 //importer la bg image dégradé
-const image = require('../Img/homepage_bg.png');
+const image = require('../Img/homepage_bg_accueil.png');
 
 const windowHeight = Dimensions.get('window').height;
 
@@ -59,10 +58,9 @@ const AccueilScreen = ({ route, navigation }: Props) => {
   return (
     <View style={styles.body}>
         
-        <ImageBackground source={image} resizeMode="cover" style={styles.first50} imageStyle={{ borderRadius: 20}}>
+        <ImageBackground source={image} resizeMode="cover" style={styles.first50} imageStyle={{ borderBottomLeftRadius: 20, borderBottomRightRadius: 20}}>
            
             < Top  name={user.nom} clcName={user.nomColoc} avatar = {user.avatarUrl}/>
-            <ImageContainer image={ProfilImage} />
         </ImageBackground>
     
     
@@ -131,19 +129,19 @@ const styles = StyleSheet.create({
 
     first50:{
         backgroundColor: '#172ACE',
-        height: windowHeight /2.4,
+        height: windowHeight /2.3,
         borderBottomLeftRadius: 30,
         borderBottomRightRadius: 30,
     },
       
     ImageContainer: {
-        height: windowHeight/3.25,
+        height: windowHeight/3.5,
         width: 370,
         overflow: 'hidden',
         justifyContent:'center',
         marginLeft:'auto',
         marginRight:'auto',
-        marginTop: -20,
+        marginTop: 'auto',
     },
 
     Image: {
