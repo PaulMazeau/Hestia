@@ -9,6 +9,9 @@ import { UserContext, UserListContext } from '../Context/userContextFile';
 import PageEquilibrage from '../components/PageEquilibrage';
 import { getDoc, doc, query, collection, where, getDocs } from 'firebase/firestore';
 import {db} from '../firebase-config'
+import { updatePassword } from 'firebase/auth';
+import { longPressGestureHandlerProps } from 'react-native-gesture-handler/lib/typescript/handlers/LongPressGestureHandler';
+import { useFocusEffect } from '@react-navigation/native';
 
 
 type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
@@ -23,23 +26,12 @@ const DepenseScreen = ({ route, navigation }: Props) => {
     setShow((r) => !r)
   }, []);
 
-
-  useEffect(()=> {
-    const getUsers = async () => {
-      const data = await getDoc(doc(db, "Colocs", user.colocID));
-      const membersID = data.data().membersID;
-      const q = query(collection(db, "Users"), where('uuid', 'in', membersID))
-      const querySnapshot = await getDocs(q);
-      setUserList(querySnapshot.docs.map((doc) => ({...doc.data()})));
-    }
-    getUsers();
-
-  }, [])
+ 
 
   return (      
       <View style={styles.container}>
      < Top  name={user.nom} clcName={user.nomColoc} avatar = {user.avatarUrl}/>
-          <Text style={styles.screenTitle}>Gestion des dépenses</Text>
+          <Text style={styles.screenTitle} >Gestion des dépenses</Text>
           
           <SegmentedControl 
         onChangeIndex={onChangeIndex}
@@ -56,7 +48,7 @@ const DepenseScreen = ({ route, navigation }: Props) => {
         throttleTime= {200}
         />
     
-          {show ? <PageEquilibrage userList ={userList} clcID= {user.colocID}/> : <DepenseGlobal clcID={user.colocID}/>}
+          {show ? <PageEquilibrage /> : <DepenseGlobal clcID={user.colocID} />}
       
        
      

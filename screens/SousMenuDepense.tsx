@@ -119,9 +119,9 @@ const SousMenuDepense = ({route, navigation}: Props) => {
         throttleTime= {200}
         />
 
-{show ? <DepenseCollective clcID={user.colocID}/> : <TesDepense clcID={user.colocID}/>}
+{show ? <DepenseCollective navigation={undefined} route={undefined} />:<TesDepense navigation={undefined} route={undefined} />}
 
-      
+
 </View>
 
 </View>

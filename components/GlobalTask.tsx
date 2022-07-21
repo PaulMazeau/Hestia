@@ -6,7 +6,7 @@ import AddTaskBS from './AddTaskBS';
 import { deleteDoc, doc } from 'firebase/firestore'
 import { db } from '../firebase-config';
 import { Colors, Drawer } from 'react-native-ui-lib';
-import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import { Dropdown } from 'react-native-element-dropdown';
 import ParticipantCard from './ParticipantCard';
 import * as Haptics from 'expo-haptics';
@@ -36,7 +36,7 @@ const renderContent = () => {
           <View style={styles.Card} key = {t.id}>
           <Drawer 
             rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete(t.id)}]}
-            leftItem={{text: 'Modifier', background: Colors.green30, onPress: () => buttonPressed()}}
+            leftItem={{text: 'Modifier', background: Colors.green30, onPress: () => openBs(t)}}
             key = {t.id}>
               <TacheCard Tache={t.data().desc} key={t.id} nextOne = {t.data().nextOne} date ={t.data().date} concerned={t.data().concerned} recur={t.data().recur}/>
           </Drawer>
@@ -84,8 +84,19 @@ const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 // ref
 const bottomSheetRef = useRef<BottomSheetModal>(null);
 
-const buttonPressed = () => {
+const sheetRef = useRef<BottomSheet>(null);
+
+const [isOpen, setIsOpen] = useState(false);
+
+const [title, setTitle] = React.useState("");
+const [recur, setRecur] = useState("");
+const [dateString, setDateString] = useState("")
+
+const openBs = (tacheData) => {
   bottomSheetRef.current?.present();
+  setTitle(tacheData.data().desc);
+  setRecur(tacheData.data().recur);
+  setDateString(tacheData.data().date.toDate().toLocaleDateString('fr-FR', { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' }));
 }
 
 const handleAddTask = async () => {
@@ -102,32 +113,18 @@ const renderBackdrop = useCallback((props) => {
   );
 }, []);
 
-const [title, setTitle] = React.useState("");
-const [value, setValue] = useState("");
+
 
 const Recurrence = [
-  { label: 'Aucune', value: '1' },
-  { label: '1 jour', value: '2' },
-  { label: '2 jours', value: '3' },
-  { label: '3 jours', value: '4' },
-  { label: '1 semaine', value: '5' },
-  { label: '2 semaines', value: '6' },
-  { label: '1 mois', value: '7' },
-  { label: '2 mois', value: '8' },
+  { label: 'Aucune', value: '0' },
+  { label: '1 jour', value: '1' },
+  { label: '2 jours', value: '2' },
+  { label: '3 jours', value: '3' },
+  { label: '1 semaine', value: '7' },
+  { label: '2 semaines', value: '14' },
+  { label: '1 mois', value: '28' },
 ];
 
-const Notification = [
-  { off: 'Oui', input: '2' },
-  { off: 'Non', input: '1' },
-];
-
-const Rappel = [
-  { rappel: 'Aucun', id: '1' },
-  { rappel: '1 heures', id: '2' },
-  { rappel: '2 heures', id: '3' },
-  { rappel: '1 jour', id: '4' },
-  { rappel: '1 semaine', id: '5' },
-];
 
 /* FIN SETUP DE LA BOTTOMSHEET MODIFIER*/
 
@@ -161,11 +158,13 @@ const Rappel = [
           
                 <View style={styles.depenseTitle}>
                   <Text style={styles.subTitle}>Date</Text>
-                  <TouchableOpacity 
-                  onPress={showDatePicker} 
-                  style={styles.datepicker}
-                  >
-                    <Text style={styles.textdate}>Choisir une date</Text>
+                  <TextInput 
+                 style={styles.datepicker}
+                // onChangeText={(event) => {setDateString(event);}}
+                  value={dateString}
+                  placeholder={dateString}
+                  onPressIn={showDatePicker} 
+                  />
                     <DateTimePickerModal
                     isVisible={isDatePickerVisible}
                     mode="date"
@@ -174,7 +173,7 @@ const Rappel = [
                     cancelTextIOS='Annuler'
                     confirmTextIOS='Confirmer'
                   />
-                  </TouchableOpacity>
+                 
                 </View>
           
                 <View style={styles.depenseTitle}>
@@ -188,8 +187,8 @@ const Rappel = [
                         labelField="label"
                         valueField="value"
                         placeholder="Choisir une récurrence"
-                        value={value}
-                        onChange={setValue}
+                        value={recur}
+                        onChange={setRecur}
                     />
                 </View>
           

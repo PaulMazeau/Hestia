@@ -20,15 +20,16 @@ import SousMenuDepense from './screens/SousMenuDepense';
 import LoginScreen from './screens/Login';
 import SignupScreen from './screens/Signup';
 import { auth,db } from './firebase-config';
-import { getDoc, doc } from 'firebase/firestore';
+import { getDoc, doc, query, where, collection, getDocs } from 'firebase/firestore';
 import HomePageScreen from './screens/Homepage';
-import {UserContext} from './Context/userContextFile'
+import {UserContext, UserListContext} from './Context/userContextFile'
 import { onAuthStateChanged } from 'firebase/auth';
 import  AvatarCreationScreen from './screens/AvatarCreation'
 import AvatarModificationScreen from './screens/AvatarModification';
 import SettingsPerso from './screens/SettingsPerso';
 import NoColocScreen from './screens/NoColoc';
 import DepenseCollective from './components/DepenseCollective';
+import { getNextTriggerDateAsync } from 'expo-notifications';
 
 //initialisation des root pour la NavBar Bottom// DEFINIT LES PARAMETRES QUE LON PASSE DANS LES SCREENS
 export type RootStackParams = {
@@ -246,7 +247,8 @@ export default function App() {
     onAuthStateChanged(auth, async (user) => {
     if(user){const data = await getDoc(doc(db, "Users", auth.currentUser.uid));
     setUserData(data.data());}else{setUserData(null)}
-  })}, [])
+  })
+}, [])
 
 
   
@@ -294,6 +296,7 @@ export default function App() {
         <UserContext.Provider value = {[userData, setUserData]}>
        {renderContent()}
        </UserContext.Provider>
+      
     </NavigationContainer>
     </View>
     </BottomSheetModalProvider>

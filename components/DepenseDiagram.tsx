@@ -100,17 +100,33 @@ const orderData = (data) => {
  if(data.docs.length==0) {return res}
   const startingMonth = data.docs[0].data().timestamp.toDate().getMonth();
   let uuid = auth.currentUser.uid
+  if(props.global){ //calcul des dépense totales
   for(var i = 0; i<data.docs.length; i++){
     let currentMonth = data.docs[i].data().timestamp.toDate().getMonth();
     let transac = data.docs[i].data()
     switch(currentMonth - startingMonth){ 
-      case 0: res[6].earnings += data.docs[i].data().amount; break; //ça signifie currentMonth est il y a 6 mois
-      case 1: res[5].earnings +=  data.docs[i].data().amount; break;
-      case 2: res[4].earnings +=  data.docs[i].data().amount; break;
-      case 3: res[3].earnings +=  data.docs[i].data().amount; break;
-      case 4: res[2].earnings +=  data.docs[i].data().amount; break;
-      case 5: res[1].earnings +=  data.docs[i].data().amount; break;
-      case 6: res[0].earnings +=  data.docs[i].data().amount; break;
+      case 0: res[6].earnings += transac.amount; break; //ça signifie currentMonth est il y a 6 mois
+      case 1: res[5].earnings +=  transac.amount; break;
+      case 2: res[4].earnings +=  transac.amount; break;
+      case 3: res[3].earnings +=  transac.amount; break;
+      case 4: res[2].earnings +=  transac.amount; break;
+      case 5: res[1].earnings +=  transac.amount; break;
+      case 6: res[0].earnings +=  transac.amount; break;
+    }
+  }}else{ //calcul des dépenses ou luser est concerné
+    for(var i = 0; i<data.docs.length; i++){
+      let currentMonth = data.docs[i].data().timestamp.toDate().getMonth();
+      let transac = data.docs[i].data()
+      if(transac.receiversID.includes(uuid)){
+      switch(currentMonth - startingMonth){ 
+        case 0: res[6].earnings += transac.amount/transac.receiversID.length; break; //ça signifie currentMonth est il y a 6 mois
+        case 1: res[5].earnings +=  transac.amount/transac.receiversID.length; break;
+        case 2: res[4].earnings +=  transac.amount/transac.receiversID.length; break;
+        case 3: res[3].earnings +=  transac.amount/transac.receiversID.length; break;
+        case 4: res[2].earnings +=  transac.amount/transac.receiversID.length; break;
+        case 5: res[1].earnings +=  transac.amount/transac.receiversID.length; break;
+        case 6: res[0].earnings +=  transac.amount/transac.receiversID.length; break;
+      }}
     }
   }
   return res 

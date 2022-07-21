@@ -10,6 +10,8 @@ import Equilibrage from './Equilibrage';
 import AddDepenseBS from './AddDepenseBS';
 import { connectStorageEmulator } from 'firebase/storage';
 import { VictoryAxis, VictoryBar, VictoryChart, VictoryContainer, VictoryGroup, VictoryLabel } from "victory-native";
+import { UserContext, UserListContext } from '../Context/userContextFile';
+import { useCollection } from 'react-firebase-hooks/firestore';
 
 const NegativeAwareTickLabel = damn => {
   const {
@@ -30,24 +32,38 @@ const NegativeAwareTickLabel = damn => {
   );
 };
 
-//props est userList
+
 const PageEquilibrage = (props) => {
-  //organiser la data pr la foutre dans le chart
+  const [user, setUser] = useContext(UserContext);
+  // const[userList, setUserList] = useState([]);
+  //get la userList pr foutre la data ds le chart
+  // useEffect(()=> {
+  //   const getUsers = async () => {
+  //     const data = await getDoc(doc(db, "Colocs", user.colocID));
+  //     const membersID = data.data().membersID;
+  //     const q = query(collection(db, "Users"), where('uuid', 'in', membersID))
+  //     const querySnapshot = await getDocs(q);
+  //     setUserList(querySnapshot.docs.map((doc) => ({...doc.data()})));
+  //   }
+  //   getUsers();
+  // }, [])
+
+  const [userList, loading, error] = useCollection(query(collection(db, "Users"), where('uuid', 'in', user.membersID)))
+
   const orderData = () => {
-    if(props.userList){
+    if(userList){
       let res = []
-      for(var i = 0; i<props.userList.length; i++){
-        res.push({x: props.userList[i].nom, y: props.userList[i].solde.toFixed(1)})
+      for(var i = 0; i<userList.docs.length; i++){
+        res.push({x: userList.docs[i].data().nom, y: Number(userList.docs[i].data().solde.toFixed(1))})
       }
       return res;
     }
-    return [{x: '', y: 0}]
   }
 //rendu des dettes cards
   const renderSettle = () => {
     var debtList = [] //list des debts que l'on va afficher
-    if(props.userList){
-    let usersCopy = props.userList;
+    if(userList){
+    let usersCopy = userList.docs.map((doc) => ({...doc.data()}));
      usersCopy.sort((a, b) => b.solde - a.solde) //tri par ordre décroissant de soldes
      while(usersCopy.length >= 2) {//tant qu'il existe des gens av des dettes pos ou neg 
       let maxEnHess = usersCopy.pop() // on pop le dernier de la liste qui ne devra plus rien 
@@ -77,9 +93,9 @@ const PageEquilibrage = (props) => {
   )
   }
 
- 
+
   return (
-  
+
 <View style={{flex: 1}}>
 <ScrollView showsVerticalScrollIndicator={false} >
 <View style={{
@@ -91,10 +107,7 @@ const PageEquilibrage = (props) => {
       }}>
       <VictoryChart 
       domainPadding={{x: [25, 50], y: 15}}
-       animate={{
-        duration: 500,
-         onLoad: { duration: 800 }
-       }}
+       
       padding={{ top: 20, bottom: 20, left: 10, right: 20 }}
       >
           <VictoryAxis
@@ -131,7 +144,8 @@ const PageEquilibrage = (props) => {
           
           <AddDepenseBS />
 
-      </View>       
+      </View>   
+       
 
   );
 };
