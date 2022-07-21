@@ -117,7 +117,7 @@ const ColocSettings = ({route, navigation}: Props) => {
                 data={avatars} 
                 renderItem={renderItem} 
                 numColumns={3}   
-                columnWrapperStyle={{justifyContent:'space-between'}}
+                columnWrapperStyle={{justifyContent:'space-around'}}
                 scrollEnabled= {false}
             ></FlatList>
            
