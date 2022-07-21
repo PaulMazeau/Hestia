@@ -29,6 +29,7 @@ import AvatarModificationScreen from './screens/AvatarModification';
 import SettingsPerso from './screens/SettingsPerso';
 import NoColocScreen from './screens/NoColoc';
 import DepenseCollective from './components/DepenseCollective';
+import Toast, {BaseToast, InfoToast} from 'react-native-toast-message';
 import { getNextTriggerDateAsync } from 'expo-notifications';
 
 //initialisation des root pour la NavBar Bottom// DEFINIT LES PARAMETRES QUE LON PASSE DANS LES SCREENS
@@ -284,6 +285,22 @@ export default function App() {
       return <AuthScreenStack />
       
       }
+
+    //Notif Toast qui alert quand le code de coloc est copié
+    const toastConfig ={
+      success: (props) => (
+        <InfoToast
+          {...props}
+          style={styles.iosToast}
+          contentContainerStyle={{ paddingHorizontal: 15, justifyContent:'center'}}
+          text1Style={{
+            fontSize: 15,
+            fontWeight: '450',
+            textAlign:'center'
+          }}
+        />
+      ),
+    }
   
   return (
 
@@ -298,9 +315,11 @@ export default function App() {
        </UserContext.Provider>
       
     </NavigationContainer>
+    <Toast config={toastConfig} />
     </View>
     </BottomSheetModalProvider>
     </GestureHandlerRootView>
+    
  
 
   );
@@ -315,4 +334,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  iosToast:{
+    marginTop:5,
+    borderLeftWidth:0, 
+    width:130, 
+    borderRadius:15, 
+    height:30, 
+    shadowColor: 'black',
+    shadowOffset: {width: -2, height: 1},
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+  }
 })
