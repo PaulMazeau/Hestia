@@ -1,4 +1,4 @@
-import { getDoc, doc } from 'firebase/firestore';
+import { getDoc, doc, query, where, getDocs, collection } from 'firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity, Modal, ScrollView} from 'react-native';
 import {db} from '../firebase-config'
@@ -8,13 +8,13 @@ const ProfilImage=require('../Img/avatarHeader.png');
 
 
 
-//Props est giverID, receiverID, amount et
+//Props est giverID, receiverID, amount et date et concerned
 
 const Transaction  = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [whoPaidName, setWhoPaidName] = useState("");
   const [whoPaidAvatar, setWhoPaidAvatar] = useState("not an empty string lol"); //pr se débarasser du warning 
-
+  const [concernedList, setConcernedList] = useState([]);
   const getData = async () =>{
     const data = await getDoc(doc(db, "Users", props.giverID));
     
@@ -28,11 +28,40 @@ const Transaction  = (props) => {
       setWhoPaidAvatar(d.data().avatarUrl); setWhoPaidName(d.data().nom)}});
     return () => {isCanceled = true}
   }, [])
+  const renderDate = (date) => {
+    if(!date){return ""}
+    else{
+      const days = ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.']
+      const months = ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aout', 'Sept', 'Oct', 'Nov', 'Dec']
+      const monthIndex = date.toDate().getMonth()
+      const dayIndex = date.toDate().getDay()
+      return(days[dayIndex] + " " + date.toDate().getDate().toString() + " " + months[monthIndex])
 
+    }
+  }
+  const getConcernedData = async () => {
+    if(props.concerned){
+      const q = query(collection(db, "Users"), where('uuid', 'in', props.concerned))
+      const querySnapshot = await getDocs(q);
+      setConcernedList(querySnapshot.docs.map((doc) => ({...doc.data()})));
+  }}
+
+  const renderUsers = () => {
+    if(concernedList){
+    return(
+      concernedList.map((user)=> {
+        
+        return(
+          <ParticipantCard key ={user.uuid} name={user.nom} avatar={user.avatarUrl}/>
+
+        )
+      })
+    )
+  }}
   return (
   <View>
     <View style={styles.global}>
-      <TouchableOpacity onPress={() => {setModalVisible(true)}}>
+      <TouchableOpacity onPress={() => {setModalVisible(true); getConcernedData()}}>
       <View style={styles.container}>
                 
                 
@@ -71,7 +100,7 @@ onRequestClose={() => {
     <Text style={styles.ModalTitleTache}>{props.desc}</Text>
 
     <View style={styles.Date}>
-      <Text style={styles.ModalTitle}>Payé le: 22/22/22</Text>
+      <Text style={styles.ModalTitle}>Payé le: {renderDate(props.date)}</Text>
     </View>
 
     <View style={styles.Montant}>
@@ -84,17 +113,14 @@ onRequestClose={() => {
     
 
     <View style={styles.Participant}>
-      <Text style={styles.ModalTitle}>Pour qui:</Text>
+      <Text style={styles.ModalTitle}>Pour:</Text>
       <View style={{flexDirection: 'row'}}>
       <ScrollView  
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{flexGrow: 1}}
             keyboardShouldPersistTaps='handled'>
-              <ParticipantCard/>
-              <ParticipantCard/>
-              <ParticipantCard/>
-              <ParticipantCard/>
+              {renderUsers()}
       </ScrollView>
       </View>
     </View>
@@ -269,3 +295,7 @@ const styles = StyleSheet.create({
 });
 
 export default Transaction;
+
+function setConcernedList(arg0: any[]) {
+  throw new Error('Function not implemented.');
+}
