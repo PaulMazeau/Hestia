@@ -17,7 +17,6 @@ const AddListeCourseBS = (props) => {
 const [titre, setTitre] = React.useState("");
 const [courseImage, setCourseImage] = React.useState(null);
 const [emoji, setemoji] = React.useState(null);
-const [color, setcolor] = React.useState(null);
 const bottomSheetRef = useRef<BottomSheetModal>(null);
 const emojisListRef = ref(storage, "Emojis/");
 const [emojiURLS, setEmojiURLS] = useState([]);
@@ -34,7 +33,7 @@ useEffect(() => {
 }, [])
 
 const handleAddList = async () => {
-  await addDoc(collection(db, 'Colocs/'+props.clcID+'/Courses'), {Nom: titre, Image:emoji, Color:color, fruits: [], boisson: [], viandes: [], maison: []}); 
+  await addDoc(collection(db, 'Colocs/'+props.clcID+'/Courses'), {Nom: titre, Image:{uri :emoji}, fruits: [], boisson: [], viandes: [], maison: []}); 
   bottomSheetRef.current?.close();
   setTitre('')
 };
@@ -98,27 +97,27 @@ return (
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={{flexGrow: 1}}
                     keyboardShouldPersistTaps='handled'>
-                        <TouchableOpacity onPress={() => {putInOrPutOut(1); setemoji({uri : emojiURLS[0]}); setcolor('#DDCFDD')}}>
+                        <TouchableOpacity onPress={() => {putInOrPutOut(1); setemoji(emojiURLS[0])}}>
                           <View style={[courseImage==1?styles.emoji_valid:styles.emoji_invalid]}>
                           <CategorieCard name='Repas' avatar={{uri : emojiURLS[0]}}/>
                           </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => {putInOrPutOut(2); setemoji({uri : emojiURLS[1]}); setcolor('#F5C295')}}>
+                        <TouchableOpacity onPress={() => {putInOrPutOut(2); setemoji(emojiURLS[1])}}>
                           <View style={[courseImage==2?styles.emoji_valid:styles.emoji_invalid]}>
                           <CategorieCard name='Soirée' avatar={{uri : emojiURLS[1]}}/>
                           </View>
                         </TouchableOpacity> 
-                        <TouchableOpacity onPress={() => {putInOrPutOut(3); setemoji({uri : emojiURLS[2]}); setcolor('papayawhip')}}>
+                        <TouchableOpacity onPress={() => {putInOrPutOut(3); setemoji(emojiURLS[2])}}>
                           <View style={[courseImage==3?styles.emoji_valid:styles.emoji_invalid]}>
                           <CategorieCard name='Végé' avatar={{uri : emojiURLS[2]}}/>
                           </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => {putInOrPutOut(4); setemoji({uri : emojiURLS[3]}); setcolor('#C1DDE9')}}>
+                        <TouchableOpacity onPress={() => {putInOrPutOut(4); setemoji(emojiURLS[3])}}>
                           <View style={[courseImage==4?styles.emoji_valid:styles.emoji_invalid]}>
                           <CategorieCard name='Ménage' avatar={{uri : emojiURLS[3]}}/>
                           </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => {putInOrPutOut(5); setemoji({uri : emojiURLS[4]}); setcolor('#CEFACB')}}>
+                        <TouchableOpacity onPress={() => {putInOrPutOut(5); setemoji(emojiURLS[4])}}>
                           <View style={[courseImage==5?styles.emoji_valid:styles.emoji_invalid]}>
                           <CategorieCard name='Divers' avatar={{uri : emojiURLS[4]}}/>
                           </View>

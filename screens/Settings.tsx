@@ -45,9 +45,9 @@ const Settings = ({route, navigation}: Props) => {
 
   
 
-  const [title, onChangeTitre] = React.useState(null);
-  const [email, changeemail] = React.useState(null);
-  const [motdepasse, resetmotdepasse] = React.useState(null);
+  //const [title, onChangeTitre] = React.useState(null);
+  //const [email, changeemail] = React.useState(null);
+  //const [motdepasse, resetmotdepasse] = React.useState(null);
 
 
   return (

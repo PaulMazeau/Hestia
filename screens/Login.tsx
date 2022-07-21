@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import {Dimensions, KeyboardAvoidingView, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native'
-import {createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import {auth, db} from '../firebase-config'
-import { isSearchBarAvailableForCurrentPlatform } from 'react-native-screens';
+import React, { useState } from 'react'
+import {Dimensions, ImageBackground, KeyboardAvoidingView, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native'
+import {signInWithEmailAndPassword } from "firebase/auth";
+import {auth} from '../firebase-config'
 import { useNavigation } from '@react-navigation/native';
-import {setDoc, doc} from 'firebase/firestore';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParams } from '../App';
 import TopBackNavigationClear from '../components/TopBackNavigationClear';
 import { useHeaderHeight } from '@react-navigation/elements';
 
-
+const image = require('../Img/homepage_bg.png');
 const windowHeight = Dimensions.get('window').height;
 
 const LoginScreen = () => {
@@ -37,7 +35,7 @@ const LoginScreen = () => {
       >
         <View style={styles.container}>
             <StatusBar barStyle="light-content" />
-            <View style={styles.bluebg}>
+            <ImageBackground source={image} resizeMode="cover" style={styles.bluebg} imageStyle={{ borderRadius: 20}}>
 
                 <SafeAreaView>
                     <TouchableOpacity
@@ -71,7 +69,7 @@ const LoginScreen = () => {
                         />
 
                     </View>
-            </View>
+            </ImageBackground>
 
             
                 <TouchableOpacity
@@ -99,7 +97,6 @@ const styles = StyleSheet.create({
     },
 
     input:{
-        backgroundColor:'#172ACE',
         paddingHorizontal: 10,
         paddingVertical: 5,
         borderRadius:10,

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image, SafeAreaView, Platform} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Image, SafeAreaView, Platform, ImageBackground} from 'react-native';
 import {NativeStackNavigationProp, NativeStackScreenProps} from '@react-navigation/native-stack';
 import { ScrollView } from 'react-native-gesture-handler';
 import { AuthStackParams, NoColocStackParams, RootStackParams } from '../App';
@@ -15,6 +15,7 @@ import { UserContext } from '../Context/userContextFile';
 
 
 type Props = NativeStackScreenProps<AuthStackParams, 'Avatar'>;
+const image = require('../Img/homepage_bg.png');
 
 
 const AvatarCreationScreen = ({route, navigation}: Props) => {
@@ -85,7 +86,8 @@ const renderContent = () => {
     
 <View style={styles.Body} >
     
-  <View style={styles.first50}>
+<ImageBackground source={image} resizeMode="cover" style={styles.first50} imageStyle={{ borderRadius: 20}}>
+
 
     <SafeAreaView>
         <TouchableOpacity
@@ -102,7 +104,7 @@ const renderContent = () => {
     <Image source={{uri: avatarUrl}} style={styles.BigImage}/>
 
 
-  </View>
+  </ImageBackground>
     
 
   <ScrollView style={styles.AvatarGallerie}>  

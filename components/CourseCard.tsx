@@ -11,10 +11,9 @@ interface Props {
   courseID: string;
   clcID: string;
   image: ImageSourcePropType;
-  color: ColorValue;
 }
 
-const RestaurantCard: React.FC<Props> = ({name, onPress, courseID, clcID, image, color}) => {
+const RestaurantCard: React.FC<Props> = ({name, onPress, courseID, clcID, image}) => {
   const handleDelete = async () => {
     await deleteDoc(doc(db, "Colocs/"+clcID+"/Courses", courseID));
   }
@@ -33,7 +32,7 @@ const RestaurantCard: React.FC<Props> = ({name, onPress, courseID, clcID, image,
     <TouchableOpacity onPress={() => onPress(name)}>
       <View style={styles.container}>
         
-        <Image style={[styles.categorie, {backgroundColor: color}]} source={image}/>
+        <Image style={styles.categorie} source={image}/>
         <Text style={styles.name}>{name}</Text>
      
       </View>
