@@ -61,7 +61,7 @@ const TesDepense = ({route, navigation}: Props) => {
             rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete(c.id)}]}
             leftItem={{text: 'Modifier', background: Colors.green30, onPress: () => console.log('2 prout')}}
             key = {c.id+user.uuid}>
-            <Transaction key={c.id+user.uuid} giverID={c.data().giverID} amount={(c.data().amount + 0.001).toFixed(1)} desc={c.data().desc}/>
+            <Transaction key={c.id+user.uuid} giverID={c.data().giverID} amount={c.data().amount} desc={c.data().desc} date ={c.data().timestamp} concerned={c.data().concerned}/>
             </Drawer>
             </View>
           )
