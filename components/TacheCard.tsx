@@ -43,7 +43,7 @@ const TacheCard = (props) => {
   }, [])
 
   function handlePress() { 
-      setIsPress(<TouchableOpacity onPress={() => {handleDone(); setIsPress(<Valider/>)}} style={styles.ButtonConfirm}><Text style={styles.confirmer}> Tâche </Text></TouchableOpacity>);
+      setIsPress(<TouchableOpacity onPress={() => {handleDone(); setIsPress(<Valider/>)}} style={styles.ButtonConfirm}><Text style={styles.confirmer}> Confirmer </Text></TouchableOpacity>);
   }
   const renderDate = (date) => {
     if(!date){return ""}

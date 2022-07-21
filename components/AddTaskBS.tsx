@@ -125,7 +125,7 @@ const hideRappelPicker = () => {
 
 const handleConfirmRappel = (date) => {
   // setRappel(date.toLocaleDateString('fr-FR', optionsRappel));
-  setRappel(date.toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'}))
+  setRappel(date.toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'}).slice(0, 5))
   hideRappelPicker();
 };
 //FIN SETUP DATE PICKER
