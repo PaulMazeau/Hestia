@@ -294,9 +294,12 @@ export default function App() {
           style={styles.iosToast}
           contentContainerStyle={{ paddingHorizontal: 15, justifyContent:'center'}}
           text1Style={{
-            fontSize: 15,
+            fontSize: 16,
             fontWeight: '450',
-            textAlign:'center'
+          }}
+          text2Style={{
+            fontSize: 14,
+            fontWeight: '450',
           }}
         />
       ),
@@ -337,9 +340,9 @@ const styles = StyleSheet.create({
   iosToast:{
     marginTop:5,
     borderLeftWidth:0, 
-    width:130, 
-    borderRadius:15, 
-    height:30, 
+    width:'90%', 
+    borderRadius:10, 
+    height:60, 
     shadowColor: 'black',
     shadowOffset: {width: -2, height: 1},
     shadowOpacity: 0.1,

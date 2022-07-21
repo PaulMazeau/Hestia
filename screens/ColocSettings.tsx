@@ -42,7 +42,8 @@ const ColocSettings = ({route, navigation}: Props) => {
         if (Platform.OS != 'android') {
             Toast.show({
                 type: 'success',
-                text1: 'Code copié',
+                text1: '👋🏽 C’est dans la boite!',
+                text2: 'Le code de ta colocation a bien été copié '
               });
         } else {
             ToastAndroid.showWithGravity("Code copié", ToastAndroid.LONG, ToastAndroid.CENTER);
@@ -137,10 +138,11 @@ const ColocSettings = ({route, navigation}: Props) => {
             
         </View>
 
-        <View style={styles.Setting}>
+        
+        {/* <View style={styles.Setting}>
             <Text style={styles.name}>Thème sombre</Text>
             <Switch onValueChange={() => console.log('value changed')}></Switch>
-        </View>
+        </View> */}
 
         <TouchableOpacity onPress={() => handleLeaveColoc()}>
             <View style={styles.Quitter}>
