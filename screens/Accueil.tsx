@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     },
       
     ImageContainer: {
-        height: 200,
+        height: windowHeight/3.25,
         width: 370,
         overflow: 'hidden',
         justifyContent:'center',
