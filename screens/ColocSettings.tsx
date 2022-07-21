@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useReducer, useState, } from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image, ListRenderItem} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Image, ListRenderItem, Platform, ToastAndroid} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { FlatList, ScrollView, Switch } from 'react-native-gesture-handler';
 import { RootStackParams } from '../App';
@@ -36,6 +36,12 @@ const ColocSettings = ({route, navigation}: Props) => {
 
     const copyText = (text) => {
         Clipboard.setString(text);
+        if (Platform.OS != 'android') {
+            
+        } else {
+            ToastAndroid.showWithGravity("Texte copié", ToastAndroid.LONG, ToastAndroid.CENTER);
+        }
+        //navigator.clipboard.writeText(text);
     };
     
 
