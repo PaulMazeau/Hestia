@@ -111,7 +111,7 @@ onRequestClose={() => {
 
 const styles = StyleSheet.create({
   global: {
-
+    backgroundColor:'white',
     shadowColor: 'black',
     shadowOffset: {width: -2, height: 1},
     shadowOpacity: 0.1,
