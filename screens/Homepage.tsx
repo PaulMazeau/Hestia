@@ -1,22 +1,24 @@
 import React, {  } from 'react'
-import {StatusBar, StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native'
+import {StatusBar, StyleSheet, Text, TouchableOpacity, View, Image, ImageBackground} from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParams } from '../App';
-import { auth } from '../firebase-config';
-const Logo=require('../Img/Icon.png');
+import Logo from '../Icons/Logo.svg'
 
+
+const image = require('../Img/homepage_bg.png');
 
 const HomePageScreen = () => {
     const navigation = useNavigation<NativeStackNavigationProp<AuthStackParams>>();
     return(
         <View style={styles.container}> 
             <StatusBar barStyle="light-content" />  
-            <View style={styles.bluebg}>
-                <ImageContainer image={Logo} /> 
+            
+            <ImageBackground source={image} resizeMode="cover" style={styles.bluebg} imageStyle={{ borderRadius: 20}}>
+                <Logo width='75'/>
                 <Text style={styles.title}>Bienvenue sur Hestia</Text>
                 <Text style={styles.subTitle}>Fini les frictions entre colocataires!</Text>
-            </View>
+            </ImageBackground>
 
             <View style={styles.Allbutton}>
 
@@ -38,14 +40,6 @@ const HomePageScreen = () => {
         </View>
     )
 }
-
-const ImageContainer = ({image}) => (
-    <View style={styles.ImageContainer}>
-        <Image source={image} style={styles.Image}/>
-    </View>
-);
-
-
 
 
 const styles = StyleSheet.create({

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {KeyboardAvoidingView, Platform, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View, SafeAreaView, Image, Dimensions} from 'react-native'
+import {KeyboardAvoidingView, Platform, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View, SafeAreaView, Image, Dimensions, ImageBackground} from 'react-native'
 import {createUserWithEmailAndPassword } from "firebase/auth";
 import {auth, db} from '../firebase-config'
 import { useNavigation } from '@react-navigation/native';
@@ -9,7 +9,7 @@ import { AuthStackParams } from '../App';
 import TopBackNavigationClear from '../components/TopBackNavigationClear';
 import { useHeaderHeight } from '@react-navigation/elements';
 
-
+const image = require('../Img/homepage_bg.png');
 const windowHeight = Dimensions.get('window').height;
 
 const SignupScreen = () => {
@@ -27,7 +27,7 @@ const SignupScreen = () => {
       >
         <View style={styles.container}>
             <StatusBar barStyle="light-content" />
-            <View style={styles.bluebg}>
+            <ImageBackground source={image} resizeMode="cover" style={styles.bluebg} imageStyle={{ borderRadius: 20}}>
 
                 <SafeAreaView>
                     <TouchableOpacity
@@ -72,7 +72,7 @@ const SignupScreen = () => {
                     
                     
                 </View>
-            </View>
+            </ImageBackground>
             
                 <TouchableOpacity
                     onPress={() => navigation.navigate('Avatar', {username: username, email: email, password: password})}
@@ -99,7 +99,6 @@ const styles = StyleSheet.create({
     },
     
     input:{
-        backgroundColor:'#172ACE',
         paddingHorizontal: 10,
         paddingVertical: 5,
         borderRadius:10,
