@@ -31,7 +31,7 @@ const TaskCalendar = (props) => {
     if(props.userDates.length > 0){
       for(var i=0; i< props.userDates.length; i++){
         res.push({
-          date : moment(props.userDates[i].toDate().toLocaleDateString('fr-FR'), "DD/MM/YYYY"),
+          date : moment(props.userDates[i].toDate().toLocaleDateString('en-US'), "MM/DD/YYYY"),
           dots: [
             {
               color: 'red',

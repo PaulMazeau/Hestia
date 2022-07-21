@@ -25,7 +25,7 @@ const windowHeight = Dimensions.get('window').height;
   }
 
 const Empty=require('../Img/Empty.png');
-
+//rendu d taches cards
 const renderContent = () => {
   if(!(props.tasks ===undefined)){
   if(props.tasks.docs.length > 0){
