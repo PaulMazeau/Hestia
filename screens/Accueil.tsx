@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import {View, Text, StyleSheet, Image, Dimensions} from 'react-native';
+import {View, Text, StyleSheet, Image, Dimensions, ImageBackground} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
 import Top from '../components/HeaderClear';
@@ -14,8 +14,11 @@ import {UserContext } from '../Context/userContextFile';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import * as Notifications from 'expo-notifications';
 import Notif from '../notifications'
+
 //importer l'image de maison
 const ProfilImage=require('../Img/Apartment5.7.png');
+//importer la bg image dégradé
+const image = require('../Img/homepage_bg.png');
 
 const windowHeight = Dimensions.get('window').height;
 
@@ -56,11 +59,11 @@ const AccueilScreen = ({ route, navigation }: Props) => {
   return (
     <View style={styles.body}>
         
-        <View style={styles.first50}>
+        <ImageBackground source={image} resizeMode="cover" style={styles.first50} imageStyle={{ borderRadius: 20}}>
            
             < Top  name={user.nom} clcName={user.nomColoc} avatar = {user.avatarUrl}/>
             <ImageContainer image={ProfilImage} />
-        </View>
+        </ImageBackground>
     
     
         <View style={styles.container}>

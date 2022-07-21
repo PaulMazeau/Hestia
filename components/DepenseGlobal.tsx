@@ -47,7 +47,7 @@ const getLastestTransac =  () => {
       values.docs.map(v=>{
         return(
           <View style={{marginTop: 12}} key = {v.id}>
-            <Transaction key = {v.id} giverID={v.data().giverID} receiversID={v.data().receiversID} amount={v.data().amount} desc={v.data().desc}/>
+            <Transaction key = {v.id} giverID={v.data().giverID} receiversID={v.data().receiversID} amount={v.data().amount} desc={v.data().desc} date={v.data().timestamp} concerned={v.data().concerned}/>
           </View>
         )
       })

@@ -6,7 +6,6 @@ import Dette from './Dette';
 import{db} from '../firebase-config'
 import { useFocusEffect } from '@react-navigation/native';
 import { getDoc, doc, query, where, getDocs, collection } from 'firebase/firestore';
-import Equilibrage from './Equilibrage';
 import AddDepenseBS from './AddDepenseBS';
 import { connectStorageEmulator } from 'firebase/storage';
 import { VictoryAxis, VictoryBar, VictoryChart, VictoryContainer, VictoryGroup, VictoryLabel } from "victory-native";
@@ -107,7 +106,6 @@ const PageEquilibrage = (props) => {
       }}>
       <VictoryChart 
       domainPadding={{x: [25, 50], y: 15}}
-       
       padding={{ top: 20, bottom: 20, left: 10, right: 20 }}
       >
           <VictoryAxis

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, Dimensions} from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Dimensions, ImageBackground} from 'react-native'
 import * as Haptics from 'expo-haptics';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useNavigation } from '@react-navigation/native';
@@ -12,7 +12,7 @@ import { setDoc, doc, updateDoc, getDocs, collection, getDoc, arrayUnion } from 
 import {db} from '../firebase-config';
 import { UserContext } from '../Context/userContextFile';
 
-
+const image = require('../Img/homepage_bg.png');
 const windowHeight = Dimensions.get('window').height;
 
 const NoColocScreen = ()  => {
@@ -65,7 +65,7 @@ const NoColocScreen = ()  => {
 
         <View style={styles.container}>
             <KeyboardAwareScrollView contentContainerStyle={{flex:1}} extraScrollHeight={20} resetScrollToCoords={{x:0,y:-20}}>
-                <View style={styles.creerColocContainer}>
+            <ImageBackground source={image} resizeMode="cover" style={styles.creerColocContainer} imageStyle={{ borderRadius: 20}}>
                     
                     <Text style={styles.texteBlanc}>Créer une colocation</Text>
                         <TextInput
@@ -81,7 +81,7 @@ const NoColocScreen = ()  => {
                             </TouchableOpacity>
                         </View>
                     
-                </View>
+                </ImageBackground>
            
                 <View style={{alignItems: 'center', paddingLeft: 16, paddingRight: 16}}>
 
@@ -126,7 +126,6 @@ const styles = StyleSheet.create({
         },
 
     creerColocContainer:{
-        width: '100%',
         backgroundColor: '#172ACE',
         paddingLeft: 16,
         paddingRight: 16,
