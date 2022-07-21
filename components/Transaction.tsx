@@ -30,33 +30,34 @@ const Transaction  = (props) => {
   }, [])
 
   return (
-    <View>
+  <View>
     <View style={styles.global}>
       <TouchableOpacity onPress={() => {setModalVisible(true)}}>
-        <View style={styles.container}>
+      <View style={styles.container}>
+                
                 
         <View style={styles.ImageContainer}>
         <Image source={{uri: whoPaidAvatar}} style={styles.Image}/>
-    </View>  
+        </View>  
 
-          <View style={styles.Text}>
-              <View style={styles.Left}>
-                  <Text style={styles.titre}>{props.desc}</Text>
+        <View style={styles.Text}>
+          <View style={styles.Left}>
+            <Text style={styles.titre}>{props.desc}</Text>
 
-                  <View style={styles.payeurContainer}>
-                      <Text style={styles.date}>Payé par {whoPaidName}</Text>
-                  </View>
-              </View>
-
-              <View style={styles.Right}>
-                  <Text style={styles.titre}>{props.amount}€</Text>
-              </View>
-
+            <View style={styles.payeurContainer}>
+              <Text style={styles.date}>Payé par {whoPaidName}</Text>
             </View>
+          </View>
+
+          <View style={styles.Right}>
+              <Text style={styles.titre}>{props.amount}€</Text>
+          </View>
         </View>
-        </TouchableOpacity>
+        
+      </View>
+      </TouchableOpacity>
     </View>
-<View>
+  <View>
 <Modal
 animationType="slide"
 transparent={true}
@@ -116,7 +117,9 @@ onRequestClose={() => {
 
 const styles = StyleSheet.create({
   global: {
-
+    elevation: 2,
+    backgroundColor:'white',
+    borderRadius:10,
     shadowColor: 'black',
     shadowOffset: {width: -2, height: 1},
     shadowOpacity: 0.1,
@@ -124,7 +127,6 @@ const styles = StyleSheet.create({
   },
   
   container: {
-    elevation: 2,
     backgroundColor: "white",
     padding: 15,
     borderRadius: 10,
