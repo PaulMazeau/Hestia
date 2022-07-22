@@ -143,7 +143,7 @@ const [concernedList, setConcernedList] = useState([]);
       
      {/* début du pop up donnant le detail des taches */}
     <Modal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -303,6 +303,7 @@ const styles = StyleSheet.create({
   PopUpCentre: {
     flex: 1,
     justifyContent: "center",
+    backgroundColor:'rgba(0,0,0,0.2)'
   },
 
   modalView: {
