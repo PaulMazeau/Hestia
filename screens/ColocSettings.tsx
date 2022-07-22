@@ -4,12 +4,14 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { FlatList, ScrollView, Switch } from 'react-native-gesture-handler';
 import { RootStackParams } from '../App';
 import * as Clipboard from 'expo-clipboard';
+import * as Haptics from 'expo-haptics';
 import Top from '../components/HeaderSettings';
 import Exit from '../Icons/Exit.svg';
 import TopBackNavigation from '../components/TopBackNavigation';
 import { getDoc, doc, query, collection, where, getDocs, deleteDoc, updateDoc, increment, arrayRemove  } from 'firebase/firestore';
 import { db } from '../firebase-config';
 import { UserContext } from '../Context/userContextFile';
+import Toast from 'react-native-toast-message';
 import { Background } from 'victory-native';
 
 
@@ -36,10 +38,15 @@ const ColocSettings = ({route, navigation}: Props) => {
 
     const copyText = (text) => {
         Clipboard.setString(text);
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         if (Platform.OS != 'android') {
-            
+            Toast.show({
+                type: 'success',
+                text1: '👋🏽 C’est dans la boite!',
+                text2: 'Le code de ta colocation a bien été copié '
+              });
         } else {
-            ToastAndroid.showWithGravity("Texte copié", ToastAndroid.LONG, ToastAndroid.CENTER);
+            ToastAndroid.showWithGravity("Code copié", ToastAndroid.LONG, ToastAndroid.CENTER);
         }
         //navigator.clipboard.writeText(text);
     };
@@ -111,7 +118,7 @@ const ColocSettings = ({route, navigation}: Props) => {
                 data={avatars} 
                 renderItem={renderItem} 
                 numColumns={3}   
-                columnWrapperStyle={{justifyContent:'space-between'}}
+                columnWrapperStyle={{justifyContent:'space-around'}}
                 scrollEnabled= {false}
             ></FlatList>
            
@@ -123,16 +130,19 @@ const ColocSettings = ({route, navigation}: Props) => {
             <Text style={styles.name}>Code de la colocation : </Text>
             <View style={{flexDirection:'row', alignItems:'center'}}>
                 <TouchableOpacity onPress={() => {copyText(user.colocID)}}>
-                    <Text style={[styles.name, styles.codeColoc]}>{user.colocID}</Text>
+                <View style={ styles.codeColoc}>
+                    <Text style={styles.chiffre}>{user.colocID}</Text>
+                </View>
                 </TouchableOpacity>
             </View>
             
         </View>
 
-        <View style={styles.Setting}>
+        
+        {/* <View style={styles.Setting}>
             <Text style={styles.name}>Thème sombre</Text>
             <Switch onValueChange={() => console.log('value changed')}></Switch>
-        </View>
+        </View> */}
 
         <TouchableOpacity onPress={() => handleLeaveColoc()}>
             <View style={styles.Quitter}>
@@ -207,10 +217,13 @@ const styles = StyleSheet.create({
     },
 
     name:{
-        fontWeight: '700'
+        fontWeight: '700',
     },
-
-
+    chiffre:{
+        fontWeight: '700',
+        fontSize:17,
+        color:'white'
+    },
 
     Setting: {
         backgroundColor: "white",

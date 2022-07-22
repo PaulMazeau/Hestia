@@ -8427,6 +8427,20 @@
   "resolved" "https://registry.npmjs.org/react-native-responsive-screen/-/react-native-responsive-screen-1.4.2.tgz"
   "version" "1.4.2"
 
+"react-native-root-siblings@^4.0.0":
+  "integrity" "sha512-sdmLElNs5PDWqmZmj4/aNH4anyxreaPm61c4ZkRiR8SO/GzLg6KjAbb0e17RmMdnBdD0AIQbS38h/l55YKN4ZA=="
+  "resolved" "https://registry.npmjs.org/react-native-root-siblings/-/react-native-root-siblings-4.1.1.tgz"
+  "version" "4.1.1"
+
+"react-native-root-toast@^3.4.0":
+  "integrity" "sha512-2jv9XG9tK0rbXkD3IaO/clSJJQYXRnOCnGliZnYP/Z6I3u2QtdOp5xQ/ni8BbLqpPwSeKfCuO7R9H6iHuAN+Ig=="
+  "resolved" "https://registry.npmjs.org/react-native-root-toast/-/react-native-root-toast-3.4.0.tgz"
+  "version" "3.4.0"
+  dependencies:
+    "deprecated-react-native-prop-types" "^2.3.0"
+    "prop-types" "^15.5.10"
+    "react-native-root-siblings" "^4.0.0"
+
 "react-native-rounded-checkbox@^0.3.3":
   "integrity" "sha512-CR2C21SxPyR1D4HbX+z3/fn0Bf1AqTrn4bN+fR4wZ+c9/GHgBBz8whLsckz+7kxHqjFqGXwyFiuB7CQapO4TnQ=="
   "resolved" "https://registry.npmjs.org/react-native-rounded-checkbox/-/react-native-rounded-checkbox-0.3.3.tgz"
@@ -8528,6 +8542,11 @@
   "resolved" "https://registry.npmjs.org/react-native-text-size/-/react-native-text-size-4.0.0-rc.1.tgz"
   "version" "4.0.0-rc.1"
 
+"react-native-toast-message@^2.1.5":
+  "integrity" "sha512-mk3rELtBEhrhWBCN6CTaw0gypgL9ZNauX3xx1LUs4uee9vc0pVsghrKxO57vroUCcNL2hDeZSLJWdQNMCkGeaQ=="
+  "resolved" "https://registry.npmjs.org/react-native-toast-message/-/react-native-toast-message-2.1.5.tgz"
+  "version" "2.1.5"
+
 "react-native-ui-lib@^6.17.1":
   "integrity" "sha512-yzVdgSo0gGZNH3qdRz0p1WxPSHilWhtlm2/BQg4jD5mE/u/aNY6xDhj3js3Mr3z0Jwra9fmZcxINzJhopBGGUw=="
   "resolved" "https://registry.npmjs.org/react-native-ui-lib/-/react-native-ui-lib-6.17.1.tgz"
@@ -8569,7 +8588,7 @@
     "normalize-css-color" "^1.0.2"
     "prop-types" "^15.6.0"
 
-"react-native@*", "react-native@^0.0.0-0 || 0.60 - 0.69 || 1000.0.0", "react-native@> 0.50.0", "react-native@>= 0.30.0", "react-native@>= 0.50.0", "react-native@>= 0.55.x", "react-native@>=0.29", "react-native@>=0.35", "react-native@>=0.42.0", "react-native@>=0.46.0", "react-native@>=0.48.4", "react-native@>=0.50.0", "react-native@>=0.50.1", "react-native@>=0.55", "react-native@>=0.57", "react-native@>=0.59.0", "react-native@>=0.60", "react-native@>=0.64.1", "react-native@>=0.65.0", "react-native@0.68.2":
+"react-native@*", "react-native@^0.0.0-0 || 0.60 - 0.69 || 1000.0.0", "react-native@> 0.50.0", "react-native@>= 0.30.0", "react-native@>= 0.50.0", "react-native@>= 0.55.x", "react-native@>=0.29", "react-native@>=0.35", "react-native@>=0.42.0", "react-native@>=0.46.0", "react-native@>=0.47.0", "react-native@>=0.48.4", "react-native@>=0.50.0", "react-native@>=0.50.1", "react-native@>=0.55", "react-native@>=0.57", "react-native@>=0.59.0", "react-native@>=0.60", "react-native@>=0.64.1", "react-native@>=0.65.0", "react-native@0.68.2":
   "integrity" "sha512-qNMz+mdIirCEmlrhapAtAG+SWVx6MAiSfCbFNhfHqiqu1xw1OKXdzIrjaBEPihRC2pcORCoCHduHGQe/Pz9Yuw=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.68.2.tgz"
   "version" "0.68.2"
