@@ -10,31 +10,41 @@ import { collection  } from 'firebase/firestore';
 import { db } from '../firebase-config';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { UserContext } from '../Context/userContextFile';
-import ContentLoader, { Circle, Facebook, Rect } from 'react-content-loader/native'
+import ContentLoader, { Rect, Circle } from 'react-content-loader/native';
+
+const MyLoader = () => ( 
+  <ContentLoader 
+  speed={1}
+  backgroundColor={'white'}
+  foregroundColor={'#DDD'}
+  height={490}
+  >
+  <Rect x="0" y="0" rx="10" ry="10" width="100%" height="60" />
+  <Rect x="0" y="70" rx="10" ry="10" width="100%" height="60" />
+  <Rect x="0" y="140" rx="10" ry="10" width="100%" height="60" />
+  <Rect x="0" y="210" rx="10" ry="10" width="100%" height="60" />
+  <Rect x="0" y="280" rx="10" ry="10" width="100%" height="60" />
+  <Rect x="0" y="350" rx="10" ry="10" width="100%" height="60" />
+  <Rect x="0" y="420" rx="10" ry="10" width="100%" height="60" />
+  </ContentLoader>)
 
 type Props = NativeStackScreenProps<RootStackParams, 'CoursesStack'>;
 
 const CoursesScreen = ({route, navigation}: Props) => {
-  
-  const MyLoader = () => ( 
-  <ContentLoader 
-  viewBox="0 0 380 70"
-  speed={1}
-  backgroundColor={'white'}
-  foregroundColor={'#DDD'}
-  >
-
-  <Circle cx="30" cy="30" r="30" />
-  <Rect x="80" y="17" rx="4" ry="4" width="300" height="13" />
-  <Rect x="80" y="40" rx="3" ry="3" width="250" height="10" />
-  </ContentLoader>)
-
-
 
   const [user, setUser] = useContext(UserContext)
-  const [allCourses] = useCollection(collection(db, "Colocs/"+user.colocID+ "/Courses"))
+  const [allCourses, loading] = useCollection(collection(db, "Colocs/"+user.colocID+ "/Courses"))
   const EmptyCourse=require('../Img/EmptyCourse.png');
   const renderContent = () =>{
+  
+    if (loading) {
+      return(
+        <View>
+          {MyLoader()}
+        </View>
+      )
+    }
+
     if(allCourses) {
       if(allCourses.docs.length > 0){
       return(
@@ -59,12 +69,7 @@ const CoursesScreen = ({route, navigation}: Props) => {
   }
   
   }
-  
-  return (
-    <View>
-    {MyLoader()}
-   </View>
-  )  
+
   }
 
   const ImageContainer = ({image}) => (
@@ -83,9 +88,7 @@ const CoursesScreen = ({route, navigation}: Props) => {
         <ScrollView showsVerticalScrollIndicator={false}>
         
           {renderContent()}
-          
 
-          
         </ScrollView>
 
         <AddListeCourseBS clcID= {user.colocID}/>

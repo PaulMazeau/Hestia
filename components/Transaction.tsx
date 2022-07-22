@@ -88,7 +88,7 @@ const Transaction  = (props) => {
     </View>
   <View>
 <Modal
-animationType="slide"
+animationType="fade"
 transparent={true}
 visible={modalVisible}
 onRequestClose={() => {
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     shadowColor: 'black',
     shadowOffset: {width: -2, height: 1},
     shadowOpacity: 0.1,
-    shadowRadius: 3,
+    shadowRadius: 3
   },
   
   container: {
@@ -222,6 +222,7 @@ const styles = StyleSheet.create({
   PopUpCentre: {
     flex: 1,
     justifyContent: "center",
+    backgroundColor:'rgba(0,0,0,0.25)'
   },
 
   modalView: {
@@ -242,7 +243,7 @@ const styles = StyleSheet.create({
 
   ModalTitle: {
     fontSize: 19,
-    fontWeight: '600',
+    fontWeight: '600'
   },
   
   button: {

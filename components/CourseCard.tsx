@@ -3,7 +3,20 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, ImageSourcePropType, ColorValue } from 'react-native';
 import { Colors, Drawer } from 'react-native-ui-lib';
 import {db} from '../firebase-config'
-import { SkeletonTheme } from 'react-loading-skeleton'
+import ContentLoader, { Rect } from 'react-content-loader/native';
+
+const MyLoader = () => ( 
+  <ContentLoader 
+  speed={1}
+  backgroundColor={'white'}
+  foregroundColor={'#DDD'}
+  >
+  <Rect x="0" y="0" rx="10" ry="10" width="100%" height="275" />
+  <Rect x="0" y="285" rx="10" ry="10" width="100%" height="25" />
+  <Rect x="0" y="320" rx="10" ry="10" width="100%" height="50" />
+  <Rect x="0" y="380" rx="10" ry="10" width="100%" height="50" />
+  <Rect x="0" y="440" rx="10" ry="10" width="100%" height="50" />
+  </ContentLoader>)
 
 interface Props {
   name: string;
@@ -17,10 +30,7 @@ const RestaurantCard: React.FC<Props> = ({name, onPress, courseID, clcID, image}
   const handleDelete = async () => {
     await deleteDoc(doc(db, "Colocs/"+clcID+"/Courses", courseID));
   }
-  return (
-    <SkeletonTheme baseColor="#202020" highlightColor="#444">
-        
-  
+  return (      
       <View style={[styles.body, styles.shadow]}>
     <Drawer
     rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete()}]}
@@ -31,7 +41,6 @@ const RestaurantCard: React.FC<Props> = ({name, onPress, courseID, clcID, image}
     <View style={styles.body}>
     <TouchableOpacity onPress={() => onPress(name)}>
       <View style={styles.container}>
-        
         <Image style={styles.categorie} source={image}/>
         <Text style={styles.name}>{name}</Text>
      
@@ -41,8 +50,6 @@ const RestaurantCard: React.FC<Props> = ({name, onPress, courseID, clcID, image}
     </View>
     </Drawer>
     </View>
-
-    </SkeletonTheme>
   );
 };
 

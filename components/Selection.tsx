@@ -19,9 +19,6 @@ const Selection  = () => {
                     <Text style={styles.text}>
                         Découvrez une selection de recettes, {'\n'}sorties, jeux et restaurants à faire {'\n'}entre colocataires.
                     </Text>
-
-                   
-               
             </View>
 
            <View style={styles.Bot}>

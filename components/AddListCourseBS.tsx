@@ -9,6 +9,23 @@ import { addDoc, collection, updateDoc, doc } from 'firebase/firestore';
 import {db, storage} from '../firebase-config'
 import CategorieCard from './CourseCategorie';
 import { getDownloadURL, list, ref } from 'firebase/storage';
+import ContentLoader, { Rect, Circle } from 'react-content-loader/native';
+
+const MyLoader = () => ( 
+  <ContentLoader 
+  speed={1}
+  backgroundColor={'white'}
+  foregroundColor={'#DDD'}
+  height={70}
+  width={700}
+  >
+  <Rect x="0" y="0" rx="10" ry="10" width="64" height="70" />
+  <Rect x="70" y="0" rx="10" ry="10" width="64" height="70" />
+  <Rect x="140" y="0" rx="10" ry="10" width="64" height="70" />
+  <Rect x="210" y="0" rx="10" ry="10" width="64" height="70" />
+  <Rect x="280" y="0" rx="10" ry="10" width="64" height="70" />
+  </ContentLoader>)
+  
 //props est la clcID utilisé pr create un nv doc
 
 
@@ -90,8 +107,9 @@ return (
       </View>
      
       <View style={styles.depenseTitle}>
-        <Text style={styles.subTitle}>Type</Text>
+        <Text style={styles.subTitle2}>Catégorie</Text>
             <View style={styles.participant}>
+              
                 <ScrollView  
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
@@ -123,6 +141,7 @@ return (
                           </View>
                         </TouchableOpacity>
                 </ScrollView>
+                
             </View>
       </View>
 
@@ -156,23 +175,6 @@ const styles = StyleSheet.create({
         borderRadius: 14,
       },
 
-      inputDate: {
-        height: 44,
-        borderWidth: 1,
-        borderColor: '#DDDDDD',
-        padding: 10,
-        borderRadius: 14,
-        width: 100,
-      },
-
-      date: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      marginTop: 13,
-      marginLeft: 13,
-      marginRight: 13,
-      },
-
       Title: {
         textAlign: 'center',
         fontSize: 19,
@@ -186,50 +188,17 @@ const styles = StyleSheet.create({
         fontWeight: '500'
       },
 
+      subTitle2: {
+        marginLeft: 16,
+        marginBottom: 13,
+        fontSize: 16,
+        fontWeight: '500'
+      },
+
       depenseTitle: {
           marginTop: 15
       },
-
-      dropdownRecurrence: {
-        marginTop: 13,
-        marginLeft: 13,
-        marginRight: 13,
-        height: 44,
-        backgroundColor: 'white',
-        borderRadius: 14,
-        padding: 12,
-        elevation: 2,
-        borderWidth: 1,
-        borderColor: '#DDDDDD',
-      },
-      
-
-      placeholderStyle: {
-        fontSize: 16,
-      },
-
-      selectedTextStyle: {
-        fontSize: 16,
-      },
-      
-      groupe: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-      },
-
-      dropdownRappel: {
-        marginTop: 13,
-        marginLeft: 13,
-        marginRight: 13,
-        height: 44,
-        backgroundColor: 'white',
-        borderRadius: 14,
-        padding: 12,
-        elevation: 2,
-        borderWidth: 1,
-        borderColor: '#DDDDDD',
-        width: 145,
-      },
+    
 
       participant: {
           flexDirection: 'row',
@@ -267,6 +236,7 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
         flex: 1,
       },
+
       emoji_invalid : {
         backgroundColor: "white",
         borderRadius: 10,
