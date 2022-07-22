@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { ScrollView } from 'react-native-gesture-handler';
 import { RootStackParams } from '../App';
@@ -11,6 +11,7 @@ import { getDownloadURL, list, ref } from 'firebase/storage';
 import { UserContext } from '../Context/userContextFile';
 
 
+const image = require('../Img/homepage_bg.png');
 
 type Props = NativeStackScreenProps<RootStackParams, 'Avatarm'>;
 
@@ -57,7 +58,7 @@ const handleUpdate = async () => {
     
 <View style={styles.Body} >
     
-  <View style={styles.first50}>
+<ImageBackground source={image} resizeMode="cover" style={styles.first50} imageStyle={{ borderRadius: 20}}>
 
         <View style = {styles.Title}>
           <TopBackNavigationClear/>
@@ -67,7 +68,7 @@ const handleUpdate = async () => {
     <Image source={{uri: avatarUrl}} style={styles.BigImage}/>
 
 
-  </View>
+  </ImageBackground>
     
 
   <ScrollView style={styles.AvatarGallerie}>  
