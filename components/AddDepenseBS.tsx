@@ -12,6 +12,21 @@ import {db} from '../firebase-config'
 import { useCollectionOnce } from 'react-firebase-hooks/firestore';
 import { useNavigation, useNavigationState } from '@react-navigation/native';
 import { UserContext, UserListContext } from '../Context/userContextFile';
+import ContentLoader, { Rect, Circle } from 'react-content-loader/native';
+
+const MyLoader = () => ( 
+  <ContentLoader 
+  speed={1}
+  backgroundColor={'white'}
+  foregroundColor={'#DDD'}
+  height={70}
+  width={500}
+  >
+  <Rect x="0" y="0" rx="10" ry="10" width="64" height="70" />
+  <Rect x="70" y="0" rx="10" ry="10" width="64" height="70" />
+  <Rect x="140" y="0" rx="10" ry="10" width="64" height="70" />
+  <Rect x="210" y="0" rx="10" ry="10" width="64" height="70" />
+  </ContentLoader>)
 
 
 //ATTRIBUTS dans bdd : amount, giverID, receiversID array, desc
@@ -72,6 +87,7 @@ const dropdownData = () => {
 //pour afficher les cartes des membres
 const renderUsers = () => {
   if(userList){
+    if(userList.length > 0){
   return(
     userList.map((user)=> {
       
@@ -82,7 +98,13 @@ const renderUsers = () => {
       )
     })
   )}
-  return <></>
+}
+  
+  return (
+    <View>
+      {MyLoader()}
+    </View>
+  )
 }
 //pour checker qu'on envoit pas de la merde dans la bdd 
 const isNumber = (str) => {

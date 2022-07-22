@@ -9,6 +9,23 @@ import { addDoc, collection, updateDoc, doc } from 'firebase/firestore';
 import {db, storage} from '../firebase-config'
 import CategorieCard from './CourseCategorie';
 import { getDownloadURL, list, ref } from 'firebase/storage';
+import ContentLoader, { Rect, Circle } from 'react-content-loader/native';
+
+const MyLoader = () => ( 
+  <ContentLoader 
+  speed={1}
+  backgroundColor={'white'}
+  foregroundColor={'#DDD'}
+  height={70}
+  width={700}
+  >
+  <Rect x="0" y="0" rx="10" ry="10" width="64" height="70" />
+  <Rect x="70" y="0" rx="10" ry="10" width="64" height="70" />
+  <Rect x="140" y="0" rx="10" ry="10" width="64" height="70" />
+  <Rect x="210" y="0" rx="10" ry="10" width="64" height="70" />
+  <Rect x="280" y="0" rx="10" ry="10" width="64" height="70" />
+  </ContentLoader>)
+  
 //props est la clcID utilisé pr create un nv doc
 
 

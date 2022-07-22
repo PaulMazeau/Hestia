@@ -299,7 +299,7 @@ export default function App() {
           }}
           text2Style={{
             fontSize: 14,
-            fontWeight: '450',
+            fontWeight: '500',
           }}
         />
       ),

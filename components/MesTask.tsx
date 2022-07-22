@@ -6,8 +6,6 @@ import { auth, db } from '../firebase-config';
 import { updateDoc, doc, getDoc } from 'firebase/firestore';
 import { UserContext } from '../Context/userContextFile';
 
-
-
 //props est toute les tasks + clcID
  const MesTask = (props) => {
   //check quelles taches corespont a luser

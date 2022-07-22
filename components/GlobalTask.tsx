@@ -12,7 +12,19 @@ import ParticipantCard from './ParticipantCard';
 import * as Haptics from 'expo-haptics';
 import Edit from '../Icons/Edit.svg'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import ContentLoader, { Rect, Circle } from 'react-content-loader/native';
 
+const MyLoader = () => ( 
+  <ContentLoader 
+  speed={1}
+  backgroundColor={'white'}
+  foregroundColor={'#DDD'}
+  height={210}
+  >
+  <Rect x="0" y="10" rx="10" ry="10" width="100%" height="60" />
+  <Rect x="0" y="80" rx="10" ry="10" width="100%" height="60" />
+  <Rect x="0" y="150" rx="10" ry="10" width="100%" height="60" />
+  </ContentLoader>)
 //props est la colocID, on le récupère ici car 1 appel en moins(appel ds tache obligé)
 // Besoin de colocID car Taches est subcollection de Colocs 
 //props est userList a passer dnas la bs et dans le popup de tachecard
@@ -29,8 +41,7 @@ const renderContent = () => {
   if(props.tasks.docs.length > 0){
     return(
       props.tasks.docs.map(t => {
-        return(
-          
+        return( 
           <View style={styles.Card} key = {t.id}>
           <Drawer 
             rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete(t.id)}]}
@@ -44,13 +55,19 @@ const renderContent = () => {
   
       })
     )
-  }}
-  return (
+  }else {
+    return(
    <View style={styles.emptypage}>
       <ImageContainer image={Empty} /> 
       <Text style={styles.emptytext}>Oops, il n’y pas encore de {'\n'} tâches à faire</Text>
    </View>
-
+    )
+  }
+}
+  return (
+  <View>
+    {MyLoader()}
+  </View>
   
   )
 

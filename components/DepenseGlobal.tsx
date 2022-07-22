@@ -9,24 +9,9 @@ import AddDepenseBS from './AddDepenseBS';
 import { collection, limit, orderBy, query } from 'firebase/firestore';
 import {db} from '../firebase-config';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import ContentLoader, { Circle, Rect } from 'react-content-loader/native';
 import Depense from './DepenseDiagram';
 
 type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
-const MyLoader = () => ( 
-  <ContentLoader 
-  
-  speed={1}
-  backgroundColor={'white'}
-  foregroundColor={'#DDD'}
-  >
-  <Rect x="0" y="0" rx="10" ry="10" width="100%" height="275" />
-  <Rect x="0" y="285" rx="10" ry="10" width="100%" height="25" />
-  <Rect x="0" y="320" rx="10" ry="10" width="100%" height="50" />
-  <Rect x="0" y="380" rx="10" ry="10" width="100%" height="50" />
-  <Rect x="0" y="440" rx="10" ry="10" width="100%" height="50" />
-  </ContentLoader>
-)
 
 // props est colocID à passer dans la botomsheet avec usersList
 const AllDepense = (props) => {
@@ -37,6 +22,7 @@ const [values, loading, error] = useCollection(q);
 
 //on affiche la dernière transa
 const getLastestTransac =  () => {
+  
   if(values){
     if(values.docs.length > 0){
     return (

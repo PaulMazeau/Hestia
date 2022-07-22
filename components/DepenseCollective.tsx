@@ -17,15 +17,18 @@ type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
 
 const MyLoader = () => ( 
   <ContentLoader 
-  viewBox="0 0 380 70"
   speed={1}
   backgroundColor={'white'}
   foregroundColor={'#DDD'}
+  height={490}
   >
-  <Rect x="0" y="0" rx="10" ry="10" width="100%" height="25" />
-  <Rect x="0" y="35" rx="10" ry="10" width="100%" height="50" />
-  <Rect x="0" y="95" rx="10" ry="10" width="100%" height="50" />
-  <Rect x="0" y="160" rx="10" ry="10" width="100%" height="50" />
+  <Rect x="0" y="0" rx="10" ry="10" width="100%" height="60" />
+  <Rect x="0" y="70" rx="10" ry="10" width="100%" height="60" />
+  <Rect x="0" y="140" rx="10" ry="10" width="100%" height="60" />
+  <Rect x="0" y="210" rx="10" ry="10" width="100%" height="60" />
+  <Rect x="0" y="280" rx="10" ry="10" width="100%" height="60" />
+  <Rect x="0" y="350" rx="10" ry="10" width="100%" height="60" />
+  <Rect x="0" y="420" rx="10" ry="10" width="100%" height="60" />
   </ContentLoader>)
 
 const DepenseCollective = ({route, navigation}: Props) => {

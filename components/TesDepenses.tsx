@@ -17,7 +17,6 @@ type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
 
 const MyLoader = () => ( 
   <ContentLoader 
-  
   speed={1}
   backgroundColor={'white'}
   foregroundColor={'#DDD'}

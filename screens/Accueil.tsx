@@ -13,6 +13,16 @@ import { ScrollView } from 'react-native-gesture-handler';
 import {UserContext } from '../Context/userContextFile';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import Notif from '../notifications'
+import ContentLoader, { Rect, Circle } from 'react-content-loader/native';
+
+const MyLoader = () => ( 
+  <ContentLoader 
+  speed={1}
+  backgroundColor={'white'}
+  foregroundColor={'#DDD'}
+  >
+  <Rect x="0" y="0" rx="10" ry="10" width="100%" height="70" />
+  </ContentLoader>)
 
 //importer l'image de maison
 
@@ -35,7 +45,9 @@ const AccueilScreen = ({ route, navigation }: Props) => {
     const renderTache = () => {
         if(loading){
             return(
-                <Text>LOADING</Text>
+                <View>
+                    {MyLoader()}
+                </View>
             )
         }
         if(nextTask){

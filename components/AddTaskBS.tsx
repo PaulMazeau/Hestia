@@ -9,6 +9,21 @@ import * as Haptics from 'expo-haptics';
 import { addDoc, collection } from 'firebase/firestore';
 import {db} from '../firebase-config'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import ContentLoader, { Rect, Circle } from 'react-content-loader/native';
+
+const MyLoader = () => ( 
+  <ContentLoader 
+  speed={1}
+  backgroundColor={'white'}
+  foregroundColor={'#DDD'}
+  height={70}
+  width={500}
+  >
+  <Rect x="0" y="0" rx="10" ry="10" width="64" height="70" />
+  <Rect x="70" y="0" rx="10" ry="10" width="64" height="70" />
+  <Rect x="140" y="0" rx="10" ry="10" width="64" height="70" />
+  <Rect x="210" y="0" rx="10" ry="10" width="64" height="70" />
+  </ContentLoader>)
 
 const today = new Date();
 
@@ -38,15 +53,23 @@ const putInOrPutOut = (id) => {
 }}
 //rend les cartes des participants ds la scrollview horizontale
 const renderUsers = () => {
-  return(
-    props.userList.map((user)=> {
-      
-      return(
-        <TouchableOpacity key ={user.uuid} onPress = {() => {putInOrPutOut(user.uuid)}}>
-        <ParticipantCard key ={user.uuid} name={user.nom} avatar={user.avatarUrl}/>
-        </TouchableOpacity>
-      )
-    })
+  if (props.userList) {
+  if (props.userList.length > 0) {
+    return(
+      props.userList.map((user)=> {
+        
+        return(
+          <TouchableOpacity key ={user.uuid} onPress = {() => {putInOrPutOut(user.uuid)}}>
+          <ParticipantCard key ={user.uuid} name={user.nom} avatar={user.avatarUrl}/>
+          </TouchableOpacity>
+        )
+      })
+    )
+  }}
+  return (
+    <View>
+      {MyLoader()}
+    </View>
   )
 }
 
