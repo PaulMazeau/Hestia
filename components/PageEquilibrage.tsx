@@ -11,6 +11,20 @@ import { connectStorageEmulator } from 'firebase/storage';
 import { VictoryAxis, VictoryBar, VictoryChart, VictoryContainer, VictoryGroup, VictoryLabel } from "victory-native";
 import { UserContext, UserListContext } from '../Context/userContextFile';
 import { useCollection } from 'react-firebase-hooks/firestore';
+import ContentLoader, { Rect, Circle } from 'react-content-loader/native';
+
+const MyLoader = () => ( 
+  <ContentLoader 
+  speed={1}
+  backgroundColor={'white'}
+  foregroundColor={'#DDD'}
+  >
+  <Rect x="0" y="0" rx="10" ry="10" width="100%" height="275" />
+  <Rect x="0" y="285" rx="10" ry="10" width="100%" height="25" />
+  <Rect x="0" y="320" rx="10" ry="10" width="100%" height="50" />
+  <Rect x="0" y="380" rx="10" ry="10" width="100%" height="50" />
+  <Rect x="0" y="440" rx="10" ry="10" width="100%" height="50" />
+  </ContentLoader>)
 
 const NegativeAwareTickLabel = damn => {
   const {
@@ -48,6 +62,14 @@ const PageEquilibrage = (props) => {
   // }, [])
 
   const [userList, loading, error] = useCollection(query(collection(db, "Users"), where('uuid', 'in', user.membersID)))
+
+if (loading) {
+  return(
+    <View>
+      {MyLoader()}
+    </View>
+  )
+}
 
   const orderData = () => {
     if(userList){

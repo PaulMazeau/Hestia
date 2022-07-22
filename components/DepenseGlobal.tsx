@@ -13,33 +13,30 @@ import ContentLoader, { Circle, Rect } from 'react-content-loader/native';
 import Depense from './DepenseDiagram';
 
 type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
-
+const MyLoader = () => ( 
+  <ContentLoader 
+  
+  speed={1}
+  backgroundColor={'white'}
+  foregroundColor={'#DDD'}
+  >
+  <Rect x="0" y="0" rx="10" ry="10" width="100%" height="275" />
+  <Rect x="0" y="285" rx="10" ry="10" width="100%" height="25" />
+  <Rect x="0" y="320" rx="10" ry="10" width="100%" height="50" />
+  <Rect x="0" y="380" rx="10" ry="10" width="100%" height="50" />
+  <Rect x="0" y="440" rx="10" ry="10" width="100%" height="50" />
+  </ContentLoader>
+)
 
 // props est colocID à passer dans la botomsheet avec usersList
 const AllDepense = (props) => {
 
-  const MyLoader = () => ( 
-    <ContentLoader 
-    viewBox="0 0 380 70"
-    speed={1}
-    backgroundColor={'white'}
-    foregroundColor={'#DDD'}
-    >
-  
-    <Circle cx="30" cy="30" r="30" />
-    <Rect x="80" y="17" rx="4" ry="4" width="300" height="13" />
-    <Rect x="80" y="40" rx="3" ry="3" width="250" height="10" />
-    </ContentLoader>)
-
 //on cherche la dernière transac en placant un ecouteur sur la db
 const q = query(collection(db, "Colocs/"+props.clcID+ "/Transactions"), orderBy('timestamp', 'desc'), limit(1));
 const [values, loading, error] = useCollection(q);
-const EmptyDepense=require('../Img/EmptyDepense.png');
+
 //on affiche la dernière transa
 const getLastestTransac =  () => {
-  if(loading){
-    <Text>Loading...</Text>
-  }
   if(values){
     if(values.docs.length > 0){
     return (
@@ -50,36 +47,34 @@ const getLastestTransac =  () => {
           </View>
         )
       })
-      
-      
     )
   }
   else {
-    return (
-      <View style={styles.emptypage}>
-        <Text style={styles.emptytext}>Oops, il n’y pas encore de {'\n'} transactions</Text>
-     </View>
-    )
-  }
+      return (
+        <View style={styles.emptypage}>
+          <Text style={styles.emptytext}>Oops, il n’y pas encore de {'\n'} transactions</Text>
+      </View>
+      )
+    }
 
-}
+  }
 }
 
   const navigation =
   useNavigation<StackNavigationProp<RootStackParams>>();
   
   return (
-  <View style={{flex:1, }}>
-      <Text style={styles.RecapDepense}>Récapitulatif dépenses</Text>
-       <Depense clcID = {props.clcID} global = {true} userList={props.userList}/>
-          <View style={styles.Title}>
-            <Text style={styles.DerniereDepense}>Dernière Dépense</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('SousMenuDepense')} >
-              <Text style={styles.VoirToutes}>Voir toutes {'>'}</Text>
-             </TouchableOpacity>
-          </View>
-            {getLastestTransac()}
-</View>
+    <View style={{flex:1}}>
+        <Text style={styles.RecapDepense}>Récapitulatif dépenses</Text>
+        <Depense clcID = {props.clcID} global = {true} userList={props.userList}/>
+            <View style={styles.Title}>
+              <Text style={styles.DerniereDepense}>Dernière Dépense</Text>
+              <TouchableOpacity onPress={() => navigation.navigate('SousMenuDepense')} >
+                <Text style={styles.VoirToutes}>Voir toutes {'>'}</Text>
+              </TouchableOpacity>
+            </View>
+              {getLastestTransac()}
+    </View>
   );
 };
 

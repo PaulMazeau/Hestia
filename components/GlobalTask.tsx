@@ -13,8 +13,6 @@ import * as Haptics from 'expo-haptics';
 import Edit from '../Icons/Edit.svg'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
-const windowHeight = Dimensions.get('window').height; 
-
 //props est la colocID, on le récupère ici car 1 appel en moins(appel ds tache obligé)
 // Besoin de colocID car Taches est subcollection de Colocs 
 //props est userList a passer dnas la bs et dans le popup de tachecard

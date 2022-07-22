@@ -11,8 +11,23 @@ import{db} from '../firebase-config'
 import { UserContext } from '../Context/userContextFile';
 import DepenseDiagram from './DepenseDiagram';
 import { useFocusEffect } from '@react-navigation/native';
+import ContentLoader, { Rect } from 'react-content-loader/native';
 
 type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
+
+const MyLoader = () => ( 
+  <ContentLoader 
+  
+  speed={1}
+  backgroundColor={'white'}
+  foregroundColor={'#DDD'}
+  >
+  <Rect x="0" y="0" rx="10" ry="10" width="100%" height="275" />
+  <Rect x="0" y="285" rx="10" ry="10" width="100%" height="25" />
+  <Rect x="0" y="320" rx="10" ry="10" width="100%" height="50" />
+  <Rect x="0" y="380" rx="10" ry="10" width="100%" height="50" />
+  <Rect x="0" y="440" rx="10" ry="10" width="100%" height="50" />
+  </ContentLoader>)
 
 const TesDepense = ({route, navigation}: Props) => {
   
@@ -50,6 +65,15 @@ const TesDepense = ({route, navigation}: Props) => {
   }
   const [allTransacs, loading, error] = useCollection(query(collection(db, "Colocs/"+user.colocID+ "/Transactions"), where('concerned', 'array-contains', user.uuid), orderBy('timestamp', 'desc')));
  
+  if (loading) {
+    return(
+      <View>
+        {MyLoader()}
+      </View>
+    )
+  }
+  
+
   const renderContent = () =>{
     if(allTransacs){
       if(allTransacs.docs.length > 0)
@@ -79,6 +103,8 @@ const TesDepense = ({route, navigation}: Props) => {
     )
   
     }
+
+    
     const ImageContainer = ({image}) => (
       <View style={styles.ImageContainer}>
           <Image source={image} style={styles.Image}/>
