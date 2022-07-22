@@ -113,7 +113,7 @@ const isNumber = (str) => {
     const allParticipant = [...areConcerned];
     allParticipant.push(payeur);//utile dans DepenseDiagramme pr rapidement check si luser est concerné par une transac (payeur ou receveur)
     await addDoc(collection(db, "Colocs/" +user.colocID+ "/Transactions"), {timestamp: serverTimestamp(), amount: Number(amount), giverID: payeur, receiversID: areConcerned, desc: title, concerned: allParticipant});
-    updateSolde();
+    //update du solde coté serveur
     setAmount("");
     setAreConcerned([]);
     setPayeur(null);
@@ -122,26 +122,26 @@ const isNumber = (str) => {
     
   };
 
-const updateSolde = async () => {
-  const length = areConcerned.length;
-  var payeurIsIn = false; //payeur a payé aussi pr lui
-  for(var i = 0; i<length; i++){
-    if(!(areConcerned[i]==payeur)){//si c pas le payeur
-      await updateDoc(doc(db, "Users", areConcerned[i]), {solde: increment(-Number(amount)/length)});
+// const updateSolde = async () => {
+//   const length = areConcerned.length;
+//   var payeurIsIn = false; //payeur a payé aussi pr lui
+//   for(var i = 0; i<length; i++){
+//     if(!(areConcerned[i]==payeur)){//si c pas le payeur
+//       await updateDoc(doc(db, "Users", areConcerned[i]), {solde: increment(-Number(amount)/length)});
      
-    }else {// soit le payeur a payé pr lui aussi, soit que pr les autres
-        payeurIsIn=true;
-        await updateDoc(doc(db, "Users", areConcerned[i]), {solde: increment(Number(amount)-(Number(amount)/length))});
+//     }else {// soit le payeur a payé pr lui aussi, soit que pr les autres
+//         payeurIsIn=true;
+//         await updateDoc(doc(db, "Users", areConcerned[i]), {solde: increment(Number(amount)-(Number(amount)/length))});
  
-    }
-  }
-  if(!payeurIsIn){
-    await updateDoc(doc(db, "Users", payeur), {solde: increment(Number(amount))});
+//     }
+//   }
+//   if(!payeurIsIn){
+//     await updateDoc(doc(db, "Users", payeur), {solde: increment(Number(amount))});
 
-  }
-  const refreshedData = await getDoc(doc(db, "Users", user.uuid))
-  setUser({...user, solde: refreshedData.data().solde}) //update le contexte av le nouvo solde
-}
+//   }
+//   const refreshedData = await getDoc(doc(db, "Users", user.uuid))
+//   setUser({...user, solde: refreshedData.data().solde}) //update le contexte av le nouvo solde
+// }
 
 const [title, setTitle] = React.useState("");
 const [amount, setAmount] = useState("");

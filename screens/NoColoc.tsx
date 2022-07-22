@@ -39,14 +39,11 @@ const NoColocScreen = ()  => {
         setUser({...user, colocID: colocID, nomColoc: nomColoc, membersID: auth.currentUser.uid}) //a foutre coté serveur
     }
 
-    const handleJoinColoc = async () => { //a foutre côté serveur ms ok pr le moment 
+    const handleJoinColoc = async () => { //update de la prop membersID des autres membres coté serveurs
         if(!(allColoc.includes(codeColoc))){alert("Ce code n'existe pas !"); setCodeColoc("")}
         else {
             const colocData = await getDoc(doc(db, "Colocs", codeColoc));
             var membersID = colocData.data().membersID;
-            for(var i = 0; i<membersID.length; i++){ //a foutre coté serveur
-                await updateDoc(doc(db, "Users", membersID[i]), {membersID: arrayUnion(auth.currentUser.uid)})
-            }
             membersID.push(auth.currentUser.uid);
             await updateDoc(doc(db, "Users", auth.currentUser.uid), {colocID: codeColoc, nomColoc: colocData.data().nom, membersID: membersID})
             await updateDoc(doc(db, "Colocs", codeColoc), {membersID: membersID});

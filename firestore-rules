@@ -1,0 +1,27 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /Users/{userid} {
+    //pr creation compte + que autres membres coloc aient accès
+    	allow create:  if request.auth.uid != null;
+      allow get, list : if exists(/databases/$(database)/documents/Users/$(request.auth.uid));
+      allow update: if request.auth.uid!=null; //pr update le solde c a moove cote serv
+    }
+    match /Colocs/{colocid} {
+    allow list: if true; //pr suppr warning lors du login (on va sur noColoc request une list avant detre login )
+    allow get, create : if request.auth.uid != null;
+   allow update : if request.auth.uid != null; //car dans nocoloc on update coloc avant detre dedans logique mais a foutre coté serveur
+    	match /Transactions/{transacid}{
+    	allow read, write: if (request.auth.uid in 
+    	get(/databases/$(database)/documents/Colocs/$(colocid)).data.membersID);}
+    
+    	match /Courses/{courseid}{
+    	allow read, write : if (request.auth.uid in 
+    	get(/databases/$(database)/documents/Colocs/$(colocid)).data.membersID);}
+    
+    	match /Taches/{tacheID}{
+    	allow read, write : if (request.auth.uid in 
+    	get(/databases/$(database)/documents/Colocs/$(colocid)).data.membersID);}
+    }
+}
+}

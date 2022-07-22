@@ -1,0 +1,47 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "Taches",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "nextOne",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "date",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "concerned",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "timestamp",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "concerned",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "timestamp",
+          "order": "DESCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

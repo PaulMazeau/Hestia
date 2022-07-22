@@ -65,7 +65,7 @@ const ColocSettings = ({route, navigation}: Props) => {
         getData();
     }, [])
 
-    const handleLeaveColoc = async () => {
+    const handleLeaveColoc = async () => { //update des docs des autres membres coté serveurrs
         const tacheQuery = query(collection(db, 'Colocs/'+ user.colocID +'/Taches'), where('concerned', 'array-contains', user.uuid));
         const transacQuery = query(collection(db, 'Colocs/'+user.colocID+'/Transactions'), where('concerned', 'array-contains', user.uuid));
         const tacheSnapshot = await getDocs(tacheQuery);
@@ -76,9 +76,6 @@ const ColocSettings = ({route, navigation}: Props) => {
         await updateDoc(doc(db, 'Colocs', user.colocID), {membersID: arrayRemove(user.uuid)});
         await updateDoc(doc(db, 'Users', user.uuid), {colocID: "0", nomColoc: "", membersID: []});
         setUser({...user, colocID: "0", membersID: []});
-        for(var i = 0; i<user.membersID; i++){ //a foutre coté serveur
-            await updateDoc(doc(db, "Users", user.membersID[i]), {membersID: arrayRemove(user.uuid)})
-        }
     }
 
     const updateSolde = async (docu) => {
