@@ -61,7 +61,7 @@ const TesDepense = ({route, navigation}: Props) => {
             rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete(c.id)}]}
             leftItem={{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete(c.id)}}
             key = {c.id+user.uuid}
-            style={{borderRadius: 10}}>
+            style={{borderRadius: 10, elevation:2}}>
             <Transaction key={c.id+user.uuid} giverID={c.data().giverID} amount={(c.data().amount + 0.001).toFixed(1)} desc={c.data().desc}/>
             </Drawer>
             </View>

@@ -68,7 +68,7 @@ import { UserContext } from '../Context/userContextFile';
 const renderConcernedTasksTitle = () => {
   if (checkTasks().isIn.length > 0){
   return (
-     <Text style={styles.Categorie2}>Toute tes tâches</Text>     
+     <Text style={styles.Categorie2}>Toutes tes tâches</Text>     
   )
 }
 }
@@ -110,7 +110,7 @@ const renderConcernedTasksTitle = () => {
    
     <View style={{flex: 1}} >
     <ScrollView showsVerticalScrollIndicator={false}>
-    <Text style={styles.Categorie1}>Tâches où tu es le suivant</Text>
+    <Text style={styles.Categorie1}>Tu es le suivant sur ces tâches</Text>
     {renderNextUpTasks()}
     {renderConcernedTasksTitle()}
     {renderConcernedTasks()}
