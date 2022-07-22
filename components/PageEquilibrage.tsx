@@ -102,7 +102,8 @@ const PageEquilibrage = (props) => {
         borderRadius: 13,
         marginTop: 15,
         marginBottom: 15, 
-        width:'auto'
+        width:'auto',
+        elevation:2
       }}>
       <VictoryChart 
       domainPadding={{x: [25, 50], y: 15}}
