@@ -71,7 +71,7 @@ export type AuthStackParams = {
 const AuthStack = createNativeStackNavigator<AuthStackParams>()
 
 const AuthScreenStack = () => {
-  
+
   return (
     <AuthStack.Navigator initialRouteName = {'Homepage'}screenOptions={{
       headerShown: false,

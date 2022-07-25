@@ -1,14 +1,13 @@
-import React, { useCallback, useRef, useState, useEffect } from 'react';
-import {StyleSheet, View, Text, TextInput, ScrollView, TouchableOpacity, ImageSourcePropType} from 'react-native'
-import ParticipantCard from './ParticipantCard';
+import React, { useCallback, useRef } from 'react';
+import {StyleSheet, View, Text, TextInput, ScrollView, TouchableOpacity} from 'react-native'
 import Plus from '../Icons/Plus.svg'
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import AddButton from '../Icons/AddButton.svg';
 import * as Haptics from 'expo-haptics';
-import { addDoc, collection, updateDoc, doc } from 'firebase/firestore';
-import {db, storage} from '../firebase-config'
+import { addDoc, collection } from 'firebase/firestore';
+import {db} from '../firebase-config'
 import CategorieCard from './CourseCategorie';
-import ContentLoader, { Rect, Circle } from 'react-content-loader/native';
+import ContentLoader, { Rect } from 'react-content-loader/native';
 
 const MyLoader = () => ( 
   <ContentLoader 
@@ -43,6 +42,14 @@ const emojiURLS = [
 
 ]
 
+const PopUpValidation = () => {
+  setTimeout (
+    function(){
+      console.log('kopzejpojvp')
+      }
+    ,1000 /// milliseconds = 10 seconds
+  )
+}
 
 const handleAddList = async () => {
   await addDoc(collection(db, 'Colocs/'+props.clcID+'/Courses'), {Nom: titre, Image:{uri :emoji}, fruits: [], boisson: [], viandes: [], maison: []}); 
@@ -140,7 +147,7 @@ return (
             </View>
       </View>
 
-      <TouchableOpacity style={styles.AddButton} onPress={() => { Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success); handleAddList() }}> 
+      <TouchableOpacity style={styles.AddButton} onPress={() => { Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success); handleAddList(); PopUpValidation() }}> 
       <Plus/>
       <Text style={styles.buttonText}>Ajouter la nouvelle liste de courses</Text>
       </TouchableOpacity>
