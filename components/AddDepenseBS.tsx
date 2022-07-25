@@ -13,7 +13,7 @@ import { useCollectionOnce } from 'react-firebase-hooks/firestore';
 import { useNavigation, useNavigationState } from '@react-navigation/native';
 import { ReloadContext, UserContext, UserListContext } from '../Context/userContextFile';
 import ContentLoader, { Rect, Circle } from 'react-content-loader/native';
-
+import {useToast} from 'react-native-toast-notifications';
 //on met du delay le temps que la cloud function update les soldes (+pendant ce temps on affiche le loader)
 //pr pvoir récupérer le solde updated de luser et mettre a jour le contexte
 //a opti mais o moins ça marche
@@ -40,7 +40,7 @@ const AddDepenseBS = (props) => {
 const [userList, setUserList]= useState([]);
 const nav = useNavigation()
 const bottomSheetRef = useRef<BottomSheetModal>(null);
-
+const toast = useToast();
 const[user, setUser] = useContext(UserContext); //pr update le usercontexte
 const renderBackdrop = useCallback((props) => {
   
@@ -145,7 +145,13 @@ const isNumber = (str) => {
     }
     const allParticipant = [...areConcerned];
     allParticipant.push(payeur);//utile dans DepenseDiagramme pr rapidement check si luser est concerné par une transac (payeur ou receveur)
+    try{
     await addDoc(collection(db, "Colocs/" +user.colocID+ "/Transactions"), {timestamp: serverTimestamp(), amount: Number(amount), giverID: payeur, receiversID: areConcerned, desc: title, concerned: allParticipant});
+    toast.show("La dépense a bien été ajoutée!")}
+
+    catch(err){
+      toast.show("La dépense n'a pas pu être ajoutée, essaie plus tard...")
+    }
     //update du solde coté serveur
     setAmount("");
     setAreConcerned([]);

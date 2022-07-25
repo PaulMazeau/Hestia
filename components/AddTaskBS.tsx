@@ -10,6 +10,7 @@ import { addDoc, collection } from 'firebase/firestore';
 import {db} from '../firebase-config'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import ContentLoader, { Rect, Circle } from 'react-content-loader/native';
+import {useToast} from 'react-native-toast-notifications';
 
 const MyLoader = () => ( 
   <ContentLoader 
@@ -43,7 +44,7 @@ const AddTaskBS = (props) => {
   //liste des users de la coloc et list des users slectionné pr la tache (ID)
 
   const [areConcerned, setAreConcerned] = useState([]); //pr savoir qui est concerné par la tache
-
+const toast = useToast();
 //pour indiquer si la personne est concernée ou non par la dépense
 const putInOrPutOut = (id) => {
   if(areConcerned.includes(id)){
@@ -94,7 +95,12 @@ const handleAddTask = async () => {
   if(rappel == ""){alert("A quelle heure souhaiterais-tu recevoir un rappel ?"); return}
   if(areConcerned.length == 0) {alert("Qui est concerné par cette tâche ?"); return}
   bottomSheetRef.current?.close();
-  await addDoc(collection(db, 'Colocs/'+props.clcID+'/Taches'), {desc: title, colocID: props.clcID, date: date, rappel: rappel, concerned: areConcerned, recur: recur, nextOne: areConcerned[0]}); 
+  try{
+  await addDoc(collection(db, 'Colocs/'+props.clcID+'/Taches'), {desc: title, colocID: props.clcID, date: date, rappel: rappel, concerned: areConcerned, recur: recur, nextOne: areConcerned[0]});
+  toast.show('Nouvelle tâche ajoutée !')
+  }catch(err){
+    toast.show('Erreur lors de la création de la tâche, essaie plus tard...')
+  }
   setTitle("");
   setAreConcerned([]);
   setDate(today);

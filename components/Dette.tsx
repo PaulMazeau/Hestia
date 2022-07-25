@@ -4,16 +4,21 @@ import {View, Text, StyleSheet, Image, Modal, ScrollView, TouchableOpacity, Aler
 import { ReloadContext, UserContext } from '../Context/userContextFile';
 import Cross from '../Icons/Cross.svg'
 import {db} from '../firebase-config'
-
+import {useToast} from 'react-native-toast-notifications';
 //props est amount, deveur, receveur;
 const delay = ms => new Promise(res => setTimeout(res, ms));
 const Dette  = (props) => {
   const [reload, setReload] = useContext(ReloadContext);
   const [user, setUser] = useContext(UserContext);
   const [modalVisible, setModalVisible] = useState(false);
-  
+  const toast = useToast();
   const handleRemboursement = async () => {
+    try{
     await addDoc(collection(db, "Colocs/" + user.colocID + "/Transactions"), {timestamp: serverTimestamp(), amount: props.amount, giverID: props.deveur.uuid, receiversID: [props.receveur.uuid], desc: "rbrsmnt", concerned: [props.deveur.uuid, props.receveur.uuid]})
+    toast.show(props.receveur.nom + " te remercie!")
+    }catch(err){
+      toast.show("Erreur lors de la connection au serveur, essaie plus tard...")
+    }
     setReload(true)
     if(props.receveur.uuid == user.uuid || props.deveur.uuid == user.uuid){
     const refreshedData = await getDoc(doc(db, "Users", user.uuid))

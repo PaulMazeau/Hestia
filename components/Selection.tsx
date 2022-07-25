@@ -4,11 +4,11 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Button } from 'react-native';
 import { RootStackParams } from '../App';
 import Prout from '../Icons/Prout.svg'
-
+import {useToast} from 'react-native-toast-notifications';
 const SelectionImg = require('../Img/Selection.png')
 
 const Selection  = () => {
-
+    const toast = useToast()
   return (
     <View style={styles.global}>
     
@@ -22,7 +22,7 @@ const Selection  = () => {
             </View>
 
            <View style={styles.Bot}>
-                <TouchableOpacity style={styles.Button}>
+                <TouchableOpacity style={styles.Button}  onPress={() => {toast.show("Ça arrive !")}}>
                     <View style={styles.Bottom}>
                         <Text style={styles.ButtonText}>Découvrir la selection</Text>
                         <Prout/>

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {View, Text, StyleSheet, Image, Dimensions, ImageBackground} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
@@ -38,7 +38,7 @@ const AccueilScreen = ({ route, navigation }: Props) => {
     const [user, setUser] = useContext(UserContext);
     const [tache, setTache] = useState(null);
     //récupère la tache a venir de luser
- 
+    
     const q = query(collection(db, "Colocs/" + user.colocID + "/Taches"), where('nextOne', '==', user.uuid), orderBy('date', 'desc'), limit(1));
     const [nextTask, loading] = useCollection(q);
     //rendu de la tachecard a venir de luser
@@ -66,6 +66,7 @@ const AccueilScreen = ({ route, navigation }: Props) => {
             <TacheCard Tache="Rien à venir...." nextOne={auth.currentUser.uid} />
         )
     }
+  
     
   return (
     <View style={styles.body}>

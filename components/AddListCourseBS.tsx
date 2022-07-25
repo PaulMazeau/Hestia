@@ -9,6 +9,7 @@ import { addDoc, collection, updateDoc, doc } from 'firebase/firestore';
 import {db, storage} from '../firebase-config'
 import CategorieCard from './CourseCategorie';
 import ContentLoader, { Rect, Circle } from 'react-content-loader/native';
+import {useToast} from 'react-native-toast-notifications';
 
 const MyLoader = () => ( 
   <ContentLoader 
@@ -42,10 +43,15 @@ const emojiURLS = [
 "https://firebasestorage.googleapis.com/v0/b/hestiadev-813bc.appspot.com/o/Emojis%2F4-min.png?alt=media&token=b444f9cb-f3a5-4b2e-8c46-175a1b05c561",
 
 ]
-
+const toast = useToast();
 
 const handleAddList = async () => {
+  try{
   await addDoc(collection(db, 'Colocs/'+props.clcID+'/Courses'), {Nom: titre, Image:{uri :emoji}, fruits: [], boisson: [], viandes: [], maison: []}); 
+  toast.show('Nouvelle liste de courses créée ! ')
+  }catch(err){
+    toast.show('Erreur lors de la création de ta nouvelle liste de courses !')
+  }
   bottomSheetRef.current?.close();
   setTitre('')
 };

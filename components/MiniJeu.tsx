@@ -1,18 +1,18 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity, ImageBackground} from 'react-native';
 import { BorderRadiuses } from 'react-native-ui-lib';
-
+import {useToast} from 'react-native-toast-notifications';
 
 const ImgBg=require('../Img/MiniJeu.png');
 
 
 //props est le solde de l'utilisateur obtenu après connexion a la db
 const MiniJeu  = () => {
-
+const toast= useToast()
   return (
     <View style={styles.global}>
         <ImageBackground source={ImgBg} resizeMode="cover" imageStyle={{borderRadius: 10}}>
-      <TouchableOpacity onPress={() => console.log('mini jeu')}>
+      <TouchableOpacity onPress={() => toast.show('À venir...')}>
         <View style={styles.container}>
             <View>
                 <Text style={styles.titre}> Mini jeu</Text>

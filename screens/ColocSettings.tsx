@@ -11,7 +11,7 @@ import TopBackNavigation from '../components/TopBackNavigation';
 import { getDoc, doc, query, collection, where, getDocs, deleteDoc, updateDoc, increment, arrayRemove  } from 'firebase/firestore';
 import { db } from '../firebase-config';
 import { UserContext } from '../Context/userContextFile';
-import Toast from 'react-native-toast-message';
+import {useToast} from 'react-native-toast-notifications';
 import Copy from '../Icons/copy.svg';
 
 
@@ -35,20 +35,12 @@ const ColocSettings = ({route, navigation}: Props) => {
     const [user, setUser] = useContext(UserContext);
     const [avatars, setAvatars] = useState([]); //list des avatars url de la coloc
     const [inputValue, setInputValue] = useState("");
+    const toast = useToast();
 
     const copyText = (text) => {
-        Clipboard.setString(text);
+        Clipboard.setStringAsync(text);
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-        if (Platform.OS != 'android') {
-            Toast.show({
-                type: 'success',
-                text1: '👋🏽 C’est dans la boite!',
-                text2: 'Le code de ta colocation a bien été copié '
-              });
-        } else {
-            ToastAndroid.showWithGravity("Code copié", ToastAndroid.LONG, ToastAndroid.CENTER);
-        }
-        //navigator.clipboard.writeText(text);
+       toast.show('Le code de la colocation a été copié !')
     };
     
 
