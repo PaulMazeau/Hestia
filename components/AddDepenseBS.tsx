@@ -136,7 +136,11 @@ const isNumber = (str) => {
       return
     }
     if(title.length==0){
-      alert("Envoie le nom")
+      alert("Ajoute une description à cette dépense !")
+      return
+    }
+    if(title == "rbrsmnt"){
+      alert("C'est quoi cette description mdrr ?")
       return
     }
     const allParticipant = [...areConcerned];
@@ -150,9 +154,9 @@ const isNumber = (str) => {
     bottomSheetRef.current?.close();
     setReload(true)
     await delay(3000);
-    setReload(false);
     const refreshedData = await getDoc(doc(db, "Users", user.uuid))
-    setUser({...user, solde: refreshedData.data().solde}) //update le contexte av le nouvo solde    
+    setUser({...user, solde: refreshedData.data().solde}) //update le contexte av le nouvo sold
+    setReload(false);  
   };
 
 // const updateSolde = async () => {
