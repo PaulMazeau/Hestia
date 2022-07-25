@@ -36,13 +36,13 @@ const NoColocScreen = ()  => {
         }
         await setDoc(doc(db, 'Colocs', colocID),colocEntry);
         await updateDoc(doc(db, 'Users', userID), {colocID: colocID, nomColoc: nomColoc, membersID: [auth.currentUser.uid]});
-        setUser({...user, colocID: colocID, nomColoc: nomColoc, membersID: auth.currentUser.uid}) //a foutre coté serveur
+        setUser({...user, colocID: colocID, nomColoc: nomColoc, membersID: auth.currentUser.uid}) 
     }
 
     const handleJoinColoc = async () => { //update de la prop membersID des autres membres coté serveurs
-        if(!(allColoc.includes(codeColoc))){alert("Ce code n'existe pas !"); setCodeColoc("")}
+        const colocData = await getDoc(doc(db, "Colocs", codeColoc));
+        if(!(colocData.exists())){alert("Ce code n'existe pas !"); setCodeColoc("")}
         else {
-            const colocData = await getDoc(doc(db, "Colocs", codeColoc));
             var membersID = colocData.data().membersID;
             membersID.push(auth.currentUser.uid);
             await updateDoc(doc(db, "Users", auth.currentUser.uid), {colocID: codeColoc, nomColoc: colocData.data().nom, membersID: membersID})
@@ -50,14 +50,6 @@ const NoColocScreen = ()  => {
             setUser({...user, colocID: codeColoc, nomColoc: colocData.data().nom, membersID: membersID})
         }
     }
-
-    useEffect(() => {//a foutre ABSOLUMENT coté serveur mdr
-        const getData = async ()=> {
-            const data = await getDocs(collection(db, 'Colocs'));
-            setAllColoc(data.docs.map(d => d.id))
-        } 
-        getData();
-    }, [])
     return(
 
         <View style={styles.container}>

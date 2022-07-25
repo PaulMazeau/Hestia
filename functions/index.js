@@ -60,6 +60,32 @@ exports.updateUsersSoldeAfterAddTransaction = functions.firestore.document("Colo
     }
     return batch.commit();
 })
+
+exports.updateUsersSoldeAfterDeleteTransaction = functions.firestore.document("Colocs/{colocID}/Transactions/{transacID}").onDelete((snap, context) => {
+    const receiversID = snap.data().receiversID;
+    const giverID = snap.data().giverID;
+    const amount = snap.data().amount
+    const length = receiversID.length;
+    const batch = db.batch();
+    var payeurIsIn = false;
+    for(var i = 0; i<length; i++){
+        if(!(receiversID[i]==giverID)){
+            batch.update(db.doc("Users/" + receiversID[i]), {solde: FieldValue.increment(+Number(amount)/length)})
+        }else{
+            payeurIsIn= true
+            batch.update(db.doc("Users/" + giverID), {solde: FieldValue.increment(-Number(amount) + Number(amount)/length)})
+        }
+    }
+    if(!payeurIsIn){
+        batch.update(db.doc("Users/" + giverID), {solde: FieldValue.increment(-Number(amount))})
+    }
+    return batch.commit();
+})
+
+
+
+
+
 /* eslint-disable */
 
 //eslint c le truc pr les indentations, check que ton code est bien mis  en forme... en un mot : OSEF

@@ -34,34 +34,9 @@ const TesDepense = ({route, navigation}: Props) => {
   const[user, setUser] = useContext(UserContext);
   const EmptyDepense=require('../Img/EmptyDepense.png');
   const handleDelete = async (id) => { //update le solde et delete le doc
-    const oldDoc = await getDoc(doc(db, "Colocs/"+user.colocID+"/Transactions/", id));
-    updateSolde(oldDoc);
     await deleteDoc(doc(db, "Colocs/"+user.colocID+"/Transactions/", id));
-
   }
   //update le solde après supression de la transac
-  const updateSolde = async (docu) => {
-    const areConcerned  = docu.data().receiversID;
-    const length = areConcerned.length;
-    const amount = docu.data().amount;
-    const payeur = docu.data().giverID;
-    var payeurIsIn = false;
-    for(var i = 0; i<length; i++){
-      if(!(areConcerned[i]==payeur)){//si c pas le payeur
-        await updateDoc(doc(db, "Users", areConcerned[i]), {solde: increment(+amount/length)});
-        
-      }else {// si le payeur a payé pr lui aussi
-        payeurIsIn = true;
-        await updateDoc(doc(db, "Users", areConcerned[i]), {solde: increment(-amount+(amount/length))});
-      }
-     
-      }
-      if(!payeurIsIn){
-        await updateDoc(doc(db, "Users", payeur), {solde: increment(-amount)});
-    }
-    const refreshedData = await getDoc(doc(db, "Users", user.uuid)) // pr refresh le contexte av le nouveau solde
-    setUser({...user, solde: refreshedData.data().solde}) //update le contexte av le nouvo solde
-  }
   const [allTransacs, loading, error] = useCollection(query(collection(db, "Colocs/"+user.colocID+ "/Transactions"), where('concerned', 'array-contains', user.uuid), orderBy('timestamp', 'desc')));
  
   if (loading) {
