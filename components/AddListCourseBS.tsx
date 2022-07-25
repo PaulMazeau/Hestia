@@ -8,7 +8,6 @@ import * as Haptics from 'expo-haptics';
 import { addDoc, collection, updateDoc, doc } from 'firebase/firestore';
 import {db, storage} from '../firebase-config'
 import CategorieCard from './CourseCategorie';
-import { getDownloadURL, list, ref } from 'firebase/storage';
 import ContentLoader, { Rect, Circle } from 'react-content-loader/native';
 
 const MyLoader = () => ( 
@@ -35,19 +34,15 @@ const [titre, setTitre] = React.useState("");
 const [courseImage, setCourseImage] = React.useState(null);
 const [emoji, setemoji] = React.useState(null);
 const bottomSheetRef = useRef<BottomSheetModal>(null);
-const emojisListRef = ref(storage, "Emojis/");
-const [emojiURLS, setEmojiURLS] = useState([]);
-useEffect(() => {
-  list(emojisListRef).then((response) => {
-    response.items.forEach((item) => {
-      getDownloadURL(item).then((url) => {
-        setEmojiURLS((prev) => [...prev, url]);
-      })
-    })
-  });
-  setEmojiURLS(emojiURLS.sort());
-  
-}, [])
+const emojiURLS = [
+"https://firebasestorage.googleapis.com/v0/b/hestiadev-813bc.appspot.com/o/Emojis%2F0-min.png?alt=media&token=b341911a-d6cf-4166-9829-e2aaca8f4752",
+"https://firebasestorage.googleapis.com/v0/b/hestiadev-813bc.appspot.com/o/Emojis%2F1-min.png?alt=media&token=a1778ed6-6c44-46b0-8593-33c22d2bdba3",
+"https://firebasestorage.googleapis.com/v0/b/hestiadev-813bc.appspot.com/o/Emojis%2F2-min.png?alt=media&token=a0bc831d-4454-4c0a-9778-8249fb018a3a",
+"https://firebasestorage.googleapis.com/v0/b/hestiadev-813bc.appspot.com/o/Emojis%2F3-min.png?alt=media&token=e04e2c6b-2c8f-4c63-a70b-b3c1e3aa91dc",
+"https://firebasestorage.googleapis.com/v0/b/hestiadev-813bc.appspot.com/o/Emojis%2F4-min.png?alt=media&token=b444f9cb-f3a5-4b2e-8c46-175a1b05c561",
+
+]
+
 
 const handleAddList = async () => {
   await addDoc(collection(db, 'Colocs/'+props.clcID+'/Courses'), {Nom: titre, Image:{uri :emoji}, fruits: [], boisson: [], viandes: [], maison: []}); 
