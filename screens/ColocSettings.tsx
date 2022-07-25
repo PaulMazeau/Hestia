@@ -123,16 +123,14 @@ const ColocSettings = ({route, navigation}: Props) => {
         </View>
         
         <ScrollView showsVerticalScrollIndicator={false}>
-        <TouchableOpacity onPress={() => {copyText(user.colocID)}}>
+        <TouchableOpacity onPress={() => {copyText(user.colocID)}} activeOpacity={0.5}>
         <View style={[styles.Setting, {marginTop:15}]}>
             <Text style={styles.name}>Code de la colocation : </Text>
             <View style={{flexDirection:'row', alignItems:'center'}}>
-                <TouchableOpacity onPress={() => {copyText(user.colocID)}}>
                 <View style={ styles.codeColoc}>
                     <Copy height={20} width={20}/>
                     <Text style={styles.chiffre}>{user.colocID}</Text>
                 </View>
-                </TouchableOpacity>
             </View>
             
         </View>
