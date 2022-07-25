@@ -1,15 +1,25 @@
 import React, {  } from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Transaction from '../components/Transaction';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
-import AddDepenseBS from './AddDepenseBS';
 import { collection, limit, orderBy, query } from 'firebase/firestore';
 import {db} from '../firebase-config';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import Depense from './DepenseDiagram';
+import ContentLoader, { Rect } from 'react-content-loader/native';
+
+const MyLoader = () => ( 
+  <ContentLoader 
+  speed={1}
+  backgroundColor={'white'}
+  foregroundColor={'#DDD'}
+  >
+  <Rect x="0" y="10" rx="10" ry="10" width="100%" height="70" />
+  </ContentLoader>)
+
 
 type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
 

@@ -1,17 +1,12 @@
-import React, { useCallback, useContext, useEffect} from 'react';
+import React, { useCallback, useContext} from 'react';
 import {View, Text, StyleSheet,} from 'react-native';
 import Top from '../components/HeaderDark';
 import { BorderRadiuses, SegmentedControl } from 'react-native-ui-lib';
 import DepenseGlobal from '../components/DepenseGlobal';
 import { RootStackParams } from '../App';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { UserContext, UserListContext } from '../Context/userContextFile';
+import { UserContext } from '../Context/userContextFile';
 import PageEquilibrage from '../components/PageEquilibrage';
-import { getDoc, doc, query, collection, where, getDocs } from 'firebase/firestore';
-import {db} from '../firebase-config'
-import { updatePassword } from 'firebase/auth';
-import { longPressGestureHandlerProps } from 'react-native-gesture-handler/lib/typescript/handlers/LongPressGestureHandler';
-import { useFocusEffect } from '@react-navigation/native';
 
 
 type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;

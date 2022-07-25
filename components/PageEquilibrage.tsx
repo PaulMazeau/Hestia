@@ -158,7 +158,7 @@ if (loading) {
        
       </VictoryChart>
       </View>
-                <Text style={styles.DerniereDepense}>Tes transactions</Text>
+                <Text style={styles.DerniereDepense}>Comment équilibrer?</Text>
                 {renderSettle()}
               </ScrollView>
 

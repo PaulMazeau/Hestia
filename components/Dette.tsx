@@ -1,13 +1,17 @@
-import React from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
-
+import React, { useState } from 'react';
+import {View, Text, StyleSheet, Image, Modal, ScrollView, TouchableOpacity, Alert} from 'react-native';
+import Cross from '../Icons/Cross.svg'
 
 const ProfilImage=require('../Img/test2.png');
 //props est amount, deveur, receveur;
 const Dette  = (props) => {
+
+  const [modalVisible, setModalVisible] = useState(false);
+  
   if(props.amount != 0){
   return (
-    
+    <View>
+      <TouchableOpacity onPress={() => {setModalVisible(true)}}>
         <View style={styles.container}>
                 
                 <View style={styles.ImageContainer}>
@@ -28,8 +32,50 @@ const Dette  = (props) => {
               </View>
 
             </View>
+            
         </View>
-    
+        </TouchableOpacity>
+      {/* début du pop up donnant le detail des taches */}
+    <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.PopUpCentre}>
+          <View style={styles.modalView}>
+            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)} style={styles.crossbutton}>
+            <Cross/>
+            </TouchableOpacity>
+            <Text style={styles.ModalTitleRemboursement}>Remboursement</Text>
+
+
+           <View style={styles.contentModal}>
+             <View style={styles.profilcard}>
+              <Image source={{uri: props.deveur.avatarUrl}} style={styles.ImageModal}/>
+              <Text style={{fontWeight: '600'}}>{props.deveur.nom}</Text>
+            </View>
+              <Image source={require('../Img/animationRemboursement.gif')} style={styles.AnimationModal}/>
+            <View style={styles.profilcard}>
+              <Image source={{uri: props.receveur.avatarUrl}} style={styles.ImageModal}/>
+              <Text style={{fontWeight: '600'}}>{props.receveur}</Text>
+            </View>
+           </View>
+
+
+            <TouchableOpacity
+              style={[styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}
+            >
+              <Text style={styles.textButtonStyle}>Rembourser</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+    </View>
   )};
   return(
     <View><Text>C'est carrée</Text></View>
@@ -106,7 +152,90 @@ const styles = StyleSheet.create({
   amout: {
     fontWeight: '600',
     fontSize: 23,
+  },
+
+  // Style du modal
+
+  PopUpCentre: {
+    flex: 1,
+    justifyContent: "center",
+    backgroundColor:'rgba(0,0,0,0.2)'
+  },
+
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 12,
+    padding: 16,
+   
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+
+  crossbutton: {
+    alignItems: 'flex-end',
+    zIndex: 2
+  },
+  
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+
+  buttonClose: {
+    backgroundColor: "#172ACE",
+    height: 36,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 7
+  },
+
+  textButtonStyle: {
+    color: 'white',
+  },
+
+  ModalTitleRemboursement: {
+    fontWeight: '600',
+    fontSize: 19,
+    marginBottom: 15,
+    textAlign: 'center',
+    marginTop: -20
+  },
+
+  contentModal: {
+  flexDirection: 'row',
+  justifyContent:'space-between',
+  alignItems: 'center'
+  },
+
+  ImageModal: {
+    width: 75,
+    height: 75,
+    marginBottom: 7,
+    borderRadius: 50
+  },
+
+  AnimationModal:{
+    width: 120,
+    height: 120,
+    transform: [{ rotate: '270deg'}]
+  },
+
+  profilcard: {
+    alignItems: 'center'
   }
+  
 });
 
 export default Dette;

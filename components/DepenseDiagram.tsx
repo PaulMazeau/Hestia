@@ -3,15 +3,6 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { VictoryAxis, VictoryBar, VictoryChart } from "victory-native";
 import {db, auth} from '../firebase-config'
-// const data = [
-//   {quarter: 1, earnings: 100},
-//   {quarter: 2, earnings: 150},
-//   {quarter: 3, earnings: 125},
-//   {quarter: 4, earnings: 240},
-//   {quarter: 5, earnings: 226},
-//   {quarter: 6, earnings: 140},
-//   {quarter: 7, earnings: 175},
-// ];
 
 
 const today = new Date(Date.now())
