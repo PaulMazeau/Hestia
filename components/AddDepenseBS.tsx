@@ -14,6 +14,11 @@ import { useNavigation, useNavigationState } from '@react-navigation/native';
 import { UserContext, UserListContext } from '../Context/userContextFile';
 import ContentLoader, { Rect, Circle } from 'react-content-loader/native';
 
+//on met du delay le temps que la cloud function update les soldes 
+//pr pvoir récupérer le solde updated de luser et mettre a jour le contexte
+//a opti mais o moins ça marche
+const delay = ms => new Promise(res => setTimeout(res, ms));
+
 const MyLoader = () => ( 
   <ContentLoader 
   speed={1}
@@ -141,7 +146,9 @@ const isNumber = (str) => {
     setPayeur(null);
     setTitle("");
     bottomSheetRef.current?.close();
-    
+    await delay(3000);
+    const refreshedData = await getDoc(doc(db, "Users", user.uuid))
+    setUser({...user, solde: refreshedData.data().solde}) //update le contexte av le nouvo solde    
   };
 
 // const updateSolde = async () => {
@@ -161,8 +168,8 @@ const isNumber = (str) => {
 //     await updateDoc(doc(db, "Users", payeur), {solde: increment(Number(amount))});
 
 //   }
-//   const refreshedData = await getDoc(doc(db, "Users", user.uuid))
-//   setUser({...user, solde: refreshedData.data().solde}) //update le contexte av le nouvo solde
+  // const refreshedData = await getDoc(doc(db, "Users", user.uuid))
+  // setUser({...user, solde: refreshedData.data().solde}) //update le contexte av le nouvo solde
 // }
 
 const [title, setTitle] = React.useState("");
