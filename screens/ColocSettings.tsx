@@ -106,7 +106,7 @@ const ColocSettings = ({route, navigation}: Props) => {
             <Text style={styles.name}>Code de la colocation : </Text>
             <View style={{flexDirection:'row', alignItems:'center'}}>
                 <View style={ styles.codeColoc}>
-                    <Copy height={20} width={20}/>
+                    <Copy height={20} width={21}/>
                     <Text style={styles.chiffre}>{user.colocID}</Text>
                 </View>
             </View>
