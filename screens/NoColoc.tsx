@@ -95,7 +95,7 @@ const NoColocScreen = ()  => {
             <View style={{alignItems:'center', marginTop: windowHeight / 10}}>
                 <View style={styles.ChangerCompte}>
                 <TouchableOpacity onPress={()=> {navigation.navigate('Homepage'); signOut(auth)}}>
-                    <Text>Changer de compte</Text>
+                    <Text style={{textDecorationLine: 'underline',}}>Changer de compte</Text>
                 </TouchableOpacity>
                 </View>
             </View>  
@@ -217,7 +217,6 @@ const styles = StyleSheet.create({
         marginBottom:50,
         height: 40,
         borderRadius: 5,
-        backgroundColor: '#EDF0FA',
         width: 154,
         justifyContent: 'center',
         alignItems:'center',

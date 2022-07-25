@@ -67,8 +67,11 @@ const LoginScreen = () => {
                         placeholderTextColor="rgba(255, 255, 255, 0.8)"
                         autoCapitalize='none'
                         />
-
                     </View>
+
+                    <TouchableOpacity onPress={() => console.log('prout')}>
+                        <Text style={styles.mdpOublie}>Mot de passe oublié?</Text>
+                    </TouchableOpacity>
             </ImageBackground>
 
             
@@ -165,4 +168,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: '10%'
       },
+
+      mdpOublie:{
+          color: 'white',
+          textDecorationLine: 'underline',
+          fontWeight: '500',
+          fontSize: 14,
+          paddingLeft: 10
+      }
 })
