@@ -1,13 +1,26 @@
-import React, { useState } from 'react';
+import { addDoc, collection, getDoc, serverTimestamp, doc } from 'firebase/firestore';
+import React, { useContext, useState } from 'react';
 import {View, Text, StyleSheet, Image, Modal, ScrollView, TouchableOpacity, Alert} from 'react-native';
+import { ReloadContext, UserContext } from '../Context/userContextFile';
 import Cross from '../Icons/Cross.svg'
+import {db} from '../firebase-config'
 
-const ProfilImage=require('../Img/test2.png');
 //props est amount, deveur, receveur;
+const delay = ms => new Promise(res => setTimeout(res, ms));
 const Dette  = (props) => {
-
+  const [reload, setReload] = useContext(ReloadContext);
+  const [user, setUser] = useContext(UserContext);
   const [modalVisible, setModalVisible] = useState(false);
   
+  const handleRemboursement = async () => {
+    await addDoc(collection(db, "Colocs/" + user.colocID + "/Transactions"), {timestamp: serverTimestamp(), amount: props.amount, giverID: props.deveur.uuid, receiversID: [props.receveur.uuid], desc: "rbrsmnt", concerned: [props.deveur.uuid, props.receveur.uuid]})
+    setReload(true)
+    if(props.receveur.uuid == user.uuid || props.deveur.uuid == user.uuid){
+    const refreshedData = await getDoc(doc(db, "Users", user.uuid))
+    setUser({...user, solde: refreshedData.data().solde})} //update le contexte av le nouvo solde 
+    await delay(3000);
+    setReload(false);
+  }
   if(props.amount != 0){
   return (
     <View>
@@ -23,7 +36,7 @@ const Dette  = (props) => {
                   <Text style={styles.titre}>{props.deveur.nom} doit</Text>
 
                   <View style={styles.dateContainer}>
-                      <Text style={styles.date}>à {props.receveur}</Text>
+                      <Text style={styles.date}>à {props.receveur.nom}</Text>
                   </View>
               </View>
 
@@ -61,16 +74,16 @@ const Dette  = (props) => {
               <Image source={require('../Img/animationRemboursement.gif')} style={styles.AnimationModal}/>
             <View style={styles.profilcard}>
               <Image source={{uri: props.receveur.avatarUrl}} style={styles.ImageModal}/>
-              <Text style={{fontWeight: '600'}}>{props.receveur}</Text>
+              <Text style={{fontWeight: '600'}}>{props.receveur.nom}</Text>
             </View>
            </View>
 
 
             <TouchableOpacity
               style={[styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
+              onPress={() => {setModalVisible(!modalVisible); handleRemboursement()}}
             >
-              <Text style={styles.textButtonStyle}>Rembourser</Text>
+              <Text style={styles.textButtonStyle}>Enregistrer le remboursement des {props.amount.toFixed(1).toString()} €</Text>
             </TouchableOpacity>
           </View>
         </View>

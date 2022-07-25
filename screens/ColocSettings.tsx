@@ -12,7 +12,7 @@ import { getDoc, doc, query, collection, where, getDocs, deleteDoc, updateDoc, i
 import { db } from '../firebase-config';
 import { UserContext } from '../Context/userContextFile';
 import Toast from 'react-native-toast-message';
-import { Background } from 'victory-native';
+import Copy from '../Icons/copy.svg';
 
 
 
@@ -72,33 +72,11 @@ const ColocSettings = ({route, navigation}: Props) => {
         const transacSnapshot = await getDocs(transacQuery);//a foutre coté serveur
         tacheSnapshot.forEach(async (t) => {await deleteDoc(doc(db, 'Colocs/' + user.colocID + '/Taches', t.id))})
         transacSnapshot.forEach(async (t) => {await deleteDoc(doc(db, 'Colocs/' + user.colocID + '/Transactions', t.id));
-         updateSolde(t)});
+    });
         await updateDoc(doc(db, 'Colocs', user.colocID), {membersID: arrayRemove(user.uuid)});
         await updateDoc(doc(db, 'Users', user.uuid), {colocID: "0", nomColoc: "", membersID: []});
         setUser({...user, colocID: "0", membersID: []});
     }
-
-    const updateSolde = async (docu) => {
-        console.log("solde updated")
-        const areConcerned  = docu.data().receiversID;
-        const length = areConcerned.length;
-        const amount = docu.data().amount;
-        const payeur = docu.data().giverID;
-        var payeurIsIn = false;
-        for(var i = 0; i<length; i++){
-          if(!(areConcerned[i]==payeur)){//si c pas le payeur
-            await updateDoc(doc(db, "Users", areConcerned[i]), {solde: increment(+amount/length)});
-            
-          }else {// si le payeur a payé pr lui aussi
-            payeurIsIn = true;
-            await updateDoc(doc(db, "Users", areConcerned[i]), {solde: increment(-amount+(amount/length))});
-          }
-         
-          }
-          if(!payeurIsIn){
-            await updateDoc(doc(db, "Users", payeur), {solde: increment(-amount)});
-        }
-}
   return (
     
 
@@ -123,17 +101,18 @@ const ColocSettings = ({route, navigation}: Props) => {
         </View>
         
         <ScrollView showsVerticalScrollIndicator={false}>
+        <TouchableOpacity onPress={() => {copyText(user.colocID)}} activeOpacity={0.5}>
         <View style={[styles.Setting, {marginTop:15}]}>
             <Text style={styles.name}>Code de la colocation : </Text>
             <View style={{flexDirection:'row', alignItems:'center'}}>
-                <TouchableOpacity onPress={() => {copyText(user.colocID)}}>
                 <View style={ styles.codeColoc}>
+                    <Copy height={20} width={20}/>
                     <Text style={styles.chiffre}>{user.colocID}</Text>
                 </View>
-                </TouchableOpacity>
             </View>
             
         </View>
+        </TouchableOpacity>
 
         
         {/* <View style={styles.Setting}>
@@ -143,7 +122,7 @@ const ColocSettings = ({route, navigation}: Props) => {
 
         <TouchableOpacity onPress={() => handleLeaveColoc()}>
             <View style={styles.Quitter}>
-                <Exit></Exit>
+                <Exit/>
                 <Text style={{fontWeight: '700', color:'white'}}>Quitter la colocation</Text>
             </View>
         </TouchableOpacity>
@@ -184,7 +163,9 @@ const styles = StyleSheet.create({
         fontSize:15, 
         padding:5, 
         paddingLeft:10, 
-        paddingRight:10
+        paddingRight:10,
+        flexDirection:'row',
+        justifyContent:'space-between'
     },
 
     container: {
@@ -219,7 +200,8 @@ const styles = StyleSheet.create({
     chiffre:{
         fontWeight: '700',
         fontSize:17,
-        color:'white'
+        color:'white',
+        marginLeft:10
     },
 
     Setting: {

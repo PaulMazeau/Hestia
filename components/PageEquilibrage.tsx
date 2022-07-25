@@ -85,7 +85,7 @@ if(hasToBeReloaded){
       let maxEnHess = usersCopy.pop() // on pop le dernier de la liste qui ne devra plus rien 
       let maxEnBenef = usersCopy[0]
       if(!((-0.1 < maxEnBenef.solde && maxEnBenef.solde < 0.1) || (-0.1 < maxEnHess.solde && maxEnHess.solde < 0.1))){ // si un mec est en benef
-      debtList.push(<Dette amount={-maxEnHess.solde} deveur={maxEnHess} receveur = {maxEnBenef.nom} key ={maxEnHess.uuid}/>)//on ajoute que le plus en hess rembourse toute sa dette a le plus en benef
+      debtList.push(<Dette amount={-maxEnHess.solde} deveur={maxEnHess} receveur={maxEnBenef}key ={maxEnHess.uuid}/>)//on ajoute que le plus en hess rembourse toute sa dette a le plus en benef
       usersCopy[0] = {colocID: maxEnBenef.colocID, nom: maxEnBenef.nom, nomColoc: maxEnBenef.nomColoc, solde: (maxEnBenef.solde + maxEnHess.solde), tache: maxEnBenef.tache, uuid: maxEnBenef.uuid} //on update le nouveau solde du plus riche qui a recu ses tals 
       if(-0.1 < usersCopy[0].solde && usersCopy[0].solde < 0.1){ //si le nouveau solde du riche est proche de 0
         usersCopy = [...usersCopy.slice(1)]; //on le cut de la liste pcq il a été remboursé

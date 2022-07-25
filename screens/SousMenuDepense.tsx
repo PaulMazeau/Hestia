@@ -45,7 +45,7 @@ const SousMenuDepense = ({route, navigation}: Props) => {
             rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete(c.id)}]}
             leftItem={{text: 'Modifier', background: Colors.green30, onPress: () => console.log('2 prout')}}
             key = {c.id}>
-            <Transaction key={c.id} giverID={c.data().giverID} receiverID={c.data().receiverID} amount={c.data().amount} desc={c.data().desc} date={c.data().timestamp} concerned={c.data().concerned}/>
+            <Transaction key={c.id} giverID={c.data().giverID} receiversID={c.data().receiversID} amount={c.data().amount} desc={c.data().desc} date={c.data().timestamp} concerned={c.data().concerned}/>
             </Drawer>
             </View>
           )

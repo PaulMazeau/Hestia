@@ -8,20 +8,17 @@ const ProfilImage=require('../Img/avatarHeader.png');
 
 
 
-//Props est giverID, receiverID, amount et date et concerned
+//Props est giverID, receiverID, amount et date et concerned, et desc
+
+//si desc esr rbrsmnt alors c un remboursement
 
 const Transaction  = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [whoPaidName, setWhoPaidName] = useState("");
   const [whoPaidAvatar, setWhoPaidAvatar] = useState("not an empty string lol"); //pr se débarasser du warning 
   const [concernedList, setConcernedList] = useState([]);
-  const getData = async () =>{
-    const data = await getDoc(doc(db, "Users", props.giverID));
-    
-    setWhoPaidName(data.data().nom);
-    setWhoPaidAvatar(data.data().avatarUrl)}
-  
-
+  const [whoGotRemboursed, setWhoGotRemboursed] = useState('')
+ 
   useEffect( () => {
     let isCanceled = false;
     getDoc(doc(db, "Users", props.giverID)).then((d) => {if(!isCanceled){
@@ -58,17 +55,26 @@ const Transaction  = (props) => {
       })
     )
   }}
-  return (
-  <View>
-    <View style={styles.global}>
-      <TouchableOpacity onPress={() => {setModalVisible(true); getConcernedData()}}>
-      <View style={styles.container}>
-                
-                
-        <View style={styles.ImageContainer}>
-        <Image source={{uri: whoPaidAvatar}} style={styles.Image}/>
-        </View>  
 
+  const renderContent =  () => {
+    if(props.desc == "rbrsmnt"){
+      return(
+        <View style={styles.Text}>
+          <View style={styles.Left}>
+            <Text style={styles.titre}>{whoPaidName}</Text>
+
+            <View style={styles.payeurContainer}>
+              <Text style={styles.date}>a remboursé </Text>
+            </View>
+          </View>
+
+          <View style={styles.Right}>
+              <Text style={styles.titre}>{props.amount.toFixed(1)}€</Text>
+          </View>
+        </View>
+      )
+    }else{
+      return(
         <View style={styles.Text}>
           <View style={styles.Left}>
             <Text style={styles.titre}>{props.desc}</Text>
@@ -82,7 +88,20 @@ const Transaction  = (props) => {
               <Text style={styles.titre}>{props.amount}€</Text>
           </View>
         </View>
-        
+      )
+    }
+  }
+  return (
+  <View>
+    <View style={styles.global}>
+      <TouchableOpacity onPress={() => {setModalVisible(true); getConcernedData()}}>
+      <View style={styles.container}>
+                
+                
+        <View style={styles.ImageContainer}>
+        <Image source={{uri: whoPaidAvatar}} style={styles.Image}/>
+        </View>  
+        {renderContent()}
       </View>
       </TouchableOpacity>
     </View>
