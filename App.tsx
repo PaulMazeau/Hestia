@@ -295,7 +295,7 @@ export default function App() {
           contentContainerStyle={{ paddingHorizontal: 15, justifyContent:'center'}}
           text1Style={{
             fontSize: 16,
-            fontWeight: '450',
+            fontWeight: '500',
           }}
           text2Style={{
             fontSize: 14,
