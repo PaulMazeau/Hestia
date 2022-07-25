@@ -17,23 +17,7 @@ type Props = NativeStackScreenProps<RootStackParams, 'Settings'>;
 
 const Settings = ({route, navigation}: Props) => {
  
-  
 
-  // useFocusEffect(
-  //   React.useCallback(() => {
-
-      
-
-  //     return () => {
-
-  //      if(nav.canGoBack()){
-  //       nav.goBack();
-  //      }
-  //       // Useful for cleanup functions
-
-  //     };
-  //   }, [])
-  // );
 
   const [user, setUser] = useContext(UserContext);
 
