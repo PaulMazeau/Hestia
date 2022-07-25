@@ -14,12 +14,7 @@ import { UserContext } from '../Context/userContextFile';
 import {useToast} from 'react-native-toast-notifications';
 import Copy from '../Icons/copy.svg';
 
-
-
 type Props = NativeStackScreenProps<RootStackParams, 'ColocSettings'>;
-const ProfilImage=require('../Img/avatarHeader.png');
-
-
 
 const data : Image[] = [
     require('../Img/avatar1.png'),
