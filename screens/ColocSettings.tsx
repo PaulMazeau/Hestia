@@ -12,7 +12,7 @@ import { getDoc, doc, query, collection, where, getDocs, deleteDoc, updateDoc, i
 import { db } from '../firebase-config';
 import { UserContext } from '../Context/userContextFile';
 import Toast from 'react-native-toast-message';
-import { Background } from 'victory-native';
+import Copy from '../Icons/copy.svg';
 
 
 
@@ -123,17 +123,20 @@ const ColocSettings = ({route, navigation}: Props) => {
         </View>
         
         <ScrollView showsVerticalScrollIndicator={false}>
+        <TouchableOpacity onPress={() => {copyText(user.colocID)}}>
         <View style={[styles.Setting, {marginTop:15}]}>
             <Text style={styles.name}>Code de la colocation : </Text>
             <View style={{flexDirection:'row', alignItems:'center'}}>
                 <TouchableOpacity onPress={() => {copyText(user.colocID)}}>
                 <View style={ styles.codeColoc}>
+                    <Copy height={20} width={20}/>
                     <Text style={styles.chiffre}>{user.colocID}</Text>
                 </View>
                 </TouchableOpacity>
             </View>
             
         </View>
+        </TouchableOpacity>
 
         
         {/* <View style={styles.Setting}>
@@ -143,7 +146,7 @@ const ColocSettings = ({route, navigation}: Props) => {
 
         <TouchableOpacity onPress={() => handleLeaveColoc()}>
             <View style={styles.Quitter}>
-                <Exit></Exit>
+                <Exit/>
                 <Text style={{fontWeight: '700', color:'white'}}>Quitter la colocation</Text>
             </View>
         </TouchableOpacity>
@@ -184,7 +187,9 @@ const styles = StyleSheet.create({
         fontSize:15, 
         padding:5, 
         paddingLeft:10, 
-        paddingRight:10
+        paddingRight:10,
+        flexDirection:'row',
+        justifyContent:'space-between'
     },
 
     container: {
@@ -219,7 +224,8 @@ const styles = StyleSheet.create({
     chiffre:{
         fontWeight: '700',
         fontSize:17,
-        color:'white'
+        color:'white',
+        marginLeft:10
     },
 
     Setting: {
