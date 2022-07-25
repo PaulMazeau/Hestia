@@ -86,7 +86,7 @@ const renderContent = () => {
     
 <View style={styles.Body} >
     
-<ImageBackground source={image} resizeMode="cover" style={styles.first50} imageStyle={{ borderRadius: 20}}>
+<ImageBackground source={image} resizeMode="cover" style={styles.first50} imageStyle={{borderBottomRightRadius: 20, borderBottomLeftRadius: 20}}>
 
 
     <SafeAreaView>
