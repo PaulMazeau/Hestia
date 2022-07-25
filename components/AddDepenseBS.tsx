@@ -147,7 +147,8 @@ const isNumber = (str) => {
     allParticipant.push(payeur);//utile dans DepenseDiagramme pr rapidement check si luser est concerné par une transac (payeur ou receveur)
     try{
     await addDoc(collection(db, "Colocs/" +user.colocID+ "/Transactions"), {timestamp: serverTimestamp(), amount: Number(amount), giverID: payeur, receiversID: areConcerned, desc: title, concerned: allParticipant});
-    toast.show("La dépense a bien été ajoutée!")}
+    toast.show("La dépense a bien été ajoutée!", {
+      type: "success",})}
 
     catch(err){
       toast.show("La dépense n'a pas pu être ajoutée, essaie plus tard...")

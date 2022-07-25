@@ -103,13 +103,6 @@ const AccueilScreen = ({ route, navigation }: Props) => {
   );
 };
 
-//importer l'image de maison
-const ImageContainer = ({image}) => (
-    <View style={styles.ImageContainer}>
-        <Image source={image} style={styles.Image}/>
-    </View>
-);
-
 const styles = StyleSheet.create({
     body:{
         flex: 1,

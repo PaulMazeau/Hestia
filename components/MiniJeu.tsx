@@ -12,14 +12,12 @@ const toast= useToast()
   return (
     <View style={styles.global}>
         <ImageBackground source={ImgBg} resizeMode="cover" imageStyle={{borderRadius: 10}}>
-      <TouchableOpacity onPress={() => toast.show('À venir...')}>
         <View style={styles.container}>
             <View>
                 <Text style={styles.titre}> Mini jeu</Text>
                 <Text style={styles.texte}>Coming Soon</Text>
             </View>
         </View>
-        </TouchableOpacity>
         </ImageBackground>
     </View>
     

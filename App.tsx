@@ -33,6 +33,8 @@ import { getNextTriggerDateAsync } from 'expo-notifications';
 import { ToastProvider } from 'react-native-toast-notifications';
 import SettingsName from './screens/SettingsName';
 import SettingsMdp from './screens/SettingsMdp';
+import Valider from './Icons/Valider.svg'
+
 
 //initialisation des root pour la NavBar Bottom// DEFINIT LES PARAMETRES QUE LON PASSE DANS LES SCREENS
 export type RootStackParams = {
@@ -307,13 +309,16 @@ export default function App() {
       }
   
   return (
-    <ToastProvider>
+    <ToastProvider
+    swipeEnabled={true}
+    icon={<Valider />}
+    successColor="green"
+    offsetBottom={80}
+    >
     <GestureHandlerRootView style={styles.body}>
      <BottomSheetModalProvider>
       <View style={styles.body}>
-       <NavigationContainer 
-       >
- 
+       <NavigationContainer >
         <UserContext.Provider value = {[userData, setUserData]}>
        {renderContent()}
        </UserContext.Provider>

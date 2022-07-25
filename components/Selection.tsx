@@ -1,8 +1,5 @@
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, Button } from 'react-native';
-import { RootStackParams } from '../App';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Prout from '../Icons/Prout.svg'
 import {useToast} from 'react-native-toast-notifications';
 const SelectionImg = require('../Img/Selection.png')
@@ -22,7 +19,7 @@ const Selection  = () => {
             </View>
 
            <View style={styles.Bot}>
-                <TouchableOpacity style={styles.Button}  onPress={() => {toast.show("Ça arrive !")}}>
+                <TouchableOpacity style={styles.Button}>
                     <View style={styles.Bottom}>
                         <Text style={styles.ButtonText}>Découvrir la selection</Text>
                         <Prout/>

@@ -97,7 +97,8 @@ const handleAddTask = async () => {
   bottomSheetRef.current?.close();
   try{
   await addDoc(collection(db, 'Colocs/'+props.clcID+'/Taches'), {desc: title, colocID: props.clcID, date: date, rappel: rappel, concerned: areConcerned, recur: recur, nextOne: areConcerned[0]});
-  toast.show('Nouvelle tâche ajoutée !')
+  toast.show('Nouvelle tâche ajoutée !', {
+    type: "success",})
   }catch(err){
     toast.show('Erreur lors de la création de la tâche, essaie plus tard...')
   }

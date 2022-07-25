@@ -7,23 +7,7 @@ import * as Haptics from 'expo-haptics';
 import { addDoc, collection } from 'firebase/firestore';
 import {db} from '../firebase-config'
 import CategorieCard from './CourseCategorie';
-import ContentLoader, { Rect, Circle } from 'react-content-loader/native';
 import {useToast} from 'react-native-toast-notifications';
-
-const MyLoader = () => ( 
-  <ContentLoader 
-  speed={1}
-  backgroundColor={'white'}
-  foregroundColor={'#DDD'}
-  height={70}
-  width={700}
-  >
-  <Rect x="0" y="0" rx="10" ry="10" width="64" height="70" />
-  <Rect x="70" y="0" rx="10" ry="10" width="64" height="70" />
-  <Rect x="140" y="0" rx="10" ry="10" width="64" height="70" />
-  <Rect x="210" y="0" rx="10" ry="10" width="64" height="70" />
-  <Rect x="280" y="0" rx="10" ry="10" width="64" height="70" />
-  </ContentLoader>)
   
 //props est la clcID utilisé pr create un nv doc
 
@@ -47,7 +31,8 @@ const toast = useToast();
 const handleAddList = async () => {
   try{
   await addDoc(collection(db, 'Colocs/'+props.clcID+'/Courses'), {Nom: titre, Image:{uri :emoji}, fruits: [], boisson: [], viandes: [], maison: []}); 
-  toast.show('Nouvelle liste de courses créée ! ')
+  toast.show('Nouvelle liste de courses créée ! ', {
+    type: "success",})
   }catch(err){
     toast.show('Erreur lors de la création de ta nouvelle liste de courses !')
   }

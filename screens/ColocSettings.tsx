@@ -35,11 +35,10 @@ const ColocSettings = ({route, navigation}: Props) => {
     const copyText = (text) => {
         Clipboard.setStringAsync(text);
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-       toast.show('Le code de la colocation a été copié !')
+       toast.show('Le code de la colocation a été copié !', {
+        type: "success",})
     };
     
-
-   
 
     useEffect(()=> {
         const getData = async () => {
