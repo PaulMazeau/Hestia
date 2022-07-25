@@ -5,9 +5,10 @@ import { RootStackParams } from '../App';
 import Top from '../components/HeaderSettings';
 import TopBackNavigation from '../components/TopBackNavigation';
 import * as Haptics from 'expo-haptics';
-import {auth} from '../firebase-config'
-import {signOut} from 'firebase/auth'
+import {auth, db} from '../firebase-config'
+import {signOut, updatePassword} from 'firebase/auth'
 import { UserContext } from '../Context/userContextFile';
+import { updateDoc, doc } from 'firebase/firestore';
 
 type Props = NativeStackScreenProps<RootStackParams, 'SettingsPerso'>;
 
@@ -15,31 +16,25 @@ type Props = NativeStackScreenProps<RootStackParams, 'SettingsPerso'>;
 
 const SettingsPerso = ({route, navigation}: Props) => {
  
-  
-
-  // useFocusEffect(
-  //   React.useCallback(() => {
-
-      
-
-  //     return () => {
-
-  //      if(nav.canGoBack()){
-  //       nav.goBack();
-  //      }
-  //       // Useful for cleanup functions
-
-  //     };
-  //   }, [])
-  // );
-
   const [user, setUser] = useContext(UserContext);
 
-  const [title, onChangeTitre] = React.useState(null);
-  const [email, changeemail] = React.useState(null);
-  const [motdepasse, resetmotdepasse] = React.useState(null);
+  const [nom, setNom] = React.useState('');
+  const [pwd, setPwd] = React.useState('');
 
+  const handleUserModif = async () => {
+    if(pwd.length == 0 && nom.length !=0){
+      if(nom.length <= 2){alert("Ton nom d'utilisateur doit faire plus de 3 caractères !"); return}
+      else{
+        await updateDoc(doc(db, "Users", user.uuid), {nom: nom})
+        setUser({...user, nom: nom});
+        alert('Nom changé !')
+        navigation.goBack()
+      }
+    }
+    if(pwd.length != 0 && nom.length==0){
 
+    } 
+  }
   return (
     <View>
       < Top avatar={user.avatarUrl} name = {user.nom} clcName ={user.nomColoc}/>
@@ -55,36 +50,25 @@ const SettingsPerso = ({route, navigation}: Props) => {
         <Text style={styles.subTitle}>Nom</Text>
         <TextInput
                 style={styles.input}
-                onChangeText={onChangeTitre}
-                value={title}
-                placeholder="Paul"
+                onChangeText={(event) => setNom(event)}
+                value={nom}
+                placeholder={user.nom}
                 placeholderTextColor = "#A9A9A9"
             />
       </View>
-
-      <View style={styles.ChampSettings}>
-        <Text style={styles.subTitle}>Adresse Email</Text>
-        <TextInput
-                style={styles.input}
-                onChangeText={changeemail}
-                value={email}
-                placeholder="pol.mzeau@gmail.com"
-                placeholderTextColor = "#A9A9A9"
-            />
-      </View>
-
       <View style={styles.ChampSettings}>
         <Text style={styles.subTitle}>Mot de passe</Text>
         <TextInput
                 style={styles.input}
-                onChangeText={resetmotdepasse}
-                value={motdepasse}
+                onChangeText={(event) => setPwd(event)}
+                value={pwd}
                 placeholder="********"
                 placeholderTextColor = "#A9A9A9"
+                secureTextEntry={true}
             />
       </View> 
       <View style={styles.Button}>
-          <TouchableOpacity onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); navigation.goBack() }} style={styles.ModifierButton}>
+          <TouchableOpacity onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); handleUserModif() }} style={styles.ModifierButton}>
             <Text style={styles.Modifier}>Sauvegarder</Text>
           </TouchableOpacity>
         </View>
