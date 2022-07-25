@@ -20,17 +20,18 @@ import SousMenuDepense from './screens/SousMenuDepense';
 import LoginScreen from './screens/Login';
 import SignupScreen from './screens/Signup';
 import { auth,db } from './firebase-config';
-import { getDoc, doc, query, where, collection, getDocs } from 'firebase/firestore';
+import { getDoc, doc } from 'firebase/firestore';
 import HomePageScreen from './screens/Homepage';
-import {UserContext, UserListContext} from './Context/userContextFile'
+import {UserContext} from './Context/userContextFile'
 import { onAuthStateChanged } from 'firebase/auth';
 import  AvatarCreationScreen from './screens/AvatarCreation'
 import AvatarModificationScreen from './screens/AvatarModification';
 import SettingsPerso from './screens/SettingsPerso';
 import NoColocScreen from './screens/NoColoc';
 import DepenseCollective from './components/DepenseCollective';
-import Toast, {BaseToast, InfoToast} from 'react-native-toast-message';
-import { getNextTriggerDateAsync } from 'expo-notifications';
+import Toast, {InfoToast} from 'react-native-toast-message';
+import SettingsName from './screens/SettingsName';
+import SettingsMdp from './screens/SettingsMdp';
 
 //initialisation des root pour la NavBar Bottom// DEFINIT LES PARAMETRES QUE LON PASSE DANS LES SCREENS
 export type RootStackParams = {
@@ -52,6 +53,8 @@ export type RootStackParams = {
   SousMenuDepense: undefined;
   Avatarm: undefined;
   SettingsPerso: undefined;
+  SettingsMdp: undefined;
+  SettingsName: undefined;
   DepenseCollective: undefined;
 }
 
@@ -133,6 +136,8 @@ export type CoursesStackParams = {
   ColocSettings : undefined;
   Avatarm: undefined;
   SettingsPerso: undefined;
+  SettingsMdp: undefined;
+  SettingsName: undefined;
 };
 
 const CoursesStack = createNativeStackNavigator<CoursesStackParams>();
@@ -147,6 +152,8 @@ const CourseScreenStack = (t) => {
     <ExploreStack.Screen name="ColocSettings" component={ColocSettingsScreen}/>
     <CoursesStack.Screen name= "Avatarm" component={AvatarModificationScreen} />
     <ExploreStack.Screen name= "SettingsPerso" component={SettingsPerso} />
+    <ExploreStack.Screen name= "SettingsName" component={SettingsName} />
+    <ExploreStack.Screen name= "SettingsMdp" component={SettingsMdp} />
   </CoursesStack.Navigator>
   );
 };
@@ -158,6 +165,8 @@ export type AccueilStackParams = {
   ColocSettings : undefined;
   Avatarm: undefined;
   SettingsPerso: undefined;
+  SettingsMdp: undefined;
+  SettingsName: undefined;
 };
 
 
@@ -173,6 +182,8 @@ const AccueilScreenStack = () => {
           <ExploreStack.Screen name="ColocSettings" component={ColocSettingsScreen}/>
           <ExploreStack.Screen name= "Avatarm" component={AvatarModificationScreen} />
           <ExploreStack.Screen name= "SettingsPerso" component={SettingsPerso} />
+          <ExploreStack.Screen name= "SettingsName" component={SettingsName} />
+          <ExploreStack.Screen name= "SettingsMdp" component={SettingsMdp} />
         </ExploreStack.Navigator>
       </View>
   );
@@ -186,6 +197,8 @@ export type TacheStackParams = {
   ColocSettings : undefined;
   Avatarm: undefined;
   SettingsPerso: undefined;
+  SettingsMdp: undefined;
+  SettingsName: undefined;
 };
 
 
@@ -201,6 +214,8 @@ const TacheScreenStack = (t) => {
           <ExploreStack.Screen name="ColocSettings" component={ColocSettingsScreen}/>
           <TacheStack.Screen name= "Avatarm" component={AvatarModificationScreen} />
           <ExploreStack.Screen name= "SettingsPerso" component={SettingsPerso} />
+          <ExploreStack.Screen name= "SettingsName" component={SettingsName} />
+          <ExploreStack.Screen name= "SettingsMdp" component={SettingsMdp} />
         </TacheStack.Navigator>
       </View>
   );
@@ -214,6 +229,8 @@ export type DepenseStackParams = {
   SousMenuDepense: undefined;
   Avatarm: undefined;
   SettingsPerso: undefined;
+  SettingsMdp: undefined;
+  SettingsName: undefined;
   DepenseCollective: undefined;
 };
 
@@ -231,6 +248,8 @@ const DepenseScreenStack = (t) => {
           <ExploreStack.Screen name="ColocSettings" component={ColocSettingsScreen}/>
           <DepenseStack.Screen name="SousMenuDepense" component={SousMenuDepense} initialParams={t.route.params}/>
           <DepenseStack.Screen name= "SettingsPerso" component={SettingsPerso} />
+          <ExploreStack.Screen name= "SettingsName" component={SettingsName} />
+          <ExploreStack.Screen name= "SettingsMdp" component={SettingsMdp} />
           <DepenseStack.Screen name= "Avatarm" component={AvatarModificationScreen} />
           <DepenseStack.Screen name= "DepenseCollective" component={DepenseCollective} initialParams={t.route.params}/>
         </DepenseStack.Navigator>
