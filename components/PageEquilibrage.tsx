@@ -9,7 +9,7 @@ import { getDoc, doc, query, where, getDocs, collection } from 'firebase/firesto
 import AddDepenseBS from './AddDepenseBS';
 import { connectStorageEmulator } from 'firebase/storage';
 import { VictoryAxis, VictoryBar, VictoryChart, VictoryContainer, VictoryGroup, VictoryLabel } from "victory-native";
-import { UserContext, UserListContext } from '../Context/userContextFile';
+import { ReloadContext, UserContext, UserListContext } from '../Context/userContextFile';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import ContentLoader, { Rect, Circle } from 'react-content-loader/native';
 
@@ -48,22 +48,17 @@ const NegativeAwareTickLabel = damn => {
 
 const PageEquilibrage = (props) => {
   const [user, setUser] = useContext(UserContext);
-  // const[userList, setUserList] = useState([]);
-  //get la userList pr foutre la data ds le chart
-  // useEffect(()=> {
-  //   const getUsers = async () => {
-  //     const data = await getDoc(doc(db, "Colocs", user.colocID));
-  //     const membersID = data.data().membersID;
-  //     const q = query(collection(db, "Users"), where('uuid', 'in', membersID))
-  //     const querySnapshot = await getDocs(q);
-  //     setUserList(querySnapshot.docs.map((doc) => ({...doc.data()})));
-  //   }
-  //   getUsers();
-  // }, [])
-
-  const [userList, loading, error] = useCollection(query(collection(db, "Users"), where('uuid', 'in', user.membersID)))
-
+  const [userList, loading, error] = useCollection(query(collection(db, "Users"), where('uuid', 'in', user.membersID)))//data a foutre ds la chart
+  const [hasToBeReloaded, setHasToBeReloaded] = useState(false);
 if (loading) {
+  return(
+    <View>
+      {MyLoader()}
+    </View>
+  )
+}
+
+if(hasToBeReloaded){
   return(
     <View>
       {MyLoader()}
@@ -116,7 +111,7 @@ if (loading) {
 
 
   return (
-
+<ReloadContext.Provider value ={[hasToBeReloaded, setHasToBeReloaded]}>
 <View style={{flex: 1}}>
 <ScrollView showsVerticalScrollIndicator={false} >
 <View style={{
@@ -166,7 +161,7 @@ if (loading) {
           <AddDepenseBS />
 
       </View>   
-       
+      </ReloadContext.Provider>
 
   );
 };

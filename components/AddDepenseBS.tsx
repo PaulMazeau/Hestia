@@ -11,10 +11,10 @@ import { updateDoc, serverTimestamp, addDoc, collection, getDoc, doc, where, que
 import {db} from '../firebase-config'
 import { useCollectionOnce } from 'react-firebase-hooks/firestore';
 import { useNavigation, useNavigationState } from '@react-navigation/native';
-import { UserContext, UserListContext } from '../Context/userContextFile';
+import { ReloadContext, UserContext, UserListContext } from '../Context/userContextFile';
 import ContentLoader, { Rect, Circle } from 'react-content-loader/native';
 
-//on met du delay le temps que la cloud function update les soldes 
+//on met du delay le temps que la cloud function update les soldes (+pendant ce temps on affiche le loader)
 //pr pvoir récupérer le solde updated de luser et mettre a jour le contexte
 //a opti mais o moins ça marche
 const delay = ms => new Promise(res => setTimeout(res, ms));
@@ -71,6 +71,8 @@ useEffect( () => {
   }
   getUsers();
 }, [])
+
+const [reload, setReload] = useContext(ReloadContext);
 
 //pour indiquer si la personne est concernée ou non par la dépense
 const putInOrPutOut = (id) => {
@@ -146,7 +148,9 @@ const isNumber = (str) => {
     setPayeur(null);
     setTitle("");
     bottomSheetRef.current?.close();
+    setReload(true)
     await delay(3000);
+    setReload(false);
     const refreshedData = await getDoc(doc(db, "Users", user.uuid))
     setUser({...user, solde: refreshedData.data().solde}) //update le contexte av le nouvo solde    
   };
