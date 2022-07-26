@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import {Dimensions, ImageBackground, KeyboardAvoidingView, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native'
-import {signInWithEmailAndPassword } from "firebase/auth";
+import {Dimensions, ImageBackground, KeyboardAvoidingView, Modal, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native'
+import {sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 import {auth} from '../firebase-config'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -8,15 +8,18 @@ import { AuthStackParams } from '../App';
 import TopBackNavigationClear from '../components/TopBackNavigationClear';
 import { useHeaderHeight } from '@react-navigation/elements';
 import{useToast} from'react-native-toast-notifications';
+
 const image = require('../Img/homepage_bg.png');
 const windowHeight = Dimensions.get('window').height;
 
 const LoginScreen = () => {
+    const [modalVisible, setModalVisible] = useState(false);
     const navigation = useNavigation<NativeStackNavigationProp<AuthStackParams>>();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const regexExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gi;
     const toast = useToast();
+    const [modalMail, setModalmail] = useState("");
     const handleLogin = () => {
         if(!(regexExp.test(email))){
             toast.show('Rentre un email valide!', {
@@ -45,6 +48,18 @@ const LoginScreen = () => {
     }
     
     const headerHeight = useHeaderHeight();
+    const handlePasswordReset = () => {
+        if(!(regexExp.test(modalMail))){
+            toast.show('Rentre un email valide!', {
+                type: "danger"});
+            return;
+        }
+        sendPasswordResetEmail(auth, modalMail).then(() => toast.show("Regarde tes mails pour réinitialiser ton mot de passe !")).catch(() => {
+            toast.show("Erreur lors de ta demande!")
+        });
+        setModalVisible(false)
+    }
+
     return(
         <KeyboardAvoidingView
         keyboardVerticalOffset={headerHeight -220}
@@ -87,9 +102,25 @@ const LoginScreen = () => {
                         />
                     </View>
 
-                    <TouchableOpacity onPress={() => console.log('prout')}>
+                    <TouchableOpacity onPress={() => setModalVisible(true)}>
                         <Text style={styles.mdpOublie}>Mot de passe oublié?</Text>
                     </TouchableOpacity>
+                    <Modal
+            animationType="fade"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+            setModalVisible(!modalVisible);
+        }}
+            >
+                <View style={styles.PopUpCentre}>
+          <View style={styles.modalView}>
+                <Text>Tape ton mdp fdp</Text>
+                <TextInput onChangeText={(event) => setModalmail(event)} value={modalMail} placeholder="email a taper ici"/>
+                <TouchableOpacity onPress={() => handlePasswordReset()}><Text>Envoier un email pr reset le pwd</Text></TouchableOpacity>
+                </View>
+                </View>
+            </Modal>
             </ImageBackground>
 
             
@@ -193,5 +224,26 @@ const styles = StyleSheet.create({
           fontWeight: '500',
           fontSize: 14,
           paddingLeft: 10
-      }
+      },
+      PopUpCentre: {
+        flex: 1,
+        justifyContent: "center",
+        backgroundColor:'rgba(0,0,0,0.2)'
+      },
+    
+      modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 12,
+        padding: 16,
+       
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+      },
 })
