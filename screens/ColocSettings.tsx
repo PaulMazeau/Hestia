@@ -100,12 +100,6 @@ const ColocSettings = ({route, navigation}: Props) => {
         </View>
         </TouchableOpacity>
 
-        
-        {/* <View style={styles.Setting}>
-            <Text style={styles.name}>Thème sombre</Text>
-            <Switch onValueChange={() => console.log('value changed')}></Switch>
-        </View> */}
-
         <TouchableOpacity onPress={() => handleLeaveColoc()}>
             <View style={styles.Quitter}>
                 <Exit/>
