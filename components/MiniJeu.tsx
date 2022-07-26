@@ -15,7 +15,7 @@ const toast= useToast()
         <View style={styles.container}>
             <View>
                 <Text style={styles.titre}> Mini jeu</Text>
-                <Text style={styles.texte}>Coming Soon</Text>
+                <Text style={styles.texte}>Â venir</Text>
             </View>
         </View>
         </ImageBackground>
