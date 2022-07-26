@@ -147,7 +147,6 @@ const [concernedList, setConcernedList] = useState([]);
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
           setModalVisible(!modalVisible);
         }}
       >
@@ -213,6 +212,7 @@ const styles = StyleSheet.create({
     backgroundColor:"white",
     elevation:2,
     borderRadius:10,
+    marginBottom:3
     
   },
   
