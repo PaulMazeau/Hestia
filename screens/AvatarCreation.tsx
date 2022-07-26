@@ -35,7 +35,6 @@ const AvatarCreationScreen = ({route, navigation}: Props) => {
         })
       })
     })
-    console.log(avatarURLS)
   }, [])
   const navigation2 = useNavigation<NativeStackNavigationProp<NoColocStackParams>>();
 

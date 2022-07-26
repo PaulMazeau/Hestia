@@ -12,6 +12,7 @@ Notifications.setNotificationHandler({
   }),
 });
 
+//setup des notifs locals + demande des permissions
 const Notif = () => {
     //setup des listeners qu'utilise expo notification
   const [notification, setNotification] = useState(false);
@@ -57,24 +58,6 @@ const Notif = () => {
       Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
-  
-  // const dateString = "08/07/2022"
-  // const trigger = new Date(dateString);
-  // trigger.setHours(15);
-  // trigger.setMinutes(0)
-  const notifyMe = async () => {
-    await Notifications.scheduleNotificationAsync({
-        content: {
-          title: "Title",
-          body: "body",
-          data: { date: "31/12/2000" }
-        },
-        trigger:{
-          seconds: 5,
-        }
-      });
-  }
- 
   return null;
 
 }

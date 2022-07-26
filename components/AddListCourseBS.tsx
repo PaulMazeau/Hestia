@@ -1,13 +1,14 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import {StyleSheet, View, Text, TextInput, ScrollView, TouchableOpacity} from 'react-native'
 import Plus from '../Icons/Plus.svg'
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import AddButton from '../Icons/AddButton.svg';
 import * as Haptics from 'expo-haptics';
 import { addDoc, collection } from 'firebase/firestore';
-import {db} from '../firebase-config'
+import {db, storage} from '../firebase-config'
 import CategorieCard from './CourseCategorie';
 import {useToast} from 'react-native-toast-notifications';
+import { getDownloadURL, list, ref } from 'firebase/storage';
   
 //props est la clcID utilisé pr create un nv doc
 
@@ -251,3 +252,7 @@ const styles = StyleSheet.create({
 
 
 export default AddListeCourseBS;
+
+function setAvatarURLS(arg0: (prev: any) => any[]) {
+  throw new Error('Function not implemented.');
+}

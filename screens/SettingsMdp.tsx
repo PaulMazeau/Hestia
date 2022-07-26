@@ -1,15 +1,15 @@
-import React, { useContext } from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image, TextInput} from 'react-native';
+import React, { useContext, useState } from 'react';
+import {View, Text, StyleSheet, TouchableOpacity, Image, TextInput, Modal} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
 import Top from '../components/HeaderSettings';
 import TopBackNavigation from '../components/TopBackNavigation';
 import * as Haptics from 'expo-haptics';
 import {auth, db} from '../firebase-config'
-import {signOut, updatePassword} from 'firebase/auth'
+import {EmailAuthProvider, reauthenticateWithCredential, signOut, updatePassword} from 'firebase/auth'
 import { UserContext } from '../Context/userContextFile';
 import { updateDoc, doc } from 'firebase/firestore';
-
+import{useToast} from 'react-native-toast-notifications';
 type Props = NativeStackScreenProps<RootStackParams, 'SettingsPerso'>;
 
 
@@ -17,23 +17,33 @@ type Props = NativeStackScreenProps<RootStackParams, 'SettingsPerso'>;
 const SettingsMdp = ({route, navigation}: Props) => {
  
   const [user, setUser] = useContext(UserContext);
-
+  const [modalVisible, setModalVisible] = useState(true);
   const [nom, setNom] = React.useState('');
   const [pwd, setPwd] = React.useState('');
-
+  const [loginPwd, setLoginPwd] = React.useState('');
+  const toast = useToast();
   const handleUserModif = async () => {
-    if(pwd.length == 0 && nom.length !=0){
-      if(nom.length <= 2){alert("Ton nom d'utilisateur doit faire plus de 3 caractères !"); return}
-      else{
-        await updateDoc(doc(db, "Users", user.uuid), {nom: nom})
-        setUser({...user, nom: nom});
-        alert('Nom changé !')
-        navigation.goBack()
-      }
-    }
-    if(pwd.length != 0 && nom.length==0){
+   if(pwd.length<6){
+    toast.show("Le mot de passe doit faire plus de 6 caractères!");
+    return;
+   }
+   updatePassword(auth.currentUser, pwd).then(() => {toast.show("Mot de passe modifié !"); navigation.navigate('SettingsPerso')}).catch((err) => {
+  toast.show(err.code)
+   })
+  }
 
-    } 
+
+  const handleReLog = () => {
+    const credential = EmailAuthProvider.credential(
+      auth.currentUser.email,
+      loginPwd
+  )
+  reauthenticateWithCredential(auth.currentUser, credential).then((d) => {if(d){setModalVisible(false); toast.show("Connexion réussie!")}}).catch((err) => {
+    switch(err.code){
+      case 'auth/wrong-password': toast.show("Mot de passe erroné"); return; break;
+      default: toast.show("Erreur..."); return; break;
+    }
+  })
   }
   return (
     <View>
@@ -45,7 +55,35 @@ const SettingsMdp = ({route, navigation}: Props) => {
           <TopBackNavigation/>
           <Text style={styles.screenTitle}>Changer de mot de passe</Text>
         </View>
-
+ <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.PopUpCentre}>
+          <View style={styles.modalView}>
+            <Text style={styles.ModalTitleTache}>Tape ton mot de passe pour accéder à cette page</Text>
+            <TextInput
+                style={styles.input}
+                onChangeText={(event) => setLoginPwd(event)}
+                value={loginPwd}
+                placeholder="********"
+                placeholderTextColor = "#A9A9A9"
+                secureTextEntry={true}
+            />
+            <TouchableOpacity
+              style={[styles.buttonClose]}
+              onPress={() => handleReLog()}
+            >
+              <Text style={styles.textStyle}>Confirmer</Text>
+            </TouchableOpacity>
+            <TouchableOpacity  style={[styles.buttonCloseRetour]} onPress={() =>navigation.goBack()}><Text style={styles.textStyle}>Retour</Text></TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
       <View style={styles.ChampSettings}>
         <Text style={styles.subTitle}>Mot de passe</Text>
         <TextInput
@@ -128,8 +166,109 @@ const styles = StyleSheet.create({
 
         Button: {
             alignItems: 'flex-end'
-        }
+        },
         
+        PopUpCentre: {
+          flex: 1,
+          justifyContent: "center",
+          backgroundColor:'rgba(0,0,0,0.2)'
+        },
+      
+        modalView: {
+          margin: 20,
+          backgroundColor: "white",
+          borderRadius: 12,
+          padding: 16,
+         
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 2
+          },
+          shadowOpacity: 0.25,
+          shadowRadius: 4,
+          elevation: 5
+        },
+      
+        ModalTitle: {
+          fontSize: 19,
+          fontWeight: '600',
+        },
+        
+        button: {
+          borderRadius: 20,
+          padding: 10,
+          elevation: 2
+        },
+      
+        buttonOpen: {
+          backgroundColor: "#F194FF",
+        },
+      
+        buttonClose: {
+          backgroundColor: "#172ACE",
+          height: 36,
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderRadius: 7
+        },
+        buttonCloseRetour: {
+          backgroundColor: "#cc184b",
+          height: 36,
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderRadius: 7
+        },
+        textStyle: {
+          color: "white",
+          fontWeight: "bold",
+          textAlign: "center"
+        },
+      
+        modalText: {
+          marginBottom: 15,
+          textAlign: "center"
+        },
+      
+        Repetition: {
+          marginBottom: 15
+        },
+      
+        ProchainConcerne: {
+          marginBottom: 15,
+        },
+      
+        cardProchainconcerne: {
+          flexDirection: 'row',
+          alignItems: 'center',
+          marginTop: 10
+        },
+      
+        avatarProchainConcerne: {
+          width: 45,
+          height: 45,
+          borderRadius: 50,
+          overflow: 'hidden',
+        },
+      
+        textProchainParticipant: {
+          fontSize: 15,
+          fontWeight: '400',
+          margin: 1
+        },
+      
+        Rotation: {
+          marginBottom: 15
+        },
+      
+        ModalTitleTache: {
+          fontWeight: '600',
+          fontSize: 19,
+          marginBottom: 15,
+          textAlign: 'center'
+        }
+
+
 })
 
 export default SettingsMdp;
