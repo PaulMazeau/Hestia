@@ -22,22 +22,27 @@ const SignupScreen = () => {
     const toast = useToast();
     const checkDataBeforeNavigating = () => {
         if(!(regexExp.test(email))){
-            toast.show('Rentre un email valide!');
+            toast.show('Rentre un email valide!', {
+                type: "danger",});
             return;
         }
         if(password.length<6){
-            toast.show('Le mot de passe doit faire plus de 6 caractères!');
+            toast.show('Le mot de passe doit faire \nplus de 6 caractères!', {
+                type: "danger"});
             return;
         }
         if(username.length<3){
-            toast.show("Le nom d'utilisateur doit faire plus de 3 caractères !")
+            toast.show("Le nom d'utilisateur doit faire plus de 3 caractères !", {
+                type: "danger"})
         }
         signInWithEmailAndPassword(auth, email, "sexealexleboss").then((d) => {if(d){toast.show('sacré mot de passe...')}}).catch((err) => {
             switch(err.code){
                 case 'auth/user-not-found': navigation.navigate('Avatar', {username: username, email: email, password: password}); return;
                 break;
-                case 'auth/wrong-password': toast.show("Ce compte existe déjà"); return; break;
-                default: toast.show("Erreur lors de la création du compte"); return; break;
+                case 'auth/wrong-password': toast.show("Ce compte existe déjà", {
+                    type: "danger"}); return; break;
+                default: toast.show("Erreur lors de la création du compte", {
+                    type: "danger"}); return; break;
             }
         })
     }
