@@ -129,7 +129,7 @@ Image: {
 emptytext: {
     textAlign: 'center',
     color: 'black',
-    fontWeight: '700',
+    fontWeight: '600',
     fontSize: 16,
     marginTop: 10
 },

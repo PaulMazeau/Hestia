@@ -105,10 +105,11 @@ if(hasToBeReloaded){
     
   }
   return(
-    <View><Text>Les comptes sont bons... </Text></View>
+    <View>
+      <Text style={styles.emptytext}>🎉 Félicitations, les comptes sont bons</Text>
+    </View>
   )
   }
-
 
   return (
 <ReloadContext.Provider value ={[hasToBeReloaded, setHasToBeReloaded]}>
@@ -174,6 +175,13 @@ const styles = StyleSheet.create({
     marginBottom: 15
   },
   
+  emptytext: {
+    textAlign: 'center',
+    color: 'black',
+    fontWeight: '600',
+    fontSize: 16,
+    marginTop: 10
+},
 
 })
 
