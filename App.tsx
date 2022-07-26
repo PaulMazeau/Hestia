@@ -35,6 +35,10 @@ import SettingsName from './screens/SettingsName';
 import SettingsMdp from './screens/SettingsMdp';
 import Valider from './Icons/Valider.svg'
 import EchecCross from './Icons/EchecCross.svg'
+import AccueilIcon from './Icons/AccueilIcon';
+import CourseIcon from './Icons/CourseIcon';
+import TacheIcon from './Icons/TacheIcon';
+import DepenseIcon from './Icons/DepenseIcon';
 
 //initialisation des root pour la NavBar Bottom// DEFINIT LES PARAMETRES QUE LON PASSE DANS LES SCREENS
 export type RootStackParams = {
@@ -287,10 +291,10 @@ export default function App() {
         tabBarActiveTintColor: "#172ACE",
         tabBarInactiveTintColor: "grey",
        }}>
-          <RootStack.Screen name="AccueilStack" component={AccueilScreenStack} options={{tabBarIcon: (({color}) => <Accueil color={color} />), tabBarLabel: "Accueil"}}  />
-          <RootStack.Screen name="CoursesStack" component={CourseScreenStack} options={{tabBarIcon: (({color}) => <Course color={color} />), tabBarLabel: "Course"}}  />
-          <RootStack.Screen name="TacheStack" component={TacheScreenStack} options={{tabBarIcon: (({color}) => <Tache color={color} />), tabBarLabel: "Tâche"}} />
-          <RootStack.Screen name="DepenseStack" component={DepenseScreenStack} options={{tabBarIcon: (({color}) => <Depense color={color} />), tabBarLabel: "Dépense"}} />
+          <RootStack.Screen name="AccueilStack" component={AccueilScreenStack} options={{tabBarIcon: (({color}) => <AccueilIcon color={color}/>), tabBarLabel: "Accueil"}}  />
+          <RootStack.Screen name="CoursesStack" component={CourseScreenStack} options={{tabBarIcon: (({color}) => <CourseIcon color={color} />), tabBarLabel: "Course"}}  />
+          <RootStack.Screen name="TacheStack" component={TacheScreenStack} options={{tabBarIcon: (({color,}) => <TacheIcon color={color} />), tabBarLabel: "Tâche"}} />
+          <RootStack.Screen name="DepenseStack" component={DepenseScreenStack} options={{tabBarIcon: (({color}) => <DepenseIcon color={color} />), tabBarLabel: "Dépense"}} />
           
           
     

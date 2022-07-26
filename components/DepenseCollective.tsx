@@ -97,7 +97,7 @@ const DepenseCollective = ({route, navigation}: Props) => {
 <ScrollView showsVerticalScrollIndicator={false}>
   <View style={{marginBottom: 15}}>
 
-  <Text style={styles.DerniereDepense}>Toutes vos transactions</Text>
+  <Text style={styles.DerniereDepense}>Historique des transactions</Text>
 
     {renderContent()}
   </View>

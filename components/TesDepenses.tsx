@@ -52,7 +52,7 @@ const TesDepense = ({route, navigation}: Props) => {
       return(
         allTransacs.docs.map(c => {
           return(
-            <View style= {{marginTop: 12}} key = {c.id+user.uuid}>
+            <View style= {{marginTop: 7, marginBottom:5}} key = {c.id+user.uuid}>
             <Drawer 
             rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete(c.id)}]}
             leftItem={{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete(c.id)}}
@@ -91,18 +91,16 @@ const TesDepense = ({route, navigation}: Props) => {
   <View style={{flex: 1}}>
 
         
-<ScrollView showsVerticalScrollIndicator={false}>
+<ScrollView showsVerticalScrollIndicator={false} style={{marginBottom:7}}>
  
 
   <Text style={styles.sousTitre}>Récapitulatif de tes dépenses</Text>
     <DepenseDiagram global={false} clcID = {user.colocID}/>
-    <Text style={styles.listeTransac}>Toutes tes transactions</Text>
+    <Text style={styles.listeTransac}>Tes transactions</Text>
     {renderContent()}
     
 
 </ScrollView>
-
-
 
 </View>
 
@@ -127,9 +125,9 @@ sousTitre:{
   },
 
   listeTransac:{
+    marginBottom:5,
     fontSize: 19,
     fontWeight: 'bold',
-    marginBottom: 10,
   },
   
 screenTitle: {

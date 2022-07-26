@@ -31,12 +31,11 @@ const Dette  = (props) => {
   if(props.amount != 0){
   return (
     <View>
-      <TouchableOpacity onPress={() => {setModalVisible(true)}}>
-        <View style={styles.container}>
-                
-                <View style={styles.ImageContainer}>
-        <Image source={{uri: props.deveur.avatarUrl}} style={styles.Image}/>
-    </View>
+      <View style={styles.container}>
+        <TouchableOpacity onPress={() => {setModalVisible(true)}} style={styles.ImagePlusText}>
+          <View style={styles.ImageContainer}>
+          <Image source={{uri: props.deveur.avatarUrl}} style={styles.Image}/>
+          </View>
 
           <View style={styles.Text}>
               <View style={styles.Left}>
@@ -51,17 +50,15 @@ const Dette  = (props) => {
                   <Text style={styles.amout}>{props.amount.toFixed(1)}€</Text>
               </View>
 
-            </View>
-            
+          </View>
+          </TouchableOpacity>
         </View>
-        </TouchableOpacity>
       {/* début du pop up donnant le detail des taches */}
     <Modal
         animationType="fade"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
           setModalVisible(!modalVisible);
         }}
       >
@@ -109,7 +106,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     padding: 15,
     borderRadius: 10,
-    flexDirection: 'row',
     alignItems: 'center',
     height: 70,
     marginBottom: 15,
@@ -166,7 +162,7 @@ const styles = StyleSheet.create({
   Text:{
     flexDirection: 'row',
     justifyContent: 'space-between',
-    flex: 1,
+    width:'100%'
   },
   
   amout: {
@@ -254,6 +250,15 @@ const styles = StyleSheet.create({
 
   profilcard: {
     alignItems: 'center'
+  },
+
+  ImagePlusText:{
+    width:'100%', 
+    flexDirection:'row', 
+    alignItems:'center', 
+    justifyContent:'center', 
+    paddingLeft:20, 
+    paddingRight:20
   }
   
 });

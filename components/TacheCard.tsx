@@ -147,7 +147,6 @@ const [concernedList, setConcernedList] = useState([]);
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
           setModalVisible(!modalVisible);
         }}
       >
@@ -156,7 +155,7 @@ const [concernedList, setConcernedList] = useState([]);
             <Text style={styles.ModalTitleTache}>{props.Tache}</Text>
 
             <View style={styles.Repetition}>
-              <Text style={styles.ModalTitle}>Répétition: {renderRecur()}</Text>
+              <Text style={styles.ModalTitle}>Fréquence: {renderRecur()}</Text>
             </View>
 
             <View style={styles.ProchainConcerne}>
@@ -213,6 +212,7 @@ const styles = StyleSheet.create({
     backgroundColor:"white",
     elevation:2,
     borderRadius:10,
+    marginBottom:3
     
   },
   

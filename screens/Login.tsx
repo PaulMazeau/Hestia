@@ -19,20 +19,25 @@ const LoginScreen = () => {
     const toast = useToast();
     const handleLogin = () => {
         if(!(regexExp.test(email))){
-            toast.show('Rentre un email valide!');
+            toast.show('Rentre un email valide!', {
+                type: "danger"});
             return;
         }
         if(password.length<6){
-            toast.show('Le mot de passe doit faire plus de 6 caractères!');
+            toast.show('Le mot de passe doit faire \nplus de 6 caractères!', {
+                type: "danger"});
             return;
         }
         signInWithEmailAndPassword(auth, email, password).catch((error) => {
             switch(error.code){
-                case 'auth/user-not-found': toast.show("Ce compte n'existe pas !"); return;
+                case 'auth/user-not-found': toast.show("Ce compte n'existe pas !", {
+                    type: "danger"}); return;
                 break;
-                case 'auth/wrong-password': toast.show("Combinaison email/mot de passe invalide"); return;
+                case 'auth/wrong-password': toast.show("Combinaison email/mot de passe invalide", {
+                    type: "danger"}); return;
                 default:
-                    toast.show("Erreur lors de la connexion"); return; 
+                    toast.show("Erreur lors de la connexion", {
+                        type: "danger"}); return; 
                 break;
             }
         }).then((d) => {if(d){navigation.navigate('NoColoc')}})
