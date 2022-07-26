@@ -1,18 +1,17 @@
 import React, { useContext, useState } from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image, TextInput, Modal} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, TextInput, Modal} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
 import Top from '../components/HeaderSettings';
 import TopBackNavigation from '../components/TopBackNavigation';
 import * as Haptics from 'expo-haptics';
-import {auth, db} from '../firebase-config'
-import {EmailAuthProvider, reauthenticateWithCredential, signOut, updatePassword} from 'firebase/auth'
+import {auth} from '../firebase-config'
+import {EmailAuthProvider, reauthenticateWithCredential, updatePassword} from 'firebase/auth'
 import { UserContext } from '../Context/userContextFile';
-import { updateDoc, doc } from 'firebase/firestore';
 import{useToast} from 'react-native-toast-notifications';
+import Cross from '../Icons/Cross.svg'
+
 type Props = NativeStackScreenProps<RootStackParams, 'SettingsPerso'>;
-
-
 
 const SettingsMdp = ({route, navigation}: Props) => {
  
@@ -55,7 +54,10 @@ const SettingsMdp = ({route, navigation}: Props) => {
           <TopBackNavigation/>
           <Text style={styles.screenTitle}>Changer de mot de passe</Text>
         </View>
- <Modal
+
+      {/* DEBUT DU MODAL */}
+      
+      <Modal
         animationType="fade"
         transparent={true}
         visible={modalVisible}
@@ -65,9 +67,12 @@ const SettingsMdp = ({route, navigation}: Props) => {
       >
         <View style={styles.PopUpCentre}>
           <View style={styles.modalView}>
-            <Text style={styles.ModalTitleTache}>Tape ton mot de passe pour accéder à cette page</Text>
+            <TouchableOpacity onPress={() =>navigation.goBack()} style={styles.crossbutton}>
+            <Cross/>
+            </TouchableOpacity>
+            <Text style={styles.ModalTitleMdp}>Mot de passe actuel</Text>
             <TextInput
-                style={styles.input}
+                style={styles.inputModal}
                 onChangeText={(event) => setLoginPwd(event)}
                 value={loginPwd}
                 placeholder="********"
@@ -80,10 +85,12 @@ const SettingsMdp = ({route, navigation}: Props) => {
             >
               <Text style={styles.textStyle}>Confirmer</Text>
             </TouchableOpacity>
-            <TouchableOpacity  style={[styles.buttonCloseRetour]} onPress={() =>navigation.goBack()}><Text style={styles.textStyle}>Retour</Text></TouchableOpacity>
           </View>
         </View>
       </Modal>
+
+        {/* FIN DU MODAL */}
+
       <View style={styles.ChampSettings}>
         <Text style={styles.subTitle}>Mot de passe</Text>
         <TextInput
@@ -168,10 +175,16 @@ const styles = StyleSheet.create({
             alignItems: 'flex-end'
         },
         
+        // STYLE DU MODAL
         PopUpCentre: {
           flex: 1,
           justifyContent: "center",
           backgroundColor:'rgba(0,0,0,0.2)'
+        },
+
+        crossbutton: {
+          alignItems: 'flex-end',
+          zIndex: 2
         },
       
         modalView: {
@@ -261,14 +274,21 @@ const styles = StyleSheet.create({
           marginBottom: 15
         },
       
-        ModalTitleTache: {
+        ModalTitleMdp: {
           fontWeight: '600',
           fontSize: 19,
           marginBottom: 15,
-          textAlign: 'center'
+          textAlign: 'center',
+          marginTop: -20
+        },
+
+        inputModal:{
+          height: 44,
+          padding: 10,
+          borderRadius: 14,
+          backgroundColor: '#EDF0FA',
+          marginBottom: 15
         }
-
-
 })
 
 export default SettingsMdp;

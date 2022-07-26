@@ -18,7 +18,7 @@ function AccueilIcon(props: Props) {
         stroke={props.color}
         strokeLinejoin="round"
         strokeMiterlimit="10"
-        strokeWidth="4"
+        strokeWidth="3"
         d="M8.5 41.5h10a1 1 0 001-1v-10a2 2 0 012-2h5a2 2 0 012 2v10a1 1 0 001 1h10a1 1 0 001-1V21.411a6.001 6.001 0 00-2.287-4.713L24 5.5 9.787 16.698A6.001 6.001 0 007.5 21.411V40.5a1 1 0 001 1z"
       ></Path>
     </Svg>
