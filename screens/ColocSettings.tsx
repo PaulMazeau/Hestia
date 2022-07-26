@@ -36,7 +36,7 @@ const ColocSettings = ({route, navigation}: Props) => {
         Clipboard.setStringAsync(text);
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
        toast.show('Le code de la colocation a été copié !', {
-        type: "success",})
+        type: "normal",})
     };
     
 

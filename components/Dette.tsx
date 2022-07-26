@@ -15,9 +15,11 @@ const Dette  = (props) => {
   const handleRemboursement = async () => {
     try{
     await addDoc(collection(db, "Colocs/" + user.colocID + "/Transactions"), {timestamp: serverTimestamp(), amount: props.amount, giverID: props.deveur.uuid, receiversID: [props.receveur.uuid], desc: "rbrsmnt", concerned: [props.deveur.uuid, props.receveur.uuid]})
-    toast.show(props.receveur.nom + " te remercie!")
+    toast.show(props.receveur.nom + " te remercie!", {
+      type: "success",})
     }catch(err){
-      toast.show("Erreur lors de la connection au serveur, essaie plus tard...")
+      toast.show("Erreur lors de la connection au serveur", {
+        type: "danger",})
     }
     setReload(true)
     if(props.receveur.uuid == user.uuid || props.deveur.uuid == user.uuid){

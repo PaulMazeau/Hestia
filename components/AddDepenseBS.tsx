@@ -151,7 +151,8 @@ const isNumber = (str) => {
       type: "success",})}
 
     catch(err){
-      toast.show("La dépense n'a pas pu être ajoutée, essaie plus tard...")
+      toast.show("Impossible d'ajouter la dépense", {
+        type: "danger",})
     }
     //update du solde coté serveur
     setAmount("");

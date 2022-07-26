@@ -34,7 +34,7 @@ import { ToastProvider } from 'react-native-toast-notifications';
 import SettingsName from './screens/SettingsName';
 import SettingsMdp from './screens/SettingsMdp';
 import Valider from './Icons/Valider.svg'
-
+import EchecCross from './Icons/EchecCross.svg'
 
 //initialisation des root pour la NavBar Bottom// DEFINIT LES PARAMETRES QUE LON PASSE DANS LES SCREENS
 export type RootStackParams = {
@@ -311,9 +311,11 @@ export default function App() {
   return (
     <ToastProvider
     swipeEnabled={true}
-    icon={<Valider />}
+    successIcon={<Valider />}
     successColor="green"
+    dangerColor="red"
     offsetBottom={80}
+    dangerIcon={<EchecCross fill='white' width={20} height={20}/>}
     >
     <GestureHandlerRootView style={styles.body}>
      <BottomSheetModalProvider>

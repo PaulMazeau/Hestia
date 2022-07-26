@@ -34,7 +34,8 @@ const handleAddList = async () => {
   toast.show('Nouvelle liste de courses créée ! ', {
     type: "success",})
   }catch(err){
-    toast.show('Erreur lors de la création de ta nouvelle liste de courses !')
+    toast.show('Impossible de créer la liste de course', {
+      type: "danger",})
   }
   bottomSheetRef.current?.close();
   setTitre('')

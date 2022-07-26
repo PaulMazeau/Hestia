@@ -100,7 +100,8 @@ const handleAddTask = async () => {
   toast.show('Nouvelle tâche ajoutée !', {
     type: "success",})
   }catch(err){
-    toast.show('Erreur lors de la création de la tâche, essaie plus tard...')
+    toast.show('Impossible de créer la tâche', {
+      type: "danger",})
   }
   setTitle("");
   setAreConcerned([]);
