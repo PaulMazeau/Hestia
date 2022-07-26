@@ -18,9 +18,11 @@ const Top = (props) => {
     
     <SafeAreaView style= {{backgroundColor: '#EDF0FA', paddingBottom:Platform.OS === 'android' ? 25:-25}}>
     <View style={styles.Header}>
+    <TouchableOpacity onPress={() => navigation.push('Settings')}>
     <View style={styles.ImageContainer}>
         <Image source={{uri: props.avatar}} style={styles.Image}/>
     </View>
+    </TouchableOpacity>
     <View style={styles.Title}>
         <Text style={styles.BigTitle}>Hi, {props.name}</Text>
         <Text style={styles.SmallTitle}>{props.clcName}</Text>
