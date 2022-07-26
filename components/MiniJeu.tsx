@@ -15,7 +15,7 @@ const toast= useToast()
         <View style={styles.container}>
             <View>
                 <Text style={styles.titre}> Mini jeu</Text>
-                <Text style={styles.texte}>Coming Soon</Text>
+                <Text style={styles.texte}>Bientôt disponible</Text>
             </View>
         </View>
         </ImageBackground>
@@ -54,7 +54,8 @@ const styles = StyleSheet.create({
   texte: {
     fontSize: 14,
     color: 'white',
-    marginLeft: 5
+    marginLeft: 5,
+    letterSpacing: -0.6
   },
 });
 

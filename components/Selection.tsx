@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Prout from '../Icons/Prout.svg'
 import {useToast} from 'react-native-toast-notifications';
+
 const SelectionImg = require('../Img/Selection.png')
 
 const Selection  = () => {
@@ -11,8 +12,7 @@ const Selection  = () => {
     
         <View style={styles.container}>
                 
-            <View style={styles.Top}>
-
+            <View>
                     <Text style={styles.text}>
                         Découvrez une selection de recettes, {'\n'}sorties, jeux et restaurants à faire {'\n'}entre colocataires.
                     </Text>
@@ -21,13 +21,11 @@ const Selection  = () => {
            <View style={styles.Bot}>
                 <TouchableOpacity style={styles.Button}>
                     <View style={styles.Bottom}>
-                        <Text style={styles.ButtonText}>Découvrir la selection</Text>
+                        <Text style={styles.ButtonText}>Bientôt disponible</Text>
                         <Prout/>
                     </View>
                 </TouchableOpacity>
                 <ImageContainer image={SelectionImg} />
-
-
             </View>
 
         </View>
@@ -61,11 +59,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   
-  Top: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    },
-
     text:{
         fontSize: 14
     },
@@ -88,7 +81,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         height: 35,
         justifyContent: 'center',
-        width: '60%'
+        width: '55%'
     },
 
     ImageContainer: {

@@ -83,7 +83,6 @@ const [concernedList, setConcernedList] = useState([]);
         
         return(
           <ParticipantCard key ={user.uuid} name={user.nom} avatar={user.avatarUrl}/>
-
         )
       })
     )
@@ -211,9 +210,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     backgroundColor:"white",
     elevation:2,
-    borderRadius:10,
-    marginBottom:3
-    
+    borderRadius:10,    
   },
   
   container: {

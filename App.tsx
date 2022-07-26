@@ -320,6 +320,7 @@ export default function App() {
     dangerColor="red"
     offsetBottom={80}
     dangerIcon={<EchecCross fill='white' width={20} height={20}/>}
+    duration={1300}
     >
     <GestureHandlerRootView style={styles.body}>
      <BottomSheetModalProvider>
