@@ -105,7 +105,7 @@ if(hasToBeReloaded){
     
   }
   return(
-    <View><Text>Vous n'avez encore rien dépensé ensemble... </Text></View>
+    <View><Text>Les comptes sont bons... </Text></View>
   )
   }
 
