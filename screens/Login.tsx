@@ -8,6 +8,7 @@ import { AuthStackParams } from '../App';
 import TopBackNavigationClear from '../components/TopBackNavigationClear';
 import { useHeaderHeight } from '@react-navigation/elements';
 import{useToast} from'react-native-toast-notifications';
+import Cross from '../Icons/Cross.svg'
 
 const image = require('../Img/homepage_bg.png');
 const windowHeight = Dimensions.get('window').height;
@@ -105,22 +106,42 @@ const LoginScreen = () => {
                     <TouchableOpacity onPress={() => setModalVisible(true)}>
                         <Text style={styles.mdpOublie}>Mot de passe oublié?</Text>
                     </TouchableOpacity>
+
+                    {/* DEBUT DU MODAL */}
+
                     <Modal
-            animationType="fade"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-            setModalVisible(!modalVisible);
-        }}
-            >
-                <View style={styles.PopUpCentre}>
-          <View style={styles.modalView}>
-                <Text>Tape ton mdp fdp</Text>
-                <TextInput onChangeText={(event) => setModalmail(event)} value={modalMail} placeholder="email a taper ici"/>
-                <TouchableOpacity onPress={() => handlePasswordReset()}><Text>Envoier un email pr reset le pwd</Text></TouchableOpacity>
-                </View>
-                </View>
+                        animationType="fade"
+                        transparent={true}
+                        visible={modalVisible}
+                        onRequestClose={() => {
+                        setModalVisible(!modalVisible);}}
+                    >
+                     <View style={styles.PopUpCentre}>
+                        <View style={styles.modalView}>
+                            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)} style={styles.crossbutton}>
+                            <Cross/>
+                            </TouchableOpacity>
+                            <Text style={styles.ModalTitleResetPwd}>Réinitialiser le mot de passe</Text>
+                            <TextInput 
+                            onChangeText={(event) => setModalmail(event)} 
+                            value={modalMail} 
+                            placeholder="Email du compte"
+                            placeholderTextColor = "#A9A9A9"
+                            style={styles.inputModal}
+                            />
+                            <TouchableOpacity 
+                            onPress={() => handlePasswordReset()}
+                            style={styles.buttonClose}
+                            >
+                                <Text style={{color: 'white'}}>Envoyer l'email</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
             </Modal>
+
+             {/* FIN DU MODAL */}
+
+
             </ImageBackground>
 
             
@@ -245,5 +266,34 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 5
+      },
+
+      crossbutton: {
+        alignItems: 'flex-end',
+        zIndex: 2
+      },
+      
+      ModalTitleResetPwd: {
+        fontWeight: '600',
+        fontSize: 19,
+        marginBottom: 15,
+        textAlign: 'center',
+        marginTop: -20
+      },
+
+      inputModal:{
+        height: 44,
+        padding: 10,
+        borderRadius: 14,
+        backgroundColor: '#EDF0FA',
+        marginBottom: 15
+      },
+
+      buttonClose: {
+        backgroundColor: "#172ACE",
+        height: 36,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 7
       },
 })

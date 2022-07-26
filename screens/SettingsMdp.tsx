@@ -80,7 +80,7 @@ const SettingsMdp = ({route, navigation}: Props) => {
                 secureTextEntry={true}
             />
             <TouchableOpacity
-              style={[styles.buttonClose]}
+              style={styles.buttonClose}
               onPress={() => handleReLog()}
             >
               <Text style={styles.textStyle}>Confirmer</Text>
@@ -225,6 +225,7 @@ const styles = StyleSheet.create({
           alignItems: 'center',
           borderRadius: 7
         },
+
         buttonCloseRetour: {
           backgroundColor: "#cc184b",
           height: 36,
@@ -232,6 +233,7 @@ const styles = StyleSheet.create({
           alignItems: 'center',
           borderRadius: 7
         },
+        
         textStyle: {
           color: "white",
           fontWeight: "bold",
