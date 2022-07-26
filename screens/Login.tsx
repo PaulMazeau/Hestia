@@ -7,7 +7,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParams } from '../App';
 import TopBackNavigationClear from '../components/TopBackNavigationClear';
 import { useHeaderHeight } from '@react-navigation/elements';
-
+import{useToast} from'react-native-toast-notifications';
 const image = require('../Img/homepage_bg.png');
 const windowHeight = Dimensions.get('window').height;
 
@@ -15,15 +15,28 @@ const LoginScreen = () => {
     const navigation = useNavigation<NativeStackNavigationProp<AuthStackParams>>();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const regexExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gi;
+    const toast = useToast();
     const handleLogin = () => {
+        if(!(regexExp.test(email))){
+            toast.show('Rentre un email valide!');
+            return;
+        }
+        if(password.length<6){
+            toast.show('Le mot de passe doit faire plus de 6 caractères!');
+            return;
+        }
         signInWithEmailAndPassword(auth, email, password).catch((error) => {
             switch(error.code){
-                case 'auth/user-not-found': alert("Ce compte n'existe pas !");
+                case 'auth/user-not-found': toast.show("Ce compte n'existe pas !"); return;
                 break;
-                case 'auth/wrong-password': alert ("Combinaison email/mot de passe invalide");
+                case 'auth/wrong-password': toast.show("Combinaison email/mot de passe invalide"); return;
+                default:
+                    toast.show("Erreur lors de la connexion"); return; 
+                break;
             }
-        })
-        navigation.navigate('NoColoc'); //ou on pourrait get la data de luser et update le context mais c ok 
+        }).then((d) => {if(d){navigation.navigate('NoColoc')}})
+        ; //ou on pourrait get la data de luser et update le context mais c ok 
     }
     
     const headerHeight = useHeaderHeight();

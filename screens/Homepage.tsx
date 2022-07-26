@@ -14,7 +14,7 @@ const HomePageScreen = () => {
         <View style={styles.container}> 
             <StatusBar barStyle="light-content" />  
             
-            <ImageBackground source={image} resizeMode="cover" style={styles.bluebg} imageStyle={{ borderRadius: 20}}>
+            <ImageBackground source={image} resizeMode="cover" style={styles.bluebg} imageStyle={{ borderBottomLeftRadius: 20, borderBottomRightRadius: 20,}}>
                 <Logo width='75'/>
                 <Text style={styles.title}>Bienvenue sur Hestia</Text>
                 <Text style={styles.subTitle}>Fini les frictions entre colocataires!</Text>
