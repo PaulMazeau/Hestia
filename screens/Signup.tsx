@@ -5,7 +5,9 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParams } from '../App';
 import TopBackNavigationClear from '../components/TopBackNavigationClear';
 import { useHeaderHeight } from '@react-navigation/elements';
-
+import{useToast} from'react-native-toast-notifications'
+import { browserLocalPersistence, signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase-config';
 const image = require('../Img/homepage_bg.png');
 const windowHeight = Dimensions.get('window').height;
 
@@ -16,6 +18,29 @@ const SignupScreen = () => {
     const [password, setPassword] = useState("");
     const [username, setUsername] = useState("");
     const headerHeight = useHeaderHeight();
+    const regexExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gi;
+    const toast = useToast();
+    const checkDataBeforeNavigating = () => {
+        if(!(regexExp.test(email))){
+            toast.show('Rentre un email valide!');
+            return;
+        }
+        if(password.length<6){
+            toast.show('Le mot de passe doit faire plus de 6 caractères!');
+            return;
+        }
+        if(username.length<3){
+            toast.show("Le nom d'utilisateur doit faire plus de 3 caractères !")
+        }
+        signInWithEmailAndPassword(auth, email, "sexealexleboss").then((d) => {if(d){toast.show('sacré mot de passe...')}}).catch((err) => {
+            switch(err.code){
+                case 'auth/user-not-found': navigation.navigate('Avatar', {username: username, email: email, password: password}); return;
+                break;
+                case 'auth/wrong-password': toast.show("Ce compte existe déjà"); return; break;
+                default: toast.show("Erreur lors de la création du compte"); return; break;
+            }
+        })
+    }
     return(
         <KeyboardAvoidingView
         keyboardVerticalOffset={headerHeight -221}
@@ -72,7 +97,7 @@ const SignupScreen = () => {
             </ImageBackground>
             
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('Avatar', {username: username, email: email, password: password})}
+                    onPress={() => checkDataBeforeNavigating()}
                     style = {styles.buttonSuivant}>
                         <Text style = {styles.buttonText}>Suivant</Text>
                 </TouchableOpacity>
