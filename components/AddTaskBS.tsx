@@ -28,7 +28,7 @@ const MyLoader = () => (
 
 const today = new Date();
 
-const Recurrence = [
+const Frequence = [
     { label: 'Aucune', value: '0' },
     { label: '1 jour', value: '1' },
     { label: '2 jours', value: '2' },
@@ -217,17 +217,17 @@ return (
       </View>
 
       <View style={styles.depenseTitle}>
-        <Text style={styles.subTitle}>Récurrence</Text>
+        <Text style={styles.subTitle}>Fréquence</Text>
             <View>
             <Dropdown
-                style={styles.dropdownRecurrence}
+                style={styles.dropdownFrequence}
                 placeholderStyle={styles.placeholderStyle}
                 selectedTextStyle={styles.selectedTextStyle}
-                data={Recurrence}
+                data={Frequence}
                 maxHeight={300}
                 labelField="label"
                 valueField="value"
-                placeholder="Choisir une récurrence"
+                placeholder="Choisir une fréquence"
                 value={recur}
                 onChange={item => {
                     setRecur(item.value);
@@ -338,7 +338,7 @@ const styles = StyleSheet.create({
           marginTop: 15
       },
 
-      dropdownRecurrence: {
+      dropdownFrequence: {
         marginTop: 13,
         marginLeft: 13,
         marginRight: 13,

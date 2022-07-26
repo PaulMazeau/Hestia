@@ -156,7 +156,7 @@ const [concernedList, setConcernedList] = useState([]);
             <Text style={styles.ModalTitleTache}>{props.Tache}</Text>
 
             <View style={styles.Repetition}>
-              <Text style={styles.ModalTitle}>Répétition: {renderRecur()}</Text>
+              <Text style={styles.ModalTitle}>Fréquence: {renderRecur()}</Text>
             </View>
 
             <View style={styles.ProchainConcerne}>

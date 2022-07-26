@@ -96,13 +96,11 @@ const TesDepense = ({route, navigation}: Props) => {
 
   <Text style={styles.sousTitre}>Récapitulatif de tes dépenses</Text>
     <DepenseDiagram global={false} clcID = {user.colocID}/>
-    <Text style={styles.listeTransac}>Toutes tes transactions</Text>
+    <Text style={styles.listeTransac}>Tes transactions</Text>
     {renderContent()}
     
 
 </ScrollView>
-
-
 
 </View>
 
@@ -129,7 +127,6 @@ sousTitre:{
   listeTransac:{
     fontSize: 19,
     fontWeight: 'bold',
-    marginBottom: 10,
   },
   
 screenTitle: {
