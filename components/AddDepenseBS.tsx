@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
-import {StyleSheet, View, Text, Button, Image, Alert, TextInput, ScrollView, TouchableOpacity} from 'react-native'
+import {StyleSheet, View, Text, Button, Image, Alert, TextInput, ScrollView, TouchableOpacity, TouchableWithoutFeedback, Keyboard} from 'react-native'
 import { Dropdown } from 'react-native-element-dropdown';
 import ParticipantCard from './ParticipantCard';
 import Plus from '../Icons/Plus.svg'
@@ -212,7 +212,7 @@ snapPoints={['85%']}
 index= {0}
 backdropComponent={renderBackdrop}
 >
-
+<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
 <View style={styles.contentContainer}>
  
 <Text style={styles.Title}>Nouvelle dépense</Text>
@@ -283,6 +283,7 @@ backdropComponent={renderBackdrop}
 
 
 </View>
+</TouchableWithoutFeedback>
 </BottomSheetModal>
 
 

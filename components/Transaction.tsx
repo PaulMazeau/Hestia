@@ -106,6 +106,9 @@ const Transaction  = (props) => {
       </TouchableOpacity>
     </View>
   <View>
+
+    {/* DEBUT DU MODAL  */}
+
 <Modal
 animationType="fade"
 transparent={true}
@@ -119,15 +122,15 @@ onRequestClose={() => {
     <Text style={styles.ModalTitleTache}>{props.desc}</Text>
 
     <View style={styles.Date}>
-      <Text style={styles.ModalTitle}>Payé le: {renderDate(props.date)}</Text>
+      <Text style={styles.ModalTitle}>Payé le: <Text style={{fontSize: 17, fontWeight: '400'}}>{renderDate(props.date)}</Text></Text>
     </View>
 
     <View style={styles.Montant}>
-        <Text style={styles.ModalTitle}>Montant: {props.amount}€</Text>
+        <Text style={styles.ModalTitle}>Montant: <Text style={{fontSize: 17, fontWeight: '400'}}>{props.amount}€</Text></Text>
     </View>
 
         <View style={styles.Payeur}>                     
-            <Text style={styles.ModalTitle}>Payeur: {whoPaidName}</Text>
+            <Text style={styles.ModalTitle}>Payeur: <Text style={{fontSize: 17, fontWeight: '400'}}>{whoPaidName}</Text></Text>
         </View>
     
 
@@ -153,6 +156,9 @@ onRequestClose={() => {
   </View>
 </View>
 </Modal>
+
+{/* FIN DU MODAL  */}
+
 </View>
     </View>
   );

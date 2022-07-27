@@ -6,11 +6,10 @@ import Transaction from './Transaction';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import { getDoc, doc, collection, orderBy, query, deleteDoc, updateDoc, increment, where } from 'firebase/firestore';
+import { doc, collection, orderBy, query, deleteDoc, where } from 'firebase/firestore';
 import{db} from '../firebase-config'
 import { UserContext } from '../Context/userContextFile';
 import DepenseDiagram from './DepenseDiagram';
-import { useFocusEffect } from '@react-navigation/native';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 
 type Props = NativeStackScreenProps<RootStackParams, 'DepenseStack'>;
@@ -96,7 +95,7 @@ const TesDepense = ({route, navigation}: Props) => {
 
   <Text style={styles.sousTitre}>Récapitulatif de tes dépenses</Text>
     <DepenseDiagram global={false} clcID = {user.colocID}/>
-    <Text style={styles.listeTransac}>Tes transactions</Text>
+    <Text style={styles.listeTransac}>Dépenses te concernant</Text>
     {renderContent()}
     
 

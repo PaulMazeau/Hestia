@@ -9,6 +9,7 @@ import {auth, db} from '../firebase-config'
 import {signOut, updatePassword} from 'firebase/auth'
 import { UserContext } from '../Context/userContextFile';
 import { updateDoc, doc } from 'firebase/firestore';
+import {useToast} from 'react-native-toast-notifications';
 
 type Props = NativeStackScreenProps<RootStackParams, 'SettingsPerso'>;
 
@@ -19,13 +20,14 @@ const SettingsName = ({route, navigation}: Props) => {
   const [user, setUser] = useContext(UserContext);
 
   const [nom, setNom] = React.useState('');
-
+  const toast = useToast();
   const handleUserModif = async () => {
       if(nom.length <= 2){alert("Ton nom d'utilisateur doit faire plus de 3 caractères !"); return}
       else{
         await updateDoc(doc(db, "Users", user.uuid), {nom: nom})
         setUser({...user, nom: nom});
-        alert('Nom changé !')
+        toast.show('Le nom a bien été changé !', {
+          type: "success",})
         navigation.goBack()
       }
   }
