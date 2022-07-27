@@ -143,7 +143,7 @@ if(hasToBeReloaded){
           />
           <VictoryBar
           cornerRadius={7}
-          labels={({ datum }) => `${datum.x}`}
+          labels={({ datum }) => `${datum.x.substring(0,5)}`}
           style={{data: {
             fill: ({ datum }) => datum.y < 0 ? "red" : "#172ACE",
           },}}
