@@ -1,6 +1,6 @@
 import { addDoc, collection, getDoc, serverTimestamp, doc } from 'firebase/firestore';
 import React, { useContext, useState } from 'react';
-import {View, Text, StyleSheet, Image, Modal, ScrollView, TouchableOpacity, Alert} from 'react-native';
+import {View, Text, StyleSheet, Image, Modal, TouchableOpacity} from 'react-native';
 import { ReloadContext, UserContext } from '../Context/userContextFile';
 import Cross from '../Icons/Cross.svg'
 import {db} from '../firebase-config'
@@ -47,7 +47,7 @@ const Dette  = (props) => {
               </View>
 
               <View style={styles.Right}>
-                  <Text style={styles.amout}>{props.amount.toFixed(1)}€</Text>
+                  <Text style={styles.amout}>{props.amount.toFixed(2)}€</Text>
               </View>
 
           </View>
@@ -87,7 +87,7 @@ const Dette  = (props) => {
               style={[styles.buttonClose]}
               onPress={() => {setModalVisible(!modalVisible); handleRemboursement()}}
             >
-              <Text style={styles.textButtonStyle}>Enregistrer le remboursement des {props.amount.toFixed(1).toString()} €</Text>
+              <Text style={styles.textButtonStyle}>Enregistrer le remboursement des {props.amount.toFixed(2).toString()} €</Text>
             </TouchableOpacity>
           </View>
         </View>

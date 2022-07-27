@@ -1,5 +1,5 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import {StyleSheet, View, Text, KeyboardAvoidingView, Platform} from 'react-native';
 import { RootStackParams } from '../App';
 import TopBackNavigation from '../components/TopBackNavigation';
@@ -21,13 +21,14 @@ const CourseScreen = ({ route, navigation }: Props) => {
   const [user, setUser] = useContext(UserContext);
   //data est la liste de course
   const [data, loading, error] = useDocumentData(doc(db, "Colocs/"+route.params.clcID+ "/Courses", route.params.courseID))
-  const renderDivers = () => {
+  const renderDivers = () => { //super nom de variable....
     if(data && data.divers){
       return (
-          data.divers.map((item)=> {
+          data.divers.map((item)=> {if(!(item.selected)){
             return(
-              <Food key= {item} name = {item} clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"divers"}></Food>
+              <Food key= {item.item} name = {item.item} clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"divers"} isSelected={item.selected}></Food>
             )
+          }
           })
       )
     }
@@ -35,6 +36,24 @@ const CourseScreen = ({ route, navigation }: Props) => {
       <></>
     )
   }
+  const renderDiversSelected = () => { 
+    if(data && data.divers){
+      return (
+          data.divers.map((item)=> {if(item.selected){
+            return(
+              <Food key= {item.item} name = {item.item} clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"divers"} isSelected={item.selected}></Food>
+            )
+          }
+          })
+      )
+    }
+    return (
+      <></>
+    )
+  }
+ 
+
+
 
   // const renderViandes = () => {
   //   if(data && data.viandes){
@@ -157,11 +176,12 @@ const CourseScreen = ({ route, navigation }: Props) => {
         behavior={Platform.OS === "ios" ? "padding" : null}
       >
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{paddingBottom:10}}>
         <View style={styles.whiteBackGround}>
 
           {renderDivers()}
           <AddFood clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"divers"}></AddFood>
+          {renderDiversSelected()}
+
           
           
           {/* <Text style={styles.Food_title}>Viandes & Poissons</Text>
@@ -200,7 +220,6 @@ const CourseScreen = ({ route, navigation }: Props) => {
           <AddFood clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"maison"}></AddFood> */}
 
         </View>
-        </View>
       </ScrollView>
   </KeyboardAvoidingView>
         
@@ -237,7 +256,7 @@ const styles = StyleSheet.create({
     paddingRight:10,
     paddingBottom: 10,
     paddingTop:10,
-    minHeight : 103
+    minHeight : 103,
   },
 
   Food_title: {

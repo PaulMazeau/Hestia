@@ -1,7 +1,7 @@
 import { doc, getDoc, updateDoc } from '@firebase/firestore';
 import { getDocs, query, where, collection, deleteDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, Modal, Alert, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Modal} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { db } from '../firebase-config';
 import Horloge from '../Icons/Horloge.svg';
@@ -254,7 +254,6 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     overflow: 'hidden',
     borderWidth: 3,
-    borderColor: 'white',
     marginLeft: -17,
     zIndex: 1
   },

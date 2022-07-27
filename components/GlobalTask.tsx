@@ -1,18 +1,12 @@
-import React, { useCallback, useRef, useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Dimensions } from 'react-native';
+import React, {useState } from 'react';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import TacheCard from '../components/TacheCard';
 import AddTaskBS from './AddTaskBS';
 import { deleteDoc, doc } from 'firebase/firestore'
 import { db } from '../firebase-config';
 import { Colors, Drawer } from 'react-native-ui-lib';
-import BottomSheet, { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
-import { Dropdown } from 'react-native-element-dropdown';
-import ParticipantCard from './ParticipantCard';
-import * as Haptics from 'expo-haptics';
-import Edit from '../Icons/Edit.svg'
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-import ContentLoader, { Rect, Circle } from 'react-content-loader/native';
+import ContentLoader, { Rect } from 'react-content-loader/native';
 
 const MyLoader = () => ( 
   <ContentLoader 

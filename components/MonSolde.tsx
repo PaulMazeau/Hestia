@@ -2,7 +2,6 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
-import { BorderRadiuses } from 'react-native-ui-lib';
 import { RootStackParams } from '../App';
 
 
@@ -22,7 +21,7 @@ const MonSolde  = (props) => {
     </View>
 
             <View style={styles.top}>
-                <Text style={styles.titre}>{props.solde.toFixed(1)} EUR</Text>
+                <Text style={styles.titre}>{props.solde.toFixed(2)} EUR</Text>
 
                 <View style={styles.dateContainer}>
                     <Text style={styles.date}>Mon solde</Text>

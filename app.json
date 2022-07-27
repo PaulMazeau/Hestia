@@ -27,7 +27,8 @@
         "backgroundImage": "./assets/Background_Hestia.png"
       },
       "package": "com.Hestia.HestiaApp",
-      "icon": "./assets/Logo_Hestia.png"
+      "icon": "./assets/Logo_Hestia.png",
+      "softwareKeyboardLayoutMode": "pan"
     },
     "web": {
       "favicon": "./assets/favicon.png"
