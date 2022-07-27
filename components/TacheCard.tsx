@@ -253,7 +253,6 @@ const styles = StyleSheet.create({
     height: 45,
     borderRadius: 50,
     overflow: 'hidden',
-    borderWidth: 3,
     marginLeft: -17,
     zIndex: 1
   },
@@ -263,7 +262,6 @@ const styles = StyleSheet.create({
     height: 45,
     borderRadius: 50,
     overflow: 'hidden',
-    borderWidth: 3,
     borderColor: 'white',
     marginLeft: -20,
   },
