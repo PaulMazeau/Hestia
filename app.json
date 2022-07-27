@@ -23,10 +23,11 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/Foreground_Hestia.png",
         "backgroundImage": "./assets/Background_Hestia.png"
       },
-      "package": "com.Hestia.HestiaApp"
+      "package": "com.Hestia.HestiaApp",
+      "icon": "./assets/Logo_Hestia.png"
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -210,7 +210,8 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     backgroundColor:"white",
     elevation:2,
-    borderRadius:10,    
+    borderRadius:10,
+    marginBottom:2    
   },
   
   container: {
