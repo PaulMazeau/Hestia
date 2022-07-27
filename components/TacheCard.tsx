@@ -140,7 +140,7 @@ const [concernedList, setConcernedList] = useState([]);
     <View>
       {renderContent()}
       
-     {/* début du pop up donnant le detail des taches */}
+     {/* début du MODAL donnant le detail des taches */}
     <Modal
         animationType="fade"
         transparent={true}
@@ -154,7 +154,7 @@ const [concernedList, setConcernedList] = useState([]);
             <Text style={styles.ModalTitleTache}>{props.Tache}</Text>
 
             <View style={styles.Repetition}>
-              <Text style={styles.ModalTitle}>Fréquence: {renderRecur()}</Text>
+              <Text style={styles.ModalTitle}>Fréquence: <Text style={{fontSize: 17, fontWeight: '400'}}>{renderRecur()}</Text></Text>
             </View>
 
             <View style={styles.ProchainConcerne}>
