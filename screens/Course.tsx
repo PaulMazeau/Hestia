@@ -154,7 +154,7 @@ const CourseScreen = ({ route, navigation }: Props) => {
       <KeyboardAvoidingView
         keyboardVerticalOffset={headerHeight}
         style={{flex:1}}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        behavior={Platform.OS === "ios" ? "padding" : null}
       >
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{paddingBottom:10}}>

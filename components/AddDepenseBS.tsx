@@ -350,7 +350,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 14,
         padding: 12,
-        elevation: 2,
         borderWidth: 1,
         borderColor: '#DDDDDD',
       },
