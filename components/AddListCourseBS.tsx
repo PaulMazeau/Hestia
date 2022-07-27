@@ -31,7 +31,7 @@ const toast = useToast();
 
 const handleAddList = async () => {
   try{
-  await addDoc(collection(db, 'Colocs/'+props.clcID+'/Courses'), {Nom: titre, Image:{uri :emoji}, fruits: [], boisson: [], viandes: [], maison: []}); 
+  await addDoc(collection(db, 'Colocs/'+props.clcID+'/Courses'), {Nom: titre, Image:{uri :emoji}, divers: []/*, boisson: [], viandes: [], maison: [], produitsfrais: [], surgeles: [], conserves: [], goute: []*/}); 
   toast.show('Nouvelle liste de courses créée ! ', {
     type: "success",})
   }catch(err){

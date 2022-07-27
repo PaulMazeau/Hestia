@@ -21,12 +21,12 @@ const CourseScreen = ({ route, navigation }: Props) => {
   const [user, setUser] = useContext(UserContext);
   //data est la liste de course
   const [data, loading, error] = useDocumentData(doc(db, "Colocs/"+route.params.clcID+ "/Courses", route.params.courseID))
-  const renderFruits = () => {
-    if(data && data.fruits){
+  const renderDivers = () => {
+    if(data && data.divers){
       return (
-          data.fruits.map((item)=> {
+          data.divers.map((item)=> {
             return(
-              <Food key= {item} name = {item} clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"fruits"}></Food>
+              <Food key= {item} name = {item} clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"divers"}></Food>
             )
           })
       )
@@ -36,51 +36,111 @@ const CourseScreen = ({ route, navigation }: Props) => {
     )
   }
 
-  const renderViandes = () => {
-    if(data && data.viandes){
-      return (
+  // const renderViandes = () => {
+  //   if(data && data.viandes){
+  //     return (
           
-          data.viandes.map((item)=> {
-            return(
-              <Food key= {item} name = {item} clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"viandes"}></Food>
-            )
-          })
-      )
-    }
-    return (
-      <></>
-    )
-  }
-  const renderBoissons = () => {
-    if(data && data.boisson){
-      return (
+  //         data.viandes.map((item)=> {
+  //           return(
+  //             <Food key= {item} name = {item} clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"viandes"}></Food>
+  //           )
+  //         })
+  //     )
+  //   }
+  //   return (
+  //     <></>
+  //   )
+  // }
+  // const renderBoissons = () => {
+  //   if(data && data.boisson){
+  //     return (
           
-          data.boisson.map((item)=> {
-            return(
-              <Food key= {item} name = {item} clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"boisson"}></Food>
-            )
-          })
-      )
-    }
-    return (
-      <></>
-    )
-  }
-  const renderMaison = () => {
-    if(data && data.maison){
-      return (
+  //         data.boisson.map((item)=> {
+  //           return(
+  //             <Food key= {item} name = {item} clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"boisson"}></Food>
+  //           )
+  //         })
+  //     )
+  //   }
+  //   return (
+  //     <></>
+  //   )
+  // }
+  // const renderProduitsfrais = () => {
+  //   if(data && data.produitsfrais){
+  //     return (
           
-          data.maison.map((item)=> {
-            return(
-              <Food key= {item} name = {item} clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"maison"}></Food>
-            )
-          })
-      )
-    }
-    return (
-      <></>
-    )
-  }
+  //         data.produitsfrais.map((item)=> {
+  //           return(
+  //             <Food key= {item} name = {item} clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"produitsfrais"}></Food>
+  //           )
+  //         })
+  //     )
+  //   }
+  //   return (
+  //     <></>
+  //   )
+  // }
+  // const renderGoute = () => {
+  //   if(data && data.goute){
+  //     return (
+          
+  //         data.goute.map((item)=> {
+  //           return(
+  //             <Food key= {item} name = {item} clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"goute"}></Food>
+  //           )
+  //         })
+  //     )
+  //   }
+  //   return (
+  //     <></>
+  //   )
+  // }
+  // const renderSurgeles = () => {
+  //   if(data && data.surgeles){
+  //     return (
+          
+  //         data.surgeles.map((item)=> {
+  //           return(
+  //             <Food key= {item} name = {item} clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"surgeles"}></Food>
+  //           )
+  //         })
+  //     )
+  //   }
+  //   return (
+  //     <></>
+  //   )
+  // }
+  // const renderConserves = () => {
+  //   if(data && data.conserves){
+  //     return (
+          
+  //         data.conserves.map((item)=> {
+  //           return(
+  //             <Food key= {item} name = {item} clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"conserves"}></Food>
+  //           )
+  //         })
+  //     )
+  //   }
+  //   return (
+  //     <></>
+  //   )
+  // }
+  // const renderMaison = () => {
+  //   if(data && data.maison){
+  //     return (
+          
+  //         data.maison.map((item)=> {
+  //           return(
+  //             <Food key= {item} name = {item} clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"maison"}></Food>
+  //           )
+  //         })
+  //     )
+  //   }
+  //   return (
+  //     <></>
+  //   )
+  // }
   const headerHeight = useHeaderHeight();
   return (
     <View style={styles.container}>
@@ -100,26 +160,44 @@ const CourseScreen = ({ route, navigation }: Props) => {
         <View style={{paddingBottom:10}}>
         <View style={styles.whiteBackGround}>
 
-          <Text style={styles.Food_title}>Fruits & Légumes</Text>
-            <View style = {styles.separator}></View>
-              {renderFruits()}
-          <AddFood clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"fruits"}></AddFood>
+          {renderDivers()}
+          <AddFood clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"divers"}></AddFood>
           
           
-          <Text style={styles.Food_title}>Viandes</Text>
+          {/* <Text style={styles.Food_title}>Viandes & Poissons</Text>
             <View style = {styles.separator}></View>
               {renderViandes()}  
           <AddFood clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"viandes"}></AddFood>
+
+          <Text style={styles.Food_title}>Produits frais</Text>
+            <View style = {styles.separator}></View>
+              {renderProduitsfrais()}
+          <AddFood clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"produitsfrais"}></AddFood>
+
+          <Text style={styles.Food_title}>Petit déjeuner & Gouter</Text>
+            <View style = {styles.separator}></View>
+              {renderGoute()}
+          <AddFood clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"goute"}></AddFood>
+
+          <Text style={styles.Food_title}>Surgelés</Text>
+            <View style = {styles.separator}></View>
+              {renderSurgeles()}
+          <AddFood clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"surgeles"}></AddFood>
+
+          <Text style={styles.Food_title}>Conserves</Text>
+            <View style = {styles.separator}></View>
+              {renderConserves()}
+          <AddFood clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"conserves"}></AddFood>
 
           <Text style={styles.Food_title}>Boissons</Text>
             <View style = {styles.separator}></View>
               {renderBoissons()}
           <AddFood clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"boisson"}></AddFood>
-
+          
           <Text style={styles.Food_title}>Maison</Text>
             <View style = {styles.separator}></View>
               {renderMaison()}
-          <AddFood clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"maison"}></AddFood>
+          <AddFood clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"maison"}></AddFood> */}
 
         </View>
         </View>
@@ -157,7 +235,9 @@ const styles = StyleSheet.create({
     height:'auto',
     paddingLeft:10,
     paddingRight:10,
-    paddingBottom: 10
+    paddingBottom: 10,
+    paddingTop:10,
+    minHeight : 103
   },
 
   Food_title: {
