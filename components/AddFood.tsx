@@ -16,25 +16,45 @@ const Food :React.FC<AddFoodProps> = ({courseID, clcID, itemType}) => {
   const [item, setItem] = React.useState("");
   const handleAddItem = async () => {
     const itemCopy = item;
-    if(itemType == "fruits" && !(item=="")){
-    await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {fruits: arrayUnion(itemCopy)});
+    if(itemType == "divers" && !(item=="")){
+    await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {divers: arrayUnion(itemCopy)});
     setItem("")
 return}
-    if(itemType=="viandes"&& !(item=="")){
-        await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {viandes: arrayUnion(itemCopy)});
-        setItem("")
-        return
-    }
-    if(itemType=="boisson"&& !(item=="")){
-        await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {boisson: arrayUnion(itemCopy)});
-        setItem("")
-        return
-    }
-    if(itemType=="maison"&& !(item=="")){
-        await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {maison: arrayUnion(itemCopy)});
-        setItem("")
-        return
-    }
+  //   if(itemType=="viandes"&& !(item=="")){
+  //       await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {viandes: arrayUnion(itemCopy)});
+  //       setItem("")
+  //       return
+  //   }
+  //   if(itemType=="boisson"&& !(item=="")){
+  //       await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {boisson: arrayUnion(itemCopy)});
+  //       setItem("")
+  //       return
+  //   }
+  //   if(itemType=="produitsfrais"&& !(item=="")){
+  //     await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {produitsfrais: arrayUnion(itemCopy)});
+  //     setItem("")
+  //     return
+  // }
+  // if(itemType=="goute"&& !(item=="")){
+  //   await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {goute: arrayUnion(itemCopy)});
+  //   setItem("")
+  //   return
+  // }
+  // if(itemType=="surgeles"&& !(item=="")){
+  //   await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {surgeles: arrayUnion(itemCopy)});
+  //   setItem("")
+  //   return
+  // }
+  // if(itemType=="conserves"&& !(item=="")){
+  //   await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {conserves: arrayUnion(itemCopy)});
+  //   setItem("")
+  //   return
+  // }
+  //   if(itemType=="maison"&& !(item=="")){
+  //       await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {maison: arrayUnion(itemCopy)});
+  //       setItem("")
+  //       return
+  //   }
 
     
   }

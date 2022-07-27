@@ -16,26 +16,49 @@ const Food: React.FC<FoodProps> = ({name, clcID, courseID, itemType}) => {
   const [radiobutton, setstate] = useState(false);
   const [nameBis, setNameBis] = useState(name); //copie du nom pr pvoir le moidifier dans le text input sans pb
   const handleUpdateItem = async () => { //supprime l'elt puis le rajoute si c pas lelt string vide
-    if(itemType == "fruits"){
-      await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {fruits: arrayRemove(name)});
-      if(!(nameBis=="")){updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {fruits: arrayUnion(nameBis)});}
+    if(!(nameBis===name)){
+    if(itemType == "divers"){
+      await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {divers: arrayRemove(name)});
+      if(!(nameBis=="")){updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {divers: arrayUnion(nameBis)});}
       
-  return}
-      if(itemType=="viandes"){
-          await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {viandes: arrayRemove(name)});
-          if(!(nameBis=="")){updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {fruits: arrayUnion(nameBis)});}
-          return
-      }
-      if(itemType=="boisson"){
-          await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {boisson: arrayRemove(name)});
-          if(!(nameBis=="")){updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {fruits: arrayUnion(nameBis)});}
-          return
-      }
-      if(itemType=="maison"){
-          await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {maison: arrayRemove(name)});
-          if(!(nameBis=="")){updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {fruits: arrayUnion(nameBis)});}
-          return
-      }
+    return
+  }
+      // if(itemType=="viandes"){
+      //     await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {viandes: arrayRemove(name)});
+      //     if(!(nameBis=="")){updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {viandes: arrayUnion(nameBis)});}
+      //     return
+      // }
+      // if(itemType=="produitsfrais"){
+      //   await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {produitsfrais: arrayRemove(name)});
+      //   if(!(nameBis=="")){updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {produitsfrais: arrayUnion(nameBis)});}
+      //   return
+      // }
+      // if(itemType=="goute"){
+      //   await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {goute: arrayRemove(name)});
+      //   if(!(nameBis=="")){updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {goute: arrayUnion(nameBis)});}
+      //   return
+      // }
+      // if(itemType=="surgeles"){
+      //   await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {surgeles: arrayRemove(name)});
+      //   if(!(nameBis=="")){updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {surgeles: arrayUnion(nameBis)});}
+      //   return
+      // }
+      // if(itemType=="conserves"){
+      //   await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {conserves: arrayRemove(name)});
+      //   if(!(nameBis=="")){updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {conserves: arrayUnion(nameBis)});}
+      //   return
+      // }
+      // if(itemType=="boisson"){
+      //   await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {boisson: arrayRemove(name)});
+      //   if(!(nameBis=="")){updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {boisson: arrayUnion(nameBis)});}
+      //   return
+      // }
+      // if(itemType=="maison"){
+      //     await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {maison: arrayRemove(name)});
+      //     if(!(nameBis=="")){updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {maison: arrayUnion(nameBis)});}
+      //     return
+      // }
+    }
   }
     return (     
         <View style = {styles.Ligne}>
