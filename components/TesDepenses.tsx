@@ -90,12 +90,12 @@ const TesDepense = ({route, navigation}: Props) => {
   <View style={{flex: 1}}>
 
         
-<ScrollView showsVerticalScrollIndicator={false} style={{marginBottom:7}}>
+<ScrollView showsVerticalScrollIndicator={false} style={{marginBottom:7}} stickyHeaderIndices={[2]}>
  
 
   <Text style={styles.sousTitre}>Récapitulatif de tes dépenses</Text>
     <DepenseDiagram global={false} clcID = {user.colocID}/>
-    <Text style={styles.listeTransac}>Dépenses te concernant</Text>
+    <View style={styles.listeTransac}><Text style={{fontSize:19, fontWeight: 'bold',marginBottom:12,}}>Dépenses te concernant</Text></View>
     {renderContent()}
     
 
@@ -123,11 +123,9 @@ sousTitre:{
   },
 
   listeTransac:{
-    marginBottom:5,
-    fontSize: 19,
-    fontWeight: 'bold',
     marginLeft: 16,
     marginRight: 16,
+    backgroundColor:'#EDF0FA'
   },
   
 screenTitle: {
@@ -171,8 +169,7 @@ emptytext: {
   },
 
   card: {
-    marginTop: 7, 
-    marginBottom:5,
+    marginBottom:12,
     elevation: 2,
     shadowColor: 'black',
     shadowOffset: {width: -2, height: 1},
