@@ -2,7 +2,6 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
-import { BorderRadiuses } from 'react-native-ui-lib';
 import { RootStackParams } from '../App';
 
 

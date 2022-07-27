@@ -1,5 +1,5 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import {StyleSheet, View, Text, KeyboardAvoidingView, Platform} from 'react-native';
 import { RootStackParams } from '../App';
 import TopBackNavigation from '../components/TopBackNavigation';

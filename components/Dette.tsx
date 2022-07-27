@@ -1,6 +1,6 @@
 import { addDoc, collection, getDoc, serverTimestamp, doc } from 'firebase/firestore';
 import React, { useContext, useState } from 'react';
-import {View, Text, StyleSheet, Image, Modal, ScrollView, TouchableOpacity, Alert} from 'react-native';
+import {View, Text, StyleSheet, Image, Modal, TouchableOpacity} from 'react-native';
 import { ReloadContext, UserContext } from '../Context/userContextFile';
 import Cross from '../Icons/Cross.svg'
 import {db} from '../firebase-config'

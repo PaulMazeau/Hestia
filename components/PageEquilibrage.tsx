@@ -1,17 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import Depense from './DepenseDiagram';
 import { ScrollView } from 'react-native-gesture-handler';
 import Dette from './Dette';
 import{db} from '../firebase-config'
-import { useFocusEffect } from '@react-navigation/native';
-import { getDoc, doc, query, where, getDocs, collection } from 'firebase/firestore';
+import {query, where, collection } from 'firebase/firestore';
 import AddDepenseBS from './AddDepenseBS';
-import { connectStorageEmulator } from 'firebase/storage';
-import { VictoryAxis, VictoryBar, VictoryChart, VictoryContainer, VictoryGroup, VictoryLabel } from "victory-native";
-import { ReloadContext, UserContext, UserListContext } from '../Context/userContextFile';
+import { VictoryAxis, VictoryBar, VictoryChart, VictoryGroup, VictoryLabel } from "victory-native";
+import { ReloadContext, UserContext } from '../Context/userContextFile';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import ContentLoader, { Rect, Circle } from 'react-content-loader/native';
+import ContentLoader, { Rect } from 'react-content-loader/native';
 
 const MyLoader = () => ( 
   <ContentLoader 

@@ -1,5 +1,5 @@
 import { getDoc, doc, query, where, getDocs, collection } from 'firebase/firestore';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity, Modal, ScrollView} from 'react-native';
 import {db} from '../firebase-config'
 import ParticipantCard from './ParticipantCard';
