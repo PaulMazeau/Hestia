@@ -69,7 +69,10 @@ const Transaction  = (props) => {
           </View>
 
           <View style={styles.Right}>
-              <Text style={styles.titre}>{props.amount.toFixed(1)}€</Text>
+              <Text style={styles.titre}>
+                 {/* Apres avoir appliqué une troncature a une decimal, on verifie que la decimal n'est pas un zero, sinon on tronc à l'unité */}
+              {props.amount.toFixed(1).toString().split('').pop() != 0? <Text>{props.amount.toFixed(1)}</Text>: props.amount.toFixed(0) }
+              €</Text>
           </View>
         </View>
       )
