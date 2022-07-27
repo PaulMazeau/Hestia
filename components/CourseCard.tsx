@@ -38,7 +38,7 @@ const RestaurantCard: React.FC<Props> = ({name, onPress, courseID, clcID, image}
     style={styles.drawer}
     disableHaptic={false}
     >
-    <View style={styles.body}>
+    <View style={styles.sousbody}>
     <TouchableOpacity onPress={() => onPress(name)}>
       <View style={styles.container}>
         <Image style={styles.categorie} source={image}/>
@@ -80,6 +80,13 @@ const styles = StyleSheet.create({
   },
 
   body: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    marginLeft: 16,
+    marginRight: 16
+  },
+
+  sousbody: {
     backgroundColor: 'white',
     borderRadius: 10,
   },

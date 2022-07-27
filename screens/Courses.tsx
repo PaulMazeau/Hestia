@@ -103,12 +103,12 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       marginBottom: 15,
       marginTop: 10,
+      marginLeft: 16,
+      marginRight: 16
     },
     
     Body: {
       backgroundColor: '#EDF0FA',
-      paddingLeft: 16,
-      paddingRight: 16,
       flex: 1,
     },
 

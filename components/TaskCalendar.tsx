@@ -66,7 +66,9 @@ const styles = StyleSheet.create({
 
     Calendar: {
         height: 80,
-        margin: 0
+        margin: 0,
+        marginLeft: 16,
+      marginRight: 16
     }
 
 });

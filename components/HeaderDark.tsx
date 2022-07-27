@@ -56,6 +56,8 @@ const styles = StyleSheet.create ({
         flexDirection: 'row',
         alignItems: 'center',
         paddingTop: 16,
+        marginLeft: 16,
+        marginRight: 16
     },
     Title: {
         paddingHorizontal: 10,

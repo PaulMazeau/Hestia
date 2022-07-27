@@ -123,12 +123,16 @@ const styles = StyleSheet.create({
     Categorie1:{
       fontSize: 19,
       fontWeight: 'bold',
+      marginLeft: 16,
+      marginRight: 16,
     },
 
     Categorie2:{
       fontSize: 19,
       fontWeight: 'bold',
       marginTop: 15,
+      marginLeft: 16,
+      marginRight: 16,
     },
 
     Button: {
@@ -147,6 +151,8 @@ const styles = StyleSheet.create({
 
     Card: {
       marginTop: 12,
+      marginLeft: 16,
+      marginRight: 16,
     },
 
     emptytext: {

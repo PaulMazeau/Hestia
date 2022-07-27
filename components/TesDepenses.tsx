@@ -51,7 +51,7 @@ const TesDepense = ({route, navigation}: Props) => {
       return(
         allTransacs.docs.map(c => {
           return(
-            <View style= {{marginTop: 7, marginBottom:5}} key = {c.id+user.uuid}>
+            <View style= {styles.card} key = {c.id+user.uuid}>
             <Drawer 
             rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete(c.id)}]}
             leftItem={{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete(c.id)}}
@@ -113,20 +113,21 @@ const TesDepense = ({route, navigation}: Props) => {
 
 const styles = StyleSheet.create({
 
-  Title: {
-    flexDirection : 'row', 
-  },
 
 sousTitre:{
     fontSize: 19,
     fontWeight: 'bold',
     marginBottom: 10,
+    marginLeft: 16,
+    marginRight: 16,
   },
 
   listeTransac:{
     marginBottom:5,
     fontSize: 19,
     fontWeight: 'bold',
+    marginLeft: 16,
+    marginRight: 16,
   },
   
 screenTitle: {
@@ -169,6 +170,19 @@ emptytext: {
     marginBottom: 15,
   },
 
+  card: {
+    marginTop: 7, 
+    marginBottom:5,
+    elevation: 2,
+    shadowColor: 'black',
+    shadowOffset: {width: -2, height: 1},
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    marginLeft: 16,
+    marginRight: 16,
+  }
 })
 
 export default TesDepense;

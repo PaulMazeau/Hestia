@@ -113,15 +113,15 @@ const Recurrence = [
   return (   
           <View style={{flex: 1}}>
 
-          <ScrollView showsVerticalScrollIndicator={false}>
+         
       
           <Text style={styles.Categorie}>Toutes les tâches</Text>
+          
+
+        <ScrollView showsVerticalScrollIndicator={false}>
           {
             renderContent()
           }
-
-      
-         
         </ScrollView>
             
         <AddTaskBS clcID={props.clcID} userList={props.userList}/>
@@ -131,11 +131,6 @@ const Recurrence = [
 
 const styles = StyleSheet.create({
 
-    CategoriePeriode:{
-      fontSize: 19,
-      fontWeight: 'bold',
-      marginTop: 24,
-    },
 
     CategorieRecurrente:{
       fontSize: 19,
@@ -143,120 +138,16 @@ const styles = StyleSheet.create({
     },
 
     Card: {
-      marginTop: 12,
-    },
-
-    //style de la bottom sheet
-
-    contentContainer: {
-      flex: 1,
-    },
-
-    Title: {
-      textAlign: 'center',
-      fontSize: 19,
-      fontWeight: '600',
-      marginBottom: 10
-    },
-
-    subTitle: {
-      marginLeft: 16,
-      fontSize: 16,
-      fontWeight: '500'
-    },
-
-    depenseTitle: {
-        marginTop: 15
-    },
-    
-    input: {
-      height: 44,
-      marginTop: 13,
-      marginLeft: 13,
-      marginRight: 13,
-      borderWidth: 1,
-      borderColor: '#DDDDDD',
-      padding: 10,
-      borderRadius: 14,
-      fontSize: 16
-    },
-
-    groupe: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-    },
-
-    dropdownRecurrence: {
-      marginTop: 13,
-      marginLeft: 13,
-      marginRight: 13,
-      height: 44,
-      backgroundColor: 'white',
-      borderRadius: 14,
-      padding: 12,
+      marginBottom: 12,
       elevation: 2,
-      borderWidth: 1,
-      borderColor: '#DDDDDD',
-    },
-
-    placeholderStyle: {
-      fontSize: 16,
-    },
-
-    selectedTextStyle: {
-      fontSize: 16,
-    },
-
-    participant: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      marginLeft: 13,
-      marginRight: 13,
-  },
-
-    AddButton: {
-      backgroundColor: '#172ACE',
-      height: 56,
-      borderRadius: 13,
-      marginTop: 20,
-      marginLeft: 13,
-      marginRight: 13,
-      alignItems: 'center',
-      justifyContent: 'center',
-      flexDirection: 'row',
-      marginBottom: 15,
-    },
-
-    buttonText: {
-      color: 'white',
-      marginLeft: 15,
-    },
-
-    datepicker: {
-      height: 44,
-      marginTop: 13,
-      marginLeft: 13,
-      marginRight: 13,
-      borderWidth: 1,
-      borderColor: '#DDDDDD',
-      padding: 10,
-      borderRadius: 14,
-    },
-
-    datepickerRappel: {
-      height: 44,
-      marginTop: 13,
-      marginLeft: 13,
-      marginRight: 13,
-      borderWidth: 1,
-      borderColor: '#DDDDDD',
-      padding: 10,
-      borderRadius: 14,
-    },
-
-    textdate: {
-      fontSize: 16,
-      opacity: .3
+      shadowColor: 'black',
+      shadowOffset: {width: -2, height: 1},
+      shadowOpacity: 0.1,
+      shadowRadius: 3,
+      backgroundColor: 'white',
+      borderRadius: 10,
+      marginLeft: 16,
+      marginRight: 16, 
     },
 
     emptytext: {
@@ -282,6 +173,9 @@ const styles = StyleSheet.create({
     Categorie:{
       fontSize: 19,
       fontWeight: 'bold',
+      marginLeft: 16,
+      marginRight: 16,
+      marginBottom: 12
     },
 
     emptypage: {

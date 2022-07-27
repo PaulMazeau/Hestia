@@ -114,14 +114,16 @@ if(hasToBeReloaded){
   return (
 <ReloadContext.Provider value ={[hasToBeReloaded, setHasToBeReloaded]}>
 <View style={{flex: 1}}>
-<ScrollView showsVerticalScrollIndicator={false} >
+<ScrollView showsVerticalScrollIndicator={false}>
 <View style={{
         backgroundColor: 'white', 
         borderRadius: 13,
         marginTop: 15,
         marginBottom: 15, 
         width:'auto',
-        elevation:2
+        elevation:2,
+        marginLeft: 16,
+        marginRight: 16,
       }}>
       <VictoryChart 
       domainPadding={{x: [25, 50], y: 15}}
@@ -155,7 +157,9 @@ if(hasToBeReloaded){
       </VictoryChart>
       </View>
                 <Text style={styles.DerniereDepense}>Comment équilibrer?</Text>
+                <View style={{marginLeft: 16, marginRight: 16}}>
                 {renderSettle()}
+                </View>
               </ScrollView>
 
           
@@ -172,7 +176,9 @@ const styles = StyleSheet.create({
   DerniereDepense:{
     fontSize: 19,
     fontWeight: 'bold',
-    marginBottom: 15
+    marginBottom: 15,
+    marginLeft: 16,
+    marginRight: 16,
   },
   
   emptytext: {

@@ -112,6 +112,8 @@ const styles = StyleSheet.create({
 
   Title: {
     flexDirection : 'row', 
+    marginLeft: 16,
+    marginRight: 16,
   },
 
 DerniereDepense:{
@@ -127,8 +129,6 @@ screenTitle: {
 },
 
 container: {
-    paddingLeft: 16,
-    paddingRight: 16,
     flex: 1,
     backgroundColor: '#EDF0FA'
 },
@@ -160,6 +160,8 @@ emptytext: {
 
   control: {
     marginBottom: 15,
+    marginLeft: 16,
+    marginRight: 16,
   },
 
 })

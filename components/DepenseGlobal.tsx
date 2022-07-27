@@ -38,7 +38,7 @@ const getLastestTransac =  () => {
     return (
       values.docs.map(v=>{
         return(
-          <View style={{marginTop: 12}} key = {v.id}>
+          <View style={{marginTop: 12, marginLeft: 16, marginRight: 16}} key = {v.id}>
             <Transaction key = {v.id} giverID={v.data().giverID} receiversID={v.data().receiversID} amount={v.data().amount} desc={v.data().desc} date={v.data().timestamp} concerned={v.data().concerned}/>
           </View>
         )
@@ -76,25 +76,12 @@ const getLastestTransac =  () => {
 
 const styles = StyleSheet.create({
 
-  container: {
-      paddingBottom: 16,
-      paddingLeft: 16,
-      paddingRight: 16,
-  },
-  
-  screenTitle: {
-      fontSize: 24,
-      fontWeight: 'bold',
-      marginBottom: 15,
-  },
-  control: {
-    marginBottom: 15,
-  },
-
   Title:  {
     flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
+    marginLeft: 16,
+    marginRight: 16
   },
 
   DerniereDepense:{
@@ -105,7 +92,9 @@ const styles = StyleSheet.create({
   RecapDepense:{
     fontSize: 19,
     fontWeight: 'bold',
-    marginBottom: 15
+    marginBottom: 15,
+    marginLeft: 16,
+    marginRight: 16
   },
   
   VoirToutes: {

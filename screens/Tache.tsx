@@ -110,20 +110,22 @@ type Props = NativeStackScreenProps<RootStackParams, 'TacheStack'>;
 const styles = StyleSheet.create({
 
     container: {
-      paddingLeft: 16,
-      paddingRight: 16,
       backgroundColor: '#EDF0FA',
-    flex: 1,
-      },
+      flex: 1,
+    },
 
     screenTitle: {
         fontSize: 24,
         fontWeight: 'bold',
         marginTop: 10,
+        marginLeft: 16,
+      marginRight: 16
     }, 
 
     control: {
       marginBottom: 15,
+      marginLeft: 16,
+      marginRight: 16
     },    
 })
 

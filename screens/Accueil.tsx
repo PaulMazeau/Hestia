@@ -82,7 +82,7 @@ const AccueilScreen = ({ route, navigation }: Props) => {
         showsVerticalScrollIndicator={false}
         >  
             <View>
-            <Text style={styles.TitreCategorie}>La selection du mois</Text>
+            <Text style={styles.TitreCategorie1}>La selection du mois</Text>
                 <Selection/>
             </View>
 
@@ -92,7 +92,7 @@ const AccueilScreen = ({ route, navigation }: Props) => {
             </View>
 
             <View style={styles.Categorie}>
-                <Text style={styles.TitreCategorie}>Ta prochaine Tâche</Text>
+                <Text style={styles.TitreCategorie2}>Ta prochaine Tâche</Text>
                 {renderTache()}
             </View>
            <Notif />
@@ -112,25 +112,26 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         marginTop: 16,
-        marginLeft: 16,
-        marginRight: 16
     },
 
     Categorie: {
         marginBottom: 15,
+        marginLeft: 16,
+        marginRight: 16
     },
 
-    Titre: {
-        color: 'white',
-        fontSize: 21,
-        fontWeight: 'bold',
-        paddingLeft: 16,
-    },
-
-    TitreCategorie: {
+    TitreCategorie1: {
         fontSize: 19,
         fontWeight: 'bold',
-        marginBottom: 10
+        marginBottom: 10,
+        marginRight: 16,
+        marginLeft: 16
+    },
+
+    TitreCategorie2: {
+        fontSize: 19,
+        fontWeight: 'bold',
+        marginBottom: 10,
     },
 
     first50:{
@@ -160,6 +161,8 @@ const styles = StyleSheet.create({
         marginBottom: 12,
         flexDirection: 'row',
         justifyContent: 'space-between',
+        marginLeft: 16,
+        marginRight: 16
     },
 })
 

@@ -57,7 +57,7 @@ const DepenseCollective = ({route, navigation}: Props) => {
       return(
         allTransacs.docs.map(c => {
           return(
-            <View style= {{marginTop: 12}} key = {c.id}>
+            <View style= {styles.card} key = {c.id}>
             <Drawer 
             rightItems={[{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete(c.id)}]}
             leftItem={{text: 'Supprimer', background: Colors.red30, onPress: () => handleDelete(c.id)}}
@@ -93,16 +93,11 @@ const DepenseCollective = ({route, navigation}: Props) => {
 
   <View style={{flex: 1}}>
 
-        
-<ScrollView showsVerticalScrollIndicator={false}>
-  <View style={{marginBottom: 15}}>
-
   <Text style={styles.DerniereDepense}>Historique des transactions</Text>
 
+  <ScrollView showsVerticalScrollIndicator={false}>
     {renderContent()}
-  </View>
-
-</ScrollView>
+  </ScrollView>
 
 
 
@@ -125,6 +120,9 @@ const styles = StyleSheet.create({
 DerniereDepense:{
     fontSize: 19,
     fontWeight: 'bold',
+    marginBottom: 12,
+    marginLeft: 16,
+    marginRight: 16,
   },
   
 screenTitle: {
@@ -135,7 +133,7 @@ screenTitle: {
 
 container: {
     flex: 1,
-    backgroundColor: '#EDF0FA'
+    backgroundColor: '#EDF0FA',
 },
 
 ImageContainer: {
@@ -167,6 +165,18 @@ emptytext: {
     marginBottom: 15,
   },
 
+  card: {
+    marginBottom: 12,
+    elevation: 2,
+    shadowColor: 'black',
+    shadowOffset: {width: -2, height: 1},
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    marginLeft: 16,
+    marginRight: 16,
+  }
 })
 
 export default DepenseCollective;

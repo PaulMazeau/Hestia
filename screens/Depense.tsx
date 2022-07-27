@@ -55,8 +55,6 @@ const DepenseScreen = ({ route, navigation }: Props) => {
 const styles = StyleSheet.create({
 
   container: {
-      paddingLeft: 16,
-      paddingRight: 16,
       flex: 1,
       backgroundColor:'#EDF0FA'
   },
@@ -66,42 +64,21 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       marginBottom: 15,
       marginTop: 10,
+      marginLeft: 16,
+      marginRight: 16,
   },
-
 
   control: {
     marginBottom: 15,
-  },
-
-  Title:  {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    justifyContent: 'space-between',
+    marginLeft: 16,
+    marginRight: 16,
   },
 
   DerniereDepense:{
     fontSize: 19,
     fontWeight: 'bold',
   },
-  
-  VoirToutes: {
-  fontSize: 14,
-  color: '#8F8F8F',
-  },
 
-
-AddButton: {
-  justifyContent: 'flex-end',
-  alignItems: 'flex-end',
-  height: 0,
-  marginBottom: 10,
-},
-
-contentContainer: {
-  flex: 1,
-  alignItems: 'center',
-  zIndex: 2,
-},
 })
 
 export default DepenseScreen;

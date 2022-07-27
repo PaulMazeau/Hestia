@@ -91,7 +91,7 @@ const [concernedList, setConcernedList] = useState([]);
   const renderContent =() => {
     if(props.displayButton){
       return(
-        <View style={styles.global}>
+        <View style={[styles.global, styles.shadow]}>
       <TouchableOpacity onPress={() => {setModalVisible(true); getConcernedData()}}>
         <View style={styles.container}>
             <View style={styles.top}>
@@ -113,7 +113,7 @@ const [concernedList, setConcernedList] = useState([]);
       )
     }
     return (
-      <View style={styles.global}>
+      <View style={[styles.global, styles.shadow]}>
         <TouchableOpacity onPress={() => {setModalVisible(true); getConcernedData()}}>
         <View style={styles.container}>
             <View style={styles.top}>
@@ -204,14 +204,18 @@ const [concernedList, setConcernedList] = useState([]);
 
 const styles = StyleSheet.create({
   global: {
+    backgroundColor: 'white',
+    borderRadius:10,  
+  },
+
+  shadow: {
+    elevation: 2,
     shadowColor: 'black',
     shadowOffset: {width: -2, height: 1},
     shadowOpacity: 0.1,
     shadowRadius: 3,
-    backgroundColor:"white",
-    elevation:2,
-    borderRadius:10,
-    marginBottom:2    
+    backgroundColor: 'white',
+    borderRadius: 10,
   },
   
   container: {
