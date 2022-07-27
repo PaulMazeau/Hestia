@@ -1,6 +1,7 @@
-import { arrayRemove, updateDoc, doc, arrayUnion } from 'firebase/firestore';
+import { arrayRemove, updateDoc, doc, arrayUnion, getDoc } from 'firebase/firestore';
 import React, { useState } from 'react';
 import { View, StyleSheet, TextInput } from 'react-native';
+import { int32ARGBColor } from 'react-native-svg';
 import { RadioButton } from 'react-native-ui-lib';
 import {db} from '../firebase-config';
 
@@ -9,18 +10,19 @@ interface FoodProps {
     clcID: string;
     courseID: string;
     itemType : string;
+    isSelected: boolean;
 }
 
 
-const Food: React.FC<FoodProps> = ({name, clcID, courseID, itemType}) => {
-  const [radiobutton, setstate] = useState(false);
+const Food: React.FC<FoodProps> = ({name, clcID, courseID, itemType, isSelected}) => {
+  const [radiobutton, setstate] = useState(isSelected);
   const [nameBis, setNameBis] = useState(name); //copie du nom pr pvoir le moidifier dans le text input sans pb
   const handleUpdateItem = async () => { //supprime l'elt puis le rajoute si c pas lelt string vide
     if(!(nameBis===name)){
     if(itemType == "divers"){
       await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {divers: arrayRemove(name)});
-      if(!(nameBis=="")){updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {divers: arrayUnion(nameBis)});}
-      
+      if(!(nameBis=="")){updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {divers: arrayUnion(nameBis)});
+    } 
     return
   }
       // if(itemType=="viandes"){
@@ -60,9 +62,17 @@ const Food: React.FC<FoodProps> = ({name, clcID, courseID, itemType}) => {
       // }
     }
   }
+
+  const handlePressed = async () => {
+    setstate(!radiobutton)
+    let toChange = {item: name, selected: isSelected};
+    let toUpload = {item: name, selected: !isSelected};
+    await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {divers: arrayRemove(toChange)});
+    await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {divers: arrayUnion(toUpload)});
+  }
     return (     
         <View style = {styles.Ligne}>
-          <RadioButton size={25} selected={radiobutton} onPress={() => setstate(!radiobutton)}/>
+          <RadioButton size={25} selected={radiobutton} onPress={() => handlePressed()}/>
           <TextInput style={!radiobutton? styles.food_text_valid:styles.food_text_invalid} value={nameBis} onBlur={() => handleUpdateItem()}
           onChangeText={(event) => setNameBis(event)}></TextInput>
         </View>
