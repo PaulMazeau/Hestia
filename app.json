@@ -23,7 +23,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/Forground_Hestia.png",
+        "foregroundImage": "./assets/Foreground_Hestia.png",
         "backgroundImage": "./assets/Background_Hestia.png"
       },
       "package": "com.Hestia.HestiaApp",
