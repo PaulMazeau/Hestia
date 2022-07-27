@@ -17,7 +17,10 @@ const Food :React.FC<AddFoodProps> = ({courseID, clcID, itemType}) => {
   const handleAddItem = async () => {
     const itemCopy = item;
     if(itemType == "divers" && !(item=="")){
-    await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {divers: arrayUnion(itemCopy)});
+      try{
+    await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {divers: arrayUnion({item : itemCopy, selected: false})});
+      }
+      catch(err){console.log(err)}
     setItem("")
 return}
   //   if(itemType=="viandes"&& !(item=="")){
