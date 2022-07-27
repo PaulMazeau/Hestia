@@ -70,8 +70,8 @@ const Transaction  = (props) => {
 
           <View style={styles.Right}>
               <Text style={styles.titre}>
-                 {/* Apres avoir appliqué une troncature a une decimal, on verifie que la decimal n'est pas un zero, sinon on tronc à l'unité */}
-              {props.amount.toFixed(1).toString().split('').pop() != 0? <Text>{props.amount.toFixed(1)}</Text>: props.amount.toFixed(0) }
+                 {/* Apres avoir appliqué une troncature a deux decimals, on verifie que les decimals ne sont pas un zero, sinon on tronc à l'unité */}
+              {props.amount.toFixed(1).toString().slice(-2) != 0? <Text>{props.amount.toFixed(2)}</Text>: props.amount.toFixed(0) }
               €</Text>
           </View>
         </View>
@@ -129,7 +129,7 @@ onRequestClose={() => {
     </View>
 
     <View style={styles.Montant}>
-        <Text style={styles.ModalTitle}>Montant: <Text style={{fontSize: 17, fontWeight: '400'}}>{props.amount}€</Text></Text>
+        <Text style={styles.ModalTitle}>Montant: <Text style={{fontSize: 17, fontWeight: '400'}}>{props.amount.toFixed(2)}€</Text></Text>
     </View>
 
         <View style={styles.Payeur}>                     

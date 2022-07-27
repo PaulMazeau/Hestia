@@ -47,7 +47,7 @@ const Dette  = (props) => {
               </View>
 
               <View style={styles.Right}>
-                  <Text style={styles.amout}>{props.amount.toFixed(1)}€</Text>
+                  <Text style={styles.amout}>{props.amount.toFixed(2)}€</Text>
               </View>
 
           </View>
@@ -87,7 +87,7 @@ const Dette  = (props) => {
               style={[styles.buttonClose]}
               onPress={() => {setModalVisible(!modalVisible); handleRemboursement()}}
             >
-              <Text style={styles.textButtonStyle}>Enregistrer le remboursement des {props.amount.toFixed(1).toString()} €</Text>
+              <Text style={styles.textButtonStyle}>Enregistrer le remboursement des {props.amount.toFixed(2).toString()} €</Text>
             </TouchableOpacity>
           </View>
         </View>
