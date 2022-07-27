@@ -22,7 +22,7 @@ const MonSolde  = (props) => {
     </View>
 
             <View style={styles.top}>
-                <Text style={styles.titre}>{props.solde.toFixed(1)} EUR</Text>
+                <Text style={styles.titre}>{props.solde.toFixed(2)} EUR</Text>
 
                 <View style={styles.dateContainer}>
                     <Text style={styles.date}>Mon solde</Text>

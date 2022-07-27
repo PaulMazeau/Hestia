@@ -254,7 +254,6 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     overflow: 'hidden',
     borderWidth: 3,
-    borderColor: 'white',
     marginLeft: -17,
     zIndex: 1
   },

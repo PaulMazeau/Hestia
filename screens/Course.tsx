@@ -176,7 +176,6 @@ const CourseScreen = ({ route, navigation }: Props) => {
         behavior={Platform.OS === "ios" ? "padding" : null}
       >
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{paddingBottom:10}}>
         <View style={styles.whiteBackGround}>
 
           {renderDivers()}
@@ -221,7 +220,6 @@ const CourseScreen = ({ route, navigation }: Props) => {
           <AddFood clcID= {route.params.clcID} courseID={route.params.courseID} itemType={"maison"}></AddFood> */}
 
         </View>
-        </View>
       </ScrollView>
   </KeyboardAvoidingView>
         
@@ -258,7 +256,7 @@ const styles = StyleSheet.create({
     paddingRight:10,
     paddingBottom: 10,
     paddingTop:10,
-    minHeight : 103
+    minHeight : 103,
   },
 
   Food_title: {

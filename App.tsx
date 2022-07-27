@@ -290,6 +290,7 @@ export default function App() {
         headerShown: false,
         tabBarActiveTintColor: "#172ACE",
         tabBarInactiveTintColor: "grey",
+        tabBarHideOnKeyboard: false,
        }}>
           <RootStack.Screen name="AccueilStack" component={AccueilScreenStack} options={{tabBarIcon: (({color}) => <AccueilIcon color={color}/>), tabBarLabel: "Accueil"}}  />
           <RootStack.Screen name="CoursesStack" component={CourseScreenStack} options={{tabBarIcon: (({color}) => <CourseIcon color={color} />), tabBarLabel: "Course"}}  />
