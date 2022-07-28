@@ -153,6 +153,7 @@ const styles = StyleSheet.create({
       marginTop: 12,
       marginLeft: 16,
       marginRight: 16,
+      marginBottom:2
     },
 
     emptytext: {
