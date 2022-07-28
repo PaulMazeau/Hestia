@@ -42,15 +42,6 @@ const Top = (props) => {
 export default Top;
 
 
-// const ImageContainer = ({image}) => (
-//     <View style={styles.ImageContainer}>
-//         <Image source={image} style={styles.Image}/>
-//     </View>
-// );
-
-
-
-
 const styles = StyleSheet.create ({
     Header: {
         flexDirection: 'row',
