@@ -29,13 +29,12 @@ const data : Image[] = [
 const ColocSettings = ({route, navigation}: Props) => {
     const [user, setUser] = useContext(UserContext);
     const [avatars, setAvatars] = useState([]); //list des avatars url de la coloc
-    const [inputValue, setInputValue] = useState("");
     const toast = useToast();
 
     const copyText = (text) => {
         Clipboard.setStringAsync(text);
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-       toast.show('Le code de la colocation a été copié !', {
+       toast.show('Le texte a été copié !', {
         type: "normal",})
     };
     
@@ -95,6 +94,16 @@ const ColocSettings = ({route, navigation}: Props) => {
                     <Copy height={20} width={21}/>
                     <Text style={styles.chiffre}>{user.colocID}</Text>
                 </View>
+            </View>
+            
+        </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => {copyText("support@hestiapp.fr")}} activeOpacity={0.5}>
+        <View style={[styles.Setting, {marginTop:1}]}>
+            <Text style={styles.name}>Contact : </Text>
+            <View style={{flexDirection:'row', alignItems:'center'}}>
+                    <Text style={styles.support}>support@hestiapp.fr</Text>
             </View>
             
         </View>
@@ -184,6 +193,14 @@ const styles = StyleSheet.create({
         marginLeft:10
     },
 
+    support:{
+        fontWeight: '400',
+        fontSize:17,
+        color:'black',
+        marginLeft:10,
+        textDecorationLine: 'underline'
+    },
+
     Setting: {
         backgroundColor: "white",
         paddingLeft: 15,
@@ -206,7 +223,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         height: 50,
         marginBottom: 20, 
-        marginTop:10  
+        marginTop:4  
     },
 
     ImageContainer: {
