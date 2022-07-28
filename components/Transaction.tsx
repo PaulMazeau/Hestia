@@ -133,7 +133,7 @@ onRequestClose={() => {
     </View>
 
         <View style={styles.Payeur}>                     
-            <Text style={styles.ModalTitle}>Payeur: <Text style={{fontSize: 17, fontWeight: '400'}}>{whoPaidName}</Text></Text>
+            <Text style={styles.ModalTitle}>Payé par: <Text style={{fontSize: 17, fontWeight: '400'}}>{whoPaidName}</Text></Text>
         </View>
     
 

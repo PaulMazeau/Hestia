@@ -5,7 +5,7 @@ import { SegmentedControl, BorderRadiuses } from 'react-native-ui-lib';
 import GlobalTask from '../components/GlobalTask';
 import MesTask from '../components/MesTask';
 import TaskCalendar from '../components/TaskCalendar';
-import { getDoc, doc, collection, query, where, getDocs } from 'firebase/firestore';
+import { getDoc, doc, collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 import { auth, db } from '../firebase-config';
 import { RootStackParams } from '../App';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -34,7 +34,7 @@ type Props = NativeStackScreenProps<RootStackParams, 'TacheStack'>;
     getUsers();
   }, [])
 
-  const [allTasks, loading, error] = useCollection(collection(db, "Colocs/"+user.colocID+ "/Taches"));
+  const [allTasks, loading, error] = useCollection(query(collection(db, "Colocs/"+user.colocID+ "/Taches"), orderBy('date')));
   //récupère les dates ou luser a une tache pr passer passer ds taskcalendar pr point rouge et permet de setup les notifs
   const fetchDates =  () => {
     const res = []

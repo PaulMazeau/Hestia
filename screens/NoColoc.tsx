@@ -11,23 +11,35 @@ import {v4 as uuid} from 'uuid';
 import { setDoc, doc, updateDoc, getDocs, collection, getDoc, arrayUnion } from 'firebase/firestore';
 import {db} from '../firebase-config';
 import { UserContext } from '../Context/userContextFile';
+import {useToast } from 'react-native-toast-notifications'
 
 const image = require('../Img/homepage_bg.png');
 const windowHeight = Dimensions.get('window').height;
 
 const NoColocScreen = ()  => {
-    
+    const toast = useToast();
     const [user, setUser] = useContext(UserContext);
     const [nomColoc, setNomColoc] = React.useState(null);
     const [codeColoc, setCodeColoc] = React.useState(null);
-    const[allColoc, setAllColoc] = React.useState([]);
     const navigation =
     useNavigation<StackNavigationProp<AuthStackParams>>();
     const handleCreateColoc = async () => {
+        if(nomColoc.length<3){
+            toast.show("Entre un nom de plus de 3 caractères!", {
+                type: "danger",})
+            return;
+        }
+        if(nomColoc.length>24){
+            toast.show("Entre un nom de moins de 24 caractères!", {
+                type: "danger",})
+            return;
+        }
         const userID = auth.currentUser.uid
         var colocID = uuid().substring(0, 6)
-        while(allColoc.includes(colocID)){
+        var colocData = await getDoc(doc(db, "Colocs", colocID));
+        while(colocData.exists()){
             colocID = uuid().substring(0, 6)
+            colocData = await getDoc(doc(db, "Colocs", colocID))
         }
         const colocEntry = {
             id: colocID,
@@ -36,7 +48,7 @@ const NoColocScreen = ()  => {
         }
         await setDoc(doc(db, 'Colocs', colocID),colocEntry);
         await updateDoc(doc(db, 'Users', userID), {colocID: colocID, nomColoc: nomColoc, membersID: [auth.currentUser.uid]});
-        setUser({...user, colocID: colocID, nomColoc: nomColoc, membersID: auth.currentUser.uid}) 
+        setUser({...user, colocID: colocID, nomColoc: nomColoc, membersID: [auth.currentUser.uid]}) 
     }
 
     const handleJoinColoc = async () => { //update de la prop membersID des autres membres coté serveurs

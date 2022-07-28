@@ -19,9 +19,11 @@ const Food: React.FC<FoodProps> = ({name, clcID, courseID, itemType, isSelected}
   const [nameBis, setNameBis] = useState(name); //copie du nom pr pvoir le moidifier dans le text input sans pb
   const handleUpdateItem = async () => { //supprime l'elt puis le rajoute si c pas lelt string vide
     if(!(nameBis===name)){
+      let toChange = {item: name, selected: isSelected};
+      let toUpload = {item: nameBis, selected: isSelected};
     if(itemType == "divers"){
-      await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {divers: arrayRemove(name)});
-      if(!(nameBis=="")){updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {divers: arrayUnion(nameBis)});
+      await updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {divers: arrayRemove(toChange)});
+      if(!(nameBis=="")){updateDoc(doc(db, "Colocs/"+clcID+ "/Courses", courseID), {divers: arrayUnion(toUpload)});
     } 
     return
   }
