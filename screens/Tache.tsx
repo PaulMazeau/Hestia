@@ -65,8 +65,8 @@ type Props = NativeStackScreenProps<RootStackParams, 'TacheStack'>;
       if(trigger > now){
       await Notifications.scheduleNotificationAsync({
               content:{
-                title:"Rappel de tache !",
-                body:"Tu dois:" + " " + task.desc,
+                title:"Ton tour approche !",
+                body:"C'est ton tour de :" + " " + task.desc,
                 data: {tacheID: id}
               },
               trigger,
