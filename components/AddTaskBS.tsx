@@ -46,7 +46,7 @@ const AddTaskBS = (props) => {
 
   const [areConcerned, setAreConcerned] = useState([]); //pr savoir qui est concerné par la tache
 const toast = useToast();
-//pour indiquer si la personne est concernée ou non par la dépense
+//pour indiquer si la personne est concernée ou non par la tache
 const putInOrPutOut = (id) => {
   if(areConcerned.includes(id)){
     setAreConcerned(areConcerned.filter(elt => !(elt==id)))

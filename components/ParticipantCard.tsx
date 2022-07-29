@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
-import { TouchableOpacity } from 'react-native-ui-lib/src/incubator';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 //props est name du frelon + url de sa pfp
