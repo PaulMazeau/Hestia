@@ -1,8 +1,6 @@
-import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
-import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, Button, Platform } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useState, useEffect, useRef } from 'react';
+import { Platform } from 'react-native';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
