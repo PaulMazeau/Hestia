@@ -37,12 +37,9 @@
       [
         "expo-notifications",
         {
-          "icon": "./Img/Icon.png",
-          "color": "white",
-          "sounds": [
-            "./local/assets/notification-sound.wav",
-            "./local/assets/notification-sound-other.wav"
-          ]
+          "icon": "./Img/IconNotification.png",
+          "color": "#FFFFF",
+          "mode": "production"
         }
       ]
     ]
