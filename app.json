@@ -4,11 +4,11 @@
     "slug": "Hestia",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/Logo_Hestia.png",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./Img/Icon.png",
-      "resizeMode": "contain",
+      "image": "./assets/FirstScreen.png",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "updates": {
