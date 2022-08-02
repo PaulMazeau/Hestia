@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react';
-import {StyleSheet, View, Text, TextInput, TouchableOpacity} from 'react-native'
+import {StyleSheet, View, Text, TextInput, TouchableOpacity, Platform} from 'react-native'
 import { Dropdown } from 'react-native-element-dropdown';
 import {ScrollView} from 'react-native-gesture-handler'
 import ParticipantCard from './ParticipantCard';
@@ -75,6 +75,7 @@ const renderUsers = () => {
   )
 }
 
+
 // ref
 const bottomSheetRef = useRef<BottomSheetModal>(null);
 
@@ -130,6 +131,24 @@ const renderBackdrop = useCallback((props) => {
 const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 const optionsDate = { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' };
 
+function getDateString(date) {
+  if (Platform.OS === 'ios')
+      return date.toLocaleDateString('fr-FR', optionsDate);
+  else {
+      //Si c'est un android, toLocalDateString ne fonctionne pas, il faut le faire a la main
+      var
+          dayOfWeek = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"],
+          monthName = ["Janvier", "Février", "Mars", "Avril", "Mais", "Juin",
+                       "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Decembre"],
+          utc = date.getTime() + date.getTimezoneOffset() * 60000,
+          FR_time = utc + (3600000 * +1),
+          FR_date = new Date(FR_time);
+
+      return dayOfWeek[FR_date.getDay()-1] + ". " + FR_date.getDate() + " " + monthName[FR_date.getMonth()] +
+             " " + FR_date.getFullYear();
+  }
+}
+
 const showDatePicker = () => {
   setDatePickerVisibility(true);
 };
@@ -139,7 +158,7 @@ const hideDatePicker = () => {
 };
 
 const handleConfirmDate = (date) => {
-  setDateString(date.toLocaleDateString('fr-FR', optionsDate));
+  setDateString(/*date.toLocaleDateString('fr-FR', optionsDate)*/getDateString(date));
   setDate(date);
   hideDatePicker();
 };

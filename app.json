@@ -2,7 +2,7 @@
   "expo": {
     "name": "Hestia",
     "slug": "Hestia",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/Logo_Hestia.png",
     "userInterfaceStyle": "automatic",
@@ -28,7 +28,9 @@
       },
       "package": "com.Hestia.HestiaApp",
       "icon": "./assets/Logo_Hestia.png",
-      "softwareKeyboardLayoutMode": "pan"
+      "softwareKeyboardLayoutMode": "pan",
+      "versionCode": 2,
+      "blockedPermissions": ["android.permission.ACCESS_COARSE_LOCATION", "android.permission.ACCESS_FINE_LOCATION"]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -37,7 +39,7 @@
       [
         "expo-notifications",
         {
-          "icon": "./Img/IconNotification.png",
+          "icon": "./Assets/IconNotification.png",
           "color": "#FFFFF",
           "mode": "production"
         }
