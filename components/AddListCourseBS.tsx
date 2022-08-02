@@ -223,6 +223,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
         flex: 1,
+        marginRight: 10
       },
 
       emoji_invalid : {

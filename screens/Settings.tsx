@@ -82,7 +82,7 @@ const Settings = ({route, navigation}: Props) => {
         <Text style={styles.subTitle}>Paramètres utilisateur</Text>
         <TouchableOpacity onPress={()=>navigation.navigate('SettingsPerso')} style={{marginTop: 13}}>
           <View style={styles.avatar}>
-            <Text style={styles.name}>Nom, adresse mail, mot de passe...</Text>
+            <Text style={styles.name}>Nom & mot de passe</Text>
           </View>
         </TouchableOpacity>
       </View>
