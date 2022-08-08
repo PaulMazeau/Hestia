@@ -61,8 +61,10 @@ const handleUpdate = async () => {
 <ImageBackground source={image} resizeMode="cover" style={styles.first50} imageStyle={{borderBottomRightRadius: 20, borderBottomLeftRadius: 20}}>
 
         <View style = {styles.Title}>
+        <TouchableOpacity style={{flexDirection: 'row'}}  onPress={() => {navigation.goBack() }}>
           <TopBackNavigationClear/>
           <Text style={styles.screenTitle}>Choisi ton Avatar</Text>
+          </TouchableOpacity>
         </View>
   
     <Image source={{uri: avatarUrl}} style={styles.BigImage}/>

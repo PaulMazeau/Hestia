@@ -5,7 +5,6 @@ import Settings from '../Icons/Settings.svg';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParams } from '../App';
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 
 
@@ -21,18 +20,20 @@ const Top = (props) => {
     
     <SafeAreaView style= {{backgroundColor: '#EDF0FA', paddingBottom:Platform.OS === 'android' ? 25:-25}}>
     <View style={styles.Header}>
-    <TouchableOpacity onPress={() => navigation.push('Settings')}>
-    <View style={styles.ImageContainer}>
-        <Image source={{uri: props.avatar, cache:'force-cache'}} style={styles.Image}/>
-    </View>
-    </TouchableOpacity>
-    <View style={styles.Title}>
-        <Text style={styles.BigTitle}>{props.name}</Text>
-        <Text style={styles.SmallTitle}>{props.clcName}</Text>
-    </View>
-    <TouchableOpacity  onPress={() => navigation.push('ColocSettings')}>
-        <Settings width={25} height={25} fill="#282828"/>
-    </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.push('Settings')} style={styles.GlobalLeft}>
+        <View style={styles.ImageContainer}>
+            <Image source={{uri: props.avatar, cache:'force-cache'}} style={styles.Image}/>
+        </View>
+        
+        <View style={styles.Title}>
+            <Text style={styles.BigTitle}>{props.name}</Text>
+            <Text style={styles.SmallTitle}>{props.clcName}</Text>
+        </View>
+        </TouchableOpacity>
+        
+        <TouchableOpacity  onPress={() => navigation.push('ColocSettings')}>
+            <Settings width={25} height={25} fill="#282828"/>
+        </TouchableOpacity>
     </View>
     </SafeAreaView>
     );
@@ -50,18 +51,26 @@ const styles = StyleSheet.create ({
         marginLeft: 16,
         marginRight: 16
     },
+
+    GlobalLeft: {
+        flex: 1,
+        flexDirection: 'row'
+    },
+
     Title: {
         paddingHorizontal: 10,
         justifyContent: 'center',
-        flex: 1,
     },
+
     BigTitle: {
         fontSize: 16
     },
+
     SmallTitle: {
         fontSize: 12,
         opacity: 0.6,
     },
+
     ImageContainer: {
         height: 40,
         width: 40,

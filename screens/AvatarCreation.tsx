@@ -96,8 +96,11 @@ const renderContent = () => {
     </SafeAreaView>
 
         <View style = {styles.Title}>
+        <TouchableOpacity style={{flexDirection: 'row'}}  onPress={() => {
+      navigation.goBack() }}>
           <TopBackNavigationClear/>
           <Text style={styles.screenTitle}>Choisi ton Avatar</Text>
+          </TouchableOpacity>
         </View>
   
     <Image source={{uri: avatarUrl}} style={styles.BigImage}/>

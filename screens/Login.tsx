@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {Dimensions, ImageBackground, KeyboardAvoidingView, Modal, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native'
+import {Dimensions, ImageBackground, KeyboardAvoidingView, Modal, Platform, Pressable, SafeAreaView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native'
 import {sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 import {auth} from '../firebase-config'
 import { useNavigation } from '@react-navigation/native';
@@ -79,8 +79,10 @@ const LoginScreen = () => {
                 </SafeAreaView>
 
                 <View style = {styles.Title}>
+                <TouchableOpacity style={{flexDirection: 'row'}}  onPress={() => {navigation.goBack() }}>
                     <TopBackNavigationClear/>
                     <Text style={styles.screenTitle}>Se Connecter</Text>
+                    </TouchableOpacity>
                 </View>
                     <View style = {styles.inputContainer}>
                         <TextInput placeholder="Adresse Email"
@@ -116,6 +118,7 @@ const LoginScreen = () => {
                         onRequestClose={() => {
                         setModalVisible(!modalVisible);}}
                     >
+                        <Pressable style={{flex: 1}} onPress={() => setModalVisible(!modalVisible)}>
                      <View style={styles.PopUpCentre}>
                         <View style={styles.modalView}>
                             <TouchableOpacity onPress={() => setModalVisible(!modalVisible)} style={styles.crossbutton}>
@@ -137,6 +140,7 @@ const LoginScreen = () => {
                             </TouchableOpacity>
                         </View>
                     </View>
+                    </Pressable>
             </Modal>
 
              {/* FIN DU MODAL */}

@@ -64,8 +64,10 @@ const SignupScreen = () => {
                 </SafeAreaView>
 
                 <View style = {styles.Title}>
+                <TouchableOpacity style={{flexDirection: 'row'}}  onPress={() => {navigation.goBack() }}>
                     <TopBackNavigationClear/>
                     <Text style={styles.screenTitle}>S'inscrire</Text>
+                    </TouchableOpacity>
                 </View>
                 <View style = {styles.inputContainer}>
                     <TextInput placeholder="Nom d'utilisateur"

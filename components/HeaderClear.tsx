@@ -17,16 +17,18 @@ const Top = (props) => {
     
     <SafeAreaView style= {{ paddingBottom:Platform.OS === 'android' ? 25:0}}>
     <View style={styles.Header}>
-    <TouchableOpacity onPress={() => navigation.push('Settings')}>
-    <View style={styles.ImageContainer}>
-        <Image source={{uri: props.avatar,
-        cache: 'force-cache'}} style={styles.Image}/>
-    </View>
+    <TouchableOpacity onPress={() => navigation.push('Settings')} style={styles.GlobalLeft}>
+        <View style={styles.ImageContainer}>
+            <Image source={{uri: props.avatar,
+            cache: 'force-cache'}} style={styles.Image}/>
+        </View>
+        
+        <View style={styles.Title}>
+            <Text style={styles.BigTitle}>{props.name}</Text>
+            <Text style={styles.SmallTitle}>{props.clcName}</Text>
+        </View>
     </TouchableOpacity>
-    <View style={styles.Title}>
-        <Text style={styles.BigTitle}>{props.name}</Text>
-        <Text style={styles.SmallTitle}>{props.clcName}</Text>
-    </View>
+
     <TouchableOpacity  onPress={() => navigation.push('ColocSettings')}>
         <Settings width={25} height={25} fill="white"/>
     </TouchableOpacity>
@@ -56,10 +58,15 @@ const styles = StyleSheet.create ({
         paddingLeft: 16,
         paddingRight: 16,
     },
+
+    GlobalLeft: {
+        flex: 1,
+        flexDirection: 'row'
+    },
+
     Title: {
         paddingHorizontal: 10,
         justifyContent: 'center',
-        flex: 1,
     },
     BigTitle: {
         fontSize: 16,

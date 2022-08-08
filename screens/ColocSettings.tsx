@@ -16,15 +16,6 @@ import Copy from '../Icons/copy.svg';
 
 type Props = NativeStackScreenProps<RootStackParams, 'ColocSettings'>;
 
-const data : Image[] = [
-    require('../Img/avatar1.png'),
-    require('../Img/avatar2.png'),
-    require('../Img/avatar3.png'),
-    require('../Img/test1.png'),
-    require('../Img/test2.png')
-];
-
-
 
 const ColocSettings = ({route, navigation}: Props) => {
     const [user, setUser] = useContext(UserContext);
@@ -70,9 +61,13 @@ const ColocSettings = ({route, navigation}: Props) => {
         <Top clcName={user.nomColoc} avatar={user.avatarUrl} name={user.nom}/>
         <View style={styles.container}>
         <View style={styles.Title}>
+        <TouchableOpacity style={{flexDirection: 'row'}}  onPress={() => {
+      navigation.goBack() }}>
           <TopBackNavigation/>
           <Text style={styles.screenTitle}>Paramètres de la colocation</Text>
+          </TouchableOpacity>
         </View>
+        <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.containerColoc}>
             <FlatList 
                 data={avatars} 
@@ -81,11 +76,10 @@ const ColocSettings = ({route, navigation}: Props) => {
                 columnWrapperStyle={{justifyContent:'space-around'}}
                 scrollEnabled= {false}
             ></FlatList>
-           
 
         </View>
         
-        <ScrollView showsVerticalScrollIndicator={false}>
+       
         <TouchableOpacity onPress={() => {copyText(user.colocID)}} activeOpacity={0.5}>
         <View style={[styles.Setting, {marginTop:15}]}>
             <Text style={styles.name}>Code de la colocation : </Text>
@@ -166,14 +160,9 @@ const styles = StyleSheet.create({
     },
 
     containerColoc: {
-        height: 'auto',
-        backgroundColor: 'blue',
+        backgroundColor: '#172ACE',
         borderRadius: 13,
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingTop: 10,
-        paddingBottom: 35,
-        
+        padding: 10
     },
 
     screenTitle: {

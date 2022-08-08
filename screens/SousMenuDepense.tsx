@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useState } from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import Top from '../components/HeaderDark';
 import { Drawer, Colors, SegmentedControl, BorderRadiuses } from 'react-native-ui-lib';
 import Transaction from '../components/Transaction';
@@ -7,7 +7,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
 import TopBackNavigation from '../components/TopBackNavigation';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import { getDoc, doc, collection, orderBy, query, deleteDoc, updateDoc, increment } from 'firebase/firestore';
+import { doc, collection, orderBy, query, deleteDoc } from 'firebase/firestore';
 import{db} from '../firebase-config'
 import { UserContext } from '../Context/userContextFile';
 import DepenseCollective from '../components/DepenseCollective';
@@ -75,8 +75,11 @@ const SousMenuDepense = ({route, navigation}: Props) => {
 < Top  name={user.nom} clcName={user.nomColoc} avatar = {user.avatarUrl}/>
   
   <View style={styles.Title}>
+  <TouchableOpacity style={{flexDirection: 'row'}}  onPress={() => {
+      navigation.goBack() }}>
   <TopBackNavigation/>
   <Text style={styles.screenTitle}>Gestion des Dépenses</Text>
+  </TouchableOpacity>
   </View>
   <View style={{flex: 1}}>
 

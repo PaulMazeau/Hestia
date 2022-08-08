@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, TextInput, Modal} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, TextInput, Modal, Pressable} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
 import Top from '../components/HeaderSettings';
@@ -65,6 +65,7 @@ const SettingsMdp = ({route, navigation}: Props) => {
           setModalVisible(!modalVisible);
         }}
       >
+        <Pressable style={{flex: 1}} onPress={() => navigation.goBack()}>
         <View style={styles.PopUpCentre}>
           <View style={styles.modalView}>
             <TouchableOpacity onPress={() =>navigation.goBack()} style={styles.crossbutton}>
@@ -87,6 +88,7 @@ const SettingsMdp = ({route, navigation}: Props) => {
             </TouchableOpacity>
           </View>
         </View>
+        </Pressable>
       </Modal>
 
         {/* FIN DU MODAL */}

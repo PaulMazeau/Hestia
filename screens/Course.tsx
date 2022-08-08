@@ -1,6 +1,6 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, { useContext } from 'react';
-import {StyleSheet, View, Text, KeyboardAvoidingView, Platform} from 'react-native';
+import {StyleSheet, View, Text, KeyboardAvoidingView, Platform, TouchableOpacity} from 'react-native';
 import { RootStackParams } from '../App';
 import TopBackNavigation from '../components/TopBackNavigation';
 import Top from '../components/HeaderDark';
@@ -167,8 +167,11 @@ const CourseScreen = ({ route, navigation }: Props) => {
     
       
       <View style = {styles.Title}>
+        <TouchableOpacity style={{flexDirection: 'row'}}  onPress={() => {
+      navigation.goBack() }}>
         <TopBackNavigation/>
         <Text style={styles.screenTitle}>{route.params.name}</Text>
+        </TouchableOpacity>
       </View>
       <KeyboardAvoidingView
         keyboardVerticalOffset={headerHeight}

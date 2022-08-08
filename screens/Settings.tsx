@@ -41,8 +41,11 @@ const Settings = ({route, navigation}: Props) => {
     
     
         <View style={styles.Title}>
+        <TouchableOpacity style={{flexDirection: 'row'}}  onPress={() => {
+      navigation.goBack() }}>
           <TopBackNavigation/>
           <Text style={styles.screenTitle}>Paramètres</Text>
+          </TouchableOpacity>
         </View>
 
     {/* <View style={styles.ChampSettings}>

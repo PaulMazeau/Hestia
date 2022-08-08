@@ -1,7 +1,7 @@
 import { doc, getDoc, updateDoc } from '@firebase/firestore';
 import { getDocs, query, where, collection, deleteDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, Modal} from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Modal, Pressable} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { db } from '../firebase-config';
 import Horloge from '../Icons/Horloge.svg';
@@ -149,6 +149,7 @@ const [concernedList, setConcernedList] = useState([]);
           setModalVisible(!modalVisible);
         }}
       >
+        <Pressable style={{flex: 1}} onPress={() => setModalVisible(!modalVisible)}>
         <View style={styles.PopUpCentre}>
           <View style={styles.modalView}>
             <Text style={styles.ModalTitleTache}>{props.Tache}</Text>
@@ -192,6 +193,7 @@ const [concernedList, setConcernedList] = useState([]);
             </TouchableOpacity>
           </View>
         </View>
+        </Pressable>
       </Modal>
     
     

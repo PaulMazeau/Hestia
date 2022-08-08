@@ -1,6 +1,6 @@
 import { getDoc, doc, query, where, getDocs, collection } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import {View, Text, StyleSheet, Image, TouchableOpacity, Modal, ScrollView} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity, Modal, ScrollView, Pressable} from 'react-native';
 import {db} from '../firebase-config'
 import ParticipantCard from './ParticipantCard';
 
@@ -120,6 +120,7 @@ onRequestClose={() => {
   setModalVisible(!modalVisible);
 }}
 >
+  <Pressable style={{flex: 1}} onPress={() => setModalVisible(!modalVisible)}>
 <View style={styles.PopUpCentre}>
   <View style={styles.modalView}>
     <Text style={styles.ModalTitleTache}>{props.desc}</Text>
@@ -158,6 +159,7 @@ onRequestClose={() => {
     </TouchableOpacity>
   </View>
 </View>
+</Pressable>
 </Modal>
 
 {/* FIN DU MODAL  */}

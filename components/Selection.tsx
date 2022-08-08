@@ -19,12 +19,12 @@ const Selection  = () => {
             </View>
 
            <View style={styles.Bot}>
-                <TouchableOpacity style={styles.Button}>
+                <View style={styles.Button}>
                     <View style={styles.Bottom}>
                         <Text style={styles.ButtonText}>Bientôt disponible</Text>
                         <Prout/>
                     </View>
-                </TouchableOpacity>
+                </View>
                 <ImageContainer image={SelectionImg} />
             </View>
 
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     },
 
     Button: {
-        backgroundColor: '#172ACE',
+        backgroundColor: '#B1C1FF',
         borderRadius: 5,
         height: 35,
         justifyContent: 'center',
