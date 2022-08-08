@@ -57,11 +57,11 @@ const styles = StyleSheet.create ({
         paddingTop: 16,
         paddingLeft: 16,
         paddingRight: 16,
+        justifyContent: 'space-between'
     },
 
     GlobalLeft: {
-        flex: 1,
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
 
     Title: {

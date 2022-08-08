@@ -49,12 +49,12 @@ const styles = StyleSheet.create ({
         alignItems: 'center',
         paddingTop: 16,
         marginLeft: 16,
-        marginRight: 16
+        marginRight: 16,
+        justifyContent: 'space-between'
     },
 
     GlobalLeft: {
-        flex: 1,
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
 
     Title: {
