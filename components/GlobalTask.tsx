@@ -54,7 +54,7 @@ const renderContent = () => {
     return(
    <View style={styles.emptypage}>
       <ImageContainer image={Empty} /> 
-      <Text style={styles.emptytext}>Oops, il n’y pas encore de {'\n'} tâches à faire</Text>
+      <Text style={styles.emptytext}>Oops, il n’y a pas encore de {'\n'} tâches à faire</Text>
    </View>
     )
   }

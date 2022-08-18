@@ -63,7 +63,7 @@ const CoursesScreen = ({route, navigation}: Props) => {
     return (
       <View style={styles.emptypage}>
         <ImageContainer image={EmptyCourse} /> 
-        <Text style={styles.emptytext}>Oops, il n’y pas encore de {'\n'} liste de courses</Text>
+        <Text style={styles.emptytext}>Oops, il n’y a pas encore de {'\n'} liste de courses</Text>
      </View>
     )  
   }

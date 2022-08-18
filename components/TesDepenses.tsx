@@ -69,7 +69,7 @@ const TesDepense = ({route, navigation}: Props) => {
     return (
       <View style={styles.emptypage}>
       <ImageContainer image={EmptyDepense} /> 
-      <Text style={styles.emptytext}>Oops, il n’y pas encore de {'\n'} dépense</Text>
+      <Text style={styles.emptytext}>Oops, il n’y a pas encore de {'\n'} dépense</Text>
       </View>
     )
   

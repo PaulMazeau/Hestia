@@ -20,7 +20,7 @@ const SousMenuDepense = ({route, navigation}: Props) => {
 // gestion du segmented control
   const [show, setShow] = React.useState(true);
   
-  const segments = {second: [{label: 'Depenses générales'}, {label: 'Dépenses personelles'}]}
+  const segments = {second: [{label: 'Dépenses générales'}, {label: 'Dépenses personelles'}]}
   const onChangeIndex = useCallback((index: number) => {
     setShow((r) => !r)
   }, []);
@@ -57,7 +57,7 @@ const SousMenuDepense = ({route, navigation}: Props) => {
     return (
       <View style={styles.emptypage}>
       <ImageContainer image={EmptyDepense} /> 
-      <Text style={styles.emptytext}>Oops, il n’y pas encore de {'\n'} dépense</Text>
+      <Text style={styles.emptytext}>Oops, il n’y a pas encore de {'\n'} dépense</Text>
       </View>
     )
   

@@ -161,7 +161,7 @@ const [concernedList, setConcernedList] = useState([]);
             <View style={styles.ProchainConcerne}>
             
             
-                <Text style={styles.ModalTitle}>Prochain concerné: </Text>
+                <Text style={styles.ModalTitle}>Prochain concerné : </Text>
                 <View style={styles.cardProchainconcerne}>                
                   <Image source={{uri: avatar}} style={styles.avatarProchainConcerne}/> 
 
