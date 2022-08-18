@@ -63,7 +63,7 @@ const handleUpdate = async () => {
         <View style = {styles.Title}>
         <TouchableOpacity style={{flexDirection: 'row'}}  onPress={() => {navigation.goBack() }}>
           <TopBackNavigationClear/>
-          <Text style={styles.screenTitle}>Choisi ton Avatar</Text>
+          <Text style={styles.screenTitle}>Choisir un Avatar</Text>
           </TouchableOpacity>
         </View>
   
