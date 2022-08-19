@@ -125,20 +125,30 @@ const isNumber = (str) => {
 //pr ajouter dépense a db
   const handleAddDepense = async () => {
     if(!(isNumber(amount))){
-      alert("Entre un nombre valide!")
-      return
+      return Alert.alert(
+      //Titre
+      "Il manque le montant de la dépense",
+      //Texte
+      "Entre un nombre valide"
+      )
     }
     if(areConcerned.length==0){
-      alert("Cette dépense concerne qui ?")
-      return
+      return Alert.alert(
+      "Cette dépense concerne qui?",
+      "Entre les personnes concernés par cette dépense"
+      )
     }
     if(payeur.length==0){
-      alert("Qui a payé ?")
-      return
+      return Alert.alert(
+      "Qui a payé ?",
+      "Entre la personne qui a payé"
+      )
     }
     if(title.length==0){
-      alert("Ajoute une description à cette dépense !")
-      return
+      return Alert.alert(
+      "Comment s'intitule cette dépense?",
+      "Ajoute un titre à cette dépense "
+      )
     }
     if(title == "rbrsmnt"){
       alert("C'est quoi cette description mdrr ?")

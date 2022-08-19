@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image, TextInput} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Image, TextInput, Alert} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
 import Top from '../components/HeaderSettings';
@@ -22,7 +22,7 @@ const SettingsName = ({route, navigation}: Props) => {
   const [nom, setNom] = React.useState('');
   const toast = useToast();
   const handleUserModif = async () => {
-      if(nom.length <= 2){alert("Ton nom d'utilisateur doit faire plus de 3 caractères !"); return}
+      if(nom.length <= 2){return Alert.alert("Nom d'utilisateur trop court","Ton nom d'utilisateur doit faire plus de 3 caractères !")}
       else{
         await updateDoc(doc(db, "Users", user.uuid), {nom: nom})
         setUser({...user, nom: nom});

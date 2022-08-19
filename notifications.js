@@ -1,6 +1,7 @@
 import * as Notifications from 'expo-notifications';
 import { useState, useEffect, useRef } from 'react';
 import { Platform } from 'react-native';
+import { Alert } from "react-native";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -27,8 +28,13 @@ const Notif = () => {
               finalStatus = status;
             }
             if (finalStatus !== 'granted') { //si permission refusée on fait les forceurs
-              alert('Enable push notifications to use the app!');
-              return;
+              return Alert.alert(
+                // titre
+                "Nous ne pouvons pas t'envoyer de notification",
+          
+                // message
+                "Active les notification pour profiter à 100% de l'application",
+              )
             }
   
           if (Platform.OS === 'android') { //style de la notif sur android

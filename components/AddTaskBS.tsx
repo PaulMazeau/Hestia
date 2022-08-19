@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react';
-import {StyleSheet, View, Text, TextInput, TouchableOpacity, Platform} from 'react-native'
+import {StyleSheet, View, Text, TextInput, TouchableOpacity, Platform, Alert} from 'react-native'
 import { Dropdown } from 'react-native-element-dropdown';
 import {ScrollView} from 'react-native-gesture-handler'
 import ParticipantCard from './ParticipantCard';
@@ -91,11 +91,11 @@ const sheetRef = useRef<BottomSheet>(null);
 const [isOpen, setIsOpen] = useState(false);
 
 const handleAddTask = async () => {
-  if(recur == "") {alert("Sélectionne une récurrence pour ta tâche !"); return}
-  if(date== today) {alert ("Quand doit être effectuée la tâche ?"); return}
-  if(title == "") {alert("Rentre un titre pour cette tâche !"); return}
-  if(rappel == ""){alert("A quelle heure souhaiterais-tu recevoir un rappel ?"); return}
-  if(areConcerned.length == 0) {alert("Qui est concerné par cette tâche ?"); return}
+  if(recur == "") {return Alert.alert("Il manque la fréquence","Sélectionne une fréquence pour ta tâche !")}
+  if(date== today) {return Alert.alert("Quand doit être effectuée la tâche ?","Ajoute une date à cette tâche")}
+  if(title == "") {return Alert.alert("Comment s'intitule cette tâche","Rentre un titre pour cette tâche !")}
+  if(rappel == ""){return Alert.alert("A quelle heure souhaiterais-tu recevoir un rappel ?", "Rentre un rappel pour ne pas oublier cette tâche")}
+  if(areConcerned.length == 0) {return Alert.alert("Qui est concerné par cette tâche ?","Selectionne les personnes concernées par cette tâche")}
   bottomSheetRef.current?.close();
   try{
   await addDoc(collection(db, 'Colocs/'+props.clcID+'/Taches'), {desc: title, colocID: props.clcID, date: date, rappel: rappel, concerned: areConcerned, recur: recur, nextOne: areConcerned[0]});
