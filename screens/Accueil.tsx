@@ -63,7 +63,7 @@ const AccueilScreen = ({ route, navigation }: Props) => {
 
         }
         return(
-            <TacheCard Tache="Rien à venir..." nextOne={auth.currentUser.uid} />
+            <TacheCard Tache="Rien à venir...." nextOne={auth.currentUser.uid} />
         )
     }
   
