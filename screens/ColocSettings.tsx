@@ -93,11 +93,11 @@ const ColocSettings = ({route, navigation}: Props) => {
         </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => {copyText("support@hestiapp.fr")}} activeOpacity={0.5}>
+        <TouchableOpacity onPress={() => {copyText("support@coloc.fr")}} activeOpacity={0.5}>
         <View style={[styles.Setting, {marginTop:1}]}>
             <Text style={styles.name}>Contact : </Text>
             <View style={{flexDirection:'row', alignItems:'center'}}>
-                    <Text style={styles.support}>support@hestiapp.fr</Text>
+                    <Text style={styles.support}>support@coloc.fr</Text>
             </View>
             
         </View>

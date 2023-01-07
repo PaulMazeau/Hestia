@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import {View, Text, StyleSheet, Image, Dimensions, ImageBackground} from 'react-native';
+import React, { useContext, useState } from 'react';
+import {View, Text, StyleSheet, Dimensions, ImageBackground, StatusBar} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import { RootStackParams } from '../App';
 import Top from '../components/HeaderClear';
@@ -13,7 +13,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import {UserContext } from '../Context/userContextFile';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import Notif from '../notifications'
-import ContentLoader, { Rect, Circle } from 'react-content-loader/native';
+import ContentLoader, { Rect } from 'react-content-loader/native';
 
 const MyLoader = () => ( 
   <ContentLoader 
@@ -70,7 +70,6 @@ const AccueilScreen = ({ route, navigation }: Props) => {
     
   return (
     <View style={styles.body}>
-        
         <ImageBackground source={image} resizeMode="cover" style={styles.first50} imageStyle={{ borderBottomLeftRadius: 20, borderBottomRightRadius: 20}}>
            
             < Top  name={user.nom} clcName={user.nomColoc} avatar = {user.avatarUrl}/>

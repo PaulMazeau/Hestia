@@ -7,7 +7,6 @@ import { RootStackParams } from '../App';
 import { useNavigation } from '@react-navigation/native';
 
 
-
 const ProfilImage=require('../Img/avatarHeader.png');
 //props est nom du frero + nom dla coloc + lurl de son avatar
 
