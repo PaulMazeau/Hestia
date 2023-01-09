@@ -2,7 +2,7 @@
   "expo": {
     "name": "MyColoc",
     "slug": "MyColoc",
-    "version": "1.0.2",
+    "version": "1.1.2",
     "orientation": "portrait",
     "icon": "./assets/Logo_Hestia.png",
     "userInterfaceStyle": "automatic",
@@ -13,7 +13,7 @@
     },
     "updates": {
       "fallbackToCacheTimeout": 0,
-      "url": "https://u.expo.dev/a9d2f5f2-2c17-4b62-94d3-54c537109bc9"
+      "url": "https://u.expo.dev/60172abf-865b-4c64-8077-a39fad6b7c87"
     },
     "assetBundlePatterns": [
       "**/*"
